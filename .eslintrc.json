@@ -1,0 +1,29 @@
+{
+  "env": {
+    "es2021": true,
+    "node": true
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "default-case": "off",
+    "consistent-return": "off",
+    "no-nested-ternary": "off",
+    "import/no-unresolved": "off",
+    "max-classes-per-file": "off",
+    "no-use-before-define": "off",
+    "no-template-curly-in-string": "off",
+    "no-unused-vars": "warn",
+    "prefer-destructuring": "warn",
+    "indent": "off"
+  }
+}
