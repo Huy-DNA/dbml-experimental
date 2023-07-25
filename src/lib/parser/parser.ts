@@ -85,15 +85,18 @@ export class Parser {
     private elementDeclaration(): ElementDeclarationNode {
         this.consume("Expect keyword", SyntaxTokenKind.KEYWORD);
         const type = this.previous();
-        const name = this.expression(false);
-
+        let name: ExpressionNode | undefined = undefined;
         let as: SyntaxToken | undefined = undefined;
         let alias: PrimaryExpressionNode | undefined = undefined;
 
-        const nextWord = this.peek();
-        if (nextWord?.kind === SyntaxTokenKind.KEYWORD && nextWord?.value === 'as') {
-            as = this.advance();
-            alias = this.primaryExpression();
+        if (this.peek()?.kind !== SyntaxTokenKind.COLON && this.peek()?.kind !== SyntaxTokenKind.LBRACE) {
+            name = this.expression(false);
+
+            const nextWord = this.peek();
+            if (nextWord?.kind === SyntaxTokenKind.KEYWORD && nextWord?.value === 'as') {
+                as = this.advance();
+                alias = this.primaryExpression();
+            }
         }
 
         let attributeList: ListExpressionNode | undefined = undefined;
@@ -159,7 +162,7 @@ export class Parser {
 
         if (isOpToken(this.peek()) && this.peek()!.kind !== SyntaxTokenKind.LPAREN) {
             const beforeOp = this.previous();
-            const prefixOp = this.advance();
+            const prefixOp = this.peek()!;
             const opPrefixPower = prefix_binding_power(prefixOp);
 
             if (opPrefixPower.right === null) {
@@ -167,9 +170,8 @@ export class Parser {
             }
 
             this.throwOnTrailingNewLines(prefixOp);
-
             this.checkSpaceConstraint(beforeOp, prefixOp);
-
+            this.advance();
             const prefixExpression = this.expression_bp(opPrefixPower.right, match_line);
             leftExpression = new PrefixExpressionNode({ op: prefixOp, expression: prefixExpression });
         }
@@ -187,7 +189,7 @@ export class Parser {
             }
             else {
                 const beforeOp = this.previous();
-                const op = this.advance();
+                const op = this.peek()!;
                 const opPostfixPower = postfix_binding_power(op);
 
                 if (opPostfixPower.left !== null) {
@@ -208,6 +210,7 @@ export class Parser {
                     }
 
                     this.checkSpaceConstraint(beforeOp, op);
+                    this.advance();
                     leftExpression = new PostfixExpressionNode({ expression: leftExpression!, op: op });
                 }
                 else {
@@ -219,6 +222,7 @@ export class Parser {
                     this.throwOnTrailingNewLines(op);
                     console.log(beforeOp, op);
                     this.checkSpaceConstraint(beforeOp, op);
+                    this.advance();
                     const rightExpression = this.expression_bp(opInfixPower.right, match_line);
                     leftExpression = new InfixExpressionNode({ leftExpression: leftExpression!, op, rightExpression });
                 }
@@ -437,10 +441,10 @@ export class Parser {
 
     private checkSpaceConstraint(previousToken: SyntaxToken, op: SyntaxToken) {
         if (!this.hasTrailingNewLines(previousToken) && this.hasTrailingSpaces(previousToken) && !allow_preceding_spaces(op)) {
-            throw new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected spaces before ${op.value}`, op.offset, op.offset + op.length - 1);
+            this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected spaces before ${op.value}`, op.offset, op.offset + op.length - 1));
         }
         if (this.hasTrailingSpaces(op) && !allow_trailing_spaces(op)) {
-            throw new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected spaces after ${op.value}`, op.offset, op.offset + op.length - 1);
+            this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected spaces after ${op.value}`, op.offset, op.offset + op.length - 1));
         } 
     }
 }
@@ -460,7 +464,7 @@ const infix_binding_power_map: {
     [SyntaxTokenKind.EQUAL]: { left: 2, right: 3 },
     [SyntaxTokenKind.DOUBLE_EQUAL]: { left: 4, right: 5},
     [SyntaxTokenKind.NOT_EQUAL]: { left: 4, right: 5 },
-    [SyntaxTokenKind.DOT]: { left: 14, right: 15 },
+    [SyntaxTokenKind.DOT]: { left: 16, right: 17 },
 }
 
 function infix_binding_power(token: SyntaxToken): { left: null, right: null } | { left: number, right: number } {
@@ -471,11 +475,11 @@ function infix_binding_power(token: SyntaxToken): { left: null, right: null } | 
 const prefix_binding_power_map: {
     [index: string]: { left: null, right: number } | undefined;
 } = {
-    [SyntaxTokenKind.CROSS]: { left: null, right: 20 },
-    [SyntaxTokenKind.MINUS]: { left: null, right: 20 },
-    [SyntaxTokenKind.LT]: { left: null, right: 20 },
-    [SyntaxTokenKind.GT]: { left: null, right: 20 },
-    [SyntaxTokenKind.EXCLAMATION]: { left: null, right: 20}, 
+    [SyntaxTokenKind.CROSS]: { left: null, right: 15 },
+    [SyntaxTokenKind.MINUS]: { left: null, right: 15 },
+    [SyntaxTokenKind.LT]: { left: null, right: 15 },
+    [SyntaxTokenKind.GT]: { left: null, right: 15 },
+    [SyntaxTokenKind.EXCLAMATION]: { left: null, right: 15 }, 
 }
 
 function prefix_binding_power(token: SyntaxToken): { left: null, right: null | number } {

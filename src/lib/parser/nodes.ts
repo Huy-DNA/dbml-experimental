@@ -57,7 +57,7 @@ export class ElementDeclarationNode implements SyntaxNode {
     start: Readonly<number>;
     end: Readonly<number>;
     type: SyntaxToken;
-    name: ExpressionNode;
+    name?: ExpressionNode;
 
     as?: SyntaxToken;
     alias?: PrimaryExpressionNode;
@@ -81,7 +81,7 @@ export class ElementDeclarationNode implements SyntaxNode {
         bodyCloseBrace,
     }: {
         type: SyntaxToken;
-        name: ExpressionNode;
+        name?: ExpressionNode;
         as?: SyntaxToken;
         alias?: PrimaryExpressionNode;
         attributeList?: ListExpressionNode;
