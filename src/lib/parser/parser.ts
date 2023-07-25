@@ -1,7 +1,7 @@
 import { ParsingError, ParsingErrorCode } from "../errors";
 import { SyntaxToken, SyntaxTokenKind, isOpToken } from "../lexer/tokens";
 import { Result } from "../result";
-import { AttributeNode, BlockExpressionNode, CallExpressionNode, ElementDeclarationNode, ExpressionNode, FieldDeclarationNode, FunctionApplicationNode, FunctionExpressionNode, GroupExpressionNode, InfixExpressionNode, ListExpressionNode, PostfixExpressionNode, PrefixExpressionNode, PrimaryExpressionNode, ProgramNode, SyntaxNode, SyntaxNodeKind, TupleExpressionNode } from "./nodes";
+import { AttributeNode, BlockExpressionNode, CallExpressionNode, ElementDeclarationNode, ExpressionNode, FieldDeclarationNode, FunctionApplicationNode, FunctionExpressionNode, GroupExpressionNode, InfixExpressionNode, ListExpressionNode, NormalFormExpressionNode, PostfixExpressionNode, PrefixExpressionNode, PrimaryExpressionNode, ProgramNode, SyntaxNode, SyntaxNodeKind, TupleExpressionNode, ValidFunctionApplicationArgumentNode } from "./nodes";
 
 export class Parser {
     private tokens: SyntaxToken[];
@@ -85,12 +85,12 @@ export class Parser {
     private elementDeclaration(): ElementDeclarationNode {
         this.consume("Expect keyword", SyntaxTokenKind.KEYWORD);
         const type = this.previous();
-        let name: ExpressionNode | undefined = undefined;
+        let name: NormalFormExpressionNode | undefined = undefined;
         let as: SyntaxToken | undefined = undefined;
         let alias: PrimaryExpressionNode | undefined = undefined;
 
         if (this.peek()?.kind !== SyntaxTokenKind.COLON && this.peek()?.kind !== SyntaxTokenKind.LBRACE) {
-            name = this.expression(false);
+            name = this.normalFormExpression(false);
 
             const nextWord = this.peek();
             if (nextWord?.kind === SyntaxTokenKind.KEYWORD && nextWord?.value === 'as') {
@@ -104,13 +104,13 @@ export class Parser {
             attributeList = this.listExpression();
         }
         
-        let body: (FieldDeclarationNode | ExpressionNode)[] = [];
+        let body: (FieldDeclarationNode | NormalFormExpressionNode)[] = [];
         let bodyOpenColon: SyntaxToken | undefined = undefined;
         let bodyOpenBrace: SyntaxToken | undefined = undefined;
         let bodyCloseBrace: SyntaxToken | undefined = undefined;
         if (this.match(SyntaxTokenKind.COLON)) {
             bodyOpenColon = this.previous();
-            body = [this.expression(true)];
+            body = [this.normalFormExpression(true)];
         }
         else {
             this.consume("Expect { or :", SyntaxTokenKind.LBRACE);
@@ -120,7 +120,7 @@ export class Parser {
                     body.push(this.fieldDeclaration());
                 }
                 else {
-                    body.push(this.expression(true));
+                    body.push(this.expression());
                 }
             }
             this.consume("Expect }", SyntaxTokenKind.RBRACE);
@@ -145,7 +145,7 @@ export class Parser {
         const name = this.previous();
         this.consume("Expect :", SyntaxTokenKind.COLON);
         const valueOpenColon = this.previous(); 
-        const value = this.expression(false);
+        const value = this.normalFormExpression(false);
         let attributeList: ListExpressionNode | undefined = undefined;
         if (this.check(SyntaxTokenKind.LBRACKET)) {
             attributeList = this.listExpression();
@@ -153,12 +153,45 @@ export class Parser {
         return new FieldDeclarationNode({ name, valueOpenColon, value, attributeList });
     }
 
-    private expression(match_line: boolean = true): ExpressionNode {
+
+    private expression(): ExpressionNode {
+        const _arguments: ValidFunctionApplicationArgumentNode[] = [];
+
+        const callee = this.normalFormExpression(false);
+        
+        if (this.hasTrailingNewLines(this.previous())) {
+            return callee;
+        }
+
+        if (!this.isValidFunctionApplicationComponent(callee)) {
+            throw new ParsingError(ParsingErrorCode.INVALID, "Invalid expression in function application. Try wrapping the expression in a parenthese pair.", callee.start, callee.end);
+        }
+
+        let previousComponent: ExpressionNode = callee;
+        let previousToken = this.previous();
+        
+        while (!this.hasTrailingNewLines(previousToken)) {
+            if (!this.hasTrailingSpaces(previousToken)) {
+                throw new ParsingError(ParsingErrorCode.EXPECTED_THINGS, "Expect a following space", previousComponent.start, previousComponent.end);
+            }
+            previousComponent = this.normalFormExpression(false);
+            if (!this.isValidFunctionApplicationComponent(previousComponent)) {
+                throw new ParsingError(ParsingErrorCode.INVALID, "Invalid expression in this context. Try wrapping the expression in a parenthese pair.", callee.start, callee.end);
+            }
+            _arguments.push(previousComponent);
+            previousToken = this.previous();
+        }
+
+        return new FunctionApplicationNode({ callee: callee, arguments: _arguments });
+
+    }
+
+    private normalFormExpression(match_line: boolean = true): NormalFormExpressionNode {
         return this.expression_bp(0, match_line);
     }
 
-    private expression_bp(mbp: number, match_line: boolean): ExpressionNode {
-        let leftExpression: ExpressionNode | undefined = undefined;
+    private expression_bp(mbp: number, match_line: boolean): NormalFormExpressionNode {
+        let leftExpression: NormalFormExpressionNode | undefined = undefined;
 
         if (isOpToken(this.peek()) && this.peek()!.kind !== SyntaxTokenKind.LPAREN) {
             const beforeOp = this.previous();
@@ -220,7 +253,6 @@ export class Parser {
                     }
 
                     this.throwOnTrailingNewLines(op);
-                    console.log(beforeOp, op);
                     this.checkSpaceConstraint(beforeOp, op);
                     this.advance();
                     const rightExpression = this.expression_bp(opInfixPower.right, match_line);
@@ -232,20 +264,20 @@ export class Parser {
     }
 
     private argumentList(): {
-        arguments: ExpressionNode[],
+        arguments: NormalFormExpressionNode[],
         commaList: SyntaxToken[],
     } {
-        const _arguments: ExpressionNode[] = [];
+        const _arguments: NormalFormExpressionNode[] = [];
         const commaList: SyntaxToken[] = [];
 
         if (this.peek()?.kind !== SyntaxTokenKind.RPAREN) {
-            _arguments.push(this.expression(true));
+            _arguments.push(this.normalFormExpression(true));
         }
 
         while (this.peek()?.kind !== SyntaxTokenKind.RPAREN) {
             this.consume("Expect ,", SyntaxTokenKind.COMMA);
             commaList.push(this.previous());
-            _arguments.push(this.expression(true));
+            _arguments.push(this.normalFormExpression(true));
         }
 
         return {
@@ -283,42 +315,16 @@ export class Parser {
         this.consume("Expect a function expression", SyntaxTokenKind.FUNCTION_EXPRESSION);
         return new FunctionExpressionNode({ value: this.previous() });
     }
-
-    private functionApplication(): FunctionApplicationNode {
-        const _arguments: (TupleExpressionNode | ListExpressionNode |  BlockExpressionNode | PrimaryExpressionNode | CallExpressionNode | FunctionExpressionNode)[] = [];
-
-        const callee = this.expression(false);
-        if (!this.isValidFunctionApplicationComponent(callee)) {
-            throw new ParsingError(ParsingErrorCode.INVALID, "Invalid expression in this context. Try wrapping the expression in a parenthese pair.", callee.start, callee.end);
-        }
-
-        let previousComponent: ExpressionNode = callee;
-        let previousToken = this.previous();
-        
-        while (!this.hasTrailingNewLines(previousToken)) {
-            if (!this.hasTrailingSpaces(previousToken)) {
-                throw new ParsingError(ParsingErrorCode.EXPECTED_THINGS, "Expect a following space", previousComponent.start, previousComponent.end);
-            }
-            previousComponent = this.expression(false);
-            if (!this.isValidFunctionApplicationComponent(previousComponent)) {
-                throw new ParsingError(ParsingErrorCode.INVALID, "Invalid expression in this context. Try wrapping the expression in a parenthese pair.", callee.start, callee.end);
-            }
-            _arguments.push(previousComponent);
-            previousToken = this.previous();
-        }
-
-        return new FunctionApplicationNode({ callee: callee, arguments: _arguments });
-    }
     
     private blockExpression(): BlockExpressionNode {
         let blockOpenBrace: SyntaxToken | undefined = undefined;
-        const body: ExpressionNode[] = [];
+        const body: NormalFormExpressionNode[] = [];
         let blockCloseBrace: SyntaxToken | undefined = undefined;
 
         this.consume("Expect {", SyntaxTokenKind.LBRACE);
         blockOpenBrace = this.previous();
         while (!this.check(SyntaxTokenKind.RBRACE)) {
-            body.push(this.expression(true));
+            body.push(this.normalFormExpression(true));
         }
         this.consume("Expect }", SyntaxTokenKind.RBRACE);
         blockCloseBrace = this.previous();
@@ -338,19 +344,19 @@ export class Parser {
 
     private tupleExpression(): TupleExpressionNode | GroupExpressionNode {
         let tupleOpenParen: SyntaxToken | undefined = undefined;
-        const elementList: ExpressionNode[] = [];
+        const elementList: NormalFormExpressionNode[] = [];
         const commaList: SyntaxToken[] = [];
         let tupleCloseParen: SyntaxToken | undefined = undefined; 
 
         this.consume("Expect (", SyntaxTokenKind.LPAREN);
         tupleOpenParen = this.previous();
         if (!this.check(SyntaxTokenKind.RPAREN)) {
-            elementList.push(this.expression(true));
+            elementList.push(this.normalFormExpression(true));
         }
         while (!this.check(SyntaxTokenKind.RPAREN)) {
             this.consume("Expect ,", SyntaxTokenKind.COMMA);
             commaList.push(this.previous());
-            elementList.push(this.expression(true));
+            elementList.push(this.normalFormExpression(true));
         }
         this.consume("Expect )", SyntaxTokenKind.RPAREN);
         tupleCloseParen = this.previous();
@@ -378,7 +384,7 @@ export class Parser {
             elementList.push(this.attribute());
         }
 
-        while (!this.match(SyntaxTokenKind.RBRACKET)) {
+        while (!this.check(SyntaxTokenKind.RBRACKET)) {
             this.consume("Expect a ,", SyntaxTokenKind.COMMA);
             commaList.push(this.previous());
             elementList.push(this.attribute());
@@ -393,7 +399,7 @@ export class Parser {
     private attribute(): AttributeNode {
         const name: SyntaxToken[] = [];
         let valueOpenColon: SyntaxToken | undefined = undefined;
-        let value: ExpressionNode | undefined = undefined;
+        let value: NormalFormExpressionNode | undefined = undefined;
 
         this.consume("Expect an identifier", SyntaxTokenKind.IDENTIFIER);
         name.push(this.previous());
@@ -402,7 +408,7 @@ export class Parser {
         }
         if (this.match(SyntaxTokenKind.COLON)) {
             valueOpenColon = this.previous();
-            value = this.expression(true);
+            value = this.normalFormExpression(true);
         }
         return new AttributeNode({ name, valueOpenColon, value });
     }
@@ -435,8 +441,14 @@ export class Parser {
         }) !== undefined;
     }
 
-    private isValidFunctionApplicationComponent(expression: ExpressionNode): expression is TupleExpressionNode | ListExpressionNode |  BlockExpressionNode | PrimaryExpressionNode | CallExpressionNode | FunctionExpressionNode {
-        return expression instanceof TupleExpressionNode || expression instanceof ListExpressionNode || expression instanceof PrimaryExpressionNode || expression instanceof CallExpressionNode || expression instanceof BlockExpressionNode || expression instanceof FunctionExpressionNode;
+    private isValidFunctionApplicationComponent(expression: ExpressionNode): expression is ValidFunctionApplicationArgumentNode {
+        return expression instanceof TupleExpressionNode || 
+               expression instanceof ListExpressionNode ||
+               expression instanceof PrimaryExpressionNode ||
+               expression instanceof CallExpressionNode ||
+               expression instanceof BlockExpressionNode ||
+               expression instanceof FunctionExpressionNode ||
+               expression instanceof GroupExpressionNode;
     }
 
     private checkSpaceConstraint(previousToken: SyntaxToken, op: SyntaxToken) {
