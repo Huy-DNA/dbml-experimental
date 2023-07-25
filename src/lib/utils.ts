@@ -1,6 +1,6 @@
 export function isAlpha(char: string): boolean {
     const [c] = char;
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c === '_';
 }
 
 export function isDigit(char: string): boolean {
