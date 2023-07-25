@@ -469,19 +469,19 @@ export class Parser {
 const infix_binding_power_map: {
     [index: string]: { left: number, right: number } | undefined;
 } = {
-    [SyntaxTokenKind.CROSS]: { left: 10, right: 9 },
-    [SyntaxTokenKind.ASTERISK]: { left: 12, right: 11 },
-    [SyntaxTokenKind.MINUS]: { left: 10, right: 9 },
-    [SyntaxTokenKind.FORWARDSLASH]: { left: 12, right: 11 },
-    [SyntaxTokenKind.PERCENT]: { left: 12, right: 11 },
-    [SyntaxTokenKind.LT]: { left: 8, right: 7 },
-    [SyntaxTokenKind.LE]: { left: 8, right: 7 },
-    [SyntaxTokenKind.GT]: { left: 8, right: 7 },
-    [SyntaxTokenKind.GE]: { left: 8, right: 7 },
+    [SyntaxTokenKind.CROSS]: { left: 9, right: 10 },
+    [SyntaxTokenKind.ASTERISK]: { left: 11, right: 12 },
+    [SyntaxTokenKind.MINUS]: { left: 9, right: 10 },
+    [SyntaxTokenKind.FORWARDSLASH]: { left: 11, right: 12 },
+    [SyntaxTokenKind.PERCENT]: { left: 11, right: 12 },
+    [SyntaxTokenKind.LT]: { left: 7, right: 8 },
+    [SyntaxTokenKind.LE]: { left: 7, right: 8 },
+    [SyntaxTokenKind.GT]: { left: 7, right: 8 },
+    [SyntaxTokenKind.GE]: { left: 7, right: 8 },
     [SyntaxTokenKind.EQUAL]: { left: 2, right: 3 },
     [SyntaxTokenKind.DOUBLE_EQUAL]: { left: 4, right: 5},
     [SyntaxTokenKind.NOT_EQUAL]: { left: 4, right: 5 },
-    [SyntaxTokenKind.DOT]: { left: 16, right: 17 },
+    [SyntaxTokenKind.DOT]: { left: 17, right: 16 },
 }
 
 function infix_binding_power(token: SyntaxToken): { left: null, right: null } | { left: number, right: number } {
