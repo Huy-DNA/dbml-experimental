@@ -118,7 +118,7 @@ export class Lexer {
                     break;
                 case ']':
                     this.advance();
-                    this.addToken(SyntaxTokenKind.RBRACE);
+                    this.addToken(SyntaxTokenKind.RBRACKET);
                     break;
                 case '{':
                     this.advance();
