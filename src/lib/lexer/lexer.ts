@@ -298,7 +298,7 @@ export class Lexer {
     functionExpression() {
         this.skip();
         let string = '';
-        while (!this.isAtEnd() && !(this.peek() === '\n') && !(this.peek() === '\'')) {
+        while (!this.isAtEnd() && !(this.peek() === '\n') && !(this.peek() === '`')) {
             if (this.peek() === '\\') {
                 string += this.escapedString();
             }
