@@ -186,11 +186,16 @@ export class Parser {
 
     }
 
-    private normalFormExpression(match_line: boolean = true): NormalFormExpressionNode {
-        return this.expression_bp(0, match_line);
+    private normalFormExpression(matchLine: boolean): NormalFormExpressionNode {
+        const expression = this.expression_bp(0);
+        if (matchLine && !this.isAtEndOfLine(this.previous())) {
+            throw new ParsingError(ParsingErrorCode.INVALID, "The expression is expected to span the whole line", expression.start, expression.end);
+        }
+
+        return expression;
     }
 
-    private expression_bp(mbp: number, match_line: boolean): NormalFormExpressionNode {
+    private expression_bp(mbp: number): NormalFormExpressionNode {
         let leftExpression: NormalFormExpressionNode | undefined = undefined;
 
         if (isOpToken(this.peek()) && this.peek()!.kind !== SyntaxTokenKind.LPAREN) {
@@ -205,7 +210,7 @@ export class Parser {
             this.throwOnTrailingNewLines(prefixOp);
             this.checkSpaceConstraint(beforeOp, prefixOp);
             this.advance();
-            const prefixExpression = this.expression_bp(opPrefixPower.right, match_line);
+            const prefixExpression = this.expression_bp(opPrefixPower.right);
             leftExpression = new PrefixExpressionNode({ op: prefixOp, expression: prefixExpression });
         }
         else {
@@ -214,11 +219,7 @@ export class Parser {
 
         while (!this.isAtEnd() && !this.hasTrailingNewLines(this.previous())) {
             if (!isOpToken(this.peek())) {
-                if (!match_line) {
-                    break;
-                }
-                const invalid = this.extractOperand();
-                throw new ParsingError(ParsingErrorCode.EXPECTED_THINGS, 'Expect a valid operator', invalid.start, invalid.end);
+                break;
             }
             else {
                 const beforeOp = this.previous();
@@ -255,7 +256,7 @@ export class Parser {
                     this.throwOnTrailingNewLines(op);
                     this.checkSpaceConstraint(beforeOp, op);
                     this.advance();
-                    const rightExpression = this.expression_bp(opInfixPower.right, match_line);
+                    const rightExpression = this.expression_bp(opInfixPower.right);
                     leftExpression = new InfixExpressionNode({ leftExpression: leftExpression!, op, rightExpression });
                 }
             }
@@ -271,13 +272,13 @@ export class Parser {
         const commaList: SyntaxToken[] = [];
 
         if (this.peek()?.kind !== SyntaxTokenKind.RPAREN) {
-            _arguments.push(this.normalFormExpression(true));
+            _arguments.push(this.normalFormExpression(false));
         }
 
         while (this.peek()?.kind !== SyntaxTokenKind.RPAREN) {
             this.consume("Expect ,", SyntaxTokenKind.COMMA);
             commaList.push(this.previous());
-            _arguments.push(this.normalFormExpression(true));
+            _arguments.push(this.normalFormExpression(false));
         }
 
         return {
@@ -318,13 +319,13 @@ export class Parser {
     
     private blockExpression(): BlockExpressionNode {
         let blockOpenBrace: SyntaxToken | undefined = undefined;
-        const body: NormalFormExpressionNode[] = [];
+        const body: ExpressionNode[] = [];
         let blockCloseBrace: SyntaxToken | undefined = undefined;
 
         this.consume("Expect {", SyntaxTokenKind.LBRACE);
         blockOpenBrace = this.previous();
         while (!this.check(SyntaxTokenKind.RBRACE)) {
-            body.push(this.normalFormExpression(true));
+            body.push(this.expression());
         }
         this.consume("Expect }", SyntaxTokenKind.RBRACE);
         blockCloseBrace = this.previous();
@@ -351,12 +352,12 @@ export class Parser {
         this.consume("Expect (", SyntaxTokenKind.LPAREN);
         tupleOpenParen = this.previous();
         if (!this.check(SyntaxTokenKind.RPAREN)) {
-            elementList.push(this.normalFormExpression(true));
+            elementList.push(this.normalFormExpression(false));
         }
         while (!this.check(SyntaxTokenKind.RPAREN)) {
             this.consume("Expect ,", SyntaxTokenKind.COMMA);
             commaList.push(this.previous());
-            elementList.push(this.normalFormExpression(true));
+            elementList.push(this.normalFormExpression(false));
         }
         this.consume("Expect )", SyntaxTokenKind.RPAREN);
         tupleCloseParen = this.previous();
@@ -408,7 +409,7 @@ export class Parser {
         }
         if (this.match(SyntaxTokenKind.COLON)) {
             valueOpenColon = this.previous();
-            value = this.normalFormExpression(true);
+            value = this.normalFormExpression(false);
         }
         return new AttributeNode({ name, valueOpenColon, value });
     }
@@ -427,6 +428,10 @@ export class Parser {
         return token.trailingTrivia.find(({ kind }) => {
             return kind === SyntaxTokenKind.SPACE || kind === SyntaxTokenKind.NEWLINE;
         }) !== undefined;
+    }
+
+    private isAtEndOfLine(token: SyntaxToken): boolean {
+        return this.hasTrailingNewLines(token) || this.peek()?.kind === SyntaxTokenKind.EOF;
     }
 
     private hasTrailingSpaces(token: SyntaxToken): boolean {
