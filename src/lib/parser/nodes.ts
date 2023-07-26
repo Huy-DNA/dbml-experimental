@@ -14,6 +14,7 @@ export enum SyntaxNodeKind {
 
     LITERAL = '<literal>',
     VARIABLE = '<variable>',
+    INVALID_EXPRESSION = '<invalid-expression>',
     LITERAL_ELEMENT_EXPRESSION = '<literal-element-expression>',
     PREFIX_EXPRESSION = '<prefix-expression>',
     INFIX_EXPRESSION = '<infix-expression>',
@@ -178,7 +179,24 @@ export class AttributeNode implements SyntaxNode {
 
 export type NormalFormExpressionNode = PrefixExpressionNode | InfixExpressionNode | PostfixExpressionNode | LiteralElementExpressionNode | FunctionApplicationNode | BlockExpressionNode | ListExpressionNode | TupleExpressionNode | CallExpressionNode | PrimaryExpressionNode | FunctionExpressionNode | AccessExpressionNode;
 
-export type ExpressionNode = NormalFormExpressionNode | FunctionApplicationNode;
+export type ExpressionNode = NormalFormExpressionNode | FunctionApplicationNode | InvalidExpressionNode;
+
+export class InvalidExpressionNode implements SyntaxNode {
+    kind: SyntaxNodeKind.INVALID_EXPRESSION = SyntaxNodeKind.INVALID_EXPRESSION;
+    start: Readonly<number>;
+    end: Readonly<number>;
+    expression: ExpressionNode;
+
+    constructor({
+        expression,
+    }: {
+        expression: ExpressionNode;
+    }) {
+        this.start = expression.start;
+        this.end = expression.end;
+        this.expression = expression;
+    }
+}
 export class AccessExpressionNode implements SyntaxNode {
     kind: SyntaxNodeKind.ACCESS_EXPRESSION = SyntaxNodeKind.ACCESS_EXPRESSION;
     start: Readonly<number>;
@@ -317,7 +335,7 @@ export class FunctionExpressionNode implements SyntaxNode {
     }
 }
 
-export type ValidFunctionApplicationArgumentNode = TupleExpressionNode | ListExpressionNode |  BlockExpressionNode | PrimaryExpressionNode | CallExpressionNode | FunctionExpressionNode | GroupExpressionNode;
+export type ValidFunctionApplicationArgumentNode = InvalidExpressionNode | TupleExpressionNode | ListExpressionNode |  BlockExpressionNode | PrimaryExpressionNode | CallExpressionNode | FunctionExpressionNode | GroupExpressionNode;
 
 export class FunctionApplicationNode implements SyntaxNode {
     kind: SyntaxNodeKind.FUNCTION_APPLICATION = SyntaxNodeKind.FUNCTION_APPLICATION;

@@ -1,7 +1,7 @@
 import { ParsingError, ParsingErrorCode } from "../errors";
 import { SyntaxToken, SyntaxTokenKind, isOpToken } from "../lexer/tokens";
 import { Result } from "../result";
-import { AttributeNode, BlockExpressionNode, CallExpressionNode, ElementDeclarationNode, ExpressionNode, FieldDeclarationNode, FunctionApplicationNode, FunctionExpressionNode, GroupExpressionNode, InfixExpressionNode, ListExpressionNode, LiteralNode, NormalFormExpressionNode, PostfixExpressionNode, PrefixExpressionNode, PrimaryExpressionNode, ProgramNode, SyntaxNode, SyntaxNodeKind, TupleExpressionNode, ValidFunctionApplicationArgumentNode, VariableNode } from "./nodes";
+import { AttributeNode, BlockExpressionNode, CallExpressionNode, ElementDeclarationNode, ExpressionNode, FieldDeclarationNode, FunctionApplicationNode, FunctionExpressionNode, GroupExpressionNode, InfixExpressionNode, InvalidExpressionNode, ListExpressionNode, LiteralNode, NormalFormExpressionNode, PostfixExpressionNode, PrefixExpressionNode, PrimaryExpressionNode, ProgramNode, SyntaxNode, SyntaxNodeKind, TupleExpressionNode, ValidFunctionApplicationArgumentNode, VariableNode } from "./nodes";
 
 export class Parser {
     private tokens: SyntaxToken[];
@@ -104,7 +104,7 @@ export class Parser {
             attributeList = this.listExpression();
         }
         
-        let body: (FieldDeclarationNode | NormalFormExpressionNode)[] = [];
+        let body: (ExpressionNode | FieldDeclarationNode)[] = [];
         let bodyOpenColon: SyntaxToken | undefined = undefined;
         let bodyOpenBrace: SyntaxToken | undefined = undefined;
         let bodyCloseBrace: SyntaxToken | undefined = undefined;
@@ -157,14 +157,15 @@ export class Parser {
     private expression(): ExpressionNode {
         const _arguments: ValidFunctionApplicationArgumentNode[] = [];
 
-        const callee = this.normalFormExpression(false);
+        let callee: ExpressionNode = this.normalFormExpression(false);
         
         if (this.hasTrailingNewLines(this.previous())) {
             return callee;
         }
 
         if (!this.isValidFunctionApplicationComponent(callee)) {
-            throw new ParsingError(ParsingErrorCode.INVALID, "Invalid expression in function application. Try wrapping the expression in a parenthese pair.", callee.start, callee.end);
+            this.errors.push(new ParsingError(ParsingErrorCode.INVALID, "Invalid expression in function application. Try wrapping the expression in a parenthese pair.", callee.start, callee.end));
+            callee = new InvalidExpressionNode({ expression: callee });
         }
 
         let previousComponent: ExpressionNode = callee;
@@ -172,11 +173,12 @@ export class Parser {
         
         while (!this.hasTrailingNewLines(previousToken)) {
             if (!this.hasTrailingSpaces(previousToken)) {
-                throw new ParsingError(ParsingErrorCode.EXPECTED_THINGS, "Expect a following space", previousComponent.start, previousComponent.end);
+                this.errors.push(new ParsingError(ParsingErrorCode.EXPECTED_THINGS, "Expect a following space", previousComponent.start, previousComponent.end));
             }
             previousComponent = this.normalFormExpression(false);
             if (!this.isValidFunctionApplicationComponent(previousComponent)) {
-                throw new ParsingError(ParsingErrorCode.INVALID, "Invalid expression in this context. Try wrapping the expression in a parenthese pair.", callee.start, callee.end);
+                this.errors.push(new ParsingError(ParsingErrorCode.INVALID, "Invalid expression in this context. Try wrapping the expression in a parenthese pair.", callee.start, callee.end));
+                previousComponent = new InvalidExpressionNode({ expression: previousComponent });
             }
             _arguments.push(previousComponent);
             previousToken = this.previous();
