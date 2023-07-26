@@ -177,9 +177,9 @@ export class AttributeNode implements SyntaxNode {
     }
 }
 
-export type NormalFormExpressionNode = PrefixExpressionNode | InfixExpressionNode | PostfixExpressionNode | LiteralElementExpressionNode | FunctionApplicationNode | BlockExpressionNode | ListExpressionNode | TupleExpressionNode | CallExpressionNode | PrimaryExpressionNode | FunctionExpressionNode | AccessExpressionNode;
+export type NormalFormExpressionNode = InvalidExpressionNode | PrefixExpressionNode | InfixExpressionNode | PostfixExpressionNode | LiteralElementExpressionNode | FunctionApplicationNode | BlockExpressionNode | ListExpressionNode | TupleExpressionNode | CallExpressionNode | PrimaryExpressionNode | FunctionExpressionNode | AccessExpressionNode;
 
-export type ExpressionNode = NormalFormExpressionNode | FunctionApplicationNode | InvalidExpressionNode;
+export type ExpressionNode = NormalFormExpressionNode | FunctionApplicationNode;
 
 export class InvalidExpressionNode implements SyntaxNode {
     kind: SyntaxNodeKind.INVALID_EXPRESSION = SyntaxNodeKind.INVALID_EXPRESSION;
