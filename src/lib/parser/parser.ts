@@ -13,7 +13,7 @@ export class Parser {
     }
 
     private isAtEnd(): boolean {
-        return this.current >= this.tokens.length;
+        return this.current >= this.tokens.length || this.tokens[this.current].kind === SyntaxTokenKind.EOF;
     }
 
     private init() {
@@ -72,7 +72,13 @@ export class Parser {
                 if (!(e instanceof ParsingError))
                     throw e;
                 this.errors.push(e);
-                invalid.push(this.advance());
+                if (!(this.peek()?.kind === SyntaxTokenKind.EOF)) {
+                    invalid.push(this.advance());
+                }
+                else {
+                    const eof = this.peek()!;
+                    this.errors.push(new ParsingError(ParsingErrorCode.INVALID, "Unexpected EOF", eof.offset, eof.offset));
+                }
             }
         }
 
@@ -310,7 +316,7 @@ export class Parser {
         };
     }
 
-    private extractOperand(): PrimaryExpressionNode | ListExpressionNode | BlockExpressionNode | TupleExpressionNode | FunctionExpressionNode | GroupExpressionNode {
+    private extractOperand(): InvalidExpressionNode | PrimaryExpressionNode | ListExpressionNode | BlockExpressionNode | TupleExpressionNode | FunctionExpressionNode | GroupExpressionNode {
         if (this.check(SyntaxTokenKind.NUMERIC_LITERAL, SyntaxTokenKind.STRING_LITERAL, SyntaxTokenKind.COLOR_LITERAL, SyntaxTokenKind.QUOTED_STRING, SyntaxTokenKind.IDENTIFIER, SyntaxTokenKind.KEYWORD)) {
             return this.primaryExpression();
         }
@@ -332,7 +338,8 @@ export class Parser {
         }
 
         const nextToken = this.peek()!;
-        throw new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Invalid start of operand "${nextToken.value}"`, nextToken.offset, nextToken.offset + nextToken.length - 1);
+        this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Invalid start of operand "${nextToken.value}"`, nextToken.offset, nextToken.offset + nextToken.length - 1));
+        return new InvalidExpressionNode({ content: [nextToken] });
     }
 
     private functionExpression(): FunctionExpressionNode {
