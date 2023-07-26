@@ -204,7 +204,6 @@ export class Lexer {
                     }
                     else {
                         this.advance();
-                        this.addToken(SyntaxTokenKind.INVALID);
                         this.errors.push(new ParsingError(ParsingErrorCode.EXPECTED_THINGS, `Unexpected token ${c}`, this.start, this.current - 1));
                         break;
                     }
