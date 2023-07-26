@@ -165,7 +165,7 @@ export class Parser {
 
         if (!this.isValidFunctionApplicationComponent(callee)) {
             this.errors.push(new ParsingError(ParsingErrorCode.INVALID, "Invalid expression in function application. Try wrapping the expression in a parenthese pair.", callee.start, callee.end));
-            callee = new InvalidExpressionNode({ expression: callee });
+            callee = new InvalidExpressionNode({ content: callee });
         }
 
         let previousComponent: ExpressionNode = callee;
@@ -178,7 +178,7 @@ export class Parser {
             previousComponent = this.normalFormExpression(false);
             if (!this.isValidFunctionApplicationComponent(previousComponent)) {
                 this.errors.push(new ParsingError(ParsingErrorCode.INVALID, "Invalid expression in this context. Try wrapping the expression in a parenthese pair.", callee.start, callee.end));
-                previousComponent = new InvalidExpressionNode({ expression: previousComponent });
+                previousComponent = new InvalidExpressionNode({ content: previousComponent });
             }
             _arguments.push(previousComponent);
             previousToken = this.previous();
@@ -205,11 +205,15 @@ export class Parser {
             const opPrefixPower = prefix_binding_power(prefixOp);
 
             if (opPrefixPower.right === null) {
-                throw new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected ${prefixOp.value} in an expression`, prefixOp.offset, prefixOp.offset + prefixOp.length - 1);
+                this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected ${prefixOp.value} in an expression`, prefixOp.offset, prefixOp.offset + prefixOp.length - 1));
+                return new InvalidExpressionNode({ content: [prefixOp] });
             }
 
             this.throwOnTrailingNewLines(prefixOp);
-            this.throwOnTrailingSpaceViolation(prefixOp);
+
+            if (this.signalErrorOnTrailingSpaceViolation(prefixOp)) {
+                return new InvalidExpressionNode({ content: [prefixOp] });
+            }
 
             this.advance();
             const prefixExpression = this.expression_bp(opPrefixPower.right);
@@ -237,7 +241,10 @@ export class Parser {
                     if (this.violatePrecedingSpaces(beforeOp, op)) {
                         break;
                     }
-                    this.throwOnTrailingSpaceViolation(op);
+                    
+                    if (this.signalErrorOnTrailingSpaceViolation(op)) {
+                        break;
+                    }
 
                     this.advance();
 
@@ -266,7 +273,10 @@ export class Parser {
                     if (this.violatePrecedingSpaces(beforeOp, op)) {
                         break;
                     }
-                    this.throwOnTrailingSpaceViolation(op);
+
+                    if (this.signalErrorOnTrailingSpaceViolation(op)) {
+                        break;
+                    }
 
                     this.advance();
                     const rightExpression = this.expression_bp(opInfixPower.right);
@@ -471,10 +481,12 @@ export class Parser {
                expression instanceof GroupExpressionNode;
     }
 
-    private throwOnTrailingSpaceViolation(op: SyntaxToken) { 
+    private signalErrorOnTrailingSpaceViolation(op: SyntaxToken): boolean { 
         if (this.hasTrailingSpaces(op) && !allow_trailing_spaces(op)) {
-            throw new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected spaces after ${op.value}`, op.offset, op.offset + op.length - 1);
-        } 
+            this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected spaces after ${op.value}`, op.offset, op.offset + op.length - 1));
+            return true;
+        }
+        return false;
     }
 
     private violatePrecedingSpaces(previousToken: SyntaxToken, op: SyntaxToken): boolean {
