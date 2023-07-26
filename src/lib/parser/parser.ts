@@ -218,12 +218,13 @@ export class Parser {
         }
 
         while (!this.isAtEnd() && !this.hasTrailingNewLines(this.previous())) {
-            if (!isOpToken(this.peek())) {
+            const c = this.peek()!;
+            if (!isOpToken(c)) {
                 break;
             }
             else {
                 const beforeOp = this.previous();
-                const op = this.peek()!;
+                const op = c;
                 const opPostfixPower = postfix_binding_power(op);
 
                 if (opPostfixPower.left !== null) {
@@ -271,11 +272,11 @@ export class Parser {
         const _arguments: NormalFormExpressionNode[] = [];
         const commaList: SyntaxToken[] = [];
 
-        if (this.peek()?.kind !== SyntaxTokenKind.RPAREN) {
+        if (!this.check(SyntaxTokenKind.RPAREN)) {
             _arguments.push(this.normalFormExpression(false));
         }
 
-        while (this.peek()?.kind !== SyntaxTokenKind.RPAREN) {
+        while (!this.check(SyntaxTokenKind.RPAREN)) {
             this.consume("Expect ,", SyntaxTokenKind.COMMA);
             commaList.push(this.previous());
             _arguments.push(this.normalFormExpression(false));
