@@ -185,16 +185,26 @@ export class InvalidExpressionNode implements SyntaxNode {
     kind: SyntaxNodeKind.INVALID_EXPRESSION = SyntaxNodeKind.INVALID_EXPRESSION;
     start: Readonly<number>;
     end: Readonly<number>;
-    expression: ExpressionNode;
+    content: ExpressionNode | SyntaxToken[];
 
     constructor({
-        expression,
+        content,
     }: {
-        expression: ExpressionNode;
+        content: ExpressionNode | SyntaxToken[];
     }) {
-        this.start = expression.start;
-        this.end = expression.end;
-        this.expression = expression;
+        if (Array.isArray(content)) {
+            if (content.length === 0) {
+                throw "InvalidExpressionNode: `content` should be non-empty";
+            }
+            this.start = content[0].offset;
+            const lastToken = content[content.length - 1];
+            this.end = lastToken.offset + lastToken.length - 1; 
+        }
+        else {
+            this.start = content.start;
+            this.end = content.end;
+        }
+        this.content = content;
     }
 }
 export class AccessExpressionNode implements SyntaxNode {
