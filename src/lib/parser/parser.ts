@@ -1,7 +1,7 @@
 import { ParsingError, ParsingErrorCode } from "../errors";
 import { SyntaxToken, SyntaxTokenKind, isOpToken } from "../lexer/tokens";
 import { Result } from "../result";
-import { AttributeNode, BlockExpressionNode, CallExpressionNode, ElementDeclarationNode, ExpressionNode, FieldDeclarationNode, FunctionApplicationNode, FunctionExpressionNode, GroupExpressionNode, InfixExpressionNode, ListExpressionNode, NormalFormExpressionNode, PostfixExpressionNode, PrefixExpressionNode, PrimaryExpressionNode, ProgramNode, SyntaxNode, SyntaxNodeKind, TupleExpressionNode, ValidFunctionApplicationArgumentNode } from "./nodes";
+import { AttributeNode, BlockExpressionNode, CallExpressionNode, ElementDeclarationNode, ExpressionNode, FieldDeclarationNode, FunctionApplicationNode, FunctionExpressionNode, GroupExpressionNode, InfixExpressionNode, ListExpressionNode, LiteralNode, NormalFormExpressionNode, PostfixExpressionNode, PrefixExpressionNode, PrimaryExpressionNode, ProgramNode, SyntaxNode, SyntaxNodeKind, TupleExpressionNode, ValidFunctionApplicationArgumentNode, VariableNode } from "./nodes";
 
 export class Parser {
     private tokens: SyntaxToken[];
@@ -336,14 +336,16 @@ export class Parser {
     }
 
     private primaryExpression(): PrimaryExpressionNode {
-        this.consume("Expect a literal or an identifer or a keyword", SyntaxTokenKind.COLOR_LITERAL, SyntaxTokenKind.NUMERIC_LITERAL, SyntaxTokenKind.STRING_LITERAL, SyntaxTokenKind.IDENTIFIER, SyntaxTokenKind.QUOTED_STRING, SyntaxTokenKind.KEYWORD);
-        return new PrimaryExpressionNode({ expression: this.previous()});
+        if (this.match(SyntaxTokenKind.COLOR_LITERAL, SyntaxTokenKind.STRING_LITERAL, SyntaxTokenKind.NUMERIC_LITERAL)) {
+            return new PrimaryExpressionNode({ expression: new LiteralNode({ literal: this.previous() })});
+        }
+        if (this.match(SyntaxTokenKind.QUOTED_STRING, SyntaxTokenKind.IDENTIFIER, SyntaxTokenKind.KEYWORD)) {
+            return new PrimaryExpressionNode({ expression: new VariableNode({ variable: this.previous() })});
+        }
+        const c = this.peek()!;
+        throw new ParsingError(ParsingErrorCode.EXPECTED_THINGS, "Expect a variable or literal", c.offset, c.offset + c.length - 1);
     } 
 
-    private variableExpression(): PrimaryExpressionNode {
-        this.consume("Expect a valid variable", SyntaxTokenKind.QUOTED_STRING, SyntaxTokenKind.IDENTIFIER);
-        return new PrimaryExpressionNode({ expression: this.previous() });
-    }
 
     private tupleExpression(): TupleExpressionNode | GroupExpressionNode {
         let tupleOpenParen: SyntaxToken | undefined = undefined;

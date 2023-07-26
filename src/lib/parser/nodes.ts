@@ -12,7 +12,9 @@ export enum SyntaxNodeKind {
     FIELD_DECLARATION = '<field-declaration>',
     ATTRIBUTE = '<attribute>',
 
-    LITERAL_EXPRESSION = '<literal-expression>',
+    LITERAL = '<literal>',
+    VARIABLE = '<variable>',
+    LITERAL_ELEMENT_EXPRESSION = '<literal-element-expression>',
     PREFIX_EXPRESSION = '<prefix-expression>',
     INFIX_EXPRESSION = '<infix-expression>',
     POSTFIX_EXPRESSION = '<postfix-expression>',
@@ -174,7 +176,7 @@ export class AttributeNode implements SyntaxNode {
     }
 }
 
-export type NormalFormExpressionNode = PrefixExpressionNode | InfixExpressionNode | PostfixExpressionNode | LiteralExpressionNode | FunctionApplicationNode | BlockExpressionNode | ListExpressionNode | TupleExpressionNode | CallExpressionNode | PrimaryExpressionNode | FunctionExpressionNode | AccessExpressionNode;
+export type NormalFormExpressionNode = PrefixExpressionNode | InfixExpressionNode | PostfixExpressionNode | LiteralElementExpressionNode | FunctionApplicationNode | BlockExpressionNode | ListExpressionNode | TupleExpressionNode | CallExpressionNode | PrimaryExpressionNode | FunctionExpressionNode | AccessExpressionNode;
 
 export type ExpressionNode = NormalFormExpressionNode | FunctionApplicationNode;
 export class AccessExpressionNode implements SyntaxNode {
@@ -202,8 +204,8 @@ export class AccessExpressionNode implements SyntaxNode {
     }
 }
 
-export class LiteralExpressionNode implements SyntaxNode {
-    kind: SyntaxNodeKind.LITERAL_EXPRESSION = SyntaxNodeKind.LITERAL_EXPRESSION;
+export class LiteralElementExpressionNode implements SyntaxNode {
+    kind: SyntaxNodeKind.LITERAL_ELEMENT_EXPRESSION = SyntaxNodeKind.LITERAL_ELEMENT_EXPRESSION;
     start: Readonly<number>;
     end: Readonly<number>;
     type: SyntaxToken;
@@ -480,18 +482,50 @@ export class CallExpressionNode implements SyntaxNode {
     }
 }
 
+export class LiteralNode implements SyntaxNode {
+    kind: SyntaxNodeKind.LITERAL = SyntaxNodeKind.LITERAL; 
+    start: Readonly<number>;
+    end: Readonly<number>;
+    literal: SyntaxToken;
+    constructor({
+        literal
+    }: {
+        literal: SyntaxToken;
+    }) {
+        this.start = literal.offset;
+        this.end = literal.offset + literal.length - 1;
+        this.literal = literal;
+    }
+}
+
+export class VariableNode implements SyntaxNode {
+    kind: SyntaxNodeKind.VARIABLE = SyntaxNodeKind.VARIABLE; 
+    start: Readonly<number>;
+    end: Readonly<number>;
+    variable: SyntaxToken;
+    constructor({
+        variable
+    }: {
+        variable: SyntaxToken;
+    }) {
+        this.start = variable.offset;
+        this.end = variable.offset + variable.length - 1;
+        this.variable = variable;
+    }
+}
+
 export class PrimaryExpressionNode implements SyntaxNode {
     kind: SyntaxNodeKind.PRIMARY_EXPRESSION = SyntaxNodeKind.PRIMARY_EXPRESSION; 
     start: Readonly<number>;
     end: Readonly<number>;
-    expression: SyntaxToken;
+    expression: LiteralNode | VariableNode;
     constructor({
         expression
     }: {
-        expression: SyntaxToken;
+        expression: LiteralNode | VariableNode;
     }) {
-        this.start = expression.offset;
-        this.end = expression.offset + expression.length - 1;
+        this.start = expression.start;
+        this.end = expression.end;
         this.expression = expression;
     }
 }
