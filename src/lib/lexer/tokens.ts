@@ -86,7 +86,6 @@ export function isOpToken(token?: SyntaxToken): boolean {
             return true;
         default:
             return false;
-
     }
 }
 

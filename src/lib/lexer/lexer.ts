@@ -267,7 +267,7 @@ export class Lexer {
         }
 
         if (this.isAtEnd() || this.peek() === '\n') {
-            this.tokens.push(SyntaxToken.create(SyntaxTokenKind.INVALID, this.start - 1, this.current - this.start + 1, string));
+            this.errors.push(new ParsingError(ParsingErrorCode.INVALID, `Unclosed single-line string literal`, this.start - 1, this.current));
         } else {
             this.tokens.push(SyntaxToken.create(SyntaxTokenKind.STRING_LITERAL, this.start - 1, this.current - this.start + 2, string));
             this.advance();
@@ -287,7 +287,7 @@ export class Lexer {
         }
 
         if (this.isAtEnd()) {
-            this.tokens.push(SyntaxToken.create(SyntaxTokenKind.INVALID, this.start - 3, this.current - this.start + 3, string));
+            this.errors.push(new ParsingError(ParsingErrorCode.INVALID, `Unclosed multiline string literal`, this.start - 3, this.current));
         } else {
             this.tokens.push(SyntaxToken.create(SyntaxTokenKind.STRING_LITERAL, this.start - 3, this.current - this.start + 6, string));
             this.skip(3);
@@ -307,7 +307,7 @@ export class Lexer {
         }
 
         if (this.isAtEnd() || this.peek() === '\n') {
-            this.tokens.push(SyntaxToken.create(SyntaxTokenKind.INVALID, this.start - 1, this.current - this.start + 1, string));
+            this.errors.push(new ParsingError(ParsingErrorCode.INVALID, `Unclosed function expression`, this.start - 1, this.current));
         } else {
             this.tokens.push(SyntaxToken.create(SyntaxTokenKind.FUNCTION_EXPRESSION, this.start - 1, this.current - this.start + 2, string));
             this.advance();
@@ -327,7 +327,7 @@ export class Lexer {
         }
 
         if (this.isAtEnd() || this.peek() === '\n') {
-            this.tokens.push(SyntaxToken.create(SyntaxTokenKind.INVALID, this.start - 1, this.current - this.start + 1, string));
+            this.errors.push(new ParsingError(ParsingErrorCode.INVALID, `Unclosed quoted variable`, this.start - 1, this.current));
         } else {
             this.tokens.push(SyntaxToken.create(SyntaxTokenKind.QUOTED_STRING, this.start - 1, this.current - this.start + 2, string));
             this.advance();
@@ -355,22 +355,30 @@ export class Lexer {
     }
 
     numericLiteral() {
+        let isFloat = false;
         const first = this.peek();
         if (!first || !isDigit(first)) {
             return;
         }
         this.advance();
         let c = this.peek();
-        while (c && isDigit(c)) {
+        while (c && (isDigit(c) || c === '.')) {
+            if (c === '.') {
+                if (isFloat) {
+                    break;
+                }
+                isFloat = true;
+            }
             this.advance();
             c = this.peek();
         }
-        if (c && isAlpha(c)) {
-            while (c && isAlphaNumeric(c)) {
+
+        if (c && (isAlpha(c) || c === '.')) {
+            while (c && (isAlphaNumeric(c) || c === '.')) {
                 this.advance();
                 c = this.peek();
             }
-            this.addToken(SyntaxTokenKind.INVALID);
+            this.errors.push(new ParsingError(ParsingErrorCode.INVALID, `Invalid number`, this.start, this.current));
         }
         else {
             this.addToken(SyntaxTokenKind.NUMERIC_LITERAL);
