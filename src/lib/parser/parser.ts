@@ -199,7 +199,6 @@ export class Parser {
         let leftExpression: NormalFormExpressionNode | undefined = undefined;
 
         if (isOpToken(this.peek()) && this.peek()!.kind !== SyntaxTokenKind.LPAREN) {
-            const beforeOp = this.previous();
             const prefixOp = this.peek()!;
             const opPrefixPower = prefix_binding_power(prefixOp);
 
@@ -208,7 +207,8 @@ export class Parser {
             }
 
             this.throwOnTrailingNewLines(prefixOp);
-            this.checkSpaceConstraint(beforeOp, prefixOp);
+            this.throwOnTrailingSpaceViolation(prefixOp);
+
             this.advance();
             const prefixExpression = this.expression_bp(opPrefixPower.right);
             leftExpression = new PrefixExpressionNode({ op: prefixOp, expression: prefixExpression });
@@ -232,7 +232,11 @@ export class Parser {
                         break;
                     }
                     
-                    this.checkSpaceConstraint(beforeOp, op);
+                    if (this.violatePrecedingSpaces(beforeOp, op)) {
+                        break;
+                    }
+                    this.throwOnTrailingSpaceViolation(op);
+
                     this.advance();
 
                     if (op.kind === SyntaxTokenKind.LPAREN) {
@@ -256,7 +260,12 @@ export class Parser {
                     }
 
                     this.throwOnTrailingNewLines(op);
-                    this.checkSpaceConstraint(beforeOp, op);
+
+                    if (this.violatePrecedingSpaces(beforeOp, op)) {
+                        break;
+                    }
+                    this.throwOnTrailingSpaceViolation(op);
+
                     this.advance();
                     const rightExpression = this.expression_bp(opInfixPower.right);
                     leftExpression = new InfixExpressionNode({ leftExpression: leftExpression!, op, rightExpression });
@@ -460,13 +469,18 @@ export class Parser {
                expression instanceof GroupExpressionNode;
     }
 
-    private checkSpaceConstraint(previousToken: SyntaxToken, op: SyntaxToken) {
-        if (!this.hasTrailingNewLines(previousToken) && this.hasTrailingSpaces(previousToken) && !allow_preceding_spaces(op)) {
-            this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected spaces before ${op.value}`, op.offset, op.offset + op.length - 1));
-        }
+    private throwOnTrailingSpaceViolation(op: SyntaxToken) { 
         if (this.hasTrailingSpaces(op) && !allow_trailing_spaces(op)) {
-            this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected spaces after ${op.value}`, op.offset, op.offset + op.length - 1));
+            throw new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected spaces after ${op.value}`, op.offset, op.offset + op.length - 1);
         } 
+    }
+
+    private violatePrecedingSpaces(previousToken: SyntaxToken, op: SyntaxToken): boolean {
+        if (!this.hasTrailingNewLines(previousToken) && this.hasTrailingSpaces(previousToken) && !allow_preceding_spaces(op)) {
+            return true;
+        }
+
+        return false;
     }
 }
 
