@@ -231,7 +231,10 @@ export class Parser {
                     if (opPostfixPower.left <= mbp) {
                         break;
                     }
- 
+                    
+                    this.checkSpaceConstraint(beforeOp, op);
+                    this.advance();
+
                     if (op.kind === SyntaxTokenKind.LPAREN) {
                         const args = this.argumentList();
                         this.consume("Expect )", SyntaxTokenKind.RPAREN);
@@ -244,8 +247,6 @@ export class Parser {
                         continue;
                     }
 
-                    this.checkSpaceConstraint(beforeOp, op);
-                    this.advance();
                     leftExpression = new PostfixExpressionNode({ expression: leftExpression!, op: op });
                 }
                 else {
