@@ -385,14 +385,14 @@ export class FunctionApplicationNode implements SyntaxNode {
 
   callee: ExpressionNode;
 
-  arguments: ExpressionNode[];
+  args: ExpressionNode[];
 
   constructor({
     callee,
-    arguments: args,
+    args,
   }: {
     callee: ExpressionNode;
-    arguments: ExpressionNode[];
+    args: ExpressionNode[];
   }) {
     this.start = callee.start;
     if (args.length === 0) {
@@ -401,7 +401,7 @@ export class FunctionApplicationNode implements SyntaxNode {
       this.end = args[args.length - 1].end;
     }
     this.callee = callee;
-    this.arguments = args;
+    this.args = args;
   }
 }
 
