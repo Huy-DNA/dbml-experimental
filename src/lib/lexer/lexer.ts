@@ -1,7 +1,7 @@
 import { ParsingError, ParsingErrorCode } from "../errors";
 import { Result } from "../result";
 import { isAlpha, isAlphaNumeric, isDigit } from "../utils";
-import { SyntaxToken, SyntaxTokenKind, isKeyword, isTriviaToken } from "./tokens";
+import { SyntaxToken, SyntaxTokenKind, isTriviaToken } from "./tokens";
 
 export class Lexer {
     private start: number = 0;
@@ -345,13 +345,7 @@ export class Lexer {
             this.advance();
             c = this.peek();
         }
-        const identifier = this.text.substring(this.start, this.current);
-        if (isKeyword(identifier)) {
-            this.addToken(SyntaxTokenKind.KEYWORD);
-        }
-        else {
-            this.addToken(SyntaxTokenKind.IDENTIFIER);
-        }
+        this.addToken(SyntaxTokenKind.IDENTIFIER);
     }
 
     numericLiteral() {

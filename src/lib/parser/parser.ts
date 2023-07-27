@@ -92,7 +92,7 @@ export class Parser {
     }
 
     private elementDeclaration(): ElementDeclarationNode {
-        this.consume("Expect keyword", SyntaxTokenKind.KEYWORD);
+        this.consume("Expect identifier", SyntaxTokenKind.IDENTIFIER);
         const type = this.previous();
         let name: NormalFormExpressionNode | undefined = undefined;
         let as: SyntaxToken | undefined = undefined;
@@ -102,7 +102,7 @@ export class Parser {
             name = this.normalFormExpression(false);
 
             const nextWord = this.peek();
-            if (nextWord?.kind === SyntaxTokenKind.KEYWORD && nextWord?.value === 'as') {
+            if (nextWord?.kind === SyntaxTokenKind.IDENTIFIER && nextWord?.value === 'as') {
                 as = this.advance();
                 alias = this.primaryExpression();
             }
@@ -150,7 +150,7 @@ export class Parser {
     }
 
     private fieldDeclaration(): FieldDeclarationNode {
-        this.consume("Expect a keyword", SyntaxTokenKind.KEYWORD);
+        this.consume("Expect identifier", SyntaxTokenKind.IDENTIFIER);
         const name = this.previous();
         this.consume("Expect :", SyntaxTokenKind.COLON);
         const valueOpenColon = this.previous(); 
@@ -264,7 +264,7 @@ export class Parser {
     }
 
     private extractOperand(): InvalidExpressionNode | PrimaryExpressionNode | ListExpressionNode | BlockExpressionNode | TupleExpressionNode | FunctionExpressionNode | GroupExpressionNode {
-        if (this.check(SyntaxTokenKind.NUMERIC_LITERAL, SyntaxTokenKind.STRING_LITERAL, SyntaxTokenKind.COLOR_LITERAL, SyntaxTokenKind.QUOTED_STRING, SyntaxTokenKind.IDENTIFIER, SyntaxTokenKind.KEYWORD)) {
+        if (this.check(SyntaxTokenKind.NUMERIC_LITERAL, SyntaxTokenKind.STRING_LITERAL, SyntaxTokenKind.COLOR_LITERAL, SyntaxTokenKind.QUOTED_STRING, SyntaxTokenKind.IDENTIFIER)) {
             return this.primaryExpression();
         }
 
@@ -314,7 +314,7 @@ export class Parser {
         if (this.match(SyntaxTokenKind.COLOR_LITERAL, SyntaxTokenKind.STRING_LITERAL, SyntaxTokenKind.NUMERIC_LITERAL)) {
             return new PrimaryExpressionNode({ expression: new LiteralNode({ literal: this.previous() })});
         }
-        if (this.match(SyntaxTokenKind.QUOTED_STRING, SyntaxTokenKind.IDENTIFIER, SyntaxTokenKind.KEYWORD)) {
+        if (this.match(SyntaxTokenKind.QUOTED_STRING, SyntaxTokenKind.IDENTIFIER)) {
             return new PrimaryExpressionNode({ expression: new VariableNode({ variable: this.previous() })});
         }
         const c = this.peek()!;
@@ -403,7 +403,7 @@ export class Parser {
     }
 
     private canBeField() {
-        return this.peek()?.kind === SyntaxTokenKind.KEYWORD && this.peek(1)?.kind === SyntaxTokenKind.COLON;
+        return this.peek()?.kind === SyntaxTokenKind.IDENTIFIER && this.peek(1)?.kind === SyntaxTokenKind.COLON;
     }
 
     private isAtEndOfLine(token: SyntaxToken): boolean {

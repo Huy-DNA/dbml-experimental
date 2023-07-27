@@ -24,7 +24,6 @@ export enum SyntaxTokenKind {
 
     QUOTED_STRING = '<variable>',
     IDENTIFIER = '<identifier>',
-    KEYWORD = '<keyword>',
     
     ASTERISK = '<asterisk>',
     CROSS = '<cross>',
@@ -83,23 +82,6 @@ export function isOpToken(token?: SyntaxToken): boolean {
         case SyntaxTokenKind.EXCLAMATION:
         case SyntaxTokenKind.DOT:
         case SyntaxTokenKind.LPAREN:
-            return true;
-        default:
-            return false;
-    }
-}
-
-export function isKeyword(identifier: string): boolean {
-    switch (identifier) {
-        case 'Project':
-        case 'Table':
-        case 'Schema':
-        case 'Ref':
-        case 'indexes':
-        case 'Note':
-        case 'enum':
-        case 'TableGroup':
-        case 'as':
             return true;
         default:
             return false;
