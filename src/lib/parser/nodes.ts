@@ -63,7 +63,7 @@ export class ElementDeclarationNode implements SyntaxNode {
     name?: NormalFormExpressionNode;
 
     as?: SyntaxToken;
-    alias?: PrimaryExpressionNode;
+    alias?: NormalFormExpressionNode;
 
     attributeList?: ListExpressionNode;
 
@@ -86,7 +86,7 @@ export class ElementDeclarationNode implements SyntaxNode {
         type: SyntaxToken;
         name?: NormalFormExpressionNode;
         as?: SyntaxToken;
-        alias?: PrimaryExpressionNode;
+        alias?: NormalFormExpressionNode;
         attributeList?: ListExpressionNode;
         bodyOpenColon?: SyntaxToken;
         bodyOpenBrace?: SyntaxToken;
@@ -98,7 +98,16 @@ export class ElementDeclarationNode implements SyntaxNode {
             this.end = bodyCloseBrace.offset + 1;
         }
         else {
-            this.end = body[body.length - 1].end;
+            if (body.length !== 0) {
+                this.end = body[body.length - 1].end;
+            }
+            const endingToken = bodyOpenColon || attributeList || alias || as || name || type;
+            if (endingToken instanceof SyntaxToken) {
+                this.end = endingToken.offset + 1;
+            }
+            else {
+                this.end = endingToken.end;
+            }
         }
         this.type = type;
         this.name = name;
@@ -183,36 +192,10 @@ export class AttributeNode implements SyntaxNode {
     }
 }
 
-export type NormalFormExpressionNode = InvalidExpressionNode | PrefixExpressionNode | InfixExpressionNode | PostfixExpressionNode | LiteralElementExpressionNode | FunctionApplicationNode | BlockExpressionNode | ListExpressionNode | TupleExpressionNode | CallExpressionNode | PrimaryExpressionNode | FunctionExpressionNode | AccessExpressionNode;
+export type NormalFormExpressionNode = PrefixExpressionNode | InfixExpressionNode | PostfixExpressionNode | LiteralElementExpressionNode | FunctionApplicationNode | BlockExpressionNode | ListExpressionNode | TupleExpressionNode | CallExpressionNode | PrimaryExpressionNode | FunctionExpressionNode | AccessExpressionNode;
 
 export type ExpressionNode = NormalFormExpressionNode | FunctionApplicationNode;
 
-export class InvalidExpressionNode implements SyntaxNode {
-    kind: SyntaxNodeKind.INVALID_EXPRESSION = SyntaxNodeKind.INVALID_EXPRESSION;
-    start: Readonly<number>;
-    end: Readonly<number>;
-    content: ExpressionNode | SyntaxToken[];
-
-    constructor({
-        content,
-    }: {
-        content: ExpressionNode | SyntaxToken[];
-    }) {
-        if (Array.isArray(content)) {
-            if (content.length === 0) {
-                throw "InvalidExpressionNode: `content` should be non-empty";
-            }
-            this.start = content[0].offset;
-            const lastToken = content[content.length - 1];
-            this.end = lastToken.offset + lastToken.length; 
-        }
-        else {
-            this.start = content.start;
-            this.end = content.end;
-        }
-        this.content = content;
-    }
-}
 export class AccessExpressionNode implements SyntaxNode {
     kind: SyntaxNodeKind.ACCESS_EXPRESSION = SyntaxNodeKind.ACCESS_EXPRESSION;
     start: Readonly<number>;

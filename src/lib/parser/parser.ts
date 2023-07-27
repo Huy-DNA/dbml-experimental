@@ -2,7 +2,7 @@ import { ParsingError, ParsingErrorCode } from "../errors";
 import { SyntaxToken, SyntaxTokenKind, isOpToken } from "../lexer/tokens";
 import { Result } from "../result";
 import { ParsingContext, ParsingContextStack } from "./contextStack";
-import { AttributeNode, BlockExpressionNode, CallExpressionNode, ElementDeclarationNode, ExpressionNode, FieldDeclarationNode, FunctionApplicationNode, FunctionExpressionNode, GroupExpressionNode, InfixExpressionNode, InvalidExpressionNode, ListExpressionNode, LiteralNode, NormalFormExpressionNode, PostfixExpressionNode, PrefixExpressionNode, PrimaryExpressionNode, ProgramNode, SyntaxNode, SyntaxNodeKind, TupleExpressionNode, VariableNode } from "./nodes";
+import { AttributeNode, BlockExpressionNode, CallExpressionNode, ElementDeclarationNode, ExpressionNode, FieldDeclarationNode, FunctionApplicationNode, FunctionExpressionNode, GroupExpressionNode, InfixExpressionNode, ListExpressionNode, LiteralNode, NormalFormExpressionNode, PostfixExpressionNode, PrefixExpressionNode, PrimaryExpressionNode, ProgramNode, SyntaxNode, SyntaxNodeKind, TupleExpressionNode, VariableNode } from "./nodes";
 
 export class Parser {
     private tokens: SyntaxToken[];
@@ -96,15 +96,25 @@ export class Parser {
         const type = this.previous();
         let name: NormalFormExpressionNode | undefined = undefined;
         let as: SyntaxToken | undefined = undefined;
-        let alias: PrimaryExpressionNode | undefined = undefined;
+        let alias: NormalFormExpressionNode | undefined = undefined;
 
         if (this.peek()?.kind !== SyntaxTokenKind.COLON && this.peek()?.kind !== SyntaxTokenKind.LBRACE) {
-            name = this.normalFormExpression(false);
+            try {
+                name = this.normalFormExpression();
+            }
+            catch (e) {
+                this.synchronizeElementDeclarationName(e);
+            }
 
             const nextWord = this.peek();
             if (nextWord?.kind === SyntaxTokenKind.IDENTIFIER && nextWord?.value === 'as') {
                 as = this.advance();
-                alias = this.primaryExpression();
+                try {
+                    alias = this.normalFormExpression();
+                }
+                catch (e) {
+                    this.synchronizeElementDeclarationAlias(e);
+                }
             }
         }
 
@@ -117,9 +127,18 @@ export class Parser {
         let bodyOpenColon: SyntaxToken | undefined = undefined;
         let bodyOpenBrace: SyntaxToken | undefined = undefined;
         let bodyCloseBrace: SyntaxToken | undefined = undefined;
+        
+        if (!this.check(SyntaxTokenKind.COLON, SyntaxTokenKind.LBRACE)) {
+            const token = this.peek()!;
+            this.errors.push(new ParsingError(ParsingErrorCode.EXPECTED_THINGS, "Expect { or :", token.offset, token.offset + token.length - 1));
+            while (!this.isAtEnd() && !this.check(SyntaxTokenKind.COLON, SyntaxTokenKind.LBRACE)) {
+                this.advance();
+            }
+        }
+
         if (this.match(SyntaxTokenKind.COLON)) {
             bodyOpenColon = this.previous();
-            body = [this.normalFormExpression(true)];
+            body = [this.normalFormExpression()];
         }
         else {
             this.consume("Expect { or :", SyntaxTokenKind.LBRACE);
@@ -129,7 +148,7 @@ export class Parser {
                     body.push(this.fieldDeclaration());
                 }
                 else {
-                    body.push(this.expression());
+                    body.push(this.expression()); 
                 }
             }
             this.consume("Expect }", SyntaxTokenKind.RBRACE);
@@ -149,12 +168,59 @@ export class Parser {
         })
     }
 
+    synchronizeElementDeclarationName(e: unknown) {
+        if (!(e instanceof ParsingError)) {
+            throw e;
+        }
+        this.errors.push(e);
+
+        while (!this.isAtEnd()) {
+            const token = this.peek()!;
+            if (token.kind === SyntaxTokenKind.IDENTIFIER && token.value === 'as'
+             || token.kind === SyntaxTokenKind.LBRACE 
+             || token.kind === SyntaxTokenKind.COLON) {
+                break;
+            }
+            this.advance();
+        }
+    }
+
+    synchronizeElementDeclarationAlias(e: unknown) {
+        if (!(e instanceof ParsingError)) {
+            throw e;
+        }
+        this.errors.push(e);
+        
+        while (!this.isAtEnd()) {
+            const token = this.peek()!;
+            if (token.kind === SyntaxTokenKind.LBRACE || token.kind === SyntaxTokenKind.COLON) {
+                break;
+            }
+            this.advance();
+        }
+    }
+
+    synchronizeElementDeclarationBody(e: unknown) {
+        if (!(e instanceof ParsingError)) {
+            throw e;
+        }
+        this.errors.push(e);
+
+        while (!this.isAtEnd()) {
+            const token = this.peek()!;
+            if (token.kind === SyntaxTokenKind.RBRACE || token.kind === SyntaxTokenKind.COLON || this.isAtStartOfLine(this.previous(), token)) {
+                break;
+            }
+            this.advance();
+        }
+    }
+
     private fieldDeclaration(): FieldDeclarationNode {
         this.consume("Expect identifier", SyntaxTokenKind.IDENTIFIER);
         const name = this.previous();
         this.consume("Expect :", SyntaxTokenKind.COLON);
         const valueOpenColon = this.previous(); 
-        const value = this.normalFormExpression(false);
+        const value = this.normalFormExpression();
         let attributeList: ListExpressionNode | undefined = undefined;
         if (this.check(SyntaxTokenKind.LBRACKET)) {
             attributeList = this.listExpression();
@@ -166,7 +232,7 @@ export class Parser {
     private expression(): ExpressionNode {
         const _arguments: ExpressionNode[] = [];
 
-        const callee: ExpressionNode = this.normalFormExpression(false);
+        const callee: ExpressionNode = this.normalFormExpression();
         
         if (this.hasTrailingNewLines(this.previous())) {
             return callee;
@@ -179,7 +245,7 @@ export class Parser {
             if (!this.hasTrailingSpaces(previousToken)) {
                 this.errors.push(new ParsingError(ParsingErrorCode.EXPECTED_THINGS, "Expect a following space", previousComponent.start, previousComponent.end));
             }
-            previousComponent = this.normalFormExpression(false);
+            previousComponent = this.normalFormExpression();
             _arguments.push(previousComponent);
             previousToken = this.previous();
         }
@@ -188,12 +254,8 @@ export class Parser {
 
     }
 
-    private normalFormExpression(matchLine: boolean): NormalFormExpressionNode {
+    private normalFormExpression(): NormalFormExpressionNode {
         const expression = this.expression_bp(0);
-        if (matchLine && !this.isAtEndOfLine(this.previous())) {
-            throw new ParsingError(ParsingErrorCode.INVALID, "The expression is expected to span the whole line", expression.start, expression.end);
-        }
-
         return expression;
     }
 
@@ -205,8 +267,7 @@ export class Parser {
             const opPrefixPower = prefix_binding_power(prefixOp);
 
             if (opPrefixPower.right === null) {
-                this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected ${prefixOp.value} in an expression`, prefixOp.offset, prefixOp.offset + prefixOp.length - 1));
-                return new InvalidExpressionNode({ content: [prefixOp] });
+                throw new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected prefix ${prefixOp.value} in an expression`, prefixOp.offset, prefixOp.offset + prefixOp.length - 1);
             }
 
             this.advance();
@@ -263,7 +324,7 @@ export class Parser {
         return leftExpression;
     }
 
-    private extractOperand(): InvalidExpressionNode | PrimaryExpressionNode | ListExpressionNode | BlockExpressionNode | TupleExpressionNode | FunctionExpressionNode | GroupExpressionNode {
+    private extractOperand(): PrimaryExpressionNode | ListExpressionNode | BlockExpressionNode | TupleExpressionNode | FunctionExpressionNode | GroupExpressionNode {
         if (this.check(SyntaxTokenKind.NUMERIC_LITERAL, SyntaxTokenKind.STRING_LITERAL, SyntaxTokenKind.COLOR_LITERAL, SyntaxTokenKind.QUOTED_STRING, SyntaxTokenKind.IDENTIFIER)) {
             return this.primaryExpression();
         }
@@ -285,8 +346,7 @@ export class Parser {
         }
 
         const nextToken = this.peek()!;
-        this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Invalid start of operand "${nextToken.value}"`, nextToken.offset, nextToken.offset + nextToken.length - 1));
-        return new InvalidExpressionNode({ content: [nextToken] });
+        throw new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Invalid start of operand "${nextToken.value}"`, nextToken.offset, nextToken.offset + nextToken.length - 1);
     }
 
     private functionExpression(): FunctionExpressionNode {
@@ -302,12 +362,32 @@ export class Parser {
         this.consume("Expect {", SyntaxTokenKind.LBRACE);
         blockOpenBrace = this.previous();
         while (!this.check(SyntaxTokenKind.RBRACE)) {
-            body.push(this.expression());
+            try {
+                body.push(this.expression());
+            }
+            catch (e) {
+                this.synchronizeBlock(e);
+            }
         }
         this.consume("Expect }", SyntaxTokenKind.RBRACE);
         blockCloseBrace = this.previous();
 
         return new BlockExpressionNode({ blockOpenBrace , body, blockCloseBrace });
+    }
+
+    synchronizeBlock(e: unknown) {
+        if (!(e instanceof ParsingError)) {
+            throw e;
+        }
+        this.errors.push(e);
+
+        while (!this.isAtEnd()) {
+            const token = this.peek()!;
+            if (token.kind === SyntaxTokenKind.RBRACE || this.isAtStartOfLine(this.previous(), token)) {
+                break;
+            }
+            this.advance();
+        }    
     }
 
     private primaryExpression(): PrimaryExpressionNode {
@@ -334,12 +414,17 @@ export class Parser {
         this.contextStack.push(ParsingContext.GroupExpression);
 
         if (!this.check(SyntaxTokenKind.RPAREN)) {
-            elementList.push(this.normalFormExpression(false));
+            elementList.push(this.normalFormExpression());
         }
         while (!this.check(SyntaxTokenKind.RPAREN)) {
             this.consume("Expect ,", SyntaxTokenKind.COMMA);
             commaList.push(this.previous());
-            elementList.push(this.normalFormExpression(false));
+            try {
+                elementList.push(this.normalFormExpression());
+            }
+            catch (e) {
+                this.synchronizeTuple(e);
+            }
         }
         this.consume("Expect )", SyntaxTokenKind.RPAREN);
         tupleCloseParen = this.previous();
@@ -354,6 +439,21 @@ export class Parser {
             })
         }
         return new TupleExpressionNode({ tupleOpenParen, elementList, commaList, tupleCloseParen });
+    }
+    
+    synchronizeTuple(e: unknown) {
+        if (!(e instanceof ParsingError)) {
+            throw e;
+        }
+        this.errors.push(e);
+
+        while (!this.isAtEnd()) {
+            const token = this.peek()!;
+            if (token.kind === SyntaxTokenKind.RPAREN || this.isAtStartOfLine(this.previous(), token)) {
+                break;
+            }
+            this.advance();
+        }    
     }
 
     private listExpression(): ListExpressionNode {
@@ -403,16 +503,18 @@ export class Parser {
                 name.push(this.previous());
             }
             catch (e) {
-                if (e instanceof ParsingError) {
-                    this.errors.push(e);
-                }
-                this.advance();
+                this.synchronizeAttributeName(e);
             }
         }
 
         if (this.match(SyntaxTokenKind.COLON)) {
             valueOpenColon = this.previous();
-            value = this.normalFormExpression(false);
+            try {
+                value = this.normalFormExpression();
+            }
+            catch (e) {
+                this.synchronizeAttributeValue(e);
+            }
         }
 
         while (!this.isAtEnd() && closing && separator && !this.check(closing, separator)) {
@@ -421,6 +523,36 @@ export class Parser {
         }
 
         return new AttributeNode({ name, valueOpenColon, value });
+    }
+
+    synchronizeAttributeName(e: unknown) {
+        if (!(e instanceof ParsingError)) {
+            throw e;
+        }
+        this.errors.push(e);
+
+        while (!this.isAtEnd()) {
+            const token = this.peek()!;
+            if (token.kind === SyntaxTokenKind.COMMA || token.kind === SyntaxTokenKind.RBRACKET || token.kind === SyntaxTokenKind.COLON) {
+                break;
+            }
+            this.advance();
+        }    
+    }
+
+    synchronizeAttributeValue(e: unknown) {
+        if (!(e instanceof ParsingError)) {
+            throw e;
+        }
+        this.errors.push(e);
+
+        while (!this.isAtEnd()) {
+            const token = this.peek()!;
+            if (token.kind === SyntaxTokenKind.COMMA || token.kind === SyntaxTokenKind.RBRACKET) {
+                break;
+            }
+            this.advance();
+        }    
     }
 
     private canBeField() {
