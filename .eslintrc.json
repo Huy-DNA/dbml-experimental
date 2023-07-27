@@ -9,7 +9,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "airbnb"
   ],
   "parserOptions": {
     "sourceType": "module"
@@ -22,8 +23,18 @@
     "max-classes-per-file": "off",
     "no-use-before-define": "off",
     "no-template-curly-in-string": "off",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "class-methods-use-this": "warn",
     "prefer-destructuring": "warn",
-    "indent": "off"
+    "indent": "off",
+    "no-plusplus": "warn",
+    "max-len": ["error", { "code": 100 }],
+    "no-continue": "warn",
+    "newline-before-return": "error",
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
+    "operator-linebreak": ["error", "after"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "error"
   }
 }

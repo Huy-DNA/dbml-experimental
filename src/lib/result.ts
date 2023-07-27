@@ -1,29 +1,34 @@
-import { ParsingError } from "./errors";
+import { ParsingError } from './errors.ts';
 
-export class Result<T> {
-    private value?: T;
-    private errors: ParsingError[];
+export default class Result<T> {
+  private value?: T;
 
-    constructor(value?: T, errors?: ParsingError[]) {
-        this.value = value;
-        this.errors = errors === undefined ? [] : errors;
-    } 
+  private errors: ParsingError[];
 
-    unwrap(): T {
-        if (this.value === undefined)
-            throw this.errors;
-        return this.value;
+  constructor(value?: T, errors?: ParsingError[]) {
+    this.value = value;
+    this.errors = errors === undefined ? [] : errors;
+  }
+
+  unwrap(): T {
+    if (this.value === undefined) {
+      throw this.errors;
     }
 
-    diag(): ParsingError[] {
-        return this.errors;
-    }
+    return this.value;
+  }
 
-    chain<U>(fn: (_: T) => Result<U>): Result<U> {
-        if (this.value === undefined)
-            return new Result<U>(undefined, this.errors);
-        const res = fn(this.value);
-        const errors = [...this.errors, ...res.errors];
-        return new Result<U>(res.value, errors);
+  diag(): ParsingError[] {
+    return this.errors;
+  }
+
+  chain<U>(fn: (_: T) => Result<U>): Result<U> {
+    if (this.value === undefined) {
+      return new Result<U>(undefined, this.errors);
     }
+    const res = fn(this.value);
+    const errors = [...this.errors, ...res.errors];
+
+    return new Result<U>(res.value, errors);
+  }
 }
