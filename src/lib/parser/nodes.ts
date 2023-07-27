@@ -48,7 +48,7 @@ export class ProgramNode implements SyntaxNode {
         invalid?: SyntaxToken[];
     }) {
         this.start = 0;
-        this.end = eof.offset - 1;
+        this.end = eof.offset;
         this.body = body;
         this.eof = eof;
         this.invalid = invalid ? invalid : [];
@@ -95,7 +95,7 @@ export class ElementDeclarationNode implements SyntaxNode {
     }) {
         this.start = type.offset;
         if (bodyCloseBrace) {
-            this.end = bodyCloseBrace.offset;
+            this.end = bodyCloseBrace.offset + 1;
         }
         else {
             this.end = body[body.length - 1].end;
@@ -204,7 +204,7 @@ export class InvalidExpressionNode implements SyntaxNode {
             }
             this.start = content[0].offset;
             const lastToken = content[content.length - 1];
-            this.end = lastToken.offset + lastToken.length - 1; 
+            this.end = lastToken.offset + lastToken.length; 
         }
         else {
             this.start = content.start;
@@ -259,7 +259,7 @@ export class LiteralElementExpressionNode implements SyntaxNode {
         bodyCloseBrace: SyntaxToken;
     }) {
         this.start = type.offset;
-        this.end = bodyOpenBrace.offset;
+        this.end = bodyOpenBrace.offset + 1;
         this.type = type;
         this.bodyOpenBrace = bodyOpenBrace;
         this.body = body;
@@ -328,7 +328,7 @@ export class PostfixExpressionNode implements SyntaxNode {
         expression: NormalFormExpressionNode;
     }) {
         this.start = expression.start;
-        this.end = op.offset;
+        this.end = op.offset + 1;
         this.op = op;
         this.expression = expression;
     }
@@ -346,7 +346,7 @@ export class FunctionExpressionNode implements SyntaxNode {
         value: SyntaxToken;
     }) {
         this.start = value.offset;
-        this.end = value.offset + value.length - 1;
+        this.end = value.offset + value.length;
         this.value = value;
     }
 }
@@ -395,7 +395,7 @@ export class BlockExpressionNode implements SyntaxNode {
         blockCloseBrace: SyntaxToken;
     }) {
         this.start = blockOpenBrace.offset;
-        this.end = blockCloseBrace.offset;
+        this.end = blockCloseBrace.offset + 1;
         this.blockOpenBrace = blockOpenBrace;
         this.body = body;
         this.blockCloseBrace = blockCloseBrace;
@@ -423,7 +423,7 @@ export class ListExpressionNode implements SyntaxNode {
         listCloseBracket: SyntaxToken,
     }) {
         this.start = listOpenBracket.offset;
-        this.end = listCloseBracket.offset;
+        this.end = listCloseBracket.offset + 1;
         this.listOpenBracket = listOpenBracket;
         this.elementList = elementList;
         this.commaList = commaList;
@@ -453,7 +453,7 @@ export class TupleExpressionNode implements SyntaxNode {
         tupleCloseParen: SyntaxToken;
     }) {
         this.start = tupleOpenParen.offset;
-        this.end = tupleCloseParen.offset;
+        this.end = tupleCloseParen.offset + 1;
         this.tupleOpenParen = tupleOpenParen;
         this.elementList = elementList;
         this.commaList = commaList;
@@ -513,7 +513,7 @@ export class LiteralNode implements SyntaxNode {
         literal: SyntaxToken;
     }) {
         this.start = literal.offset;
-        this.end = literal.offset + literal.length - 1;
+        this.end = literal.offset + literal.length;
         this.literal = literal;
     }
 }
@@ -529,7 +529,7 @@ export class VariableNode implements SyntaxNode {
         variable: SyntaxToken;
     }) {
         this.start = variable.offset;
-        this.end = variable.offset + variable.length - 1;
+        this.end = variable.offset + variable.length;
         this.variable = variable;
     }
 }
