@@ -163,13 +163,19 @@ export class AttributeNode implements SyntaxNode {
         valueOpenColon?: SyntaxToken;
         value?: NormalFormExpressionNode;
     }) {
-        this.start = name[0].offset;
-        if (value) {
-            this.end = value.end;
+        if (name.length === 0) {
+            this.start = -1;
+            this.end = -1;
         }
         else {
-            const lastName = name[name.length - 1];
-            this.end = lastName.offset + lastName.length - 1;
+            this.start = name[0].offset;
+            if (value) {
+                this.end = value.end;
+            }
+            else {
+                const lastName = name[name.length - 1];
+                this.end = lastName.offset + lastName.length - 1;
+            }
         }
         this.name = name;
         this.valueOpenColon = valueOpenColon;
