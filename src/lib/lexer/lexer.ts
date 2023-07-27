@@ -1,7 +1,7 @@
-import { ParsingError, ParsingErrorCode } from '../errors.ts';
-import Result from '../result.ts';
-import { isAlpha, isAlphaNumeric, isDigit } from '../utils.ts';
-import { SyntaxToken, SyntaxTokenKind, isTriviaToken } from './tokens.ts';
+import { ParsingError, ParsingErrorCode } from '../errors';
+import Result from '../result';
+import { isAlpha, isAlphaNumeric, isDigit } from '../utils';
+import { SyntaxToken, SyntaxTokenKind, isTriviaToken } from './tokens';
 
 export default class Lexer {
   private start: number = 0;

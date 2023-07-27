@@ -1,4 +1,4 @@
-import { ParsingError } from './errors.ts';
+import { ParsingError } from './errors';
 
 export default class Result<T> {
   private value?: T;

@@ -1,4 +1,4 @@
-import { SyntaxToken } from '../lexer/tokens.ts';
+import { SyntaxToken } from '../lexer/tokens';
 
 export interface SyntaxNode {
   kind: SyntaxNodeKind;

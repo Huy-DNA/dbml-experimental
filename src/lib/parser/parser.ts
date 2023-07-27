@@ -1,7 +1,7 @@
-import { ParsingError, ParsingErrorCode } from '../errors.ts';
-import { SyntaxToken, SyntaxTokenKind, isOpToken } from '../lexer/tokens.ts';
-import Result from '../result.ts';
-import { ParsingContext, ParsingContextStack } from './contextStack.ts';
+import { ParsingError, ParsingErrorCode } from '../errors';
+import { SyntaxToken, SyntaxTokenKind, isOpToken } from '../lexer/tokens';
+import Result from '../result';
+import { ParsingContext, ParsingContextStack } from './contextStack';
 import {
   AttributeNode,
   BlockExpressionNode,
@@ -24,7 +24,7 @@ import {
   SyntaxNodeKind,
   TupleExpressionNode,
   VariableNode,
-} from './nodes.ts';
+} from './nodes';
 
 export default class Parser {
   private tokens: SyntaxToken[];
