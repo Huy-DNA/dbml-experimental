@@ -2,3 +2,4 @@ dist
 scripts
 dangerfiles
 *.*.ts
+*.*.js
