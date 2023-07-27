@@ -1,12 +1,14 @@
 import { ParsingError, ParsingErrorCode } from "../errors";
 import { SyntaxToken, SyntaxTokenKind, isOpToken } from "../lexer/tokens";
 import { Result } from "../result";
-import { AttributeNode, BlockExpressionNode, CallExpressionNode, ElementDeclarationNode, ExpressionNode, FieldDeclarationNode, FunctionApplicationNode, FunctionExpressionNode, GroupExpressionNode, InfixExpressionNode, InvalidExpressionNode, ListExpressionNode, LiteralNode, NormalFormExpressionNode, PostfixExpressionNode, PrefixExpressionNode, PrimaryExpressionNode, ProgramNode, SyntaxNode, SyntaxNodeKind, TupleExpressionNode, ValidFunctionApplicationArgumentNode, VariableNode } from "./nodes";
+import { ParsingContext, ParsingContextStack } from "./contextStack";
+import { AttributeNode, BlockExpressionNode, CallExpressionNode, ElementDeclarationNode, ExpressionNode, FieldDeclarationNode, FunctionApplicationNode, FunctionExpressionNode, GroupExpressionNode, InfixExpressionNode, InvalidExpressionNode, ListExpressionNode, LiteralNode, NormalFormExpressionNode, PostfixExpressionNode, PrefixExpressionNode, PrimaryExpressionNode, ProgramNode, SyntaxNode, SyntaxNodeKind, TupleExpressionNode, VariableNode } from "./nodes";
 
 export class Parser {
     private tokens: SyntaxToken[];
     private current: number = 0;
     private errors: ParsingError[] = [];
+    private contextStack: ParsingContextStack = new ParsingContextStack();
 
     constructor(tokens: SyntaxToken[]) {
         this.tokens = tokens;
@@ -19,6 +21,7 @@ export class Parser {
     private init() {
         this.current = 0;
         this.errors = [];
+        this.contextStack = new ParsingContextStack();
     }
 
     private advance(): SyntaxToken {
@@ -161,31 +164,22 @@ export class Parser {
 
 
     private expression(): ExpressionNode {
-        const _arguments: ValidFunctionApplicationArgumentNode[] = [];
+        const _arguments: ExpressionNode[] = [];
 
-        let callee: ExpressionNode = this.normalFormExpression(false);
+        const callee: ExpressionNode = this.normalFormExpression(false);
         
         if (this.hasTrailingNewLines(this.previous())) {
             return callee;
-        }
-
-        if (!this.isValidFunctionApplicationComponent(callee)) {
-            this.errors.push(new ParsingError(ParsingErrorCode.INVALID, "Invalid expression in function application. Try wrapping the expression in a parenthese pair.", callee.start, callee.end));
-            callee = new InvalidExpressionNode({ content: callee });
-        }
+        } 
 
         let previousComponent: ExpressionNode = callee;
         let previousToken = this.previous();
         
-        while (!this.hasTrailingNewLines(previousToken)) {
+        while (!this.isAtEnd() && !this.hasTrailingNewLines(previousToken)) {
             if (!this.hasTrailingSpaces(previousToken)) {
                 this.errors.push(new ParsingError(ParsingErrorCode.EXPECTED_THINGS, "Expect a following space", previousComponent.start, previousComponent.end));
             }
             previousComponent = this.normalFormExpression(false);
-            if (!this.isValidFunctionApplicationComponent(previousComponent)) {
-                this.errors.push(new ParsingError(ParsingErrorCode.INVALID, "Invalid expression in this context. Try wrapping the expression in a parenthese pair.", callee.start, callee.end));
-                previousComponent = new InvalidExpressionNode({ content: previousComponent });
-            }
             _arguments.push(previousComponent);
             previousToken = this.previous();
         }
@@ -215,12 +209,6 @@ export class Parser {
                 return new InvalidExpressionNode({ content: [prefixOp] });
             }
 
-            this.throwOnTrailingNewLines(prefixOp);
-
-            if (this.signalErrorOnTrailingSpaceViolation(prefixOp)) {
-                return new InvalidExpressionNode({ content: [prefixOp] });
-            }
-
             this.advance();
             const prefixExpression = this.expression_bp(opPrefixPower.right);
             leftExpression = new PrefixExpressionNode({ op: prefixOp, expression: prefixExpression });
@@ -229,13 +217,13 @@ export class Parser {
             leftExpression = this.extractOperand();
         }
 
-        while (!this.isAtEnd() && !this.hasTrailingNewLines(this.previous())) {
+        while (!this.isAtEnd()) {
             const c = this.peek()!;
             if (!isOpToken(c)) {
                 break;
             }
             else {
-                const beforeOp = this.previous();
+                const previousOp = this.previous();
                 const op = c;
                 const opPostfixPower = postfix_binding_power(op);
 
@@ -243,44 +231,26 @@ export class Parser {
                     if (opPostfixPower.left <= mbp) {
                         break;
                     }
-                    
-                    if (this.violatePrecedingSpaces(beforeOp, op)) {
-                        break;
-                    }
-                    
-                    if (this.signalErrorOnTrailingSpaceViolation(op)) {
-                        break;
-                    }
-
-                    this.advance();
 
                     if (op.kind === SyntaxTokenKind.LPAREN) {
-                        const args = this.argumentList();
-                        this.consume("Expect )", SyntaxTokenKind.RPAREN);
+                        if (this.isAtStartOfLine(previousOp, op) && !this.contextStack.isWithinGroupExpressionContext() && !this.contextStack.isWithinGroupExpressionContext()) {
+                            break;
+                        }
+                        const argumentList = this.tupleExpression();
                         leftExpression = new CallExpressionNode({
                             callee: leftExpression,
-                            argumentListOpenParen: op,
-                            argumentListCloseParen: this.previous(),
-                            ...args,
+                            argumentList,
                         });
                         continue;
                     }
+
+                    this.advance();
 
                     leftExpression = new PostfixExpressionNode({ expression: leftExpression!, op: op });
                 }
                 else {
                     const opInfixPower = infix_binding_power(op);
                     if (opInfixPower.left === null || opInfixPower.left <= mbp) {
-                        break;
-                    }
-
-                    this.throwOnTrailingNewLines(op);
-
-                    if (this.violatePrecedingSpaces(beforeOp, op)) {
-                        break;
-                    }
-
-                    if (this.signalErrorOnTrailingSpaceViolation(op)) {
                         break;
                     }
 
@@ -291,29 +261,6 @@ export class Parser {
             }
         }
         return leftExpression;
-    }
-
-    private argumentList(): {
-        arguments: NormalFormExpressionNode[],
-        commaList: SyntaxToken[],
-    } {
-        const _arguments: NormalFormExpressionNode[] = [];
-        const commaList: SyntaxToken[] = [];
-
-        if (!this.check(SyntaxTokenKind.RPAREN)) {
-            _arguments.push(this.normalFormExpression(false));
-        }
-
-        while (!this.check(SyntaxTokenKind.RPAREN)) {
-            this.consume("Expect ,", SyntaxTokenKind.COMMA);
-            commaList.push(this.previous());
-            _arguments.push(this.normalFormExpression(false));
-        }
-
-        return {
-            arguments: _arguments,
-            commaList,
-        };
     }
 
     private extractOperand(): InvalidExpressionNode | PrimaryExpressionNode | ListExpressionNode | BlockExpressionNode | TupleExpressionNode | FunctionExpressionNode | GroupExpressionNode {
@@ -383,6 +330,9 @@ export class Parser {
 
         this.consume("Expect (", SyntaxTokenKind.LPAREN);
         tupleOpenParen = this.previous();
+
+        this.contextStack.push(ParsingContext.GroupExpression);
+
         if (!this.check(SyntaxTokenKind.RPAREN)) {
             elementList.push(this.normalFormExpression(false));
         }
@@ -393,6 +343,8 @@ export class Parser {
         }
         this.consume("Expect )", SyntaxTokenKind.RPAREN);
         tupleCloseParen = this.previous();
+
+        this.contextStack.pop();
 
         if (commaList.length === 0) {
             return new GroupExpressionNode({ 
@@ -413,6 +365,8 @@ export class Parser {
         this.consume("Expect a [", SyntaxTokenKind.LBRACKET);
         listOpenBracket = this.previous();
 
+        this.contextStack.push(ParsingContext.ListExpression);
+
         if (!this.check(SyntaxTokenKind.RBRACKET)) {
             elementList.push(this.attribute());
         }
@@ -425,6 +379,8 @@ export class Parser {
 
         this.consume("Expect a ]", SyntaxTokenKind.RBRACKET);
         listCloseBracket = this.previous();
+
+        this.contextStack.pop();
 
         return new ListExpressionNode({ listOpenBracket, elementList, commaList, listCloseBracket });
     }
@@ -450,58 +406,21 @@ export class Parser {
         return this.peek()?.kind === SyntaxTokenKind.KEYWORD && this.peek(1)?.kind === SyntaxTokenKind.COLON;
     }
 
-    private throwOnTrailingNewLines(token: SyntaxToken) {
-        if (this.hasTrailingNewLines(token)) {
-            throw new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, "Unexpected newlines", token.offset, token.offset + token.length - 1);
-        }
-    }
-
-    private hasTrailingWhiteSpaces(token: SyntaxToken): boolean {
-        return token.trailingTrivia.find(({ kind }) => {
-            return kind === SyntaxTokenKind.SPACE || kind === SyntaxTokenKind.NEWLINE;
-        }) !== undefined;
-    }
-
     private isAtEndOfLine(token: SyntaxToken): boolean {
         return this.hasTrailingNewLines(token) || this.peek()?.kind === SyntaxTokenKind.EOF;
     }
 
-    private hasTrailingSpaces(token: SyntaxToken): boolean {
-        return token.trailingTrivia.find(({ kind }) => {
-            return kind === SyntaxTokenKind.SPACE;
-        }) !== undefined;
-    }
-
     private hasTrailingNewLines(token: SyntaxToken): boolean {
-        return token.trailingTrivia.find(({ kind }) => {
-            return kind === SyntaxTokenKind.NEWLINE;
-        }) !== undefined;
+        return token.trailingTrivia.find(({ kind }) => kind === SyntaxTokenKind.NEWLINE) !== undefined;
     }
 
-    private isValidFunctionApplicationComponent(expression: ExpressionNode): expression is ValidFunctionApplicationArgumentNode {
-        return expression instanceof TupleExpressionNode || 
-               expression instanceof ListExpressionNode ||
-               expression instanceof PrimaryExpressionNode ||
-               expression instanceof CallExpressionNode ||
-               expression instanceof BlockExpressionNode ||
-               expression instanceof FunctionExpressionNode ||
-               expression instanceof GroupExpressionNode;
+    private isAtStartOfLine(previous: SyntaxToken, token: SyntaxToken): boolean {
+        const hasLeadingNewLines = token.leadingTrivia.find(({ kind }) => kind === SyntaxTokenKind.NEWLINE) !== undefined;
+        return hasLeadingNewLines || this.hasTrailingNewLines(previous);
     }
 
-    private signalErrorOnTrailingSpaceViolation(op: SyntaxToken): boolean { 
-        if (this.hasTrailingSpaces(op) && !allow_trailing_spaces(op)) {
-            this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected spaces after ${op.value}`, op.offset, op.offset + op.length - 1));
-            return true;
-        }
-        return false;
-    }
-
-    private violatePrecedingSpaces(previousToken: SyntaxToken, op: SyntaxToken): boolean {
-        if (!this.hasTrailingNewLines(previousToken) && this.hasTrailingSpaces(previousToken) && !allow_preceding_spaces(op)) {
-            return true;
-        }
-
-        return false;
+    private hasTrailingSpaces(token: SyntaxToken): boolean {
+        return token.trailingTrivia.find(({ kind }) => kind === SyntaxTokenKind.SPACE) !== undefined;
     }
 }
 
@@ -520,7 +439,7 @@ const infix_binding_power_map: {
     [SyntaxTokenKind.EQUAL]: { left: 2, right: 3 },
     [SyntaxTokenKind.DOUBLE_EQUAL]: { left: 4, right: 5},
     [SyntaxTokenKind.NOT_EQUAL]: { left: 4, right: 5 },
-    [SyntaxTokenKind.DOT]: { left: 17, right: 16 },
+    [SyntaxTokenKind.DOT]: { left: 16, right: 17 },
 }
 
 function infix_binding_power(token: SyntaxToken): { left: null, right: null } | { left: number, right: number } {
@@ -552,23 +471,4 @@ const postfix_binding_power_map: {
 function postfix_binding_power(token: SyntaxToken): { left: null | number, right: null } {
     const power = postfix_binding_power_map[token.kind];
     return power ? power : { left: null, right: null };
-}
-
-function allow_preceding_spaces(token: SyntaxToken): boolean {
-    switch (token.kind) {
-        case SyntaxTokenKind.DOT:
-        case SyntaxTokenKind.LPAREN:
-            return false;
-        default:
-            return true;
-    }
-}
-
-function allow_trailing_spaces(token: SyntaxToken): boolean {
-    switch (token.kind) {
-        case SyntaxTokenKind.DOT:
-            return false;
-        default:
-            return true;
-    }
 }

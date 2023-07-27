@@ -345,21 +345,19 @@ export class FunctionExpressionNode implements SyntaxNode {
     }
 }
 
-export type ValidFunctionApplicationArgumentNode = InvalidExpressionNode | TupleExpressionNode | ListExpressionNode |  BlockExpressionNode | PrimaryExpressionNode | CallExpressionNode | FunctionExpressionNode | GroupExpressionNode;
-
 export class FunctionApplicationNode implements SyntaxNode {
     kind: SyntaxNodeKind.FUNCTION_APPLICATION = SyntaxNodeKind.FUNCTION_APPLICATION;
     start: Readonly<number>;
     end: Readonly<number>;
-    callee: ValidFunctionApplicationArgumentNode;
-    arguments: ValidFunctionApplicationArgumentNode[];
+    callee: ExpressionNode;
+    arguments: ExpressionNode[];
 
     constructor({
         callee,
         arguments: _arguments,
     }: {
-        callee: ValidFunctionApplicationArgumentNode; 
-        arguments: ValidFunctionApplicationArgumentNode[];
+        callee: ExpressionNode; 
+        arguments: ExpressionNode[];
     }) {
         this.start = callee.start;
         if (_arguments.length === 0) {
@@ -482,31 +480,19 @@ export class CallExpressionNode implements SyntaxNode {
     start: Readonly<number>;
     end: Readonly<number>;
     callee: NormalFormExpressionNode;
-    argumentListOpenParen: SyntaxToken;
-    arguments: NormalFormExpressionNode[];
-    commaList: SyntaxToken[];
-    argumentListCloseParen: SyntaxToken;
+    argumentList: TupleExpressionNode;
 
     constructor({
         callee,
-        argumentListOpenParen,
-        arguments: _arguments,
-        commaList,
-        argumentListCloseParen,
+        argumentList,
     }: {
         callee: NormalFormExpressionNode;
-        argumentListOpenParen: SyntaxToken;
-        arguments: NormalFormExpressionNode[];
-        commaList: SyntaxToken[];
-        argumentListCloseParen: SyntaxToken;
+        argumentList: TupleExpressionNode;
     }) {
         this.start = callee.start;
-        this.end = argumentListCloseParen.offset;
+        this.end = argumentList.end;
         this.callee = callee;
-        this.argumentListOpenParen = argumentListOpenParen;
-        this.arguments = _arguments;
-        this.commaList = commaList;
-        this.argumentListCloseParen = argumentListCloseParen;
+        this.argumentList = argumentList;
     }
 }
 
