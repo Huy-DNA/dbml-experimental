@@ -80,7 +80,7 @@ export class Parser {
                 }
                 else {
                     const eof = this.peek()!;
-                    this.errors.push(new ParsingError(ParsingErrorCode.INVALID, "Unexpected EOF", eof.offset, eof.offset + 1));
+                    this.errors.push(this.generateTokenError(eof, ParsingErrorCode.INVALID, "Unexpected EOF"));
                 }
             }
         }
@@ -130,7 +130,7 @@ export class Parser {
         
         if (!this.check(SyntaxTokenKind.COLON, SyntaxTokenKind.LBRACE)) {
             const token = this.peek()!;
-            this.errors.push(new ParsingError(ParsingErrorCode.EXPECTED_THINGS, "Expect { or :", token.offset, token.offset + token.length));
+            this.errors.push(this.generateTokenError(token, ParsingErrorCode.EXPECTED_THINGS, "Expect { or :"));
             while (!this.isAtEnd() && !this.check(SyntaxTokenKind.COLON, SyntaxTokenKind.LBRACE)) {
                 this.advance();
             }
@@ -243,7 +243,7 @@ export class Parser {
         
         while (!this.isAtEnd() && !this.hasTrailingNewLines(previousToken)) {
             if (!this.hasTrailingSpaces(previousToken)) {
-                this.errors.push(new ParsingError(ParsingErrorCode.EXPECTED_THINGS, "Expect a following space", previousComponent.start, previousComponent.end));
+                this.errors.push(this.generateNodeError(previousComponent, ParsingErrorCode.EXPECTED_THINGS, "Expect a following space"));
             }
             previousComponent = this.normalFormExpression();
             _arguments.push(previousComponent);
@@ -267,7 +267,7 @@ export class Parser {
             const opPrefixPower = prefix_binding_power(prefixOp);
 
             if (opPrefixPower.right === null) {
-                throw new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected prefix ${prefixOp.value} in an expression`, prefixOp.offset, prefixOp.offset + prefixOp.length + 1);
+                throw this.generateTokenError(prefixOp, ParsingErrorCode.UNEXPECTED_THINGS, `Unexpected prefix ${prefixOp.value} in an expression`);
             }
 
             this.advance();
@@ -345,8 +345,8 @@ export class Parser {
             return this.tupleExpression();
         }
 
-        const nextToken = this.peek()!;
-        throw new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, `Invalid start of operand "${nextToken.value}"`, nextToken.offset, nextToken.offset + nextToken.length);
+        const token = this.peek()!;
+        throw this,this.generateTokenError(token, ParsingErrorCode.UNEXPECTED_THINGS, `Invalid start of operand "${token.value}"`);
     }
 
     private functionExpression(): FunctionExpressionNode {
@@ -397,8 +397,8 @@ export class Parser {
         if (this.match(SyntaxTokenKind.QUOTED_STRING, SyntaxTokenKind.IDENTIFIER)) {
             return new PrimaryExpressionNode({ expression: new VariableNode({ variable: this.previous() })});
         }
-        const c = this.peek()!;
-        throw new ParsingError(ParsingErrorCode.EXPECTED_THINGS, "Expect a variable or literal", c.offset, c.offset + c.length - 1);
+        const token = this.peek()!;
+        throw this.generateTokenError(token, ParsingErrorCode.EXPECTED_THINGS, "Expect a variable or literal");
     } 
 
 
@@ -494,7 +494,7 @@ export class Parser {
 
         if (this.check(SyntaxTokenKind.COLON) || closing && separator && this.check(closing, separator)) {
             const token = this.peek()!;
-            this.errors.push(new ParsingError(ParsingErrorCode.INVALID, "Expect a non-empty attribute name", token.offset, token.offset + token.length));
+            this.errors.push(this.generateTokenError(token, ParsingErrorCode.INVALID, "Expect a non-empty attribute name"));
         }
         
         while (!this.isAtEnd() && !this.check(SyntaxTokenKind.COLON) && (!closing || !separator || !this.check(closing, separator))) {
@@ -519,7 +519,7 @@ export class Parser {
 
         while (!this.isAtEnd() && closing && separator && !this.check(closing, separator)) {
             const invalidToken = this.advance();
-            this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, "Unexpected token", invalidToken.offset, invalidToken.offset + invalidToken.length));
+            throw this.generateTokenError(invalidToken, ParsingErrorCode.UNEXPECTED_THINGS, "Unexpected token");
         }
 
         return new AttributeNode({ name, valueOpenColon, value });
@@ -574,6 +574,14 @@ export class Parser {
 
     private hasTrailingSpaces(token: SyntaxToken): boolean {
         return token.trailingTrivia.find(({ kind }) => kind === SyntaxTokenKind.SPACE) !== undefined;
+    }
+
+    private generateTokenError(token: SyntaxToken, code: ParsingErrorCode, message: string): ParsingError {
+        return new ParsingError(code, message, token.offset, token.offset + token.length);
+    }
+
+    private generateNodeError(node: SyntaxNode, code: ParsingErrorCode, message: string): ParsingError {
+        return new ParsingError(code, message, node.start, node.end);
     }
 }
 
