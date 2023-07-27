@@ -415,7 +415,7 @@ export class Parser {
             value = this.normalFormExpression(false);
         }
 
-        while (closing && separator && !this.check(closing, separator)) {
+        while (!this.isAtEnd() && closing && separator && !this.check(closing, separator)) {
             const invalidToken = this.advance();
             this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, "Unexpected token", invalidToken.offset, invalidToken.offset + invalidToken.length - 1));
         }
