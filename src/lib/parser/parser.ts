@@ -346,7 +346,7 @@ export class Parser {
 
         this.contextStack.pop();
 
-        if (commaList.length === 0) {
+        if (elementList.length === 1) {
             return new GroupExpressionNode({ 
                 groupOpenParen: tupleOpenParen,
                 expression: elementList[0],
@@ -361,6 +361,8 @@ export class Parser {
         const elementList: AttributeNode[] = [];
         const commaList: SyntaxToken[] = [];
         let listCloseBracket: SyntaxToken | undefined = undefined;
+        const separator = SyntaxTokenKind.COMMA;
+        const closing = SyntaxTokenKind.RBRACKET;
 
         this.consume("Expect a [", SyntaxTokenKind.LBRACKET);
         listOpenBracket = this.previous();
@@ -368,13 +370,13 @@ export class Parser {
         this.contextStack.push(ParsingContext.ListExpression);
 
         if (!this.check(SyntaxTokenKind.RBRACKET)) {
-            elementList.push(this.attribute());
+            elementList.push(this.attribute(closing, separator));
         }
 
         while (!this.check(SyntaxTokenKind.RBRACKET)) {
             this.consume("Expect a ,", SyntaxTokenKind.COMMA);
             commaList.push(this.previous());
-            elementList.push(this.attribute());
+            elementList.push(this.attribute(closing, separator));
         }
 
         this.consume("Expect a ]", SyntaxTokenKind.RBRACKET);
@@ -385,20 +387,39 @@ export class Parser {
         return new ListExpressionNode({ listOpenBracket, elementList, commaList, listCloseBracket });
     }
 
-    private attribute(): AttributeNode {
+    private attribute(closing?: SyntaxTokenKind, separator?: SyntaxTokenKind): AttributeNode {
         const name: SyntaxToken[] = [];
         let valueOpenColon: SyntaxToken | undefined = undefined;
         let value: NormalFormExpressionNode | undefined = undefined;
 
-        this.consume("Expect an identifier", SyntaxTokenKind.IDENTIFIER);
-        name.push(this.previous());
-        while (this.match(SyntaxTokenKind.IDENTIFIER)) {
-            name.push(this.previous());
+        if (this.check(SyntaxTokenKind.COLON) || closing && separator && this.check(closing, separator)) {
+            const token = this.peek()!;
+            this.errors.push(new ParsingError(ParsingErrorCode.INVALID, "Expect a non-empty attribute name", token.offset, token.offset + token.length - 1));
         }
+        
+        while (!this.isAtEnd() && !this.check(SyntaxTokenKind.COLON) && (!closing || !separator || !this.check(closing, separator))) {
+            try {
+                this.consume("Expect an identifier", SyntaxTokenKind.IDENTIFIER);
+                name.push(this.previous());
+            }
+            catch (e) {
+                if (e instanceof ParsingError) {
+                    this.errors.push(e);
+                }
+                this.advance();
+            }
+        }
+
         if (this.match(SyntaxTokenKind.COLON)) {
             valueOpenColon = this.previous();
             value = this.normalFormExpression(false);
         }
+
+        while (closing && separator && !this.check(closing, separator)) {
+            const invalidToken = this.advance();
+            this.errors.push(new ParsingError(ParsingErrorCode.UNEXPECTED_THINGS, "Unexpected token", invalidToken.offset, invalidToken.offset + invalidToken.length - 1));
+        }
+
         return new AttributeNode({ name, valueOpenColon, value });
     }
 
