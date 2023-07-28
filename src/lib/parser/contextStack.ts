@@ -109,8 +109,9 @@ export class ParsingContextStack {
       token.kind === SyntaxTokenKind.COMMA &&
       this.numberOfNestedLBrackets <= 0 &&
       this.numberOfNestedLParens <= 0
-    )
+    ) {
       return 0;
+    }
     if (token.kind === SyntaxTokenKind.RBRACKET && this.numberOfNestedLBrackets <= 0) return 0;
     if (token.kind === SyntaxTokenKind.RPAREN && this.numberOfNestedLParens <= 0) return 0;
     if (token.kind === SyntaxTokenKind.RBRACE && this.numberOfNestedLBraces <= 0) return 0;

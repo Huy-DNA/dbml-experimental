@@ -33,6 +33,8 @@ export default class Parser {
 
   private errors: ParsingError[] = [];
 
+  private invalid: (SyntaxToken | SyntaxNode)[] = [];
+
   private contextStack: ParsingContextStack = new ParsingContextStack();
 
   constructor(tokens: SyntaxToken[]) {
@@ -48,6 +50,7 @@ export default class Parser {
   private init() {
     this.current = 0;
     this.errors = [];
+    this.invalid = [];
     this.contextStack = new ParsingContextStack();
   }
 
@@ -95,6 +98,7 @@ export default class Parser {
         invalidToken.offset + invalidToken.length,
         invalidToken,
       );
+      this.invalid.push(invalidToken);
       this.errors.push(error);
       throw error;
     }
@@ -102,7 +106,6 @@ export default class Parser {
 
   parse(): Result<SyntaxNode & { kind: SyntaxNodeKind.PROGRAM }> {
     const body: ElementDeclarationNode[] = [];
-    const invalid: SyntaxToken[] = [];
 
     this.init();
 
@@ -113,11 +116,11 @@ export default class Parser {
         if (!(e instanceof ParsingError)) {
           throw e;
         }
-        this.errors.push(e);
         if (!(this.peek()?.kind === SyntaxTokenKind.EOF)) {
-          invalid.push(this.advance());
+          this.invalid.push(this.advance());
         } else {
           const eof = this.peek()!;
+          this.invalid.push(eof);
           this.errors.push(
             this.generateTokenError(eof, ParsingErrorCode.INVALID, 'Unexpected EOF'),
           );
@@ -126,7 +129,7 @@ export default class Parser {
     }
 
     const eof = this.advance();
-    const program = new ProgramNode({ body, eof, invalid });
+    const program = new ProgramNode({ body, eof, invalid: this.invalid });
 
     return new Result(program, this.errors);
   }
@@ -177,6 +180,7 @@ export default class Parser {
 
     if (!this.check(SyntaxTokenKind.COLON, SyntaxTokenKind.LBRACE)) {
       const token = this.peek()!;
+      this.invalid.push(token);
       this.errors.push(
         this.generateTokenError(token, ParsingErrorCode.EXPECTED_THINGS, 'Expect { or :'),
       );
@@ -213,6 +217,7 @@ export default class Parser {
       ) {
         break;
       }
+      this.invalid.push(token);
       this.advance();
     }
   };
@@ -223,6 +228,7 @@ export default class Parser {
       if (token.kind === SyntaxTokenKind.LBRACE || token.kind === SyntaxTokenKind.COLON) {
         break;
       }
+      this.invalid.push(token);
       this.advance();
     }
   };
@@ -237,6 +243,7 @@ export default class Parser {
       ) {
         break;
       }
+      this.invalid.push(token);
       this.advance();
     }
   };
@@ -274,6 +281,7 @@ export default class Parser {
 
     while (!this.isAtEnd() && !this.hasTrailingNewLines(previousToken)) {
       if (!this.hasTrailingSpaces(previousToken)) {
+        this.invalid.push(previousComponent);
         this.errors.push(
           this.generateNodeError(
             previousComponent,
@@ -309,6 +317,7 @@ export default class Parser {
           ParsingErrorCode.UNEXPECTED_THINGS,
           `Unexpected prefix ${prefixOp.value} in an expression`,
         );
+        this.invalid.push(prefixOp);
         this.errors.push(error);
         throw error;
       }
@@ -414,6 +423,7 @@ export default class Parser {
       ParsingErrorCode.UNEXPECTED_THINGS,
       `Invalid start of operand "${token.value}"`,
     );
+    this.invalid.push(token);
     this.errors.push(error);
     throw error;
   }
@@ -447,9 +457,15 @@ export default class Parser {
   synchronizeBlock = () => {
     while (!this.isAtEnd()) {
       const token = this.peek()!;
-      if (token.kind === SyntaxTokenKind.RBRACE || this.isAtStartOfLine(this.previous(), token)) {
+      if (
+        token.kind === SyntaxTokenKind.RBRACE ||
+        this.isAtStartOfLine(this.previous(), token) ||
+        token.kind === SyntaxTokenKind.RPAREN ||
+        token.kind === SyntaxTokenKind.RBRACKET
+      ) {
         break;
       }
+      this.invalid.push(token);
       this.advance();
     }
   };
@@ -477,6 +493,7 @@ export default class Parser {
       ParsingErrorCode.EXPECTED_THINGS,
       'Expect a variable or literal',
     );
+    this.invalid.push(token);
     this.errors.push(error);
     throw error;
   }
@@ -495,19 +512,13 @@ export default class Parser {
       if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
         elementList.push(this.normalFormExpression());
       }
-      while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
-        this.consume('Expect ,', SyntaxTokenKind.COMMA);
-        commaList.push(this.previous());
-        try {
+      synchronizationPoint(() => {
+        while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
+          this.consume('Expect ,', SyntaxTokenKind.COMMA);
+          commaList.push(this.previous());
           elementList.push(this.normalFormExpression());
-        } catch (e) {
-          if (e instanceof ParsingError) {
-            this.synchronizeTuple();
-          } else {
-            throw e;
-          }
         }
-      }
+      }, this.synchronizeTuple);
 
       synchronizationPoint(
         () => this.consume('Expect )', SyntaxTokenKind.RPAREN),
@@ -538,9 +549,16 @@ export default class Parser {
   synchronizeTuple = () => {
     while (!this.isAtEnd()) {
       const token = this.peek()!;
-      if (token.kind === SyntaxTokenKind.RPAREN || this.isAtStartOfLine(this.previous(), token)) {
+      if (
+        token.kind === SyntaxTokenKind.RPAREN ||
+        this.isAtStartOfLine(this.previous(), token) ||
+        token.kind === SyntaxTokenKind.COMMA ||
+        token.kind === SyntaxTokenKind.RBRACE ||
+        token.kind === SyntaxTokenKind.RBRACKET
+      ) {
         break;
       }
+      this.invalid.push(token);
       this.advance();
     }
   };
@@ -587,9 +605,15 @@ export default class Parser {
   synchronizeList = () => {
     while (!this.isAtEnd()) {
       const token = this.peek()!;
-      if (token.kind === SyntaxTokenKind.COMMA || token.kind === SyntaxTokenKind.RBRACKET) {
+      if (
+        token.kind === SyntaxTokenKind.COMMA ||
+        token.kind === SyntaxTokenKind.RBRACKET ||
+        token.kind === SyntaxTokenKind.RBRACE ||
+        token.kind === SyntaxTokenKind.RPAREN
+      ) {
         break;
       }
+      this.invalid.push(token);
       this.advance();
     }
   };
@@ -604,6 +628,7 @@ export default class Parser {
       (closing && separator && this.check(closing, separator))
     ) {
       const token = this.peek()!;
+      this.invalid.push(token);
       this.errors.push(
         this.generateTokenError(
           token,
@@ -668,6 +693,7 @@ export default class Parser {
       ) {
         break;
       }
+      this.invalid.push(token);
       this.advance();
     }
   };
@@ -678,6 +704,7 @@ export default class Parser {
       if (token.kind === SyntaxTokenKind.COMMA || token.kind === SyntaxTokenKind.RBRACKET) {
         break;
       }
+      this.invalid.push(token);
       this.advance();
     }
   };

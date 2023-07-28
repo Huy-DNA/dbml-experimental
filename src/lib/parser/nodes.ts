@@ -41,7 +41,7 @@ export class ProgramNode implements SyntaxNode {
 
   eof: SyntaxToken;
 
-  invalid: SyntaxToken[];
+  invalid: (SyntaxToken | SyntaxNode)[];
 
   constructor({
     body,
@@ -50,7 +50,7 @@ export class ProgramNode implements SyntaxNode {
   }: {
     body: ElementDeclarationNode[];
     eof: SyntaxToken;
-    invalid?: SyntaxToken[];
+    invalid?: (SyntaxToken | SyntaxNode)[];
   }) {
     this.start = 0;
     this.end = eof.offset;
