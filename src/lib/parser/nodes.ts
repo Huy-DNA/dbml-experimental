@@ -387,13 +387,7 @@ export class FunctionApplicationNode implements SyntaxNode {
 
   args: ExpressionNode[];
 
-  constructor({
-    callee,
-    args,
-  }: {
-    callee: ExpressionNode;
-    args: ExpressionNode[];
-  }) {
+  constructor({ callee, args }: { callee: ExpressionNode; args: ExpressionNode[] }) {
     this.start = callee.start;
     if (args.length === 0) {
       this.end = callee.end;

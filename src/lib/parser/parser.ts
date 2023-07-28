@@ -499,47 +499,50 @@ export default class Parser {
     );
   }
 
-  private tupleExpression(): TupleExpressionNode | GroupExpressionNode {
-    const elementList: NormalFormExpressionNode[] = [];
-    const commaList: SyntaxToken[] = [];
+  private tupleExpression = this.contextStack.withContextDo(
+    ParsingContext.GroupExpression,
+    (): TupleExpressionNode | GroupExpressionNode => {
+      const elementList: NormalFormExpressionNode[] = [];
+      const commaList: SyntaxToken[] = [];
 
-    this.consume('Expect (', SyntaxTokenKind.LPAREN);
-    const tupleOpenParen = this.previous();
+      this.consume('Expect (', SyntaxTokenKind.LPAREN);
+      const tupleOpenParen = this.previous();
 
-    this.contextStack.push(ParsingContext.GroupExpression);
+      this.contextStack.push(ParsingContext.GroupExpression);
 
-    if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
-      elementList.push(this.normalFormExpression());
-    }
-    while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
-      this.consume('Expect ,', SyntaxTokenKind.COMMA);
-      commaList.push(this.previous());
-      try {
+      if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
         elementList.push(this.normalFormExpression());
-      } catch (e) {
-        this.synchronizeTuple(e);
       }
-    }
-    this.consume('Expect )', SyntaxTokenKind.RPAREN);
-    const tupleCloseParen = this.previous();
+      while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
+        this.consume('Expect ,', SyntaxTokenKind.COMMA);
+        commaList.push(this.previous());
+        try {
+          elementList.push(this.normalFormExpression());
+        } catch (e) {
+          this.synchronizeTuple(e);
+        }
+      }
+      this.consume('Expect )', SyntaxTokenKind.RPAREN);
+      const tupleCloseParen = this.previous();
 
-    this.contextStack.pop();
+      this.contextStack.pop();
 
-    if (elementList.length === 1) {
-      return new GroupExpressionNode({
-        groupOpenParen: tupleOpenParen,
-        expression: elementList[0],
-        groupCloseParen: tupleCloseParen,
+      if (elementList.length === 1) {
+        return new GroupExpressionNode({
+          groupOpenParen: tupleOpenParen,
+          expression: elementList[0],
+          groupCloseParen: tupleCloseParen,
+        });
+      }
+
+      return new TupleExpressionNode({
+        tupleOpenParen,
+        elementList,
+        commaList,
+        tupleCloseParen,
       });
-    }
-
-    return new TupleExpressionNode({
-      tupleOpenParen,
-      elementList,
-      commaList,
-      tupleCloseParen,
-    });
-  }
+    },
+  );
 
   synchronizeTuple(e: unknown) {
     if (!(e instanceof ParsingError)) {
@@ -556,39 +559,38 @@ export default class Parser {
     }
   }
 
-  private listExpression(): ListExpressionNode {
-    const elementList: AttributeNode[] = [];
-    const commaList: SyntaxToken[] = [];
-    const separator = SyntaxTokenKind.COMMA;
-    const closing = SyntaxTokenKind.RBRACKET;
+  private listExpression = this.contextStack.withContextDo(
+    ParsingContext.ListExpression,
+    (): ListExpressionNode => {
+      const elementList: AttributeNode[] = [];
+      const commaList: SyntaxToken[] = [];
+      const separator = SyntaxTokenKind.COMMA;
+      const closing = SyntaxTokenKind.RBRACKET;
 
-    this.consume('Expect a [', SyntaxTokenKind.LBRACKET);
-    const listOpenBracket = this.previous();
+      this.consume('Expect a [', SyntaxTokenKind.LBRACKET);
+      const listOpenBracket = this.previous();
 
-    this.contextStack.push(ParsingContext.ListExpression);
+      if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACKET)) {
+        elementList.push(this.attribute(closing, separator));
+      }
 
-    if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACKET)) {
-      elementList.push(this.attribute(closing, separator));
-    }
+      while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACKET)) {
+        this.consume('Expect a ,', SyntaxTokenKind.COMMA);
+        commaList.push(this.previous());
+        elementList.push(this.attribute(closing, separator));
+      }
 
-    while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACKET)) {
-      this.consume('Expect a ,', SyntaxTokenKind.COMMA);
-      commaList.push(this.previous());
-      elementList.push(this.attribute(closing, separator));
-    }
+      this.consume('Expect a ]', SyntaxTokenKind.RBRACKET);
+      const listCloseBracket = this.previous();
 
-    this.consume('Expect a ]', SyntaxTokenKind.RBRACKET);
-    const listCloseBracket = this.previous();
-
-    this.contextStack.pop();
-
-    return new ListExpressionNode({
-      listOpenBracket,
-      elementList,
-      commaList,
-      listCloseBracket,
-    });
-  }
+      return new ListExpressionNode({
+        listOpenBracket,
+        elementList,
+        commaList,
+        listCloseBracket,
+      });
+    },
+  );
 
   private attribute(closing?: SyntaxTokenKind, separator?: SyntaxTokenKind): AttributeNode {
     const name: SyntaxToken[] = [];

@@ -39,4 +39,17 @@ export class ParsingContextStack {
   isWithinListExpressionContext(): boolean {
     return this.numberOfNestedLBrackets > 0;
   }
+
+  withContextDo<T>(context: ParsingContext, callback: () => T): () => T {
+    return () => {
+      this.stack.push(context);
+      try {
+        const res = callback();
+
+        return res;
+      } finally {
+        this.stack.pop();
+      }
+    };
+  }
 }
