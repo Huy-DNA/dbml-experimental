@@ -61,6 +61,9 @@ export class ParsingContextStack {
     if (top === ParsingContext.GroupExpression) {
       --this.numberOfNestedLParens;
     }
+    if (top === ParsingContext.BlockExpression) {
+      --this.numberOfNestedLBraces;
+    }
 
     return top;
   }
