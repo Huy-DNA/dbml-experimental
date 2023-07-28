@@ -93,6 +93,7 @@ export default class Parser {
         message,
         invalidToken.offset,
         invalidToken.offset + invalidToken.length,
+        invalidToken,
       );
     }
   }
@@ -206,7 +207,7 @@ export default class Parser {
     });
   }
 
-  synchronizeElementDeclarationName(e: unknown) {
+  synchronizeElementDeclarationName = (e: unknown) => {
     if (!(e instanceof ParsingError)) {
       throw e;
     }
@@ -223,9 +224,9 @@ export default class Parser {
       }
       this.advance();
     }
-  }
+  };
 
-  synchronizeElementDeclarationAlias(e: unknown) {
+  synchronizeElementDeclarationAlias = (e: unknown) => {
     if (!(e instanceof ParsingError)) {
       throw e;
     }
@@ -238,9 +239,9 @@ export default class Parser {
       }
       this.advance();
     }
-  }
+  };
 
-  synchronizeElementDeclarationBody(e: unknown) {
+  synchronizeElementDeclarationBody = (e: unknown) => {
     if (!(e instanceof ParsingError)) {
       throw e;
     }
@@ -257,7 +258,7 @@ export default class Parser {
       }
       this.advance();
     }
-  }
+  };
 
   private fieldDeclaration(): FieldDeclarationNode {
     this.consume('Expect identifier', SyntaxTokenKind.IDENTIFIER);
@@ -441,25 +442,24 @@ export default class Parser {
     return new FunctionExpressionNode({ value: this.previous() });
   }
 
-  private blockExpression(): BlockExpressionNode {
-    const body: ExpressionNode[] = [];
+  private blockExpression = this.contextStack.withContextDo(
+    ParsingContext.BlockExpression,
+    (synchronizationPoint) => {
+      const body: ExpressionNode[] = [];
 
-    this.consume('Expect {', SyntaxTokenKind.LBRACE);
-    const blockOpenBrace = this.previous();
-    while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACE)) {
-      try {
-        body.push(this.expression());
-      } catch (e) {
-        this.synchronizeBlock(e);
+      this.consume('Expect {', SyntaxTokenKind.LBRACE);
+      const blockOpenBrace = this.previous();
+      while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACE)) {
+        synchronizationPoint(() => body.push(this.expression()), this.synchronizeBlock);
       }
-    }
-    this.consume('Expect }', SyntaxTokenKind.RBRACE);
-    const blockCloseBrace = this.previous();
+      this.consume('Expect }', SyntaxTokenKind.RBRACE);
+      const blockCloseBrace = this.previous();
 
-    return new BlockExpressionNode({ blockOpenBrace, body, blockCloseBrace });
-  }
+      return new BlockExpressionNode({ blockOpenBrace, body, blockCloseBrace });
+    },
+  );
 
-  synchronizeBlock(e: unknown) {
+  synchronizeBlock = (e: unknown) => {
     if (!(e instanceof ParsingError)) {
       throw e;
     }
@@ -472,7 +472,7 @@ export default class Parser {
       }
       this.advance();
     }
-  }
+  };
 
   private primaryExpression(): PrimaryExpressionNode {
     if (
@@ -501,7 +501,7 @@ export default class Parser {
 
   private tupleExpression = this.contextStack.withContextDo(
     ParsingContext.GroupExpression,
-    (): TupleExpressionNode | GroupExpressionNode => {
+    (synchronizationPoint) => {
       const elementList: NormalFormExpressionNode[] = [];
       const commaList: SyntaxToken[] = [];
 
@@ -522,7 +522,12 @@ export default class Parser {
           this.synchronizeTuple(e);
         }
       }
-      this.consume('Expect )', SyntaxTokenKind.RPAREN);
+
+      synchronizationPoint(
+        () => this.consume('Expect )', SyntaxTokenKind.RPAREN),
+        this.synchronizeTuple,
+      );
+
       const tupleCloseParen = this.previous();
 
       this.contextStack.pop();
@@ -544,7 +549,7 @@ export default class Parser {
     },
   );
 
-  synchronizeTuple(e: unknown) {
+  synchronizeTuple = (e: unknown) => {
     if (!(e instanceof ParsingError)) {
       throw e;
     }
@@ -557,11 +562,11 @@ export default class Parser {
       }
       this.advance();
     }
-  }
+  };
 
   private listExpression = this.contextStack.withContextDo(
     ParsingContext.ListExpression,
-    (): ListExpressionNode => {
+    (synchronizationPoint) => {
       const elementList: AttributeNode[] = [];
       const commaList: SyntaxToken[] = [];
       const separator = SyntaxTokenKind.COMMA;
@@ -580,7 +585,10 @@ export default class Parser {
         elementList.push(this.attribute(closing, separator));
       }
 
-      this.consume('Expect a ]', SyntaxTokenKind.RBRACKET);
+      synchronizationPoint(
+        () => this.consume('Expect a ]', SyntaxTokenKind.RBRACKET),
+        this.synchronizeList,
+      );
       const listCloseBracket = this.previous();
 
       return new ListExpressionNode({
@@ -591,6 +599,21 @@ export default class Parser {
       });
     },
   );
+
+  synchronizeList = (e: unknown) => {
+    if (!(e instanceof ParsingError)) {
+      throw e;
+    }
+    this.errors.push(e);
+
+    while (!this.isAtEnd()) {
+      const token = this.peek()!;
+      if (token.kind === SyntaxTokenKind.COMMA || token.kind === SyntaxTokenKind.RBRACKET) {
+        break;
+      }
+      this.advance();
+    }
+  };
 
   private attribute(closing?: SyntaxTokenKind, separator?: SyntaxTokenKind): AttributeNode {
     const name: SyntaxToken[] = [];
@@ -651,7 +674,7 @@ export default class Parser {
     return new AttributeNode({ name, valueOpenColon, value });
   }
 
-  synchronizeAttributeName(e: unknown) {
+  synchronizeAttributeName = (e: unknown) => {
     if (!(e instanceof ParsingError)) {
       throw e;
     }
@@ -668,9 +691,9 @@ export default class Parser {
       }
       this.advance();
     }
-  }
+  };
 
-  synchronizeAttributeValue(e: unknown) {
+  synchronizeAttributeValue = (e: unknown) => {
     if (!(e instanceof ParsingError)) {
       throw e;
     }
@@ -683,7 +706,7 @@ export default class Parser {
       }
       this.advance();
     }
-  }
+  };
 
   private canBeField() {
     return (
@@ -716,7 +739,7 @@ export default class Parser {
     code: ParsingErrorCode,
     message: string,
   ): ParsingError {
-    return new ParsingError(code, message, token.offset, token.offset + token.length);
+    return new ParsingError(code, message, token.offset, token.offset + token.length, token);
   }
 
   private generateNodeError(
@@ -724,7 +747,7 @@ export default class Parser {
     code: ParsingErrorCode,
     message: string,
   ): ParsingError {
-    return new ParsingError(code, message, node.start, node.end);
+    return new ParsingError(code, message, node.start, node.end, node);
   }
 }
 
