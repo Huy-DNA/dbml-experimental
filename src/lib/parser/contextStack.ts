@@ -81,13 +81,13 @@ export class ParsingContextStack {
     callback: (
       synchronizationPoint: (
         mayThrow: () => void,
-        synchronizationCallback: (e: unknown) => void,
+        synchronizationCallback: () => void,
       ) => void,
     ) => T,
   ): () => T {
     return () => {
-      if (context) {
-        this.stack.push(context);
+      if (context !== undefined) {
+        this.push(context);
       }
       try {
         const res = callback(this.synchronizationPoint);
@@ -100,8 +100,8 @@ export class ParsingContextStack {
 
         throw new ContextJumpMessage(e.offset);
       } finally {
-        if (context) {
-          this.stack.pop();
+        if (context !== undefined) {
+          this.pop();
         }
       }
     };
@@ -127,22 +127,26 @@ export class ParsingContextStack {
 
   goToHandlerContext(token: SyntaxToken) {
     const offset = this.findHandlerContextOffset(token);
-
     if (offset === 0) {
       return;
     }
 
-    throw new ContextJumpMessage(offset);
+    throw new ContextJumpMessage(offset + 1);
   }
 
-  synchronizationPoint = (mayThrow: () => void, synchronizationCallback: (e: unknown) => void) => {
+  synchronizationPoint = (mayThrow: () => void, synchronizationCallback: () => void) => {
     try {
       mayThrow();
     } catch (e) {
       if (e instanceof ParsingError && e.value instanceof SyntaxToken) {
         this.goToHandlerContext(e.value);
       }
-      synchronizationCallback(e);
+
+      if (e instanceof ContextJumpMessage && e.offset === 0) {
+        synchronizationCallback();
+      } else {
+        throw e;
+      }
     }
   };
 }
