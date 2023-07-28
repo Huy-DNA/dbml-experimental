@@ -512,13 +512,13 @@ export default class Parser {
       if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
         elementList.push(this.normalFormExpression());
       }
-      synchronizationPoint(() => {
-        while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
+      while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
+        synchronizationPoint(() => {
           this.consume('Expect ,', SyntaxTokenKind.COMMA);
           commaList.push(this.previous());
           elementList.push(this.normalFormExpression());
-        }
-      }, this.synchronizeTuple);
+        }, this.synchronizeTuple);
+      }
 
       synchronizationPoint(
         () => this.consume('Expect )', SyntaxTokenKind.RPAREN),
@@ -579,12 +579,11 @@ export default class Parser {
       }
 
       while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACKET)) {
-        synchronizationPoint(
-          () => this.consume('Expect a ,', SyntaxTokenKind.COMMA),
-          this.synchronizeList,
-        );
-        commaList.push(this.previous());
-        elementList.push(this.attribute(closing, separator));
+        synchronizationPoint(() => {
+          this.consume('Expect a ,', SyntaxTokenKind.COMMA);
+          commaList.push(this.previous());
+          elementList.push(this.attribute(closing, separator));
+        }, this.synchronizeList);
       }
 
       synchronizationPoint(

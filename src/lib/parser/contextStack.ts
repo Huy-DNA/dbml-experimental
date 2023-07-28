@@ -139,9 +139,8 @@ export class ParsingContextStack {
     } catch (e) {
       if (e instanceof ParsingError && e.value instanceof SyntaxToken) {
         this.goToHandlerContext(e.value);
-      }
-
-      if (e instanceof ContextJumpMessage && e.offset === 0) {
+        synchronizationCallback();
+      } else if (e instanceof ContextJumpMessage && e.offset === 0) {
         synchronizationCallback();
       } else {
         throw e;
