@@ -446,7 +446,7 @@ export default class Parser {
 
     this.consume('Expect {', SyntaxTokenKind.LBRACE);
     const blockOpenBrace = this.previous();
-    while (!this.check(SyntaxTokenKind.RBRACE)) {
+    while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACE)) {
       try {
         body.push(this.expression());
       } catch (e) {
@@ -508,10 +508,10 @@ export default class Parser {
 
     this.contextStack.push(ParsingContext.GroupExpression);
 
-    if (!this.check(SyntaxTokenKind.RPAREN)) {
+    if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
       elementList.push(this.normalFormExpression());
     }
-    while (!this.check(SyntaxTokenKind.RPAREN)) {
+    while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
       this.consume('Expect ,', SyntaxTokenKind.COMMA);
       commaList.push(this.previous());
       try {
@@ -567,11 +567,11 @@ export default class Parser {
 
     this.contextStack.push(ParsingContext.ListExpression);
 
-    if (!this.check(SyntaxTokenKind.RBRACKET)) {
+    if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACKET)) {
       elementList.push(this.attribute(closing, separator));
     }
 
-    while (!this.check(SyntaxTokenKind.RBRACKET)) {
+    while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACKET)) {
       this.consume('Expect a ,', SyntaxTokenKind.COMMA);
       commaList.push(this.previous());
       elementList.push(this.attribute(closing, separator));
@@ -631,7 +631,7 @@ export default class Parser {
       }
     }
 
-    if (closing && separator && !this.check(closing, separator)) {
+    if (!this.isAtEnd() && closing && separator && !this.check(closing, separator)) {
       const invalidToken = this.advance();
       this.errors.push(
         this.generateTokenError(
