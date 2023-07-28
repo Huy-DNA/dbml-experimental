@@ -81,7 +81,7 @@ export class ElementDeclarationNode implements SyntaxNode {
 
   bodyOpenBrace?: SyntaxToken;
 
-  body: (FieldDeclarationNode | ExpressionNode)[];
+  body: ExpressionNode | BlockExpressionNode;
 
   bodyCloseBrace?: SyntaxToken;
 
@@ -92,9 +92,7 @@ export class ElementDeclarationNode implements SyntaxNode {
     alias,
     attributeList,
     bodyOpenColon,
-    bodyOpenBrace,
     body,
-    bodyCloseBrace,
   }: {
     type: SyntaxToken;
     name?: NormalFormExpressionNode;
@@ -102,33 +100,17 @@ export class ElementDeclarationNode implements SyntaxNode {
     alias?: NormalFormExpressionNode;
     attributeList?: ListExpressionNode;
     bodyOpenColon?: SyntaxToken;
-    bodyOpenBrace?: SyntaxToken;
-    body: (FieldDeclarationNode | ExpressionNode)[];
-    bodyCloseBrace?: SyntaxToken;
+    body: BlockExpressionNode | ExpressionNode;
   }) {
     this.start = type.offset;
-    if (bodyCloseBrace) {
-      this.end = bodyCloseBrace.offset + 1;
-    } else {
-      if (body.length !== 0) {
-        this.end = body[body.length - 1].end;
-      }
-      const endingToken = bodyOpenColon || attributeList || alias || as || name || type;
-      if (endingToken instanceof SyntaxToken) {
-        this.end = endingToken.offset + 1;
-      } else {
-        this.end = endingToken.end;
-      }
-    }
+    this.end = body.end;
     this.type = type;
     this.name = name;
     this.as = as;
     this.alias = alias;
     this.attributeList = attributeList;
     this.bodyOpenColon = bodyOpenColon;
-    this.bodyOpenBrace = bodyOpenBrace;
     this.body = body;
-    this.bodyCloseBrace = bodyCloseBrace;
   }
 }
 
@@ -408,7 +390,7 @@ export class BlockExpressionNode implements SyntaxNode {
 
   blockOpenBrace: SyntaxToken;
 
-  body: ExpressionNode[];
+  body: (ExpressionNode | FieldDeclarationNode)[];
 
   blockCloseBrace: SyntaxToken;
 
@@ -418,7 +400,7 @@ export class BlockExpressionNode implements SyntaxNode {
     blockCloseBrace,
   }: {
     blockOpenBrace: SyntaxToken;
-    body: ExpressionNode[];
+    body: (ExpressionNode | FieldDeclarationNode)[];
     blockCloseBrace: SyntaxToken;
   }) {
     this.start = blockOpenBrace.offset;

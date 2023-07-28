@@ -162,10 +162,8 @@ export default class Parser {
       attributeList = this.listExpression();
     }
 
-    let body: (ExpressionNode | FieldDeclarationNode)[] = [];
+    let body: ExpressionNode | BlockExpressionNode | undefined;
     let bodyOpenColon: SyntaxToken | undefined;
-    let bodyOpenBrace: SyntaxToken | undefined;
-    let bodyCloseBrace: SyntaxToken | undefined;
 
     if (!this.check(SyntaxTokenKind.COLON, SyntaxTokenKind.LBRACE)) {
       const token = this.peek()!;
@@ -179,19 +177,9 @@ export default class Parser {
 
     if (this.match(SyntaxTokenKind.COLON)) {
       bodyOpenColon = this.previous();
-      body = [this.normalFormExpression()];
+      body = this.normalFormExpression();
     } else {
-      this.consume('Expect { or :', SyntaxTokenKind.LBRACE);
-      bodyOpenBrace = this.previous();
-      while (!this.isAtEnd() && this.peek()!.kind !== SyntaxTokenKind.RBRACE) {
-        if (this.canBeField()) {
-          body.push(this.fieldDeclaration());
-        } else {
-          body.push(this.expression());
-        }
-      }
-      this.consume('Expect }', SyntaxTokenKind.RBRACE);
-      bodyCloseBrace = this.previous();
+      body = this.blockExpression();
     }
 
     return new ElementDeclarationNode({
@@ -201,9 +189,7 @@ export default class Parser {
       alias,
       attributeList,
       bodyOpenColon,
-      bodyOpenBrace,
       body,
-      bodyCloseBrace,
     });
   }
 
@@ -445,11 +431,14 @@ export default class Parser {
   private blockExpression = this.contextStack.withContextDo(
     ParsingContext.BlockExpression,
     (synchronizationPoint) => {
-      const body: ExpressionNode[] = [];
+      const body: (ExpressionNode | FieldDeclarationNode)[] = [];
 
       this.consume('Expect {', SyntaxTokenKind.LBRACE);
       const blockOpenBrace = this.previous();
       while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACE)) {
+        if (this.canBeField()) {
+          body.push(this.fieldDeclaration());
+        }
         synchronizationPoint(() => body.push(this.expression()), this.synchronizeBlock);
       }
       this.consume('Expect }', SyntaxTokenKind.RBRACE);
@@ -643,6 +632,16 @@ export default class Parser {
         this.consume('Expect an identifier', SyntaxTokenKind.IDENTIFIER);
         name.push(this.previous());
       } catch (e) {
+        if (
+          e instanceof ParsingError &&
+          (!(e.value instanceof SyntaxToken) ||
+            (e.value.kind !== SyntaxTokenKind.STRING_LITERAL &&
+              e.value.kind !== SyntaxTokenKind.NUMERIC_LITERAL &&
+              e.value.kind !== SyntaxTokenKind.FUNCTION_EXPRESSION &&
+              e.value.kind !== SyntaxTokenKind.QUOTED_STRING))
+        ) {
+          throw e;
+        }
         this.synchronizeAttributeName(e);
       }
     }
@@ -652,6 +651,16 @@ export default class Parser {
       try {
         value = this.normalFormExpression();
       } catch (e) {
+        if (
+          e instanceof ParsingError &&
+          (!(e.value instanceof SyntaxToken) ||
+            (e.value.kind !== SyntaxTokenKind.STRING_LITERAL &&
+              e.value.kind !== SyntaxTokenKind.NUMERIC_LITERAL &&
+              e.value.kind !== SyntaxTokenKind.FUNCTION_EXPRESSION &&
+              e.value.kind !== SyntaxTokenKind.QUOTED_STRING))
+        ) {
+          throw e;
+        }
         this.synchronizeAttributeValue(e);
       }
     }
