@@ -410,9 +410,9 @@ export default class Parser {
 
     const token = this.peek()!;
     const error = this.generateTokenError(
-        token,
-        ParsingErrorCode.UNEXPECTED_THINGS,
-        `Invalid start of operand "${token.value}"`,
+      token,
+      ParsingErrorCode.UNEXPECTED_THINGS,
+      `Invalid start of operand "${token.value}"`,
     );
     this.errors.push(error);
     throw error;
@@ -625,10 +625,10 @@ export default class Parser {
         if (
           !(e instanceof ParsingError) ||
           !(e.value instanceof SyntaxToken) ||
-            (e.value.kind !== SyntaxTokenKind.STRING_LITERAL &&
-              e.value.kind !== SyntaxTokenKind.NUMERIC_LITERAL &&
-              e.value.kind !== SyntaxTokenKind.FUNCTION_EXPRESSION &&
-              e.value.kind !== SyntaxTokenKind.QUOTED_STRING)
+          (e.value.kind !== SyntaxTokenKind.STRING_LITERAL &&
+            e.value.kind !== SyntaxTokenKind.NUMERIC_LITERAL &&
+            e.value.kind !== SyntaxTokenKind.FUNCTION_EXPRESSION &&
+            e.value.kind !== SyntaxTokenKind.QUOTED_STRING)
         ) {
           throw e;
         }
@@ -644,10 +644,10 @@ export default class Parser {
         if (
           !(e instanceof ParsingError) ||
           !(e.value instanceof SyntaxToken) ||
-            (e.value.kind !== SyntaxTokenKind.STRING_LITERAL &&
-              e.value.kind !== SyntaxTokenKind.NUMERIC_LITERAL &&
-              e.value.kind !== SyntaxTokenKind.FUNCTION_EXPRESSION &&
-              e.value.kind !== SyntaxTokenKind.QUOTED_STRING)
+          (e.value.kind !== SyntaxTokenKind.STRING_LITERAL &&
+            e.value.kind !== SyntaxTokenKind.NUMERIC_LITERAL &&
+            e.value.kind !== SyntaxTokenKind.FUNCTION_EXPRESSION &&
+            e.value.kind !== SyntaxTokenKind.QUOTED_STRING)
         ) {
           throw e;
         }

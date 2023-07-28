@@ -79,10 +79,7 @@ export class ParsingContextStack {
   withContextDo<T>(
     context: ParsingContext | undefined,
     callback: (
-      synchronizationPoint: (
-        mayThrow: () => void,
-        synchronizationCallback: () => void,
-      ) => void,
+      synchronizationPoint: (mayThrow: () => void, synchronizationCallback: () => void) => void,
     ) => T,
   ): () => T {
     return () => {
@@ -112,7 +109,8 @@ export class ParsingContextStack {
       token.kind === SyntaxTokenKind.COMMA &&
       this.numberOfNestedLBrackets <= 0 &&
       this.numberOfNestedLParens <= 0
-    ) return 0;
+    )
+      return 0;
     if (token.kind === SyntaxTokenKind.RBRACKET && this.numberOfNestedLBrackets <= 0) return 0;
     if (token.kind === SyntaxTokenKind.RPAREN && this.numberOfNestedLParens <= 0) return 0;
     if (token.kind === SyntaxTokenKind.RBRACE && this.numberOfNestedLBraces <= 0) return 0;
