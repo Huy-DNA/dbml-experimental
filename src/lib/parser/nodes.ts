@@ -207,7 +207,10 @@ export type NormalFormExpressionNode =
   | FunctionExpressionNode
   | AccessExpressionNode;
 
-export type ExpressionNode = NormalFormExpressionNode | FunctionApplicationNode;
+export type ExpressionNode =
+  | LiteralElementExpressionNode
+  | NormalFormExpressionNode
+  | FunctionApplicationNode;
 
 export class AccessExpressionNode implements SyntaxNode {
   kind: SyntaxNodeKind.ACCESS_EXPRESSION = SyntaxNodeKind.ACCESS_EXPRESSION;
@@ -246,31 +249,26 @@ export class LiteralElementExpressionNode implements SyntaxNode {
 
   end: Readonly<number>;
 
-  type: SyntaxToken;
+  type: ExpressionNode;
 
-  bodyOpenBrace: SyntaxToken;
+  attributeList?: ListExpressionNode;
 
-  body: (FieldDeclarationNode | ExpressionNode)[];
-
-  bodyCloseBrace: SyntaxToken;
+  body: BlockExpressionNode;
 
   constructor({
     type,
-    bodyOpenBrace,
+    attributeList,
     body,
-    bodyCloseBrace,
   }: {
-    type: SyntaxToken;
-    bodyOpenBrace: SyntaxToken;
-    body: (FieldDeclarationNode | ExpressionNode)[];
-    bodyCloseBrace: SyntaxToken;
+    type: ExpressionNode;
+    attributeList?: ListExpressionNode;
+    body: BlockExpressionNode;
   }) {
-    this.start = type.offset;
-    this.end = bodyOpenBrace.offset + 1;
+    this.start = type.start;
+    this.end = body.end;
     this.type = type;
-    this.bodyOpenBrace = bodyOpenBrace;
+    this.attributeList = attributeList;
     this.body = body;
-    this.bodyCloseBrace = bodyCloseBrace;
   }
 }
 

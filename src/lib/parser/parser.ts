@@ -14,6 +14,7 @@ import {
   GroupExpressionNode,
   InfixExpressionNode,
   ListExpressionNode,
+  LiteralElementExpressionNode,
   LiteralNode,
   NormalFormExpressionNode,
   PostfixExpressionNode,
@@ -295,7 +296,31 @@ export default class Parser {
       previousToken = this.previous();
     }
 
-    return new FunctionApplicationNode({ callee, args });
+    const maybeLiteralElement = this.tryInterpretAsLiteralElement(callee, args);
+
+    return maybeLiteralElement || new FunctionApplicationNode({ callee, args });
+  }
+
+  private tryInterpretAsLiteralElement(
+    callee: ExpressionNode,
+    args: ExpressionNode[],
+  ): LiteralElementExpressionNode | undefined {
+    if (
+      args.length === 2 &&
+      args[0] instanceof ListExpressionNode &&
+      args[1] instanceof BlockExpressionNode
+    ) {
+      return new LiteralElementExpressionNode({
+        type: callee,
+        attributeList: args[0],
+        body: args[1],
+      });
+    }
+    if (args.length === 1 && args[0] instanceof BlockExpressionNode) {
+      return new LiteralElementExpressionNode({ type: callee, body: args[0] });
+    }
+
+    return undefined;
   }
 
   private normalFormExpression(): NormalFormExpressionNode {
