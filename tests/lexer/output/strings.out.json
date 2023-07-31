@@ -18,10 +18,10 @@
       ]
     },
     {
-      "kind": "<string>",
-      "offset": 29,
-      "value": "This is a string literal",
-      "length": 26,
+      "kind": "<variable>",
+      "offset": 70,
+      "value": "This is a quoted string \nwith a newline\n",
+      "length": 3,
       "leadingTrivia": [
         {
           "kind": "<newline>",
@@ -35,7 +35,7 @@
       "trailingTrivia": [
         {
           "kind": "<newline>",
-          "offset": 56,
+          "offset": 74,
           "value": "\n",
           "length": 1,
           "leadingTrivia": [],
@@ -45,45 +45,13 @@
     },
     {
       "kind": "<string>",
-      "offset": 136,
-      "value": "This is a multiline string\r\n",
-      "length": 34,
+      "offset": 77,
+      "value": "This is a string literal",
+      "length": 26,
       "leadingTrivia": [
         {
           "kind": "<newline>",
-          "offset": 58,
-          "value": "\n",
-          "length": 1,
-          "leadingTrivia": [],
-          "trailingTrivia": []
-        },
-        {
-          "kind": "<newline>",
-          "offset": 94,
-          "value": "\n",
-          "length": 1,
-          "leadingTrivia": [],
-          "trailingTrivia": []
-        },
-        {
-          "kind": "<newline>",
-          "offset": 96,
-          "value": "\n",
-          "length": 1,
-          "leadingTrivia": [],
-          "trailingTrivia": []
-        },
-        {
-          "kind": "<newline>",
-          "offset": 133,
-          "value": "\n",
-          "length": 1,
-          "leadingTrivia": [],
-          "trailingTrivia": []
-        },
-        {
-          "kind": "<newline>",
-          "offset": 135,
+          "offset": 76,
           "value": "\n",
           "length": 1,
           "leadingTrivia": [],
@@ -93,7 +61,91 @@
       "trailingTrivia": [
         {
           "kind": "<newline>",
-          "offset": 171,
+          "offset": 104,
+          "value": "\n",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        }
+      ]
+    },
+    {
+      "kind": "<string>",
+      "offset": 149,
+      "value": "This is a string literal \nwith a newline\n",
+      "length": 3,
+      "leadingTrivia": [
+        {
+          "kind": "<newline>",
+          "offset": 106,
+          "value": "\n",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        }
+      ],
+      "trailingTrivia": [
+        {
+          "kind": "<newline>",
+          "offset": 153,
+          "value": "\n",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        }
+      ]
+    },
+    {
+      "kind": "<string>",
+      "offset": 233,
+      "value": "This is a multiline string\r\n",
+      "length": 34,
+      "leadingTrivia": [
+        {
+          "kind": "<newline>",
+          "offset": 155,
+          "value": "\n",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        {
+          "kind": "<newline>",
+          "offset": 191,
+          "value": "\n",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        {
+          "kind": "<newline>",
+          "offset": 193,
+          "value": "\n",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        {
+          "kind": "<newline>",
+          "offset": 230,
+          "value": "\n",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        {
+          "kind": "<newline>",
+          "offset": 232,
+          "value": "\n",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        }
+      ],
+      "trailingTrivia": [
+        {
+          "kind": "<newline>",
+          "offset": 268,
           "value": "\n",
           "length": 1,
           "leadingTrivia": [],
@@ -103,12 +155,12 @@
     },
     {
       "kind": "<eof>",
-      "offset": 215,
+      "offset": 312,
       "length": 0,
       "leadingTrivia": [
         {
           "kind": "<newline>",
-          "offset": 173,
+          "offset": 270,
           "value": "\n",
           "length": 1,
           "leadingTrivia": [],
@@ -122,22 +174,22 @@
     {
       "code": 1002,
       "diagnostic": "Unclosed quoted variable",
-      "start": 59,
-      "end": 94,
+      "start": 156,
+      "end": 191,
       "name": "ParsingError"
     },
     {
       "code": 1002,
       "diagnostic": "Unclosed single-line string literal",
-      "start": 97,
-      "end": 133,
+      "start": 194,
+      "end": 230,
       "name": "ParsingError"
     },
     {
       "code": 1002,
       "diagnostic": "Unclosed multiline string literal",
-      "start": 174,
-      "end": 215,
+      "start": 271,
+      "end": 312,
       "name": "ParsingError"
     }
   ]
