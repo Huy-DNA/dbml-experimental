@@ -10,9 +10,9 @@ export default class Lexer {
 
   private text: string;
 
-  private tokens: SyntaxToken[] = [];
+  private tokens: SyntaxToken[] = []; // list of lexed tokens, not including invalid tokens
 
-  private errors: ParsingError[] = [];
+  private errors: ParsingError[] = []; // list of errors during lexing
 
   constructor(text: string) {
     this.text = text;
