@@ -469,8 +469,9 @@ export default class Parser {
       while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACE)) {
         if (this.canBeField()) {
           body.push(this.fieldDeclaration());
+        } else {
+          synchronizationPoint(() => body.push(this.expression()), this.synchronizeBlock);
         }
-        synchronizationPoint(() => body.push(this.expression()), this.synchronizeBlock);
       }
       this.consume('Expect }', SyntaxTokenKind.RBRACE);
       const blockCloseBrace = this.previous();
