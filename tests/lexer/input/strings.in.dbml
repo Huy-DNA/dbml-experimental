@@ -1,0 +1,12 @@
+"This is a quoted string"
+
+'This is a string literal'
+
+"This is an unclosed quoted string
+
+'This is an unclosed string literal
+
+'''This is a multiline string
+'''
+
+'''This is an unclosed multiline string
