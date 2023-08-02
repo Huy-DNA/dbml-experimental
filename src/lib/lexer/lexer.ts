@@ -61,6 +61,14 @@ export default class Lexer {
 
   lex(): Result<SyntaxToken[]> {
     this.init();
+    this.scanTokens();
+    this.tokens.push(SyntaxToken.create(SyntaxTokenKind.EOF, this.start, 0));
+    this.gatherTrivia();
+
+    return new Result(this.tokens, this.errors);
+  }
+
+  scanTokens() {
     while (!this.isAtEnd()) {
       const c: string = this.peek()!;
       switch (c) {
@@ -166,10 +174,6 @@ export default class Lexer {
       }
       this.start = this.current;
     }
-    this.tokens.push(SyntaxToken.create(SyntaxTokenKind.EOF, this.start, 0));
-    this.gatherTrivia();
-
-    return new Result(this.tokens, this.errors);
   }
 
   gatherTrivia() {
