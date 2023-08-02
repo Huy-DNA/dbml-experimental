@@ -482,13 +482,18 @@ export default class Parser {
   );
 
   synchronizeBlock = () => {
+    // This check is necessary to avoid the violating token being at the end of the line
+    // ex: `** 1 + 2` -> The following loop would terminate without consuming the invalid token.
+    if (this.peek()?.kind === SyntaxTokenKind.RBRACE) {
+      return;
+    } else {
+      this.advance();
+    }
     while (!this.isAtEnd()) {
       const token = this.peek()!;
       if (
         token.kind === SyntaxTokenKind.RBRACE ||
-        this.isAtStartOfLine(this.previous(), token) ||
-        token.kind === SyntaxTokenKind.RPAREN ||
-        token.kind === SyntaxTokenKind.RBRACKET
+        this.isAtStartOfLine(this.previous(), token)
       ) {
         break;
       }
@@ -579,9 +584,7 @@ export default class Parser {
       if (
         token.kind === SyntaxTokenKind.RPAREN ||
         this.isAtStartOfLine(this.previous(), token) ||
-        token.kind === SyntaxTokenKind.COMMA ||
-        token.kind === SyntaxTokenKind.RBRACE ||
-        token.kind === SyntaxTokenKind.RBRACKET
+        token.kind === SyntaxTokenKind.COMMA
       ) {
         break;
       }
@@ -633,9 +636,7 @@ export default class Parser {
       const token = this.peek()!;
       if (
         token.kind === SyntaxTokenKind.COMMA ||
-        token.kind === SyntaxTokenKind.RBRACKET ||
-        token.kind === SyntaxTokenKind.RBRACE ||
-        token.kind === SyntaxTokenKind.RPAREN
+        token.kind === SyntaxTokenKind.RBRACKET
       ) {
         break;
       }
