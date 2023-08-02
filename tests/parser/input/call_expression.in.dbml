@@ -1,0 +1,4 @@
+Test CallExpression {
+    1 + 2 ()()
+    3 f.c() * 5
+}

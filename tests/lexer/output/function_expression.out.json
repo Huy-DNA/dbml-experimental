@@ -109,7 +109,7 @@
       ]
     },
     {
-      "kind": "<asterisk>",
+      "kind": "<OP>",
       "offset": 28,
       "value": "*",
       "length": 1,
