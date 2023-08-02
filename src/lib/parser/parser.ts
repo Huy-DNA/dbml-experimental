@@ -332,7 +332,7 @@ export default class Parser {
   private expression_bp(mbp: number): NormalFormExpressionNode {
     let leftExpression: NormalFormExpressionNode | undefined;
 
-    if (isOpToken(this.peek()) && this.peek()!.kind !== SyntaxTokenKind.LPAREN) {
+    if (isOpToken(this.peek())) {
       const prefixOp = this.peek()!;
       const opPrefixPower = prefixBindingPower(prefixOp);
 
@@ -355,52 +355,53 @@ export default class Parser {
     }
 
     while (!this.isAtEnd()) {
-      const c = this.peek()!;
-      if (!isOpToken(c)) {
-        break;
-      } else {
-        const previousOp = this.previous();
-        const op = c;
-        const opPostfixPower = postfixBindingPower(op);
+      const token = this.peek()!;
 
-        if (opPostfixPower.left !== null) {
-          if (opPostfixPower.left <= mbp) {
-            break;
-          }
-
-          if (op.kind === SyntaxTokenKind.LPAREN) {
-            if (
-              this.isAtStartOfLine(previousOp, op) &&
-              !this.contextStack.isWithinGroupExpressionContext() &&
-              !this.contextStack.isWithinGroupExpressionContext()
-            ) {
-              break;
-            }
-            const argumentList = this.tupleExpression();
-            leftExpression = new CallExpressionNode({
-              callee: leftExpression,
-              argumentList,
-            });
-            continue;
-          }
-
-          this.advance();
-
-          leftExpression = new PostfixExpressionNode({ expression: leftExpression!, op });
-        } else {
-          const opInfixPower = infixBindingPower(op);
-          if (opInfixPower.left === null || opInfixPower.left <= mbp) {
-            break;
-          }
-
-          this.advance();
-          const rightExpression = this.expression_bp(opInfixPower.right);
-          leftExpression = new InfixExpressionNode({
-            leftExpression: leftExpression!,
-            op,
-            rightExpression,
-          });
+      if (token.kind === SyntaxTokenKind.LPAREN) {
+        const { left } = postfixBindingPower(token);
+        if (left as number < mbp) {
+          break;
         }
+        if (
+          this.isAtStartOfLine(this.previous(), token) &&
+          !this.contextStack.isWithinGroupExpressionContext() &&
+          !this.contextStack.isWithinListExpressionContext()
+        ) {
+          break;
+        }
+        const argumentList = this.tupleExpression();
+        leftExpression = new CallExpressionNode({
+          callee: leftExpression,
+          argumentList,
+        });
+        continue;
+      }
+
+      if (!isOpToken(token)) {
+        break;
+      }
+
+      const op = token;
+      const opPostfixPower = postfixBindingPower(op);
+
+      if (opPostfixPower.left !== null) {
+        if (opPostfixPower.left <= mbp) {
+          break;
+        }
+        this.advance();
+        leftExpression = new PostfixExpressionNode({ expression: leftExpression!, op });
+      } else {
+        const opInfixPower = infixBindingPower(op);
+        if (opInfixPower.left === null || opInfixPower.left <= mbp) {
+          break;
+        }
+        this.advance();
+        const rightExpression = this.expression_bp(opInfixPower.right);
+        leftExpression = new InfixExpressionNode({
+          leftExpression: leftExpression!,
+          op,
+          rightExpression,
+        });
       }
     }
 
@@ -780,25 +781,25 @@ export default class Parser {
 const infixBindingPowerMap: {
   [index: string]: { left: number; right: number } | undefined;
 } = {
-  [SyntaxTokenKind.CROSS]: { left: 9, right: 10 },
-  [SyntaxTokenKind.ASTERISK]: { left: 11, right: 12 },
-  [SyntaxTokenKind.MINUS]: { left: 9, right: 10 },
-  [SyntaxTokenKind.FORWARDSLASH]: { left: 11, right: 12 },
-  [SyntaxTokenKind.PERCENT]: { left: 11, right: 12 },
-  [SyntaxTokenKind.LT]: { left: 7, right: 8 },
-  [SyntaxTokenKind.LE]: { left: 7, right: 8 },
-  [SyntaxTokenKind.GT]: { left: 7, right: 8 },
-  [SyntaxTokenKind.GE]: { left: 7, right: 8 },
-  [SyntaxTokenKind.EQUAL]: { left: 2, right: 3 },
-  [SyntaxTokenKind.DOUBLE_EQUAL]: { left: 4, right: 5 },
-  [SyntaxTokenKind.NOT_EQUAL]: { left: 4, right: 5 },
-  [SyntaxTokenKind.DOT]: { left: 16, right: 17 },
+  '+': { left: 9, right: 10 },
+  '*': { left: 11, right: 12 },
+  '-': { left: 9, right: 10 },
+  '/': { left: 11, right: 12 },
+  '%': { left: 11, right: 12 },
+  '<': { left: 7, right: 8 },
+  '<=': { left: 7, right: 8 },
+  '>': { left: 7, right: 8 },
+  '>=': { left: 7, right: 8 },
+  '=': { left: 2, right: 3 },
+  '==': { left: 4, right: 5 },
+  '!=': { left: 4, right: 5 },
+  '.': { left: 16, right: 17 },
 };
 
 function infixBindingPower(
   token: SyntaxToken,
 ): { left: null; right: null } | { left: number; right: number } {
-  const power = infixBindingPowerMap[token.kind];
+  const power = infixBindingPowerMap[token.value as string];
 
   return power || { left: null, right: null };
 }
@@ -806,15 +807,15 @@ function infixBindingPower(
 const prefixBindingPowerMap: {
   [index: string]: { left: null; right: number } | undefined;
 } = {
-  [SyntaxTokenKind.CROSS]: { left: null, right: 15 },
-  [SyntaxTokenKind.MINUS]: { left: null, right: 15 },
-  [SyntaxTokenKind.LT]: { left: null, right: 15 },
-  [SyntaxTokenKind.GT]: { left: null, right: 15 },
-  [SyntaxTokenKind.EXCLAMATION]: { left: null, right: 15 },
+  '+': { left: null, right: 15 },
+  '-': { left: null, right: 15 },
+  '<': { left: null, right: 15 },
+  '>': { left: null, right: 15 },
+  '!': { left: null, right: 15 },
 };
 
 function prefixBindingPower(token: SyntaxToken): { left: null; right: null | number } {
-  const power = prefixBindingPowerMap[token.kind];
+  const power = prefixBindingPowerMap[token.value as string];
 
   return power || { left: null, right: null };
 }
@@ -822,11 +823,11 @@ function prefixBindingPower(token: SyntaxToken): { left: null; right: null | num
 const postfixBindingPowerMap: {
   [index: string]: { left: number; right: null } | undefined;
 } = {
-  [SyntaxTokenKind.LPAREN]: { left: 14, right: null },
+  '(': { left: 14, right: null },
 };
 
 function postfixBindingPower(token: SyntaxToken): { left: null | number; right: null } {
-  const power = postfixBindingPowerMap[token.kind];
+  const power = postfixBindingPowerMap[token.value as string];
 
   return power || { left: null, right: null };
 }
