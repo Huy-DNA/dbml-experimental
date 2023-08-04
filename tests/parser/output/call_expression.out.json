@@ -83,7 +83,7 @@
                 "start": 49,
                 "end": 51,
                 "op": {
-                  "kind": "<OP>",
+                  "kind": "<op>",
                   "offset": 49,
                   "value": "-",
                   "length": 1,
@@ -184,7 +184,7 @@
                 "start": 59,
                 "end": 62,
                 "op": {
-                  "kind": "<OP>",
+                  "kind": "<op>",
                   "offset": 60,
                   "value": ".",
                   "length": 1,
@@ -315,7 +315,7 @@
     },
     "invalid": [
       {
-        "kind": "<OP>",
+        "kind": "<op>",
         "offset": 29,
         "value": "**",
         "length": 2,
@@ -349,7 +349,7 @@
         ]
       },
       {
-        "kind": "<OP>",
+        "kind": "<op>",
         "offset": 34,
         "value": "+",
         "length": 1,
@@ -441,7 +441,7 @@
       "start": 29,
       "end": 31,
       "value": {
-        "kind": "<OP>",
+        "kind": "<op>",
         "offset": 29,
         "value": "**",
         "length": 2,
