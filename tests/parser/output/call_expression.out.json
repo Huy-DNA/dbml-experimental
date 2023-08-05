@@ -315,23 +315,6 @@
     },
     "invalid": [
       {
-        "kind": "<op>",
-        "offset": 29,
-        "value": "**",
-        "length": 2,
-        "leadingTrivia": [],
-        "trailingTrivia": [
-          {
-            "kind": "<space>",
-            "offset": 31,
-            "value": " ",
-            "length": 1,
-            "leadingTrivia": [],
-            "trailingTrivia": []
-          }
-        ]
-      },
-      {
         "kind": "<number>",
         "offset": 32,
         "value": "2",

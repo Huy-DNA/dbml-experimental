@@ -3831,47 +3831,6 @@
     },
     "invalid": [
       {
-        "kind": "<op>",
-        "offset": 23,
-        "value": "**",
-        "length": 2,
-        "leadingTrivia": [
-          {
-            "kind": "<space>",
-            "offset": 19,
-            "value": " ",
-            "length": 1,
-            "leadingTrivia": [],
-            "trailingTrivia": []
-          },
-          {
-            "kind": "<space>",
-            "offset": 20,
-            "value": " ",
-            "length": 1,
-            "leadingTrivia": [],
-            "trailingTrivia": []
-          },
-          {
-            "kind": "<space>",
-            "offset": 21,
-            "value": " ",
-            "length": 1,
-            "leadingTrivia": [],
-            "trailingTrivia": []
-          },
-          {
-            "kind": "<space>",
-            "offset": 22,
-            "value": " ",
-            "length": 1,
-            "leadingTrivia": [],
-            "trailingTrivia": []
-          }
-        ],
-        "trailingTrivia": []
-      },
-      {
         "kind": "<identifier>",
         "offset": 25,
         "value": "b",
