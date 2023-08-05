@@ -344,6 +344,10 @@ export default class Parser {
           break;
         }
         if (
+          // When '(' is encountered,
+          // consider it part of another expression if
+          // it's at the start of a new line
+          // and we're currently not having unmatched '(' or '['
           this.isAtStartOfLine(this.previous(), token) &&
           !this.contextStack.isWithinGroupExpressionContext() &&
           !this.contextStack.isWithinListExpressionContext()
