@@ -542,7 +542,10 @@ export default class Parser {
       const tupleOpenParen = this.previous();
 
       if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
-        elementList.push(this.normalFormExpression());
+        synchronizationPoint(
+          () => elementList.push(this.normalFormExpression()),
+          this.synchronizeTuple,
+        );
       }
       while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
         synchronizationPoint(() => {
@@ -581,7 +584,6 @@ export default class Parser {
       const token = this.peek();
       if (
         token.kind === SyntaxTokenKind.RPAREN ||
-        this.isAtStartOfLine(this.previous(), token) ||
         token.kind === SyntaxTokenKind.COMMA
       ) {
         break;
