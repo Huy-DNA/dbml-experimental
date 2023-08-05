@@ -1,6 +1,6 @@
 import Lexer from './lib/lexer/lexer';
 import Parser from './lib/parser/parser';
-import Result from './lib/result';
+import Result from './lib/report';
 import { ParsingError } from './lib/errors';
 
 export {
