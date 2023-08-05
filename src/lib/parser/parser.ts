@@ -52,7 +52,6 @@ export default class Parser {
     this.current = 0;
     this.errors = [];
     this.invalid = [];
-    this.contextStack = new ParsingContextStack();
     if (this.tokens[this.tokens.length - 1].kind !== SyntaxTokenKind.EOF) {
       throw new Error('Expected EOF at the end of token stream');
     }
