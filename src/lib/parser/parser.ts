@@ -184,7 +184,7 @@ export default class Parser {
           this.logError(
             attributeList,
             ParsingErrorCode.UNEXPECTED_THINGS,
-            'Attribute list should follow the element value',
+            'This attribute list should follow the element value',
           );
         }
         // Recheck for attribute list anyways
