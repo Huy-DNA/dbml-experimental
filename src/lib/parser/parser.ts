@@ -850,7 +850,7 @@ const infixBindingPowerMap: {
 function infixBindingPower(
   token: SyntaxToken,
 ): { left: null; right: null } | { left: number; right: number } {
-  const power = infixBindingPowerMap[token.value as string];
+  const power = infixBindingPowerMap[token.value];
 
   return power || { left: null, right: null };
 }
@@ -867,7 +867,7 @@ const prefixBindingPowerMap: {
 };
 
 function prefixBindingPower(token: SyntaxToken): { left: null; right: null | number } {
-  const power = prefixBindingPowerMap[token.value as string];
+  const power = prefixBindingPowerMap[token.value];
 
   return power || { left: null, right: null };
 }
@@ -879,7 +879,7 @@ const postfixBindingPowerMap: {
 };
 
 function postfixBindingPower(token: SyntaxToken): { left: null | number; right: null } {
-  const power = postfixBindingPowerMap[token.value as string];
+  const power = postfixBindingPowerMap[token.value];
 
   return power || { left: null, right: null };
 }
