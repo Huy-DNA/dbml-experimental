@@ -21,7 +21,7 @@ export function destructureMemberAccessExpression(node: SyntaxNode): Option<Synt
   }
 
   const fragments = destructureMemberAccessExpression(node.container).unwrap_or(undefined)!;
-  fragments.push(node);
+  fragments.push(node.containee);
 
   return new Some(fragments);
 }
