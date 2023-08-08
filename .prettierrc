@@ -6,5 +6,6 @@
   "endOfLine": "lf",
   "useTabs": false,
   "singleAttributePerLine": true,
-  "bracketSpacing": true
+  "bracketSpacing": true,
+  "bracketSameLine": true
 }

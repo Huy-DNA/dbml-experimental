@@ -38,6 +38,12 @@
     "@typescript-eslint/no-shadow": "error",
     "import/extensions": "off",
     "import/prefer-default-export": "warn",
-    "@typescript-eslint/no-explicit-any": "warn"
+    "@typescript-eslint/no-explicit-any": "warn",
+    "no-useless-constructor": "off",
+    "@typescript-eslint/no-useless-constructor": "off",
+    "no-dupe-class-members": "off",
+    "@typescript-eslint/no-dupe-class-members": "error",
+    "implicit-arrow-linebreak": "off",
+    "array-callback-return": "off"
   }
 }
