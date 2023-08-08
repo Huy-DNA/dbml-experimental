@@ -1,7 +1,18 @@
 import { SyntaxToken, SyntaxTokenKind } from './lexer/tokens';
 import {
- ExpressionNode, LiteralNode, PrimaryExpressionNode, VariableNode,
+  ExpressionNode,
+  InfixExpressionNode,
+  LiteralNode,
+  PrimaryExpressionNode,
+  SyntaxNode,
+  VariableNode,
 } from './parser/nodes';
+
+export function isAccessExpression(
+  node: SyntaxNode,
+): node is InfixExpressionNode & { op: SyntaxToken & { value: '.' } } {
+  return node instanceof InfixExpressionNode && node.op.value === '.';
+}
 
 export function isAlphaOrUnderscore(char: string): boolean {
   const [c] = char;

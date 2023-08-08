@@ -1,7 +1,6 @@
 import { Some } from '../../../option';
 import { SyntaxToken, SyntaxTokenKind } from '../../../lexer/tokens';
 import {
-  AccessExpressionNode,
   AttributeNode,
   CallExpressionNode,
   FunctionExpressionNode,
@@ -65,7 +64,7 @@ export function isValidDefaultValue(value?: SyntaxNode | SyntaxToken[]): boolean
     return true;
   }
 
-  if (!(value instanceof AccessExpressionNode)) {
+  if (!(value instanceof InfixExpressionNode && value)) {
     return false;
   }
 

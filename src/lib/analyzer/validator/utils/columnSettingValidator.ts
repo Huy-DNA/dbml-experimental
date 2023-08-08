@@ -1,11 +1,6 @@
-import { isQuotedStringNode } from '../../../utils';
+import { isAccessExpression, isQuotedStringNode } from '../../../utils';
 import { SyntaxToken } from '../../../lexer/tokens';
-import {
-  AccessExpressionNode,
-  CallExpressionNode,
-  PrimaryExpressionNode,
-  SyntaxNode,
-} from '../../../parser/nodes';
+import { CallExpressionNode, PrimaryExpressionNode, SyntaxNode } from '../../../parser/nodes';
 import { destructureComplexVariable } from '../../utils';
 import { isUnaryRelationship, isValidDefaultValue, isVoid } from './helpers';
 
@@ -13,7 +8,7 @@ export function isValidColumnType(type: SyntaxNode): boolean {
   if (
     !(
       type instanceof CallExpressionNode ||
-      type instanceof AccessExpressionNode ||
+      isAccessExpression(type) ||
       type instanceof PrimaryExpressionNode
     )
   ) {

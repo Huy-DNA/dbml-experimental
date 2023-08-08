@@ -1,7 +1,6 @@
-import { isQuotedStringNode } from '../utils';
+import { isAccessExpression, isQuotedStringNode } from '../utils';
 import { None, Option, Some } from '../option';
 import {
-  AccessExpressionNode,
   LiteralNode,
   PrimaryExpressionNode,
   SyntaxNode,
@@ -16,12 +15,17 @@ export function destructureMemberAccessExpression(node: SyntaxNode): Option<Synt
     return new Some([node]);
   }
 
-  if (!(node instanceof AccessExpressionNode)) {
+  if (!isAccessExpression(node)) {
     return new None();
   }
 
-  const fragments = destructureMemberAccessExpression(node.container).unwrap_or(undefined)!;
-  fragments.push(node.containee);
+  const fragments = destructureMemberAccessExpression(node.leftExpression).unwrap_or(undefined);
+
+  if (!fragments) {
+    return new None();
+  }
+
+  fragments.push(node.rightExpression);
 
   return new Some(fragments);
 }
