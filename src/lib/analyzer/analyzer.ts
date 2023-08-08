@@ -2,7 +2,7 @@ import Binder from './binder';
 import Validator from './validator/validator';
 import { ProgramNode } from '../parser/nodes';
 import Report from '../report';
-import { ParsingError } from '../errors';
+import { CompileError } from '../errors';
 import { EntryMap, SchemaSymbolTable, createSchemaEntry } from './symbol';
 import { SchemaSymbol } from './symbol/symbols';
 
@@ -28,7 +28,7 @@ export default class Analyzer {
     this.symbolTable.set(new SchemaSymbol('public'), publicSchema);
   }
 
-  analyze(): Report<ProgramNode, ParsingError> {
+  analyze(): Report<ProgramNode, CompileError> {
     return this.validator.tryRegister(this.ast);
   }
 }

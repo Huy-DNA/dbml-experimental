@@ -13,7 +13,7 @@ import {
   VariableNode,
 } from '../../parser/nodes';
 import Report from '../../report';
-import { ParsingError, ParsingErrorCode } from '../../errors';
+import { CompileError, CompileErrorCode } from '../../errors';
 import { SyntaxToken } from '../../lexer/tokens';
 import { isValidColor, joinTokenStrings } from './utils/helpers';
 import {
@@ -73,7 +73,7 @@ export default class Validator {
 
   private contextStack: ContextStack = new ContextStack();
 
-  private errors: ParsingError[] = [];
+  private errors: CompileError[] = [];
 
   private projectFound: boolean = false;
 
@@ -82,7 +82,7 @@ export default class Validator {
     this.symbolTable = symbolTable;
   }
 
-  tryRegister(ast: ProgramNode): Report<ProgramNode, ParsingError> {
+  tryRegister(ast: ProgramNode): Report<ProgramNode, CompileError> {
     this.program(ast);
 
     return new Report(ast, this.errors);
@@ -94,14 +94,14 @@ export default class Validator {
       if (node instanceof ElementDeclarationNode) {
         this.elementDeclaration(node);
       } else {
-        this.logError(node, ParsingErrorCode.INVALID, 'Expect an element declaration at top level');
+        this.logError(node, CompileErrorCode.INVALID, 'Expect an element declaration at top level');
       }
     }
   }
 
   private elementDeclaration(node: ElementDeclarationNode) {
     if (typeof node.type.value !== 'string') {
-      this.logError(node, ParsingErrorCode.INVALID, 'Expect an element type to be a string');
+      this.logError(node, CompileErrorCode.INVALID, 'Expect an element type to be a string');
 
       return;
     }
@@ -146,7 +146,7 @@ export default class Validator {
       if (node.body instanceof BlockExpressionNode) {
         this.logError(
           node.body,
-          ParsingErrorCode.INVALID,
+          CompileErrorCode.INVALID,
           "A custom element's should only have a simple body",
         );
 
@@ -156,7 +156,7 @@ export default class Validator {
       if (!(node.body instanceof PrimaryExpressionNode)) {
         this.logError(
           node.body,
-          ParsingErrorCode.INVALID,
+          CompileErrorCode.INVALID,
           "Only literals are allowed in a custom element's body",
         );
       }
@@ -179,7 +179,7 @@ export default class Validator {
           const schemaST = this.registerSchemaStack(node, variables);
 
           if (schemaST.has(enumSymbol)) {
-            this.logError(node.name!, ParsingErrorCode.INVALID, 'Duplicated Enum name');
+            this.logError(node.name!, CompileErrorCode.INVALID, 'Duplicated Enum name');
           }
 
           const enumEntry = createEnumEntry(this.nodeMap, node, new EnumSymbolTable());
@@ -210,7 +210,7 @@ export default class Validator {
     ) {
       this.logError(
         subElement,
-        ParsingErrorCode.INVALID,
+        CompileErrorCode.INVALID,
         'An enum field must be a single identifier, a quoted string optionally followed by a note',
       );
 
@@ -230,7 +230,7 @@ export default class Validator {
       if (subElement.args.length >= 2) {
         this.logError(
           subElement.args[1],
-          ParsingErrorCode.INVALID,
+          CompileErrorCode.INVALID,
           'There can be at most a single enum field with a setting list',
         );
       }
@@ -241,7 +241,7 @@ export default class Validator {
     if (!(subElement.expression instanceof VariableNode)) {
       this.logError(
         subElement,
-        ParsingErrorCode.INVALID,
+        CompileErrorCode.INVALID,
         'The enum field should be an identifier or a double-quoted string',
       );
 
@@ -250,7 +250,7 @@ export default class Validator {
 
     const enumFieldSymbol = new EnumElementSymbol(subElement.expression.variable.value);
     if (enumST.has(enumFieldSymbol)) {
-      this.logError(subElement, ParsingErrorCode.INVALID, 'Duplicated enum field');
+      this.logError(subElement, CompileErrorCode.INVALID, 'Duplicated enum field');
 
       return;
     }
@@ -285,7 +285,7 @@ export default class Validator {
       if (subElement.args.length >= 2) {
         this.logError(
           subElement,
-          ParsingErrorCode.INVALID,
+          CompileErrorCode.INVALID,
           'There should be at most an index and a setting',
         );
       }
@@ -303,13 +303,13 @@ export default class Validator {
 
     if (subElement instanceof TupleExpressionNode || isAccessExpression(subElement)) {
       if (!destructureIndex(subElement).unwrap_or(undefined)) {
-        this.logError(subElement, ParsingErrorCode.INVALID, 'Invalid index');
+        this.logError(subElement, CompileErrorCode.INVALID, 'Invalid index');
       }
 
       return;
     }
 
-    this.logError(subElement, ParsingErrorCode.INVALID, 'Invalid index');
+    this.logError(subElement, CompileErrorCode.INVALID, 'Invalid index');
   }
 
   private noteElement = this.contextStack.withContextDo(
@@ -325,7 +325,7 @@ export default class Validator {
         if (node.body.body.length >= 2) {
           this.logError(
             node.body,
-            ParsingErrorCode.INVALID,
+            CompileErrorCode.INVALID,
             "There should be a single string inside Note's body",
           );
 
@@ -335,7 +335,7 @@ export default class Validator {
         if (!isQuotedStringNode(content)) {
           this.logError(
             node.body,
-            ParsingErrorCode.INVALID,
+            CompileErrorCode.INVALID,
             "A Note's body should only be a string",
           );
         }
@@ -344,7 +344,7 @@ export default class Validator {
         if (!isQuotedStringNode(content)) {
           this.logError(
             node.body,
-            ParsingErrorCode.INVALID,
+            CompileErrorCode.INVALID,
             'A Notes body should only be a string',
           );
         }
@@ -386,7 +386,7 @@ export default class Validator {
       !(element instanceof FunctionApplicationNode) &&
       !(element instanceof InfixExpressionNode)
     ) {
-      this.logError(element, ParsingErrorCode.INVALID, 'Invalid expression in a ref element');
+      this.logError(element, CompileErrorCode.INVALID, 'Invalid expression in a ref element');
 
       return;
     }
@@ -403,7 +403,7 @@ export default class Validator {
       if (element.args.length >= 2) {
         this.logError(
           element.args[1],
-          ParsingErrorCode.INVALID,
+          CompileErrorCode.INVALID,
           'There can be at most a relationship expresion and a setting',
         );
       }
@@ -416,7 +416,7 @@ export default class Validator {
       this.checkContext(node, 'Project');
 
       if (this.projectFound) {
-        this.logError(node.type, ParsingErrorCode.INVALID, 'A project has already been defined');
+        this.logError(node.type, CompileErrorCode.INVALID, 'A project has already been defined');
       }
       this.projectFound = true;
 
@@ -436,7 +436,7 @@ export default class Validator {
 
   private projectSubElement(subelement: SyntaxNode) {
     if (!(subelement instanceof ElementDeclarationNode)) {
-      this.logError(subelement, ParsingErrorCode.INVALID, 'Invalid expression in a Project');
+      this.logError(subelement, CompileErrorCode.INVALID, 'Invalid expression in a Project');
 
       return;
     }
@@ -503,7 +503,7 @@ export default class Validator {
     } else {
       this.logError(
         subElement,
-        ParsingErrorCode.UNEXPECTED_THINGS,
+        CompileErrorCode.UNEXPECTED_THINGS,
         "Unexpected field or expression in a Table's body",
       );
     }
@@ -517,7 +517,7 @@ export default class Validator {
     if (!columnName) {
       this.logError(
         callee,
-        ParsingErrorCode.INVALID,
+        CompileErrorCode.INVALID,
         'A column name must be a valid variable (an identifier or a double-quoted string)',
       );
 
@@ -527,7 +527,7 @@ export default class Validator {
     if (args.length > 2 || args.length <= 0) {
       this.logError(
         node,
-        ParsingErrorCode.INVALID,
+        CompileErrorCode.INVALID,
         'Invalid column definition, at most a column name, type and setting can be present',
       );
 
@@ -536,18 +536,18 @@ export default class Validator {
 
     const columnEntry = this.registerColumn(node, new ColumnSymbol(columnName), tableST);
     if (!columnEntry) {
-      this.logError(callee, ParsingErrorCode.INVALID, 'Duplicated column name');
+      this.logError(callee, CompileErrorCode.INVALID, 'Duplicated column name');
     }
 
     const type = args[0];
     if (!isValidColumnType(type)) {
-      this.logError(type, ParsingErrorCode.INVALID, 'Invalid column type');
+      this.logError(type, CompileErrorCode.INVALID, 'Invalid column type');
     }
 
     if (args.length === 2) {
       const settingList = args[1];
       if (!(settingList instanceof ListExpressionNode)) {
-        this.logError(settingList, ParsingErrorCode.INVALID, 'Expect a list of settings');
+        this.logError(settingList, CompileErrorCode.INVALID, 'Expect a list of settings');
       } else {
         this.settingList(settingList, getColumnSettingValueValidator, allowDuplicateColumnSetting);
       }
@@ -570,7 +570,7 @@ export default class Validator {
           const schemaST = this.registerSchemaStack(node, variables);
 
           if (schemaST.has(tableGroupSymbol)) {
-            this.logError(node.name!, ParsingErrorCode.INVALID, 'Duplicated TableGroup name');
+            this.logError(node.name!, CompileErrorCode.INVALID, 'Duplicated TableGroup name');
           }
 
           const tableGroupEntry = createTableGroupEntry(this.nodeMap, node);
@@ -612,7 +612,7 @@ export default class Validator {
         if (presentSettings.has(joinedName)) {
           this.logError(
             setting,
-            ParsingErrorCode.INVALID,
+            CompileErrorCode.INVALID,
             'This setting is not supposed to be duplicated',
           );
           continue;
@@ -623,11 +623,11 @@ export default class Validator {
 
       const settingValueValidator = getSettingValueValidator(joinedName);
       if (!settingValueValidator) {
-        this.logError(setting, ParsingErrorCode.INVALID, 'Unknown setting');
+        this.logError(setting, CompileErrorCode.INVALID, 'Unknown setting');
         continue;
       }
       if (!settingValueValidator(value)) {
-        this.logError(setting, ParsingErrorCode.INVALID, 'Invalid setting value');
+        this.logError(setting, CompileErrorCode.INVALID, 'Invalid setting value');
       }
     }
   }
@@ -639,7 +639,7 @@ export default class Validator {
     elemName: string,
   ): Option<null> {
     if (!(node instanceof cls)) {
-      this.logError(node, ParsingErrorCode.INVALID, `Expect ${elemName} to be a ${clsName}`);
+      this.logError(node, CompileErrorCode.INVALID, `Expect ${elemName} to be a ${clsName}`);
 
       return new None();
     }
@@ -652,7 +652,7 @@ export default class Validator {
     if (!res) {
       this.logError(
         node.type,
-        ParsingErrorCode.INVALID,
+        CompileErrorCode.INVALID,
         `"${elemName}" can not appear in this context`,
       );
 
@@ -666,7 +666,7 @@ export default class Validator {
     if (node.attributeList) {
       this.logError(
         node.attributeList,
-        ParsingErrorCode.INVALID,
+        CompileErrorCode.INVALID,
         `${elemName} isn't expected to have settings`,
       );
 
@@ -680,7 +680,7 @@ export default class Validator {
     if (node.name === undefined) {
       this.logError(
         node.type,
-        ParsingErrorCode.EXPECTED_THINGS,
+        CompileErrorCode.EXPECTED_THINGS,
         `Expect a name for this ${elemName}`,
       );
 
@@ -700,7 +700,7 @@ export default class Validator {
 
     const variables = destructureComplexVariable(nameNode).unwrap_or(undefined);
     if (!variables) {
-      this.logError(nameNode, ParsingErrorCode.INVALID, `Invalid ${elemName} name`);
+      this.logError(nameNode, CompileErrorCode.INVALID, `Invalid ${elemName} name`);
 
       return new None();
     }
@@ -712,7 +712,7 @@ export default class Validator {
     if (!node.as && node.alias) {
       this.logError(
         node.alias,
-        ParsingErrorCode.EXPECTED_THINGS,
+        CompileErrorCode.EXPECTED_THINGS,
         'Expect the "as" keyword when an alias is present',
       );
     }
@@ -723,7 +723,7 @@ export default class Validator {
       if (!variable) {
         this.logError(
           node.alias,
-          ParsingErrorCode.INVALID,
+          CompileErrorCode.INVALID,
           'Expect the alias to be a quoted string or an identifer',
         );
 
@@ -740,7 +740,7 @@ export default class Validator {
     if (node.name) {
       this.logError(
         node.name,
-        ParsingErrorCode.UNEXPECTED_THINGS,
+        CompileErrorCode.UNEXPECTED_THINGS,
         `A ${elemName} shouldn't have a name`,
       );
 
@@ -754,7 +754,7 @@ export default class Validator {
     if (node.as || node.alias) {
       this.logError(
         node.as || (node.alias as SyntaxNode | SyntaxToken),
-        ParsingErrorCode.UNEXPECTED_THINGS,
+        CompileErrorCode.UNEXPECTED_THINGS,
         `A ${elemName} shouldn't have an alias`,
       );
 
@@ -771,7 +771,7 @@ export default class Validator {
     tableEntry?: TableEntry,
   ): TableEntry | undefined {
     if (schemaSymbolTable.has(tableSymbol)) {
-      this.logError(declarationNode.name!, ParsingErrorCode.INVALID, 'Duplicated Table name');
+      this.logError(declarationNode.name!, CompileErrorCode.INVALID, 'Duplicated Table name');
 
       return undefined;
     }
@@ -815,10 +815,10 @@ export default class Validator {
     return schemaST;
   }
 
-  private logError(node: SyntaxNode | SyntaxToken, code: ParsingErrorCode, message: string) {
+  private logError(node: SyntaxNode | SyntaxToken, code: CompileErrorCode, message: string) {
     // eslint-disable-next-line no-unused-expressions
     node instanceof SyntaxToken
-      ? this.errors.push(new ParsingError(code, message, node.offset, node.offset + node.length))
-      : this.errors.push(new ParsingError(code, message, node.start, node.end));
+      ? this.errors.push(new CompileError(code, message, node.offset, node.offset + node.length))
+      : this.errors.push(new CompileError(code, message, node.start, node.end));
   }
 }
