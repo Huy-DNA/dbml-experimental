@@ -1,11 +1,12 @@
+import { isQuotedStringNode } from '../../../utils';
 import { SyntaxToken } from '../../../lexer/tokens';
 import { SyntaxNode } from '../../../parser/nodes';
-import { isQuotedStringToken, isValidColor } from './helpers';
+import { isValidColor } from './helpers';
 
 const tableSettingValueValidator: {
   [index: string]: (value?: SyntaxNode | SyntaxToken[]) => boolean;
 } = {
-  note: isQuotedStringToken,
+  note: isQuotedStringNode,
   headercolor: isValidColor,
 };
 export function getTableSettingValueValidator(

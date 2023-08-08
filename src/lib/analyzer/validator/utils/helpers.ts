@@ -14,7 +14,7 @@ import {
   VariableNode,
 } from '../../../parser/nodes';
 import { destructureComplexVariable, isRelationshipOp } from '../../utils';
-import { isHexChar } from '../../../utils';
+import { isHexChar, isQuotedStringNode } from '../../../utils';
 
 export function joinTokenStrings(tokens: SyntaxToken[]): string {
   return tokens.map((token) => token.value).join(' ');
@@ -88,18 +88,8 @@ export function isUnaryRelationship(value?: SyntaxNode | SyntaxToken[]): boolean
   return variables !== undefined && variables.length > 0;
 }
 
-export function isQuotedStringToken(value?: SyntaxNode | SyntaxToken[]): boolean {
-  return (
-    value instanceof PrimaryExpressionNode &&
-    ((value.expression instanceof VariableNode &&
-      value.expression.variable.kind === SyntaxTokenKind.QUOTED_STRING) ||
-      (value.expression instanceof LiteralNode &&
-        value.expression.literal.kind === SyntaxTokenKind.STRING_LITERAL))
-  );
-}
-
 export function extractQuotedStringToken(value?: SyntaxNode): string | undefined {
-  if (!isQuotedStringToken(value)) {
+  if (!isQuotedStringNode(value)) {
     return undefined;
   }
 

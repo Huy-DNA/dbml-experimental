@@ -1,3 +1,4 @@
+import { isQuotedStringNode } from '../../../utils';
 import { SyntaxToken } from '../../../lexer/tokens';
 import {
   AccessExpressionNode,
@@ -6,9 +7,7 @@ import {
   SyntaxNode,
 } from '../../../parser/nodes';
 import { destructureComplexVariable } from '../../utils';
-import {
- isQuotedStringToken, isUnaryRelationship, isValidDefaultValue, isVoid,
-} from './helpers';
+import { isUnaryRelationship, isValidDefaultValue, isVoid } from './helpers';
 
 export function isValidColumnType(type: SyntaxNode): boolean {
   if (
@@ -41,7 +40,7 @@ export function allowDuplicateColumnSetting(settingName: string): boolean {
 const columnSettingValueValidator: {
   [index: string]: (value?: SyntaxNode | SyntaxToken[]) => boolean;
 } = {
-  note: isQuotedStringToken,
+  note: isQuotedStringNode,
   ref: isUnaryRelationship,
   'primary key': isVoid,
   default: isValidDefaultValue,

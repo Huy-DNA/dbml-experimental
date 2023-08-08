@@ -1,12 +1,13 @@
+import { isQuotedStringNode } from '../../../utils';
 import { SyntaxToken } from '../../../lexer/tokens';
 import { PrimaryExpressionNode, SyntaxNode, VariableNode } from '../../../parser/nodes';
-import { isQuotedStringToken, isVoid } from './helpers';
+import { isVoid } from './helpers';
 
 const indexesSettingValueValidator: {
   [index: string]: (value?: SyntaxNode | SyntaxToken[]) => boolean;
 } = {
-  note: isQuotedStringToken,
-  name: isQuotedStringToken,
+  note: isQuotedStringNode,
+  name: isQuotedStringNode,
   type: isValidIndexesType,
   unique: isVoid,
   pk: isVoid,

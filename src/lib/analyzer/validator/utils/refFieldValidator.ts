@@ -1,6 +1,7 @@
+import { isQuotedStringNode } from '../../../utils';
 import { SyntaxToken } from '../../../lexer/tokens';
-import { PrimaryExpressionNode, SyntaxNode } from '../../../parser/nodes';
-import { extractQuotedStringToken, isQuotedStringToken, joinTokenStrings } from './helpers';
+import { SyntaxNode } from '../../../parser/nodes';
+import { extractQuotedStringToken, joinTokenStrings } from './helpers';
 
 const refSettingValueValidator: {
   [index: string]: (value?: SyntaxNode | SyntaxToken[]) => boolean;
@@ -20,7 +21,7 @@ export function allowDuplicateRefSetting(settingName: string): boolean {
 }
 
 function isValidPolicy(value?: SyntaxNode | SyntaxToken[]): boolean {
-  if (!Array.isArray(value) && !isQuotedStringToken(value)) {
+  if (!Array.isArray(value) && !isQuotedStringNode(value)) {
     return false;
   }
 

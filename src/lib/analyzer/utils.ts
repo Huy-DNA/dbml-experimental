@@ -1,12 +1,15 @@
+import { isQuotedStringNode } from '../utils';
 import { None, Option, Some } from '../option';
 import {
   AccessExpressionNode,
+  LiteralNode,
   PrimaryExpressionNode,
   SyntaxNode,
   SyntaxNodeKind,
   TupleExpressionNode,
+  VariableNode,
 } from '../parser/nodes';
-import { extractQuotedStringToken, isQuotedStringToken } from './validator/utils/helpers';
+import { extractQuotedStringToken } from './validator/utils/helpers';
 
 export function destructureMemberAccessExpression(node: SyntaxNode): Option<SyntaxNode[]> {
   if (node instanceof PrimaryExpressionNode || node instanceof TupleExpressionNode) {
@@ -65,18 +68,18 @@ export function destructureIndex(node: SyntaxNode): Option<{ table: string[]; co
 
   const column = fragments.pop()!;
 
-  if (!fragments.every(isQuotedStringToken)) {
+  if (!fragments.every(isQuotedStringNode)) {
     return new None();
   }
 
-  if (isQuotedStringToken(column)) {
+  if (isQuotedStringNode(column)) {
     return new Some({
       table: fragments.map(extractQuotedStringToken) as string[],
       column: [extractQuotedStringToken(column) as string],
     });
   }
 
-  if (column instanceof TupleExpressionNode && column.elementList.every(isQuotedStringToken)) {
+  if (column instanceof TupleExpressionNode && column.elementList.every(isQuotedStringNode)) {
     return new Some({
       table: fragments.map(extractQuotedStringToken) as string[],
       column: column.elementList.map(extractQuotedStringToken) as string[],

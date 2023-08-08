@@ -1,3 +1,4 @@
+import { isQuotedStringNode } from '../../utils';
 import { ContextStack, ValidatorContext, canBeNestedWithin } from './validatorContext';
 import {
   AccessExpressionNode,
@@ -10,31 +11,44 @@ import {
   ProgramNode,
   SyntaxNode,
   TupleExpressionNode,
+  VariableNode,
 } from '../../parser/nodes';
 import Report from '../../report';
 import { ParsingError, ParsingErrorCode } from '../../errors';
 import { SyntaxToken } from '../../lexer/tokens';
-import { isQuotedStringToken, joinTokenStrings } from './utils/helpers';
+import { joinTokenStrings } from './utils/helpers';
 import {
   EntryMap,
   SchemaSymbolTable,
   TableSymbolTable,
   createColumnEntry,
+  createEnumElementEntry,
+  createEnumEntry,
   createSchemaEntry,
   createTableEntry,
+  createTableGroupEntry,
 } from '../symbol';
 import {
   ColumnSymbol,
+  EnumElementSymbol,
   EnumSymbol,
   SchemaSymbol,
   TableGroupSymbol,
   TableSymbol,
 } from '../symbol/symbols';
 import {
- ColumnEntry, EnumEntry, TableEntry, TableGroupEntry,
+  ColumnEntry,
+  EnumEntry,
+  EnumSymbolTable,
+  TableEntry,
+  TableGroupEntry,
 } from '../symbol/symbolTable';
 import { destructureComplexVariable, destructureIndex, extractVariable } from '../utils';
 import { None, Option, Some } from '../../option';
+import {
+  getEnumFieldSettingValueValidator,
+  allowDuplicateEnumFieldSetting,
+} from './utils/enumFieldSettingValidator';
 import {
   allowDuplicateColumnSetting,
   getColumnSettingValueValidator,
@@ -94,6 +108,9 @@ export default class Validator {
     }
 
     switch (node.type.value.toLowerCase()) {
+      case 'enum':
+        this.enumElement(node);
+        break;
       case 'table':
         this.tableElement(node);
         break;
@@ -146,6 +163,100 @@ export default class Validator {
       }
     },
   );
+
+  private enumElement = this.contextStack.withContextDo(
+    ValidatorContext.EnumContext,
+    (node: ElementDeclarationNode) => {
+      const enumST = this.checkContext(node, 'Enum')
+        .and_then(() => this.checkElementNameExistence(node, 'Enum'))
+        .and_then(() => this.checkComplexVariableName(node.name, 'Enum'))
+        .map((variables) => {
+          const enumName = variables.pop();
+          if (!enumName) {
+            throw new Error('Unexpected empty Enum name');
+          }
+          const enumSymbol = new TableGroupSymbol(enumName);
+
+          const schemaST = this.registerSchemaStack(node, variables);
+
+          if (schemaST.has(enumSymbol)) {
+            this.logError(node.name!, ParsingErrorCode.INVALID, 'Duplicated Enum name');
+          }
+
+          const enumEntry = createEnumEntry(this.nodeMap, node, new EnumSymbolTable());
+          schemaST.set(enumSymbol, enumEntry);
+
+          return enumEntry.symbolTable;
+        })
+        .unwrap_or(undefined);
+
+      if (!enumST) {
+        return;
+      }
+
+      this.checkNoAlias(node, 'Enum');
+      this.checkNoSettings(node, 'Enum');
+      this.checkInstanceOf(node.body, BlockExpressionNode, 'block', "Enum's body").map(() =>
+        (node.body as BlockExpressionNode).body.forEach((element) =>
+          this.enumSubElement(element, enumST)));
+    },
+  );
+
+  private enumSubElement(subElement: SyntaxNode, enumST: EnumSymbolTable) {
+    if (
+      !(subElement instanceof PrimaryExpressionNode) &&
+      !(subElement instanceof FunctionApplicationNode)
+    ) {
+      this.logError(
+        subElement,
+        ParsingErrorCode.INVALID,
+        'An enum field must be a single identifier, a quoted string optionally followed by a note',
+      );
+
+      return;
+    }
+
+    if (subElement instanceof FunctionApplicationNode) {
+      this.enumSubElement(subElement.callee, enumST);
+      this.checkInstanceOf(subElement.args[0], ListExpressionNode, 'block', 'setting list').map(
+        () =>
+          this.settingList(
+            subElement.args[0] as ListExpressionNode,
+            getEnumFieldSettingValueValidator,
+            allowDuplicateEnumFieldSetting,
+          ),
+      );
+      if (subElement.args.length >= 2) {
+        this.logError(
+          subElement.args[1],
+          ParsingErrorCode.INVALID,
+          'There can be at most a single enum field with a setting list',
+        );
+      }
+
+      return;
+    }
+
+    if (!(subElement.expression instanceof VariableNode)) {
+      this.logError(
+        subElement,
+        ParsingErrorCode.INVALID,
+        'The enum field should be an identifier or a double-quoted string',
+      );
+
+      return;
+    }
+
+    const enumFieldSymbol = new EnumElementSymbol(subElement.expression.variable.value);
+    if (enumST.has(enumFieldSymbol)) {
+      this.logError(subElement, ParsingErrorCode.INVALID, 'Duplicated enum field');
+
+      return;
+    }
+
+    const enumFieldEntry = createEnumElementEntry(this.nodeMap, subElement);
+    enumST.set(enumFieldSymbol, enumFieldEntry);
+  }
 
   private indexesElement = this.contextStack.withContextDo(
     ValidatorContext.IndexesContext,
@@ -217,7 +328,7 @@ export default class Validator {
           return;
         }
         const [content] = node.body.body;
-        if (!isQuotedStringToken(content)) {
+        if (!isQuotedStringNode(content)) {
           this.logError(
             node.body,
             ParsingErrorCode.INVALID,
@@ -226,7 +337,7 @@ export default class Validator {
         }
       } else {
         const content = node.body;
-        if (!isQuotedStringToken(content)) {
+        if (!isQuotedStringNode(content)) {
           this.logError(
             node.body,
             ParsingErrorCode.INVALID,
@@ -439,12 +550,20 @@ export default class Validator {
         .and_then(() => this.checkElementNameExistence(node, 'TableGroup'))
         .and_then(() => this.checkComplexVariableName(node.name, 'TableGroup'))
         .map((variables) => {
-          const res = this.registerSchemaStack(node, variables);
-          if (!res) {
-            this.logError(node.name!, ParsingErrorCode.INVALID, 'Duplicated Table name');
+          const tableGroupName = variables.pop();
+          if (!tableGroupName) {
+            throw new Error('Unexpected empty TableGroup name');
+          }
+          const tableGroupSymbol = new TableGroupSymbol(tableGroupName);
+
+          const schemaST = this.registerSchemaStack(node, variables);
+
+          if (schemaST.has(tableGroupSymbol)) {
+            this.logError(node.name!, ParsingErrorCode.INVALID, 'Duplicated TableGroup name');
           }
 
-          return res;
+          const tableGroupEntry = createTableGroupEntry(this.nodeMap, node);
+          schemaST.set(tableGroupSymbol, tableGroupEntry);
         });
 
       this.checkNoAlias(node, 'TableGroup');
