@@ -1,4 +1,7 @@
-import { SyntaxToken } from './lexer/tokens';
+import { SyntaxToken, SyntaxTokenKind } from './lexer/tokens';
+import {
+ ExpressionNode, LiteralNode, PrimaryExpressionNode, VariableNode,
+} from './parser/nodes';
 
 export function isAlphaOrUnderscore(char: string): boolean {
   const [c] = char;
@@ -25,4 +28,30 @@ export function isAlphaNumeric(char: string): boolean {
 
 export function findEnd(token: SyntaxToken): number {
   return token.offset + token.length;
+}
+
+export function extractIdentifierFromNode(value?: unknown): SyntaxToken | undefined {
+  if (isIdentifierNode(value)) {
+    return ((value as PrimaryExpressionNode).expression as VariableNode).variable;
+  }
+
+  return undefined;
+}
+
+export function isQuotedStringNode(value?: unknown): boolean {
+  return (
+    value instanceof PrimaryExpressionNode &&
+    ((value.expression instanceof VariableNode &&
+      value.expression.variable.kind === SyntaxTokenKind.QUOTED_STRING) ||
+      (value.expression instanceof LiteralNode &&
+        value.expression.literal.kind === SyntaxTokenKind.STRING_LITERAL))
+  );
+}
+
+export function isIdentifierNode(value?: unknown): boolean {
+  return (
+    value instanceof PrimaryExpressionNode &&
+    value.expression instanceof VariableNode &&
+    value.expression.variable.kind === SyntaxTokenKind.IDENTIFIER
+  );
 }
