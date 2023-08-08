@@ -175,7 +175,7 @@ export default class Validator {
           if (!enumName) {
             throw new Error('Unexpected empty Enum name');
           }
-          const enumSymbol = new TableGroupSymbol(enumName);
+          const enumSymbol = new EnumSymbol(enumName);
 
           const schemaST = this.registerSchemaStack(node, variables);
 
