@@ -1,4 +1,4 @@
-import { extractIdentifierFromNode, isIdentifierNode } from 'lib/utils';
+import { extractIdentifierFromNode, isIdentifierNode } from '../utils';
 import { ParsingError, ParsingErrorCode } from '../errors';
 import { SyntaxToken, SyntaxTokenKind, isOpToken } from '../lexer/tokens';
 import Report from '../report';
