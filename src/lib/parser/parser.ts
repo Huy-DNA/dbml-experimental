@@ -97,7 +97,7 @@ export default class Parser {
     }
   }
 
-  parse(): Report<SyntaxNode & { kind: SyntaxNodeKind.PROGRAM }, ParsingError> {
+  parse(): Report<ProgramNode, ParsingError> {
     const body: ElementDeclarationNode[] = [];
 
     this.init();
@@ -345,16 +345,16 @@ export default class Parser {
       name = maybeAlias;
     }
 
-    return cpArgs.length === 0 ?
-      new ElementDeclarationNode({
+    return cpArgs.length === 0
+      ? new ElementDeclarationNode({
           type,
           name,
           as,
           alias,
           attributeList,
           body,
-        }) :
-      undefined;
+        })
+      : undefined;
   }
 
   private normalFormExpression(): NormalFormExpressionNode {
@@ -824,9 +824,9 @@ export default class Parser {
     message: string,
   ): never {
     const e =
-      tokenOrNode instanceof SyntaxToken ?
-        this.generateTokenError(tokenOrNode, code, message) :
-        this.generateNodeError(tokenOrNode, code, message);
+      tokenOrNode instanceof SyntaxToken
+        ? this.generateTokenError(tokenOrNode, code, message)
+        : this.generateNodeError(tokenOrNode, code, message);
     this.errors.push(e);
     throw e;
   }

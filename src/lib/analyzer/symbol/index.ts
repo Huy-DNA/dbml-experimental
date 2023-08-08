@@ -71,6 +71,4 @@ export function createTableGroupEntry(
   return tableGroupEntry;
 }
 
-export {
- SymbolTable, EntryMap, EnumSymbolTable, TableSymbolTable, SchemaSymbolTable,
-};
+export { SymbolTable, EntryMap, EnumSymbolTable, TableSymbolTable, SchemaSymbolTable };

@@ -24,7 +24,7 @@ export function isValidColor(value?: SyntaxNode | SyntaxToken[]): boolean {
   if (
     !(value instanceof PrimaryExpressionNode) ||
     !(value.expression instanceof LiteralNode) ||
-    !(value.expression.literal.kind !== SyntaxTokenKind.COLOR_LITERAL)
+    !(value.expression.literal.kind === SyntaxTokenKind.COLOR_LITERAL)
   ) {
     return false;
   }
@@ -115,7 +115,8 @@ export function isBinaryRelationship(value?: SyntaxNode | SyntaxToken[]): boolea
   }
 
   const isOk = destructureComplexVariable(value.leftExpression).and_then(() =>
-    destructureComplexVariable(value.rightExpression));
+    destructureComplexVariable(value.rightExpression),
+  );
 
   return isOk instanceof Some;
 }
