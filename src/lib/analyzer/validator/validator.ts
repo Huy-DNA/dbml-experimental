@@ -198,9 +198,7 @@ export default class Validator {
       this.checkNoSettings(node, 'Enum');
       this.checkInstanceOf(node.body, BlockExpressionNode, 'block', "Enum's body").map(() =>
         (node.body as BlockExpressionNode).body.forEach((element) =>
-          this.enumSubElement(element, enumST),
-        ),
-      );
+          this.enumSubElement(element, enumST)));
     },
   );
 
@@ -271,9 +269,7 @@ export default class Validator {
 
       this.checkInstanceOf(node.body, BlockExpressionNode, 'block', 'Indexes').map(() =>
         (node.body as BlockExpressionNode).body.forEach((element) =>
-          this.indexesSubElement(element),
-        ),
-      );
+          this.indexesSubElement(element)));
     },
   );
 
@@ -296,8 +292,7 @@ export default class Validator {
           subElement.args[0] as ListExpressionNode,
           getIndexesSettingValueValidator,
           allowDuplicateIndexesSetting,
-        ),
-      );
+        ));
 
       return;
     }
@@ -399,8 +394,7 @@ export default class Validator {
           element.args[0] as ListExpressionNode,
           getRefFieldSettingValueValidator,
           allowDuplicateRefSetting,
-        ),
-      );
+        ));
       if (element.args.length >= 2) {
         this.logError(
           element.args[1],
@@ -429,9 +423,7 @@ export default class Validator {
 
       this.checkInstanceOf(node.body, BlockExpressionNode, 'block', 'Project').map(() =>
         (node.body as BlockExpressionNode).body.forEach((element) =>
-          this.projectSubElement(element),
-        ),
-      );
+          this.projectSubElement(element)));
     },
   );
 
@@ -462,8 +454,7 @@ export default class Validator {
           return { schemaSymbolTable, tableSymbol };
         })
         .map(({ schemaSymbolTable, tableSymbol }) =>
-          this.registerTable(node, tableSymbol, schemaSymbolTable),
-        )
+          this.registerTable(node, tableSymbol, schemaSymbolTable))
         .unwrap_or(undefined);
 
       if (!tableEntry) {
@@ -485,14 +476,11 @@ export default class Validator {
             node.attributeList as ListExpressionNode,
             getTableSettingValueValidator,
             allowDuplicateTableSetting,
-          ),
-        );
+          ));
       }
       this.checkInstanceOf(node.body, BlockExpressionNode, 'block', "Table's body").map(() =>
         (node.body as BlockExpressionNode).body.forEach((e) =>
-          this.tableSubElement(tableEntry.symbolTable, e),
-        ),
-      );
+          this.tableSubElement(tableEntry.symbolTable, e)));
     },
   );
 
@@ -582,9 +570,7 @@ export default class Validator {
       this.checkNoSettings(node, 'TableGroup');
       this.checkInstanceOf(node.body, BlockExpressionNode, 'block', "TableGroup's body").map(() =>
         (node.body as BlockExpressionNode).body.forEach((element) =>
-          this.tableGroupSubElement(element),
-        ),
-      );
+          this.tableGroupSubElement(element)));
     },
   );
 
@@ -818,8 +804,8 @@ export default class Validator {
 
   private logError(node: SyntaxNode | SyntaxToken, code: ParsingErrorCode, message: string) {
     // eslint-disable-next-line no-unused-expressions
-    node instanceof SyntaxToken
-      ? this.errors.push(new ParsingError(code, message, node.offset, node.offset + node.length))
-      : this.errors.push(new ParsingError(code, message, node.start, node.end));
+    node instanceof SyntaxToken ?
+      this.errors.push(new ParsingError(code, message, node.offset, node.offset + node.length)) :
+      this.errors.push(new ParsingError(code, message, node.start, node.end));
   }
 }

@@ -149,9 +149,9 @@ export class AttributeNode implements SyntaxNode {
       this.end = this.value.end;
     } else {
       this.end =
-        this.value.length === 0
-          ? findEnd(this.valueOpenColon)
-          : findEnd(this.value[this.value.length - 1]);
+        this.value.length === 0 ?
+          findEnd(this.valueOpenColon) :
+          findEnd(this.value[this.value.length - 1]);
     }
   }
 }

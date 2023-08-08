@@ -115,8 +115,7 @@ export function isBinaryRelationship(value?: SyntaxNode | SyntaxToken[]): boolea
   }
 
   const isOk = destructureComplexVariable(value.leftExpression).and_then(() =>
-    destructureComplexVariable(value.rightExpression),
-  );
+    destructureComplexVariable(value.rightExpression));
 
   return isOk instanceof Some;
 }
