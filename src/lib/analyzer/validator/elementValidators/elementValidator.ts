@@ -452,7 +452,7 @@ export default abstract class ElementValidator {
     if (!hasError) {
       for (let i = 0; i < args.length; ++i) {
         const res = this.nonSettingsArgsValidators[i].validateArg(args[i]);
-        if (res) {
+        if (!res) {
           this.logError(
             args[i],
             this.nonSettingsArgsValidators[i].errorCode,
