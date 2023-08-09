@@ -12,12 +12,6 @@ import { extractIdentifierFromNode } from '../../../utils';
 import { SchemaSymbolTable, SymbolTableEntry } from '../../symbol/symbolTable';
 import { destructureComplexVariable, joinTokenStrings } from '../../utils';
 import { ContextStack, ValidatorContext, canBeNestedWithin } from '../validatorContext';
-import EnumValidator from './enum';
-import IndexesValidator from './indexes';
-import NoteValidator from './note';
-import RefValidator from './ref';
-import TableGroupValidator from './tableGroup';
-import TableValidator from './table';
 import {
   createEntry,
   createSubFieldEntry,
@@ -32,8 +26,6 @@ import {
   pickValidator,
   registerSchemaStack,
 } from './utils';
-import ProjectValidator from './project';
-import CustomValidator from './custom';
 
 export type ErrorMessage = string;
 
@@ -336,7 +328,7 @@ export default abstract class ElementValidator {
       hasError = true;
     }
 
-    if (!this.allowSimpleBody && !hasSimpleBody(node)) {
+    if (!this.allowSimpleBody && hasSimpleBody(node)) {
       this.logError(
         node.body,
         this.simpleBodyFoundErrorCode,
