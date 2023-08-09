@@ -36,8 +36,8 @@ export default class RefValidator extends ElementValidator {
 
   protected allowNoSettings: boolean = true;
   protected noSettingsFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowSettings: boolean = true;
-  protected settingsFoundErrorCode?: CompileErrorCode = undefined;
+  protected allowSettings: boolean = false;
+  protected settingsFoundErrorCode?: CompileErrorCode = CompileErrorCode.UNEXPECTED_SETTINGS;
   protected stopOnSettingsError: boolean = false;
   protected allowDuplicateForThisSetting? = allowDuplicateForThisRefSetting;
   protected duplicateSettingsErrorCode? = CompileErrorCode.DUPLICATE_REF_SETTING;

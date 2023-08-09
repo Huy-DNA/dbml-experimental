@@ -445,6 +445,7 @@ export default abstract class ElementValidator {
       }
       args.pop();
     }
+
     if (args.length !== this.nonSettingsArgsValidators.length) {
       this.logError(
         sub,
@@ -452,9 +453,7 @@ export default abstract class ElementValidator {
         `There must be ${args.length} non-setting terms`,
       );
       hasError = true;
-    }
-
-    if (!hasError) {
+    } else {
       for (let i = 0; i < args.length; ++i) {
         const res = this.nonSettingsArgsValidators[i].validateArg(args[i]);
         if (!res) {
