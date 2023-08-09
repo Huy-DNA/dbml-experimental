@@ -19,8 +19,6 @@ export class TableSymbol extends NodeSymbol {
 }
 
 export class EnumSymbol extends NodeSymbol {
-  static kind = 'enum';
-
   constructor(enumName: string) {
     super(enumName);
   }
@@ -31,8 +29,6 @@ export class EnumSymbol extends NodeSymbol {
 }
 
 export class SchemaSymbol extends NodeSymbol {
-  static kind = 'schema';
-
   constructor(schemaName: string) {
     super(schemaName);
   }
@@ -43,8 +39,6 @@ export class SchemaSymbol extends NodeSymbol {
 }
 
 export class ColumnSymbol extends NodeSymbol {
-  static kind = 'column';
-
   constructor(columnName: string) {
     super(columnName);
   }
@@ -55,8 +49,6 @@ export class ColumnSymbol extends NodeSymbol {
 }
 
 export class EnumElementSymbol extends NodeSymbol {
-  static kind = 'enum-element';
-
   constructor(elementName: string) {
     super(elementName);
   }
@@ -67,13 +59,21 @@ export class EnumElementSymbol extends NodeSymbol {
 }
 
 export class TableGroupSymbol extends NodeSymbol {
-  static kind = 'table-group';
-
   constructor(tableGroupName: string) {
     super(tableGroupName);
   }
 
   asKey(): string {
     return `tablegroup:${this.key}`;
+  }
+}
+
+export class TableGroupElementSymbol extends NodeSymbol {
+  constructor(tableGroupElementName: string) {
+    super(tableGroupElementName);
+  }
+
+  asKey(): string {
+    return `tablegroup-element:${this.key}`;
   }
 }

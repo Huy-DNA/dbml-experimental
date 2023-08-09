@@ -1,5 +1,3 @@
-import { SyntaxNode } from '../../parser/nodes';
-
 export const enum ValidatorContext {
   TopLevelContext,
   ProjectContext,
@@ -84,23 +82,5 @@ export class ContextStack {
     }
 
     return false;
-  }
-
-  withContextDo<T extends SyntaxNode>(
-    ctx: ValidatorContext | undefined,
-    callback: (node: T) => void,
-  ): (node: T) => void {
-    return (node) => {
-      if (ctx !== undefined) {
-        this.push(ctx);
-      }
-      try {
-        callback(node);
-      } finally {
-        if (ctx !== undefined) {
-          this.pop();
-        }
-      }
-    };
   }
 }

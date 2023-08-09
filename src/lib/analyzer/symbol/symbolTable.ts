@@ -1,9 +1,9 @@
-import { ElementDeclarationNode, ExpressionNode, SyntaxNode } from '../../parser/nodes';
 import {
   ColumnSymbol,
   EnumElementSymbol,
   EnumSymbol,
   SchemaSymbol,
+  TableGroupElementSymbol,
   TableGroupSymbol,
   TableSymbol,
 } from './symbols';
@@ -15,11 +15,11 @@ export const enum EntryKind {
   ENUM_MEMBER,
   COLUMN,
   TABLE_GROUP,
+  PROJECT,
 }
 
 export interface SymbolTableEntry {
   kind: EntryKind;
-  declarationNode?: SyntaxNode;
   symbolTable?: SymbolTable;
 }
 
@@ -36,12 +36,9 @@ export class SchemaEntry implements SymbolTableEntry {
 export class EnumEntry implements SymbolTableEntry {
   kind: EntryKind.ENUM = EntryKind.ENUM;
 
-  declarationNode: ElementDeclarationNode;
-
   symbolTable: EnumSymbolTable;
 
-  constructor(declarationNode: ElementDeclarationNode, symbolTable: EnumSymbolTable) {
-    this.declarationNode = declarationNode;
+  constructor(symbolTable: EnumSymbolTable) {
     this.symbolTable = symbolTable;
   }
 }
@@ -49,47 +46,69 @@ export class EnumEntry implements SymbolTableEntry {
 export class TableEntry implements SymbolTableEntry {
   kind: EntryKind.TABLE = EntryKind.TABLE;
 
-  declarationNode: ElementDeclarationNode;
-
   symbolTable: TableSymbolTable;
 
-  constructor(declarationNode: ElementDeclarationNode, symbolTable: TableSymbolTable) {
-    this.declarationNode = declarationNode;
+  constructor(symbolTable: TableSymbolTable) {
     this.symbolTable = symbolTable;
   }
 }
 
 export class EnumElementEntry implements SymbolTableEntry {
   kind: EntryKind.ENUM_MEMBER = EntryKind.ENUM_MEMBER;
-
-  declarationNode: ExpressionNode;
-
-  constructor(declarationNode: ExpressionNode) {
-    this.declarationNode = declarationNode;
-  }
 }
 
 export class ColumnEntry implements SymbolTableEntry {
   kind: EntryKind.COLUMN = EntryKind.COLUMN;
-
-  declarationNode: ExpressionNode;
-
-  constructor(declarationNode: ExpressionNode) {
-    this.declarationNode = declarationNode;
-  }
 }
 export class TableGroupEntry implements SymbolTableEntry {
   kind: EntryKind.TABLE_GROUP = EntryKind.TABLE_GROUP;
 
-  declarationNode: ExpressionNode;
+  symbolTable: TableGroupSymbolTable;
 
-  constructor(declarationNode: ExpressionNode) {
-    this.declarationNode = declarationNode;
+  constructor(symbolTable: TableGroupSymbolTable) {
+    this.symbolTable = symbolTable;
   }
 }
 
-export type SymbolTable = EnumSymbolTable | TableSymbolTable | SchemaSymbolTable;
+export class TableGroupElementEntry implements SymbolTableEntry {
+  kind: EntryKind.TABLE_GROUP = EntryKind.TABLE_GROUP;
+}
 
+export type SymbolTable =
+  | EnumSymbolTable
+  | TableSymbolTable
+  | SchemaSymbolTable
+  | TableGroupSymbolTable;
+
+export class TableGroupSymbolTable {
+  private table: Map<string, TableGroupElementEntry>;
+
+  constructor() {
+    this.table = new Map();
+  }
+
+  has(symbol: TableGroupElementSymbol): boolean {
+    return this.table.has(symbol.asKey());
+  }
+
+  set(symbol: TableGroupElementSymbol, value: TableGroupElementEntry) {
+    if (value === undefined) {
+      return;
+    }
+    this.table.set(symbol.asKey(), value);
+  }
+
+  get(
+    symbol: TableGroupElementSymbol,
+    defaultValue?: TableGroupElementEntry,
+  ): TableGroupElementEntry | undefined {
+    return (
+      this.table.get(symbol.asKey()) ||
+      (defaultValue !== undefined && this.set(symbol, defaultValue)) ||
+      defaultValue
+    );
+  }
+}
 export class EnumSymbolTable {
   private table: Map<string, EnumElementEntry>;
 
@@ -174,19 +193,15 @@ export class SchemaSymbolTable {
   }
 
   get(symbol: TableSymbol, defaultValue: TableEntry): TableEntry;
-
   get(symbol: TableSymbol): TableEntry | undefined;
 
   get(symbol: SchemaSymbol, defaultValue: SchemaEntry): SchemaEntry;
-
   get(symbol: SchemaSymbol): SchemaEntry | undefined;
 
   get(symbol: EnumSymbol, defaultValue: EnumEntry): EnumEntry;
-
   get(symbol: EnumSymbol): EnumEntry | undefined;
 
   get(symbol: TableGroupSymbol, defaultValue: TableGroupEntry): TableGroupEntry;
-
   get(symbol: TableGroupSymbol): TableGroupEntry | undefined;
 
   get(

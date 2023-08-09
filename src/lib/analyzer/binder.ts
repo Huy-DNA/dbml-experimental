@@ -1,9 +1,9 @@
-import { SymbolTable } from './symbol';
+import { SchemaSymbolTable } from './symbol/symbolTable';
 
 export default class Binder {
-  private symbolTable: SymbolTable;
+  private globalSchema: SchemaSymbolTable;
 
-  constructor(symbolTable: SymbolTable) {
-    this.symbolTable = symbolTable;
+  constructor(globalSchema: SchemaSymbolTable) {
+    this.globalSchema = globalSchema;
   }
 }

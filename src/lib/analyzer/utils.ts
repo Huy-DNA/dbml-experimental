@@ -1,14 +1,15 @@
-import { isAccessExpression, isQuotedStringNode } from '../utils';
+import { isAccessExpression, isPrimaryVariableNode, isQuotedStringNode } from '../utils';
 import { None, Option, Some } from '../option';
 import {
+  InfixExpressionNode,
   LiteralNode,
   PrimaryExpressionNode,
   SyntaxNode,
-  SyntaxNodeKind,
   TupleExpressionNode,
   VariableNode,
 } from '../parser/nodes';
-import { extractQuotedStringToken } from './validator/utils/helpers';
+import { isRelationshipOp } from './validator/elementValidators/utils';
+import { SyntaxToken } from '../lexer/tokens';
 
 export function destructureMemberAccessExpression(node: SyntaxNode): Option<SyntaxNode[]> {
   if (node instanceof PrimaryExpressionNode || node instanceof TupleExpressionNode) {
@@ -41,7 +42,7 @@ export function destructureComplexVariable(node: SyntaxNode): Option<string[]> {
 
   // eslint-disable-next-line no-restricted-syntax
   for (const fragment of fragments) {
-    const variable = extractVariable(fragment).unwrap_or(undefined);
+    const variable = extractVariableFromExpression(fragment).unwrap_or(undefined);
     if (!variable) {
       return new None();
     }
@@ -52,11 +53,8 @@ export function destructureComplexVariable(node: SyntaxNode): Option<string[]> {
   return new Some(variables);
 }
 
-export function extractVariable(node: SyntaxNode): Option<string> {
-  if (
-    !(node instanceof PrimaryExpressionNode) ||
-    node.expression.kind !== SyntaxNodeKind.VARIABLE
-  ) {
+export function extractVariableFromExpression(node: SyntaxNode): Option<string> {
+  if (!isPrimaryVariableNode(node)) {
     return new None();
   }
 
@@ -72,27 +70,66 @@ export function destructureIndex(node: SyntaxNode): Option<{ table: string[]; co
 
   const column = fragments.pop()!;
 
-  if (!fragments.every(isQuotedStringNode)) {
+  if (!fragments.every(isPrimaryVariableNode)) {
     return new None();
   }
 
-  if (isQuotedStringNode(column)) {
+  if (isPrimaryVariableNode(column)) {
     return new Some({
-      table: fragments.map(extractQuotedStringToken) as string[],
-      column: [extractQuotedStringToken(column) as string],
+      table: fragments.map(extractVarNameFromPrimaryVariable),
+      column: [extractVarNameFromPrimaryVariable(column)],
     });
   }
 
-  if (column instanceof TupleExpressionNode && column.elementList.every(isQuotedStringNode)) {
+  if (column instanceof TupleExpressionNode && column.elementList.every(isPrimaryVariableNode)) {
     return new Some({
-      table: fragments.map(extractQuotedStringToken) as string[],
-      column: column.elementList.map(extractQuotedStringToken) as string[],
+      table: fragments.map(extractVarNameFromPrimaryVariable),
+      column: column.elementList.map(extractVarNameFromPrimaryVariable),
     });
   }
 
   return new None();
 }
 
-export function isRelationshipOp(op: string): boolean {
-  return op === '-' || op === '<>' || op === '>' || op === '<';
+export function extractVarNameFromPrimaryVariable(
+  node: PrimaryExpressionNode & { expression: VariableNode },
+): string {
+  return node.expression.variable.value;
+}
+
+export function joinTokenStrings(tokens: SyntaxToken[]): string {
+  return tokens.map((token) => token.value).join(' ');
+}
+
+export function extractQuotedStringToken(value?: SyntaxNode): string | undefined {
+  if (!isQuotedStringNode(value)) {
+    return undefined;
+  }
+
+  const primaryExp = value as PrimaryExpressionNode;
+  if (primaryExp.expression instanceof VariableNode) {
+    return primaryExp.expression.variable.value;
+  }
+
+  if (primaryExp.expression instanceof LiteralNode) {
+    return primaryExp.expression.literal.value;
+  }
+
+  return undefined; // unreachable
+}
+
+export function isBinaryRelationship(value?: SyntaxNode | SyntaxToken[]): boolean {
+  if (!(value instanceof InfixExpressionNode)) {
+    return false;
+  }
+
+  if (!isRelationshipOp(value.op.value)) {
+    return false;
+  }
+
+  return (
+    destructureComplexVariable(value.leftExpression)
+      .and_then(() => destructureComplexVariable(value.rightExpression))
+      .unwrap_or(undefined) !== undefined
+  );
 }
