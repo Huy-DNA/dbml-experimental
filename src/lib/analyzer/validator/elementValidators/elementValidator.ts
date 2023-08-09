@@ -340,6 +340,12 @@ export default abstract class ElementValidator {
       node.body.body.forEach((sub) => {
         hasError ||= this.validateSubElement(sub);
       });
+    } else if (node.body instanceof FunctionApplicationNode) {
+      hasError ||= this.validateSubFunctionApplication(node.body);
+    } else {
+      hasError ||= this.validateSubFunctionApplication(
+        new FunctionApplicationNode({ callee: node.body, args: [] }),
+      );
     }
 
     return !hasError || !this.stopOnBodyError;

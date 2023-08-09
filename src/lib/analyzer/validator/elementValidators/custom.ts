@@ -16,7 +16,7 @@ export default class CustomValidator extends ElementValidator {
   protected nonuniqueErrorCode?: CompileErrorCode = undefined;
   protected stopOnUniqueError: boolean = false;
 
-  protected allowNoName: boolean = false;
+  protected allowNoName: boolean = true;
   protected noNameFoundErrorCode?: CompileErrorCode = undefined;
   protected allowName: boolean = false;
   protected nameFoundErrorCode?: CompileErrorCode = CompileErrorCode.UNEXPECTED_NAME;
