@@ -453,7 +453,11 @@ export default abstract class ElementValidator {
       for (let i = 0; i < args.length; ++i) {
         const res = this.nonSettingsArgsValidators[i].validateArg(args[i]);
         if (res) {
-          this.logError(sub, this.nonSettingsArgsValidators[i].errorCode, 'Invalid subfield value');
+          this.logError(
+            args[i],
+            this.nonSettingsArgsValidators[i].errorCode,
+            'Invalid field value',
+          );
           hasError = true;
         }
       }
