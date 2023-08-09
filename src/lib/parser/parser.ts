@@ -177,21 +177,7 @@ export default class Parser {
 
       if (this.match(SyntaxTokenKind.COLON)) {
         bodyOpenColon = this.previous();
-        body = this.normalFormExpression();
-        // For simple element declarations,
-        // the attribute list should follow the element value instead
-        // e.g Ref users_id__product__uid: users.id < products.id [update: no action]
-        if (attributeList) {
-          this.logError(
-            attributeList,
-            CompileErrorCode.MISPLACED_LIST_NODE,
-            'This attribute list should follow the element value',
-          );
-        }
-        // Recheck for attribute list anyways
-        if (this.check(SyntaxTokenKind.LBRACKET)) {
-          attributeList = this.listExpression();
-        }
+        body = this.expression();
       } else {
         body = this.blockExpression();
       }
