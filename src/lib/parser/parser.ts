@@ -252,17 +252,12 @@ export default class Parser {
     const type = this.previous();
     this.consume('Expect :', SyntaxTokenKind.COLON);
     const bodyOpenColon = this.previous();
-    const body = this.normalFormExpression();
-    let attributeList: ListExpressionNode | undefined;
-    if (this.check(SyntaxTokenKind.LBRACKET)) {
-      attributeList = this.listExpression();
-    }
+    const body = this.expression();
 
     return new ElementDeclarationNode({
       type,
       bodyOpenColon,
       body,
-      attributeList,
     });
   }
 
