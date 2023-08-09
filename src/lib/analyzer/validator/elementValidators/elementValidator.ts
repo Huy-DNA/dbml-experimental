@@ -408,7 +408,7 @@ export default abstract class ElementValidator {
     } = pickValidator(sub);
 
     const validatorObject = new Validator(
-      this.declarationNode,
+      sub,
       this.globalSchema,
       this.contextStack,
       this.errors,
