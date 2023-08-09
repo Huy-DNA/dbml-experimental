@@ -64,9 +64,8 @@ export default class CustomValidator extends ElementValidator {
   protected allowValueForThisSubFieldSetting? = undefined;
   protected invalidSubFieldSettingValueErrorCode?: CompileErrorCode = undefined;
 
-  protected shouldRegisterSubField: boolean = true;
-  protected duplicateSubFieldNameErrorCode?: CompileErrorCode =
-    CompileErrorCode.DUPLICATE_TABLEGROUP_ELEMENT_NAME;
+  protected shouldRegisterSubField: boolean = false;
+  protected duplicateSubFieldNameErrorCode?: CompileErrorCode = undefined
 
   protected elementEntry?: TableEntry;
 
