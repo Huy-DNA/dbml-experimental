@@ -134,7 +134,6 @@ export default abstract class ElementValidator {
       this.validateUnique() &&
       this.validateName() &&
       this.validateAlias() &&
-      this.validateAlias() &&
       this.validateSetting() &&
       this.validateBody();
 
