@@ -254,7 +254,7 @@ export default abstract class ElementValidator {
         this.globalSchema,
         this.elementEntry,
       ).unwrap_or(undefined);
-      hasError ||= this.elementEntry === undefined;
+      hasError = this.elementEntry === undefined || hasError;
     }
 
     return !hasError || !this.stopOnAliasError;
@@ -338,14 +338,15 @@ export default abstract class ElementValidator {
 
     if (hasComplexBody(node)) {
       node.body.body.forEach((sub) => {
-        hasError ||= this.validateSubElement(sub);
+        hasError = this.validateSubElement(sub) || hasError;
       });
     } else if (node.body instanceof FunctionApplicationNode) {
-      hasError ||= this.validateSubFunctionApplication(node.body);
+      hasError = this.validateSubFunctionApplication(node.body) || hasError;
     } else {
-      hasError ||= this.validateSubFunctionApplication(
-        new FunctionApplicationNode({ callee: node.body, args: [] }),
-      );
+      hasError =
+        this.validateSubFunctionApplication(
+          new FunctionApplicationNode({ callee: node.body, args: [] }),
+        ) || hasError;
     }
 
     return !hasError || !this.stopOnBodyError;
@@ -441,7 +442,7 @@ export default abstract class ElementValidator {
         );
         hasError = true;
       } else {
-        hasError ||= this.validateSubFieldSettings(maybeSettings);
+        hasError = this.validateSubFieldSettings(maybeSettings) || hasError;
       }
       args.pop();
     }
@@ -450,7 +451,7 @@ export default abstract class ElementValidator {
       this.logError(
         sub,
         this.invalidNumberOfArgsErrorCode,
-        `There must be ${args.length} non-setting terms`,
+        `There must be ${this.nonSettingsArgsValidators.length} non-setting terms`,
       );
       hasError = true;
     } else {
@@ -469,7 +470,7 @@ export default abstract class ElementValidator {
 
     if (this.shouldRegisterSubField && !hasError) {
       const entry = this.registerSubField(args[0]).unwrap_or(undefined);
-      hasError ||= entry === undefined;
+      hasError = entry === undefined || hasError;
     }
 
     return !hasError;

@@ -48,12 +48,7 @@ export default class ProjectValidator extends ElementValidator {
   protected complexBodyFoundErrorCode?: CompileErrorCode = undefined;
   protected stopOnBodyError: boolean = false;
 
-  protected nonSettingsArgsValidators: ArgumentValidatorConfig[] = [
-    {
-      validateArg: isQuotedStringNode,
-      errorCode: CompileErrorCode.INVALID_PROJECT_FIELD,
-    },
-  ];
+  protected nonSettingsArgsValidators: ArgumentValidatorConfig[] = [];
   protected invalidNumberOfArgsErrorCode?: CompileErrorCode =
     CompileErrorCode.INVALID_PROJECT_FIELD;
   protected allowSubFieldSettings?: boolean = false;

@@ -65,7 +65,7 @@ export default class CustomValidator extends ElementValidator {
   protected invalidSubFieldSettingValueErrorCode?: CompileErrorCode = undefined;
 
   protected shouldRegisterSubField: boolean = false;
-  protected duplicateSubFieldNameErrorCode?: CompileErrorCode = undefined
+  protected duplicateSubFieldNameErrorCode?: CompileErrorCode = undefined;
 
   protected elementEntry?: TableEntry;
 
