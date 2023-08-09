@@ -924,22 +924,43 @@
   },
   "errors": [
     {
-      "code": 1002,
-      "diagnostic": "Duplicated Table name",
+      "code": 3003,
+      "diagnostic": "This Table has a duplicated name",
       "start": 42,
       "end": 47,
       "name": "CompileError"
     },
     {
-      "code": 1002,
-      "diagnostic": "Duplicated TableGroup name",
+      "code": 3003,
+      "diagnostic": "This Table has a duplicated name",
+      "start": 42,
+      "end": 47,
+      "name": "CompileError"
+    },
+    {
+      "code": 3003,
+      "diagnostic": "This TableGroup has a duplicated name",
       "start": 114,
       "end": 119,
       "name": "CompileError"
     },
     {
-      "code": 1002,
-      "diagnostic": "Duplicated Enum name",
+      "code": 3003,
+      "diagnostic": "This TableGroup has a duplicated name",
+      "start": 114,
+      "end": 119,
+      "name": "CompileError"
+    },
+    {
+      "code": 3003,
+      "diagnostic": "This Enum has a duplicated name",
+      "start": 160,
+      "end": 165,
+      "name": "CompileError"
+    },
+    {
+      "code": 3003,
+      "diagnostic": "This Enum has a duplicated name",
       "start": 160,
       "end": 165,
       "name": "CompileError"
