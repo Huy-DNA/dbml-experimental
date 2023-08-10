@@ -272,6 +272,33 @@
                   }
                 ]
               },
+              "name": {
+                "kind": "<primary-expression>",
+                "start": 47,
+                "end": 48,
+                "expression": {
+                  "kind": "<variable>",
+                  "start": 47,
+                  "end": 48,
+                  "variable": {
+                    "kind": "<identifier>",
+                    "offset": 47,
+                    "value": "B",
+                    "length": 1,
+                    "leadingTrivia": [],
+                    "trailingTrivia": [
+                      {
+                        "kind": "<space>",
+                        "offset": 48,
+                        "value": " ",
+                        "length": 1,
+                        "leadingTrivia": [],
+                        "trailingTrivia": []
+                      }
+                    ]
+                  }
+                }
+              },
               "as": {
                 "kind": "<identifier>",
                 "offset": 49,
