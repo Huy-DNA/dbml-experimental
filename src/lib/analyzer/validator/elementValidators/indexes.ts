@@ -89,21 +89,17 @@ export default class IndexesValidator extends ElementValidator {
   }
 }
 
-const indexesSettingValueValidator: {
-  [index: string]: (value?: SyntaxNode | SyntaxToken[]) => boolean;
-} = {
-  note: isQuotedStringNode,
-  name: isQuotedStringNode,
-  type: isValidIndexesType,
-  unique: isVoid,
-  pk: isVoid,
-};
-
 export function allowValueForThisIndexSetting(
   settingName: string,
   value?: SyntaxNode | SyntaxToken[],
 ): boolean {
-  return indexesSettingValueValidator[settingName]?.call(undefined, value);
+  return !!{
+    note: isQuotedStringNode,
+    name: isQuotedStringNode,
+    type: isValidIndexesType,
+    unique: isVoid,
+    pk: isVoid,
+  }[settingName]?.call(undefined, value);
 }
 
 export function allowDuplicateForThisIndexSetting(settingName: string): boolean {

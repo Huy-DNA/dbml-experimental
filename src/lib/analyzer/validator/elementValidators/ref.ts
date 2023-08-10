@@ -81,18 +81,14 @@ export default class RefValidator extends ElementValidator {
   }
 }
 
-const refSettingValueValidator: {
-  [index: string]: (value?: SyntaxNode | SyntaxToken[]) => boolean;
-} = {
-  delete: isValidPolicy,
-  update: isValidPolicy,
-};
-
 export function allowValueForThisRefSetting(
   settingName: string,
   value?: SyntaxNode | SyntaxToken[],
 ): boolean {
-  return refSettingValueValidator[settingName]?.call(undefined, value);
+  return !!{
+    delete: isValidPolicy,
+    update: isValidPolicy,
+  }[settingName]?.call(undefined, value);
 }
 
 export function allowDuplicateForThisRefSetting(settingName: string): boolean {

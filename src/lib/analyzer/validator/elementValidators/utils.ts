@@ -1,10 +1,8 @@
-import { CompileError } from '../../../errors';
 import { SyntaxToken, SyntaxTokenKind } from '../../../lexer/tokens';
 import {
   BlockExpressionNode,
   ElementDeclarationNode,
   FunctionExpressionNode,
-  InfixExpressionNode,
   ListExpressionNode,
   LiteralNode,
   PrefixExpressionNode,
@@ -12,7 +10,7 @@ import {
   SyntaxNode,
   VariableNode,
 } from '../../../parser/nodes';
-import { isHexChar } from '../../../utils';
+import { isAccessExpression, isHexChar } from '../../../utils';
 import {
   ColumnEntry,
   EnumElementEntry,
@@ -38,9 +36,8 @@ import {
   TableSymbol,
 } from '../../symbol/symbols';
 import { destructureComplexVariable } from '../../utils';
-import { ContextStack, ValidatorContext } from '../validatorContext';
+import { ValidatorContext } from '../validatorContext';
 import CustomValidator from './custom';
-import { ElementKind } from './elementValidator';
 import EnumValidator from './enum';
 import IndexesValidator from './indexes';
 import NoteValidator from './note';
@@ -219,7 +216,7 @@ export function isValidDefaultValue(value?: SyntaxNode | SyntaxToken[]): boolean
     return true;
   }
 
-  if (!(value instanceof InfixExpressionNode && value)) {
+  if (!value || Array.isArray(value) || !isAccessExpression(value)) {
     return false;
   }
 

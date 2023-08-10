@@ -90,18 +90,14 @@ export default class TableValidator extends ElementValidator {
   }
 }
 
-const tableSettingValueValidator: {
-  [index: string]: (value?: SyntaxNode | SyntaxToken[]) => boolean;
-} = {
-  note: isQuotedStringNode,
-  headercolor: isValidColor,
-};
-
 function allowValueForThisTableSetting(
   settingName: string,
   value?: SyntaxToken[] | SyntaxNode,
 ): boolean {
-  return tableSettingValueValidator[settingName]?.call(undefined, value);
+  return !!{
+    note: isQuotedStringNode,
+    headercolor: isValidColor,
+  }[settingName]?.call(undefined, value);
 }
 
 function allowDuplicateForThisTableSetting(settingName: string): boolean {
@@ -136,23 +132,19 @@ export function allowDuplicateForThisColumnSetting(settingName: string): boolean
   return _settingName === 'ref';
 }
 
-const columnSettingValueValidator: {
-  [index: string]: (value?: SyntaxNode | SyntaxToken[]) => boolean;
-} = {
-  note: isQuotedStringNode,
-  ref: isUnaryRelationship,
-  'primary key': isVoid,
-  default: isValidDefaultValue,
-  increment: isVoid,
-  'not null': isVoid,
-  null: isVoid,
-  pk: isVoid,
-  unique: isVoid,
-};
-
 function allowValueForThisColumnSetting(
   settingName: string,
   value?: SyntaxNode | SyntaxToken[],
 ): boolean {
-  return columnSettingValueValidator[settingName]?.call(undefined, value);
+  return !!{
+    note: isQuotedStringNode,
+    ref: isUnaryRelationship,
+    'primary key': isVoid,
+    default: isValidDefaultValue,
+    increment: isVoid,
+    'not null': isVoid,
+    null: isVoid,
+    pk: isVoid,
+    unique: isVoid,
+  }[settingName]?.call(undefined, value);
 }

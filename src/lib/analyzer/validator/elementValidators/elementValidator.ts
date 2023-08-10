@@ -5,6 +5,7 @@ import {
   ElementDeclarationNode,
   ExpressionNode,
   FunctionApplicationNode,
+  InfixExpressionNode,
   ListExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';

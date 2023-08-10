@@ -79,16 +79,13 @@ export default class EnumValidator extends ElementValidator {
   }
 }
 
-const enumElementSettingValueValidator: {
-  [index: string]: (value?: SyntaxNode | SyntaxToken[]) => boolean;
-} = {
-  note: isQuotedStringNode,
-};
 export function allowValueForThisEnumElementSetting(
   settingName: string,
   value?: SyntaxNode | SyntaxToken[],
 ): boolean {
-  return enumElementSettingValueValidator[settingName]?.call(undefined, value);
+  return !!{
+    note: isQuotedStringNode,
+  }[settingName]?.call(undefined, value);
 }
 
 export function allowDuplicateForThisEnumElementSetting(settingName: string): boolean {
