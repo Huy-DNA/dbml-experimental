@@ -20,12 +20,7 @@ import ElementValidator from './elementValidator';
 import {
  isUnaryRelationship, isValidColor, isValidDefaultValue, isVoid,
 } from '../utils';
-import {
-  registerNameConfig,
-  optionalAliasConfig,
-  simpleBodyConfig,
-  complexBodyConfig,
-} from './_preset_configs';
+import { registerNameConfig, optionalAliasConfig, complexBodyConfig } from './_preset_configs';
 
 export default class TableValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLE;
@@ -83,56 +78,7 @@ export default class TableValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_COLUMN,
-    setting: createSettingsValidatorConfig(
-      {
-        note: {
-          allowDuplicate: false,
-          isValid: isQuotedStringNode,
-        },
-        ref: {
-          allowDuplicate: true,
-          isValid: isUnaryRelationship,
-        },
-        'primary key': {
-          allowDuplicate: false,
-          isValid: isVoid,
-        },
-        default: {
-          allowDuplicate: false,
-          isValid: isValidDefaultValue,
-        },
-        increment: {
-          allowDuplicate: false,
-          isValid: isVoid,
-        },
-        'not null': {
-          allowDuplicate: false,
-          isValid: isVoid,
-        },
-        null: {
-          allowDuplicate: false,
-          isValid: isVoid,
-        },
-        pk: {
-          allowDuplicate: false,
-          isValid: isVoid,
-        },
-        unique: {
-          allowDuplicate: false,
-          isValid: isVoid,
-        },
-      },
-      {
-        optional: true,
-        notFoundErrorCode: undefined,
-        allow: true,
-        foundErrorCode: undefined,
-        unknownErrorCode: CompileErrorCode.UNKNOWN_COLUMN_SETTING,
-        duplicateErrorCode: CompileErrorCode.DUPLICATE_COLUMN_SETTING,
-        invalidErrorCode: CompileErrorCode.INVALID_COLUMN_SETTING_VALUE,
-        stopOnError: false,
-      },
-    ),
+    setting: columnSettings(),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
@@ -170,3 +116,54 @@ function isValidColumnType(type: SyntaxNode): boolean {
 
   return variables !== undefined && variables.length > 0;
 }
+
+const columnSettings = () => createSettingsValidatorConfig(
+  {
+    note: {
+      allowDuplicate: false,
+      isValid: isQuotedStringNode,
+    },
+    ref: {
+      allowDuplicate: true,
+      isValid: isUnaryRelationship,
+    },
+    'primary key': {
+      allowDuplicate: false,
+      isValid: isVoid,
+    },
+    default: {
+      allowDuplicate: false,
+      isValid: isValidDefaultValue,
+    },
+    increment: {
+      allowDuplicate: false,
+      isValid: isVoid,
+    },
+    'not null': {
+      allowDuplicate: false,
+      isValid: isVoid,
+    },
+    null: {
+      allowDuplicate: false,
+      isValid: isVoid,
+    },
+    pk: {
+      allowDuplicate: false,
+      isValid: isVoid,
+    },
+    unique: {
+      allowDuplicate: false,
+      isValid: isVoid,
+    },
+  },
+  {
+    optional: true,
+    notFoundErrorCode: undefined,
+    allow: true,
+    foundErrorCode: undefined,
+    unknownErrorCode: CompileErrorCode.UNKNOWN_COLUMN_SETTING,
+    duplicateErrorCode: CompileErrorCode.DUPLICATE_COLUMN_SETTING,
+    invalidErrorCode: CompileErrorCode.INVALID_COLUMN_SETTING_VALUE,
+    stopOnError: false,
+  },
+);

@@ -19,7 +19,11 @@ import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import { isVoid } from '../utils';
 import {
- complexBodyConfig, noAliasConfig, noNameConfig, noSettingsConfig, noUniqueConfig,
+  complexBodyConfig,
+  noAliasConfig,
+  noNameConfig,
+  noSettingsConfig,
+  noUniqueConfig,
 } from './_preset_configs';
 
 export default class IndexesValidator extends ElementValidator {
@@ -49,40 +53,7 @@ export default class IndexesValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_INDEX,
-    setting: createSettingsValidatorConfig(
-      {
-        note: {
-          allowDuplicate: false,
-          isValid: isQuotedStringNode,
-        },
-        name: {
-          allowDuplicate: false,
-          isValid: isQuotedStringNode,
-        },
-        type: {
-          allowDuplicate: false,
-          isValid: isValidIndexesType,
-        },
-        unique: {
-          allowDuplicate: false,
-          isValid: isVoid,
-        },
-        pk: {
-          allowDuplicate: false,
-          isValid: isVoid,
-        },
-      },
-      {
-        optional: true,
-        notFoundErrorCode: undefined,
-        allow: true,
-        foundErrorCode: undefined,
-        unknownErrorCode: CompileErrorCode.UNKNOWN_INDEX_SETTING,
-        duplicateErrorCode: CompileErrorCode.DUPLICATE_INDEX_SETTING,
-        invalidErrorCode: CompileErrorCode.INVALID_INDEX_SETTING_VALUE,
-        stopOnError: false,
-      },
-    ),
+    setting: indexSettings(),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
@@ -109,3 +80,38 @@ export function isValidIndexesType(value?: SyntaxNode | SyntaxToken[]): boolean 
 
   return str === 'btree' || str === 'hash';
 }
+
+const indexSettings = () => createSettingsValidatorConfig(
+  {
+    note: {
+      allowDuplicate: false,
+      isValid: isQuotedStringNode,
+    },
+    name: {
+      allowDuplicate: false,
+      isValid: isQuotedStringNode,
+    },
+    type: {
+      allowDuplicate: false,
+      isValid: isValidIndexesType,
+    },
+    unique: {
+      allowDuplicate: false,
+      isValid: isVoid,
+    },
+    pk: {
+      allowDuplicate: false,
+      isValid: isVoid,
+    },
+  },
+  {
+    optional: true,
+    notFoundErrorCode: undefined,
+    allow: true,
+    foundErrorCode: undefined,
+    unknownErrorCode: CompileErrorCode.UNKNOWN_INDEX_SETTING,
+    duplicateErrorCode: CompileErrorCode.DUPLICATE_INDEX_SETTING,
+    invalidErrorCode: CompileErrorCode.INVALID_INDEX_SETTING_VALUE,
+    stopOnError: false,
+  },
+);

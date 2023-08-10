@@ -47,28 +47,7 @@ export default class RefValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_REF_FIELD,
-    setting: createSettingsValidatorConfig(
-      {
-        delete: {
-          allowDuplicate: false,
-          isValid: isValidPolicy,
-        },
-        update: {
-          allowDuplicate: false,
-          isValid: isValidPolicy,
-        },
-      },
-      {
-        optional: true,
-        notFoundErrorCode: undefined,
-        allow: true,
-        foundErrorCode: undefined,
-        unknownErrorCode: CompileErrorCode.UNKNOWN_REF_SETTING,
-        duplicateErrorCode: CompileErrorCode.DUPLICATE_REF_SETTING,
-        invalidErrorCode: CompileErrorCode.INVALID_REF_SETTING_VALUE,
-        stopOnError: false,
-      },
-    ),
+    setting: refFieldSettings(),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
@@ -113,3 +92,26 @@ function isValidPolicy(value?: SyntaxNode | SyntaxToken[]): boolean {
 
   return false; // unreachable
 }
+
+const refFieldSettings = () => createSettingsValidatorConfig(
+  {
+    delete: {
+      allowDuplicate: false,
+      isValid: isValidPolicy,
+    },
+    update: {
+      allowDuplicate: false,
+      isValid: isValidPolicy,
+    },
+  },
+  {
+    optional: true,
+    notFoundErrorCode: undefined,
+    allow: true,
+    foundErrorCode: undefined,
+    unknownErrorCode: CompileErrorCode.UNKNOWN_REF_SETTING,
+    duplicateErrorCode: CompileErrorCode.DUPLICATE_REF_SETTING,
+    invalidErrorCode: CompileErrorCode.INVALID_REF_SETTING_VALUE,
+    stopOnError: false,
+  },
+);

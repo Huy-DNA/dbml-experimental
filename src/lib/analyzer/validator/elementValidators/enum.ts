@@ -45,24 +45,7 @@ export default class EnumValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_ENUM_ELEMENT,
-    setting: createSettingsValidatorConfig(
-      {
-        note: {
-          allowDuplicate: true,
-          isValid: isQuotedStringNode,
-        },
-      },
-      {
-        optional: true,
-        notFoundErrorCode: undefined,
-        allow: true,
-        foundErrorCode: undefined,
-        unknownErrorCode: CompileErrorCode.UNKNOWN_ENUM_ELEMENT_SETTING,
-        duplicateErrorCode: CompileErrorCode.DUPLICATE_ENUM_ELEMENT_SETTING,
-        invalidErrorCode: CompileErrorCode.INVALID_ENUM_ELEMENT_SETTING,
-        stopOnError: false,
-      },
-    ),
+    setting: enumFieldSettings(),
     shouldRegister: true,
     duplicateErrorCode: CompileErrorCode.DUPLICATE_ENUM_ELEMENT_NAME,
   });
@@ -79,3 +62,22 @@ export default class EnumValidator extends ElementValidator {
     super(declarationNode, globalSchema, contextStack, errors, uniqueKindsFound);
   }
 }
+
+const enumFieldSettings = () => createSettingsValidatorConfig(
+  {
+    note: {
+      allowDuplicate: true,
+      isValid: isQuotedStringNode,
+    },
+  },
+  {
+    optional: true,
+    notFoundErrorCode: undefined,
+    allow: true,
+    foundErrorCode: undefined,
+    unknownErrorCode: CompileErrorCode.UNKNOWN_ENUM_ELEMENT_SETTING,
+    duplicateErrorCode: CompileErrorCode.DUPLICATE_ENUM_ELEMENT_SETTING,
+    invalidErrorCode: CompileErrorCode.INVALID_ENUM_ELEMENT_SETTING,
+    stopOnError: false,
+  },
+);
