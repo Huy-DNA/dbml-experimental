@@ -14,6 +14,7 @@ import {
   complexBodyConfig,
   noAliasConfig,
   noSettingsConfig,
+  noUniqueConfig,
   registerNameConfig,
 } from './_preset_configs';
 
@@ -26,11 +27,7 @@ export default class TableGroupValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = createUniqueValidatorConfig({
-    mandatory: false,
-    errorCode: undefined,
-    stopOnError: false,
-  });
+  protected unique = noUniqueConfig(false);
 
   protected name = registerNameConfig(false);
 
@@ -60,8 +57,16 @@ export default class TableGroupValidator extends ElementValidator {
     globalSchema: SchemaSymbolTable,
     contextStack: ContextStack,
     errors: CompileError[],
-    uniqueKindsFound: Set<ElementKind>,
+    kindsGloballyFound: Set<ElementKind>,
+    kindsLocallyFound: Set<ElementKind>,
   ) {
-    super(declarationNode, globalSchema, contextStack, errors, uniqueKindsFound);
+    super(
+      declarationNode,
+      globalSchema,
+      contextStack,
+      errors,
+      kindsGloballyFound,
+      kindsLocallyFound,
+    );
   }
 }

@@ -3,7 +3,6 @@ import {
   createContextValidatorConfig,
   createSettingsValidatorConfig,
   createSubFieldValidatorConfig,
-  createUniqueValidatorConfig,
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import {
@@ -20,7 +19,12 @@ import ElementValidator from './elementValidator';
 import {
  isUnaryRelationship, isValidColor, isValidDefaultValue, isVoid,
 } from '../utils';
-import { registerNameConfig, optionalAliasConfig, complexBodyConfig } from './_preset_configs';
+import {
+  registerNameConfig,
+  optionalAliasConfig,
+  complexBodyConfig,
+  noUniqueConfig,
+} from './_preset_configs';
 
 export default class TableValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLE;
@@ -31,11 +35,7 @@ export default class TableValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = createUniqueValidatorConfig({
-    mandatory: false,
-    errorCode: undefined,
-    stopOnError: false,
-  });
+  protected unique = noUniqueConfig(false);
 
   protected name = registerNameConfig(false);
 
@@ -90,9 +90,17 @@ export default class TableValidator extends ElementValidator {
     globalSchema: SchemaSymbolTable,
     contextStack: ContextStack,
     errors: CompileError[],
-    uniqueKindsFound: Set<ElementKind>,
+    kindsGloballyFound: Set<ElementKind>,
+    kindsLocallyFound: Set<ElementKind>,
   ) {
-    super(declarationNode, globalSchema, contextStack, errors, uniqueKindsFound);
+    super(
+      declarationNode,
+      globalSchema,
+      contextStack,
+      errors,
+      kindsGloballyFound,
+      kindsLocallyFound,
+    );
   }
 }
 
@@ -117,53 +125,54 @@ function isValidColumnType(type: SyntaxNode): boolean {
   return variables !== undefined && variables.length > 0;
 }
 
-const columnSettings = () => createSettingsValidatorConfig(
-  {
-    note: {
-      allowDuplicate: false,
-      isValid: isQuotedStringNode,
+const columnSettings = () =>
+  createSettingsValidatorConfig(
+    {
+      note: {
+        allowDuplicate: false,
+        isValid: isQuotedStringNode,
+      },
+      ref: {
+        allowDuplicate: true,
+        isValid: isUnaryRelationship,
+      },
+      'primary key': {
+        allowDuplicate: false,
+        isValid: isVoid,
+      },
+      default: {
+        allowDuplicate: false,
+        isValid: isValidDefaultValue,
+      },
+      increment: {
+        allowDuplicate: false,
+        isValid: isVoid,
+      },
+      'not null': {
+        allowDuplicate: false,
+        isValid: isVoid,
+      },
+      null: {
+        allowDuplicate: false,
+        isValid: isVoid,
+      },
+      pk: {
+        allowDuplicate: false,
+        isValid: isVoid,
+      },
+      unique: {
+        allowDuplicate: false,
+        isValid: isVoid,
+      },
     },
-    ref: {
-      allowDuplicate: true,
-      isValid: isUnaryRelationship,
+    {
+      optional: true,
+      notFoundErrorCode: undefined,
+      allow: true,
+      foundErrorCode: undefined,
+      unknownErrorCode: CompileErrorCode.UNKNOWN_COLUMN_SETTING,
+      duplicateErrorCode: CompileErrorCode.DUPLICATE_COLUMN_SETTING,
+      invalidErrorCode: CompileErrorCode.INVALID_COLUMN_SETTING_VALUE,
+      stopOnError: false,
     },
-    'primary key': {
-      allowDuplicate: false,
-      isValid: isVoid,
-    },
-    default: {
-      allowDuplicate: false,
-      isValid: isValidDefaultValue,
-    },
-    increment: {
-      allowDuplicate: false,
-      isValid: isVoid,
-    },
-    'not null': {
-      allowDuplicate: false,
-      isValid: isVoid,
-    },
-    null: {
-      allowDuplicate: false,
-      isValid: isVoid,
-    },
-    pk: {
-      allowDuplicate: false,
-      isValid: isVoid,
-    },
-    unique: {
-      allowDuplicate: false,
-      isValid: isVoid,
-    },
-  },
-  {
-    optional: true,
-    notFoundErrorCode: undefined,
-    allow: true,
-    foundErrorCode: undefined,
-    unknownErrorCode: CompileErrorCode.UNKNOWN_COLUMN_SETTING,
-    duplicateErrorCode: CompileErrorCode.DUPLICATE_COLUMN_SETTING,
-    invalidErrorCode: CompileErrorCode.INVALID_COLUMN_SETTING_VALUE,
-    stopOnError: false,
-  },
-);
+  );

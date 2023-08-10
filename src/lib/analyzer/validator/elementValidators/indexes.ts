@@ -65,9 +65,17 @@ export default class IndexesValidator extends ElementValidator {
     globalSchema: SchemaSymbolTable,
     contextStack: ContextStack,
     errors: CompileError[],
-    uniqueKindsFound: Set<ElementKind>,
+    kindsGloballyFound: Set<ElementKind>,
+    kindsLocallyFound: Set<ElementKind>,
   ) {
-    super(declarationNode, globalSchema, contextStack, errors, uniqueKindsFound);
+    super(
+      declarationNode,
+      globalSchema,
+      contextStack,
+      errors,
+      kindsGloballyFound,
+      kindsLocallyFound,
+    );
   }
 }
 
@@ -81,37 +89,38 @@ export function isValidIndexesType(value?: SyntaxNode | SyntaxToken[]): boolean 
   return str === 'btree' || str === 'hash';
 }
 
-const indexSettings = () => createSettingsValidatorConfig(
-  {
-    note: {
-      allowDuplicate: false,
-      isValid: isQuotedStringNode,
+const indexSettings = () =>
+  createSettingsValidatorConfig(
+    {
+      note: {
+        allowDuplicate: false,
+        isValid: isQuotedStringNode,
+      },
+      name: {
+        allowDuplicate: false,
+        isValid: isQuotedStringNode,
+      },
+      type: {
+        allowDuplicate: false,
+        isValid: isValidIndexesType,
+      },
+      unique: {
+        allowDuplicate: false,
+        isValid: isVoid,
+      },
+      pk: {
+        allowDuplicate: false,
+        isValid: isVoid,
+      },
     },
-    name: {
-      allowDuplicate: false,
-      isValid: isQuotedStringNode,
+    {
+      optional: true,
+      notFoundErrorCode: undefined,
+      allow: true,
+      foundErrorCode: undefined,
+      unknownErrorCode: CompileErrorCode.UNKNOWN_INDEX_SETTING,
+      duplicateErrorCode: CompileErrorCode.DUPLICATE_INDEX_SETTING,
+      invalidErrorCode: CompileErrorCode.INVALID_INDEX_SETTING_VALUE,
+      stopOnError: false,
     },
-    type: {
-      allowDuplicate: false,
-      isValid: isValidIndexesType,
-    },
-    unique: {
-      allowDuplicate: false,
-      isValid: isVoid,
-    },
-    pk: {
-      allowDuplicate: false,
-      isValid: isVoid,
-    },
-  },
-  {
-    optional: true,
-    notFoundErrorCode: undefined,
-    allow: true,
-    foundErrorCode: undefined,
-    unknownErrorCode: CompileErrorCode.UNKNOWN_INDEX_SETTING,
-    duplicateErrorCode: CompileErrorCode.DUPLICATE_INDEX_SETTING,
-    invalidErrorCode: CompileErrorCode.INVALID_INDEX_SETTING_VALUE,
-    stopOnError: false,
-  },
-);
+  );

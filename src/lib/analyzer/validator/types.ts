@@ -34,8 +34,10 @@ export interface ContextValidatorConfig {
 }
 
 export interface UniqueElementValidatorConfig {
-  mandatory: Readonly<boolean>;
-  errorCode?: Readonly<CompileErrorCode>;
+  globally: Readonly<boolean>;
+  notGloballyErrorCode?: Readonly<CompileErrorCode>;
+  locally: Readonly<boolean>;
+  notLocallyErrorCode?: Readonly<CompileErrorCode>;
   stopOnError: Readonly<boolean>;
 }
 
@@ -111,8 +113,16 @@ export function createContextValidatorConfig(
 export function createUniqueValidatorConfig(
   config: UniqueElementValidatorConfig,
 ): UniqueElementValidatorConfig {
-  if (config.mandatory && !config.errorCode) {
-    throw new Error('Misconfigurartion: If an element is unique, errorCode must be set');
+  if (config.globally && !config.notGloballyErrorCode) {
+    throw new Error(
+      'Misconfigurartion: If an element is globally unique, notGloballyErrorCode must be set',
+    );
+  }
+
+  if (config.locally && !config.notLocallyErrorCode) {
+    throw new Error(
+      'Misconfigurartion: If an element is locally unique, notLocallyErrorCode must be set',
+    );
   }
 
   return config;

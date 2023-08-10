@@ -14,7 +14,8 @@ export default class Validator {
 
   private contextStack: ContextStack;
 
-  private uniqueKindsFound: Set<ElementKind>;
+  private kindsGloballyFound: Set<ElementKind>;
+  private kindsLocallyFound: Set<ElementKind>;
 
   private errors: CompileError[];
 
@@ -23,7 +24,8 @@ export default class Validator {
     this.contextStack = new ContextStack();
     this.errors = [];
     this.globalSchema = new SchemaSymbolTable();
-    this.uniqueKindsFound = new Set();
+    this.kindsGloballyFound = new Set();
+    this.kindsLocallyFound = new Set();
     const publicSymbol = new SchemaSymbol('public');
     this.globalSchema.set(publicSymbol, new SchemaEntry(this.globalSchema));
   }
@@ -36,7 +38,8 @@ export default class Validator {
         this.globalSchema,
         this.contextStack,
         this.errors,
-        this.uniqueKindsFound,
+        this.kindsGloballyFound,
+        this.kindsLocallyFound,
       );
       validatorObject.validate();
     });

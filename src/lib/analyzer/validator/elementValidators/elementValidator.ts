@@ -52,7 +52,8 @@ export default abstract class ElementValidator {
   protected globalSchema: SchemaSymbolTable;
   protected contextStack: ContextStack;
   protected errors: CompileError[];
-  protected uniqueKindsFound: Set<ElementKind>;
+  protected kindsGloballyFound: Set<ElementKind>;
+  protected kindsLocallyFound: Set<ElementKind>;
 
   protected elementEntry?: SymbolTableEntry;
 
@@ -61,13 +62,15 @@ export default abstract class ElementValidator {
     globalSchema: SchemaSymbolTable,
     contextStack: ContextStack,
     errors: CompileError[],
-    uniqueKindsFound: Set<ElementKind>,
+    kindsGloballyFound: Set<ElementKind>,
+    kindsLocallyFound: Set<ElementKind>,
   ) {
     this.declarationNode = declarationNode;
     this.globalSchema = globalSchema;
     this.contextStack = contextStack;
     this.errors = errors;
-    this.uniqueKindsFound = uniqueKindsFound;
+    this.kindsGloballyFound = kindsGloballyFound;
+    this.kindsLocallyFound = kindsLocallyFound;
   }
 
   validate(): boolean {
@@ -78,7 +81,8 @@ export default abstract class ElementValidator {
       this.validateName() &&
       this.validateAlias() &&
       this.validateSettings() &&
-      this.validateBody();
+      this.validateBodyForm() &&
+      this.validateBodyContent();
 
     this.contextStack.pop();
 
@@ -86,21 +90,46 @@ export default abstract class ElementValidator {
   }
 
   private validateUnique(): boolean {
-    if (!this.unique.mandatory) {
+    return (
+      (this.validateGloballyUnique() && this.validateLocallyUnique()) || !this.unique.stopOnError
+    );
+  }
+
+  private validateLocallyUnique(): boolean {
+    if (!this.unique.locally) {
       return true;
     }
 
-    if (this.uniqueKindsFound.has(this.elementKind)) {
+    if (this.kindsLocallyFound.has(this.elementKind)) {
       this.logError(
         this.declarationNode.type,
-        this.unique.errorCode,
-        `A ${this.elementKind} has already been defined`,
+        this.unique.notLocallyErrorCode,
+        `A ${this.elementKind} has already been defined in this scope`,
       );
 
-      return false || !this.unique.stopOnError;
+      return false;
     }
 
-    this.uniqueKindsFound.add(this.elementKind);
+    this.kindsLocallyFound.add(this.elementKind);
+
+    return true;
+  }
+  private validateGloballyUnique(): boolean {
+    if (!this.unique.globally) {
+      return true;
+    }
+
+    if (this.kindsGloballyFound.has(this.elementKind)) {
+      this.logError(
+        this.declarationNode.type,
+        this.unique.notGloballyErrorCode,
+        `A ${this.elementKind} has already been defined in this file`,
+      );
+
+      return false;
+    }
+
+    this.kindsGloballyFound.add(this.elementKind);
 
     return true;
   }
@@ -242,7 +271,7 @@ export default abstract class ElementValidator {
     return !hasError || !this.settings.stopOnError;
   }
 
-  private validateBody(): boolean {
+  private validateBodyForm(): boolean {
     let hasError = false;
     const node = this.declarationNode;
 
@@ -262,19 +291,6 @@ export default abstract class ElementValidator {
         `${this.elementKind} should not have a simple body`,
       );
       hasError = true;
-    }
-
-    if (hasComplexBody(node)) {
-      node.body.body.forEach((sub) => {
-        hasError = this.validateSubElement(sub) || hasError;
-      });
-    } else if (node.body instanceof FunctionApplicationNode) {
-      hasError = this.validateSubFunctionApplication(node.body) || hasError;
-    } else {
-      hasError =
-        this.validateSubFunctionApplication(
-          new FunctionApplicationNode({ callee: node.body, args: [] }),
-        ) || hasError;
     }
 
     return !hasError || !this.body.stopOnError;
@@ -317,42 +333,60 @@ export default abstract class ElementValidator {
     return new Some(registerSchema.get(symbol, entry || (newEntry as any)));
   }
 
-  protected validateSubElement(sub: SyntaxNode): boolean {
-    if (sub instanceof ElementDeclarationNode) {
-      return this.validateSubElementDeclaration(sub);
+  protected validateBodyContent(): boolean {
+    const node = this.declarationNode;
+
+    if (hasComplexBody(node)) {
+      const kindsFoundInScope = new Set<ElementKind>();
+      let hasError = false;
+      node.body.body.forEach((sub) => {
+        hasError = this.validateEachOfComplexBody(sub, kindsFoundInScope) || hasError;
+      });
+
+      return !hasError;
     }
-    if (sub instanceof FunctionApplicationNode) {
-      return this.validateSubFunctionApplication(sub);
+    if (node.body instanceof FunctionApplicationNode) {
+      return this.validateSubField(node.body);
     }
 
-    return this.validateSubFunctionApplication(
+    return this.validateSubField(new FunctionApplicationNode({ callee: node.body, args: [] }));
+  }
+
+  protected validateEachOfComplexBody(
+    sub: SyntaxNode,
+    kindsFoundInScope: Set<ElementKind>,
+  ): boolean {
+    if (sub instanceof ElementDeclarationNode) {
+      return this.validateNestedElementDeclaration(sub, kindsFoundInScope);
+    }
+    if (sub instanceof FunctionApplicationNode) {
+      return this.validateSubField(sub);
+    }
+
+    return this.validateSubField(
       new FunctionApplicationNode({ callee: sub as ExpressionNode, args: [] }),
     );
   }
 
-  protected validateSubElementDeclaration(sub: ElementDeclarationNode): boolean {
-    const Validator: {
-      new (
-        arg1: ElementDeclarationNode,
-        arg2: SchemaSymbolTable,
-        arg3: ContextStack,
-        arg4: CompileError[],
-        arg5: Set<ElementKind>,
-      ): ElementValidator;
-    } = pickValidator(sub);
+  protected validateNestedElementDeclaration(
+    sub: ElementDeclarationNode,
+    kindsFoundInScope: Set<ElementKind>,
+  ): boolean {
+    const Val = pickValidator(sub);
 
-    const validatorObject = new Validator(
+    const validatorObject = new Val(
       sub,
       this.globalSchema,
       this.contextStack,
       this.errors,
-      this.uniqueKindsFound,
+      this.kindsGloballyFound,
+      kindsFoundInScope,
     );
 
     return validatorObject.validate();
   }
 
-  protected validateSubFunctionApplication(sub: FunctionApplicationNode): boolean {
+  protected validateSubField(sub: FunctionApplicationNode): boolean {
     const args = [sub.callee, ...sub.args];
     if (args.length === 0) {
       throw new Error('A function application node always has at least 1 callee');

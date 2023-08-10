@@ -52,8 +52,16 @@ export default class CustomValidator extends ElementValidator {
     globalSchema: SchemaSymbolTable,
     contextStack: ContextStack,
     errors: CompileError[],
-    uniqueKindsFound: Set<ElementKind>,
+    kindsGloballyFound: Set<ElementKind>,
+    kindsLocallyFound: Set<ElementKind>,
   ) {
-    super(declarationNode, globalSchema, contextStack, errors, uniqueKindsFound);
+    super(
+      declarationNode,
+      globalSchema,
+      contextStack,
+      errors,
+      kindsGloballyFound,
+      kindsLocallyFound,
+    );
   }
 }

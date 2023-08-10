@@ -7,6 +7,7 @@ import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
   anyBodyConfig,
+  locallyUniqueConfig,
   noAliasConfig,
   noNameConfig,
   noSettingsConfig,
@@ -22,7 +23,7 @@ export default class NoteValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = noUniqueConfig(false);
+  protected unique = locallyUniqueConfig(CompileErrorCode.NOTE_REDEFINED, false);
 
   protected name = noNameConfig(false);
 
@@ -52,8 +53,16 @@ export default class NoteValidator extends ElementValidator {
     globalSchema: SchemaSymbolTable,
     contextStack: ContextStack,
     errors: CompileError[],
-    uniqueKindsFound: Set<ElementKind>,
+    kindsGloballyFound: Set<ElementKind>,
+    kindsLocallyFound: Set<ElementKind>,
   ) {
-    super(declarationNode, globalSchema, contextStack, errors, uniqueKindsFound);
+    super(
+      declarationNode,
+      globalSchema,
+      contextStack,
+      errors,
+      kindsGloballyFound,
+      kindsLocallyFound,
+    );
   }
 }

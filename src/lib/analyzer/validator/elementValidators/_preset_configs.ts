@@ -88,10 +88,31 @@ export function noSettingsConfig(stopOnError: boolean) {
   );
 }
 
+export function locallyUniqueConfig(errorCode: CompileErrorCode, stopOnError: boolean) {
+  return createUniqueValidatorConfig({
+    globally: false,
+    notGloballyErrorCode: undefined,
+    locally: true,
+    notLocallyErrorCode: errorCode,
+    stopOnError,
+  });
+}
+export function globallyUniqueConfig(errorCode: CompileErrorCode, stopOnError: boolean) {
+  return createUniqueValidatorConfig({
+    globally: true,
+    notGloballyErrorCode: errorCode,
+    locally: false,
+    notLocallyErrorCode: undefined,
+    stopOnError,
+  });
+}
+
 export function noUniqueConfig(stopOnError: boolean) {
   return createUniqueValidatorConfig({
-    mandatory: false,
-    errorCode: undefined,
+    globally: false,
+    notGloballyErrorCode: undefined,
+    locally: false,
+    notLocallyErrorCode: undefined,
     stopOnError,
   });
 }

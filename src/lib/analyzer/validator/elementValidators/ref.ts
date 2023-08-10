@@ -59,9 +59,17 @@ export default class RefValidator extends ElementValidator {
     globalSchema: SchemaSymbolTable,
     contextStack: ContextStack,
     errors: CompileError[],
-    uniqueKindsFound: Set<ElementKind>,
+    kindsGloballyFound: Set<ElementKind>,
+    kindsLocallyFound: Set<ElementKind>,
   ) {
-    super(declarationNode, globalSchema, contextStack, errors, uniqueKindsFound);
+    super(
+      declarationNode,
+      globalSchema,
+      contextStack,
+      errors,
+      kindsGloballyFound,
+      kindsLocallyFound,
+    );
   }
 }
 
@@ -93,25 +101,26 @@ function isValidPolicy(value?: SyntaxNode | SyntaxToken[]): boolean {
   return false; // unreachable
 }
 
-const refFieldSettings = () => createSettingsValidatorConfig(
-  {
-    delete: {
-      allowDuplicate: false,
-      isValid: isValidPolicy,
+const refFieldSettings = () =>
+  createSettingsValidatorConfig(
+    {
+      delete: {
+        allowDuplicate: false,
+        isValid: isValidPolicy,
+      },
+      update: {
+        allowDuplicate: false,
+        isValid: isValidPolicy,
+      },
     },
-    update: {
-      allowDuplicate: false,
-      isValid: isValidPolicy,
+    {
+      optional: true,
+      notFoundErrorCode: undefined,
+      allow: true,
+      foundErrorCode: undefined,
+      unknownErrorCode: CompileErrorCode.UNKNOWN_REF_SETTING,
+      duplicateErrorCode: CompileErrorCode.DUPLICATE_REF_SETTING,
+      invalidErrorCode: CompileErrorCode.INVALID_REF_SETTING_VALUE,
+      stopOnError: false,
     },
-  },
-  {
-    optional: true,
-    notFoundErrorCode: undefined,
-    allow: true,
-    foundErrorCode: undefined,
-    unknownErrorCode: CompileErrorCode.UNKNOWN_REF_SETTING,
-    duplicateErrorCode: CompileErrorCode.DUPLICATE_REF_SETTING,
-    invalidErrorCode: CompileErrorCode.INVALID_REF_SETTING_VALUE,
-    stopOnError: false,
-  },
-);
+  );

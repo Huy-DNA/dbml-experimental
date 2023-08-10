@@ -11,6 +11,7 @@ import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
   complexBodyConfig,
+  globallyUniqueConfig,
   noAliasConfig,
   noSettingsConfig,
   optionalNameConfig,
@@ -25,11 +26,7 @@ export default class ProjectValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = createUniqueValidatorConfig({
-    mandatory: true,
-    errorCode: CompileErrorCode.PROJECT_REDEFINED,
-    stopOnError: false,
-  });
+  protected unique = globallyUniqueConfig(CompileErrorCode.PROJECT_REDEFINED, false);
 
   protected name = optionalNameConfig(false);
 
@@ -54,8 +51,16 @@ export default class ProjectValidator extends ElementValidator {
     globalSchema: SchemaSymbolTable,
     contextStack: ContextStack,
     errors: CompileError[],
-    uniqueKindsFound: Set<ElementKind>,
+    kindsGloballyFound: Set<ElementKind>,
+    kindsLocallyFound: Set<ElementKind>,
   ) {
-    super(declarationNode, globalSchema, contextStack, errors, uniqueKindsFound);
+    super(
+      declarationNode,
+      globalSchema,
+      contextStack,
+      errors,
+      kindsGloballyFound,
+      kindsLocallyFound,
+    );
   }
 }
