@@ -108,11 +108,10 @@ export function tryInterpretAsLiteralElement(
   if (extractIdentifierFromNode(maybeAs)?.value === 'as') {
     alias = maybeAlias;
     as = extractIdentifierFromNode(cpArgs.pop());
+    name = cpArgs.pop();
   } else {
     name = maybeAlias;
   }
-
-  cpArgs.pop();
 
   return cpArgs.length === 0 ?
     new ElementDeclarationNode({
