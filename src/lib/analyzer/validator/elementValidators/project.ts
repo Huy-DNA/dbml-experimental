@@ -1,8 +1,4 @@
-import {
-  ElementKind,
-  createContextValidatorConfig,
-  createSubFieldValidatorConfig,
-} from '../types';
+import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
 import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';

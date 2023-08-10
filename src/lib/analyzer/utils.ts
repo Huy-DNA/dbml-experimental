@@ -1,6 +1,7 @@
 import { isAccessExpression, isPrimaryVariableNode, isQuotedStringNode } from '../utils';
 import { None, Option, Some } from '../option';
 import {
+  FunctionExpressionNode,
   InfixExpressionNode,
   LiteralNode,
   PrimaryExpressionNode,
@@ -81,10 +82,15 @@ export function destructureIndex(node: SyntaxNode): Option<{ table: string[]; co
     });
   }
 
-  if (column instanceof TupleExpressionNode && column.elementList.every(isPrimaryVariableNode)) {
+  if (
+    column instanceof TupleExpressionNode &&
+    column.elementList.every(
+      (element) => isPrimaryVariableNode(element) || element instanceof FunctionExpressionNode,
+    )
+  ) {
     return new Some({
       table: fragments.map(extractVarNameFromPrimaryVariable),
-      column: column.elementList.map(extractVarNameFromPrimaryVariable),
+      column: column.elementList.map((element) => element instanceof FunctionExpressionNode ? element.value : extractVarNameFromPrimaryVariable(element)),
     });
   }
 

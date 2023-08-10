@@ -4,11 +4,7 @@ import { isPrimaryVariableNode } from '../../../utils';
 import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
-import {
-  ElementKind,
-  createContextValidatorConfig,
-  createSubFieldValidatorConfig,
-} from '../types';
+import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
 import {
   complexBodyConfig,
   noAliasConfig,
