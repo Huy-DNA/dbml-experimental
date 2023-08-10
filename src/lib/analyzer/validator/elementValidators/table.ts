@@ -1,9 +1,6 @@
 import {
   ElementKind,
-  createAliasValidatorConfig,
-  createBodyValidatorConfig,
   createContextValidatorConfig,
-  createNameValidatorConfig,
   createSettingsValidatorConfig,
   createSubFieldValidatorConfig,
   createUniqueValidatorConfig,
@@ -23,6 +20,12 @@ import ElementValidator from './elementValidator';
 import {
  isUnaryRelationship, isValidColor, isValidDefaultValue, isVoid,
 } from '../utils';
+import {
+  registerNameConfig,
+  optionalAliasConfig,
+  simpleBodyConfig,
+  complexBodyConfig,
+} from './_preset_configs';
 
 export default class TableValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLE;
@@ -39,25 +42,9 @@ export default class TableValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected name = createNameValidatorConfig({
-    optional: true,
-    notFoundErrorCode: undefined,
-    allow: true,
-    foundErrorCode: undefined,
-    allowComplex: true,
-    complexErrorCode: undefined,
-    shouldRegister: true,
-    duplicateErrorCode: CompileErrorCode.DUPLICATE_NAME,
-    stopOnError: false,
-  });
+  protected name = registerNameConfig(false);
 
-  protected alias = createAliasValidatorConfig({
-    optional: true,
-    notFoundErrorCode: undefined,
-    allow: true,
-    foundErrorCode: undefined,
-    stopOnError: false,
-  });
+  protected alias = optionalAliasConfig(false);
 
   protected settings = createSettingsValidatorConfig(
     {
@@ -82,13 +69,7 @@ export default class TableValidator extends ElementValidator {
     },
   );
 
-  protected body = createBodyValidatorConfig({
-    allowSimple: false,
-    simpleErrorCode: CompileErrorCode.SIMPLE_TABLE_BODY,
-    allowComplex: true,
-    complexErrorCode: undefined,
-    stopOnError: false,
-  });
+  protected body = complexBodyConfig(false);
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [

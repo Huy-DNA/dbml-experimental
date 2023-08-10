@@ -1,12 +1,8 @@
 import {
   ElementKind,
-  createAliasValidatorConfig,
-  createBodyValidatorConfig,
   createContextValidatorConfig,
-  createNameValidatorConfig,
   createSettingsValidatorConfig,
   createSubFieldValidatorConfig,
-  createUniqueValidatorConfig,
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { SyntaxToken } from '../../../lexer/tokens';
@@ -22,6 +18,9 @@ import { destructureIndex } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import { isVoid } from '../utils';
+import {
+ complexBodyConfig, noAliasConfig, noNameConfig, noSettingsConfig, noUniqueConfig,
+} from './_preset_configs';
 
 export default class IndexesValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.INDEXES;
@@ -32,53 +31,15 @@ export default class IndexesValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = createUniqueValidatorConfig({
-    mandatory: false,
-    errorCode: undefined,
-    stopOnError: false,
-  });
+  protected unique = noUniqueConfig(false);
 
-  protected name = createNameValidatorConfig({
-    optional: true,
-    notFoundErrorCode: undefined,
-    allow: false,
-    foundErrorCode: CompileErrorCode.UNEXPECTED_NAME,
-    allowComplex: false,
-    complexErrorCode: CompileErrorCode.UNEXPECTED_NAME,
-    shouldRegister: false,
-    duplicateErrorCode: undefined,
-    stopOnError: false,
-  });
+  protected name = noNameConfig(false);
 
-  protected alias = createAliasValidatorConfig({
-    optional: true,
-    notFoundErrorCode: undefined,
-    allow: false,
-    foundErrorCode: CompileErrorCode.UNEXPECTED_ALIAS,
-    stopOnError: false,
-  });
+  protected alias = noAliasConfig(false);
 
-  protected settings = createSettingsValidatorConfig(
-    {},
-    {
-      optional: true,
-      notFoundErrorCode: undefined,
-      allow: false,
-      foundErrorCode: CompileErrorCode.UNEXPECTED_SETTINGS,
-      unknownErrorCode: undefined,
-      duplicateErrorCode: undefined,
-      invalidErrorCode: undefined,
-      stopOnError: false,
-    },
-  );
+  protected settings = noSettingsConfig(false);
 
-  protected body = createBodyValidatorConfig({
-    allowSimple: false,
-    simpleErrorCode: CompileErrorCode.SIMPLE_INDEXES_BODY,
-    allowComplex: true,
-    complexErrorCode: undefined,
-    stopOnError: false,
-  });
+  protected body = complexBodyConfig(false);
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [

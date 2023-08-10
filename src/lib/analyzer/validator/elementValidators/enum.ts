@@ -1,12 +1,8 @@
 import {
   ElementKind,
-  createAliasValidatorConfig,
-  createBodyValidatorConfig,
   createContextValidatorConfig,
-  createNameValidatorConfig,
   createSettingsValidatorConfig,
   createSubFieldValidatorConfig,
-  createUniqueValidatorConfig,
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { SyntaxToken } from '../../../lexer/tokens';
@@ -15,6 +11,13 @@ import { isPrimaryVariableNode, isQuotedStringNode } from '../../../utils';
 import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
+import {
+  complexBodyConfig,
+  noAliasConfig,
+  noSettingsConfig,
+  noUniqueConfig,
+  registerNameConfig,
+} from './_preset_configs';
 
 export default class EnumValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.ENUM;
@@ -25,53 +28,15 @@ export default class EnumValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = createUniqueValidatorConfig({
-    mandatory: false,
-    errorCode: undefined,
-    stopOnError: false,
-  });
+  protected unique = noUniqueConfig(false);
 
-  protected name = createNameValidatorConfig({
-    optional: false,
-    notFoundErrorCode: CompileErrorCode.NAME_NOT_FOUND,
-    allow: true,
-    foundErrorCode: undefined,
-    allowComplex: true,
-    complexErrorCode: undefined,
-    shouldRegister: true,
-    duplicateErrorCode: CompileErrorCode.DUPLICATE_NAME,
-    stopOnError: false,
-  });
+  protected name = registerNameConfig(false);
 
-  protected alias = createAliasValidatorConfig({
-    optional: true,
-    notFoundErrorCode: undefined,
-    allow: false,
-    foundErrorCode: CompileErrorCode.UNEXPECTED_ALIAS,
-    stopOnError: false,
-  });
+  protected alias = noAliasConfig(false);
 
-  protected settings = createSettingsValidatorConfig(
-    {},
-    {
-      optional: true,
-      notFoundErrorCode: undefined,
-      allow: false,
-      foundErrorCode: CompileErrorCode.UNEXPECTED_SETTINGS,
-      unknownErrorCode: undefined,
-      duplicateErrorCode: undefined,
-      invalidErrorCode: undefined,
-      stopOnError: false,
-    },
-  );
+  protected settings = noSettingsConfig(false);
 
-  protected body = createBodyValidatorConfig({
-    allowSimple: false,
-    simpleErrorCode: CompileErrorCode.SIMPLE_ENUM_BODY,
-    allowComplex: true,
-    complexErrorCode: undefined,
-    stopOnError: true,
-  });
+  protected body = complexBodyConfig(false);
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [

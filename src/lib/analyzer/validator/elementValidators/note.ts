@@ -1,19 +1,17 @@
-import {
-  ElementKind,
-  createAliasValidatorConfig,
-  createBodyValidatorConfig,
-  createContextValidatorConfig,
-  createNameValidatorConfig,
-  createSettingsValidatorConfig,
-  createSubFieldValidatorConfig,
-  createUniqueValidatorConfig,
-} from '../types';
+import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
 import { isQuotedStringNode } from '../../../utils';
 import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
+import {
+  anyBodyConfig,
+  noAliasConfig,
+  noNameConfig,
+  noSettingsConfig,
+  noUniqueConfig,
+} from './_preset_configs';
 
 export default class NoteValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.NOTE;
@@ -24,53 +22,15 @@ export default class NoteValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = createUniqueValidatorConfig({
-    mandatory: false,
-    errorCode: undefined,
-    stopOnError: false,
-  });
+  protected unique = noUniqueConfig(false);
 
-  protected name = createNameValidatorConfig({
-    optional: true,
-    notFoundErrorCode: undefined,
-    allow: false,
-    foundErrorCode: CompileErrorCode.UNEXPECTED_NAME,
-    allowComplex: false,
-    complexErrorCode: CompileErrorCode.UNEXPECTED_NAME,
-    shouldRegister: false,
-    duplicateErrorCode: undefined,
-    stopOnError: false,
-  });
+  protected name = noNameConfig(false);
 
-  protected alias = createAliasValidatorConfig({
-    optional: true,
-    notFoundErrorCode: undefined,
-    allow: false,
-    foundErrorCode: CompileErrorCode.UNEXPECTED_ALIAS,
-    stopOnError: false,
-  });
+  protected alias = noAliasConfig(false);
 
-  protected settings = createSettingsValidatorConfig(
-    {},
-    {
-      optional: true,
-      notFoundErrorCode: undefined,
-      allow: false,
-      foundErrorCode: CompileErrorCode.UNEXPECTED_SETTINGS,
-      unknownErrorCode: undefined,
-      duplicateErrorCode: undefined,
-      invalidErrorCode: undefined,
-      stopOnError: false,
-    },
-  );
+  protected settings = noSettingsConfig(false);
 
-  protected body = createBodyValidatorConfig({
-    allowSimple: true,
-    simpleErrorCode: undefined,
-    allowComplex: true,
-    complexErrorCode: undefined,
-    stopOnError: false,
-  });
+  protected body = anyBodyConfig(false);
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [
@@ -80,19 +40,7 @@ export default class NoteValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_NOTE,
-    setting: createSettingsValidatorConfig(
-      {},
-      {
-        optional: true,
-        notFoundErrorCode: undefined,
-        allow: false,
-        foundErrorCode: CompileErrorCode.UNEXPECTED_SETTINGS,
-        unknownErrorCode: undefined,
-        duplicateErrorCode: undefined,
-        invalidErrorCode: undefined,
-        stopOnError: false,
-      },
-    ),
+    setting: noSettingsConfig(false),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });

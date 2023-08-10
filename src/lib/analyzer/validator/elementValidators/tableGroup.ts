@@ -6,14 +6,16 @@ import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
   ElementKind,
-  createAliasValidatorConfig,
-  createBodyValidatorConfig,
   createContextValidatorConfig,
-  createNameValidatorConfig,
-  createSettingsValidatorConfig,
   createSubFieldValidatorConfig,
   createUniqueValidatorConfig,
 } from '../types';
+import {
+  complexBodyConfig,
+  noAliasConfig,
+  noSettingsConfig,
+  registerNameConfig,
+} from './_preset_configs';
 
 export default class TableGroupValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLEGROUP;
@@ -30,47 +32,13 @@ export default class TableGroupValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected name = createNameValidatorConfig({
-    optional: false,
-    notFoundErrorCode: CompileErrorCode.NAME_NOT_FOUND,
-    allow: true,
-    foundErrorCode: undefined,
-    allowComplex: true,
-    complexErrorCode: undefined,
-    shouldRegister: true,
-    duplicateErrorCode: CompileErrorCode.DUPLICATE_NAME,
-    stopOnError: false,
-  });
+  protected name = registerNameConfig(false);
 
-  protected alias = createAliasValidatorConfig({
-    optional: true,
-    notFoundErrorCode: undefined,
-    allow: false,
-    foundErrorCode: CompileErrorCode.UNEXPECTED_ALIAS,
-    stopOnError: false,
-  });
+  protected alias = noAliasConfig(false);
 
-  protected settings = createSettingsValidatorConfig(
-    {},
-    {
-      optional: true,
-      notFoundErrorCode: undefined,
-      allow: false,
-      foundErrorCode: CompileErrorCode.UNEXPECTED_SETTINGS,
-      unknownErrorCode: undefined,
-      duplicateErrorCode: undefined,
-      invalidErrorCode: undefined,
-      stopOnError: false,
-    },
-  );
+  protected settings = noSettingsConfig(false);
 
-  protected body = createBodyValidatorConfig({
-    allowSimple: false,
-    simpleErrorCode: CompileErrorCode.SIMPLE_TABLEGROUP_BODY,
-    allowComplex: true,
-    complexErrorCode: undefined,
-    stopOnError: false,
-  });
+  protected body = complexBodyConfig(false);
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [
@@ -80,19 +48,7 @@ export default class TableGroupValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_TABLEGROUP_FIELD,
-    setting: createSettingsValidatorConfig(
-      {},
-      {
-        optional: true,
-        notFoundErrorCode: undefined,
-        allow: false,
-        foundErrorCode: CompileErrorCode.UNEXPECTED_SETTINGS,
-        unknownErrorCode: undefined,
-        duplicateErrorCode: undefined,
-        invalidErrorCode: undefined,
-        stopOnError: false,
-      },
-    ),
+    setting: noSettingsConfig(false),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
