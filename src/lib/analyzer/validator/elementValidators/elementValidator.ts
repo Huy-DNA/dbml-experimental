@@ -170,7 +170,7 @@ export default abstract class ElementValidator {
     }
 
     if (!this.name.optional && !nameNode) {
-      this.logError(node.type, this.name.foundErrorCode, `${this.elementKind} must have a name`);
+      this.logError(node.type, this.name.notFoundErrorCode, `${this.elementKind} must have a name`);
       hasError = true;
     }
 
