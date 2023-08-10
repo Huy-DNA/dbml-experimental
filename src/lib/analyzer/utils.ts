@@ -82,15 +82,10 @@ export function destructureIndex(node: SyntaxNode): Option<{ table: string[]; co
     });
   }
 
-  if (
-    column instanceof TupleExpressionNode &&
-    column.elementList.every(
-      (element) => isPrimaryVariableNode(element) || element instanceof FunctionExpressionNode,
-    )
-  ) {
+  if (column instanceof TupleExpressionNode && column.elementList.every(isValidIndexName)) {
     return new Some({
       table: fragments.map(extractVarNameFromPrimaryVariable),
-      column: column.elementList.map((element) => element instanceof FunctionExpressionNode ? element.value : extractVarNameFromPrimaryVariable(element)),
+      column: column.elementList.map(extractIndexName),
     });
   }
 
@@ -138,4 +133,23 @@ export function isBinaryRelationship(value?: SyntaxNode | SyntaxToken[]): boolea
       .and_then(() => destructureComplexVariable(value.rightExpression))
       .unwrap_or(undefined) !== undefined
   );
+}
+
+export function isValidIndexName(
+  value?: SyntaxNode,
+): value is (PrimaryExpressionNode & { expression: VariableNode }) | FunctionExpressionNode {
+  return (
+    (value instanceof PrimaryExpressionNode && value.expression instanceof VariableNode) ||
+    value instanceof FunctionExpressionNode
+  );
+}
+
+export function extractIndexName(
+  value: (PrimaryExpressionNode & { expression: VariableNode }) | FunctionExpressionNode,
+): string {
+  if (value instanceof PrimaryExpressionNode) {
+    return value.expression.variable.value;
+  }
+
+  return value.value.value;
 }
