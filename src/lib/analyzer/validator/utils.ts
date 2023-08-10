@@ -1,6 +1,5 @@
 import { SyntaxToken, SyntaxTokenKind } from '../../lexer/tokens';
 import {
-  AttributeNode,
   BlockExpressionNode,
   ElementDeclarationNode,
   FunctionExpressionNode,
