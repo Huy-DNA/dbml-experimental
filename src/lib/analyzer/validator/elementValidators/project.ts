@@ -2,7 +2,6 @@ import {
   ElementKind,
   createContextValidatorConfig,
   createSubFieldValidatorConfig,
-  createUniqueValidatorConfig,
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';

@@ -8,7 +8,6 @@ import {
   ElementKind,
   createContextValidatorConfig,
   createSubFieldValidatorConfig,
-  createUniqueValidatorConfig,
 } from '../types';
 import {
   complexBodyConfig,

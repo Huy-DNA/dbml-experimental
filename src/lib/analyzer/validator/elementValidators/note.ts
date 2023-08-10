@@ -11,7 +11,6 @@ import {
   noAliasConfig,
   noNameConfig,
   noSettingsConfig,
-  noUniqueConfig,
 } from './_preset_configs';
 
 export default class NoteValidator extends ElementValidator {
