@@ -18,10 +18,10 @@ export function anyBodyConfig(stopOnError: boolean) {
 }
 export function simpleBodyConfig(stopOnError: boolean) {
   return createBodyValidatorConfig({
-    allowSimple: false,
-    simpleErrorCode: CompileErrorCode.UNEXPECTED_COMPLEX_BODY,
-    allowComplex: true,
-    complexErrorCode: undefined,
+    allowSimple: true,
+    simpleErrorCode: undefined,
+    allowComplex: false,
+    complexErrorCode: CompileErrorCode.UNEXPECTED_COMPLEX_BODY,
     stopOnError,
   });
 }
