@@ -1,10 +1,10 @@
-import { SchemaSymbolTable } from '../symbol/symbolTable';
+import { SchemaSymbol } from '../symbol/symbolTable';
 import { NodeSymbol } from '../symbol/symbols';
 
 export default class Binder {
-  private globalSchema: SchemaSymbolTable;
+  private publicSchemaSymbol: SchemaSymbol;
 
-  constructor(globalSchema: SchemaSymbolTable) {
-    this.globalSchema = globalSchema;
+  constructor(publicSchemaSymbol: SchemaSymbol) {
+    this.publicSchemaSymbol = publicSchemaSymbol;
   }
 }

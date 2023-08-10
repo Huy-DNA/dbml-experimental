@@ -8,7 +8,7 @@ import { CompileError, CompileErrorCode } from '../../../errors';
 import { SyntaxToken } from '../../../lexer/tokens';
 import { ElementDeclarationNode, SyntaxNode } from '../../../parser/nodes';
 import { isQuotedStringNode } from '../../../utils';
-import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';
+import { SchemaSymbol, TableEntry } from '../../symbol/symbolTable';
 import { extractQuotedStringToken, isBinaryRelationship, joinTokenStrings } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
@@ -52,11 +52,11 @@ export default class RefValidator extends ElementValidator {
     duplicateErrorCode: undefined,
   });
 
-  protected elementEntry?: TableEntry;
+  protected elementSymbol?: TableEntry;
 
   constructor(
     declarationNode: ElementDeclarationNode,
-    globalSchema: SchemaSymbolTable,
+    publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
@@ -64,7 +64,7 @@ export default class RefValidator extends ElementValidator {
   ) {
     super(
       declarationNode,
-      globalSchema,
+      publicSchemaSymbol,
       contextStack,
       errors,
       kindsGloballyFound,

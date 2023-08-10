@@ -1,7 +1,7 @@
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
 import { isPrimaryVariableNode } from '../../../utils';
-import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';
+import { SchemaSymbol, TableEntry } from '../../symbol/symbolTable';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
@@ -45,11 +45,11 @@ export default class TableGroupValidator extends ElementValidator {
     duplicateErrorCode: undefined,
   });
 
-  protected elementEntry?: TableEntry;
+  protected elementSymbol?: TableEntry;
 
   constructor(
     declarationNode: ElementDeclarationNode,
-    globalSchema: SchemaSymbolTable,
+    publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
@@ -57,7 +57,7 @@ export default class TableGroupValidator extends ElementValidator {
   ) {
     super(
       declarationNode,
-      globalSchema,
+      publicSchemaSymbol,
       contextStack,
       errors,
       kindsGloballyFound,

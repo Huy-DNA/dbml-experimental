@@ -2,7 +2,7 @@ import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfi
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
 import { isQuotedStringNode } from '../../../utils';
-import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';
+import { SchemaSymbol, TableEntry } from '../../symbol/symbolTable';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
@@ -45,11 +45,11 @@ export default class CustomValidator extends ElementValidator {
     duplicateErrorCode: undefined,
   });
 
-  protected elementEntry?: TableEntry;
+  protected elementSymbol?: TableEntry;
 
   constructor(
     declarationNode: ElementDeclarationNode,
-    globalSchema: SchemaSymbolTable,
+    publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
@@ -57,7 +57,7 @@ export default class CustomValidator extends ElementValidator {
   ) {
     super(
       declarationNode,
-      globalSchema,
+      publicSchemaSymbol,
       contextStack,
       errors,
       kindsGloballyFound,

@@ -19,13 +19,12 @@ import {
   SyntaxNode,
 } from '../../../parser/nodes';
 import { extractIdentifierFromNode } from '../../../utils';
-import { SchemaSymbolTable, SymbolTableEntry } from '../../symbol/symbolTable';
 import { destructureComplexVariable, joinTokenStrings } from '../../utils';
 import { ContextStack, canBeNestedWithin } from '../validatorContext';
 import {
-  createEntry,
-  createSubFieldEntry,
-  createSubFieldSymbol,
+  createId,
+  createSubfieldId,
+  createSubfieldSymbol,
   createSymbol,
   hasComplexBody,
   hasSimpleBody,
@@ -36,6 +35,8 @@ import {
   pickValidator,
   registerSchemaStack,
 } from '../utils';
+import { NodeSymbol, SchemaSymbol } from '../../symbol/symbols';
+import SymbolTable from '../../symbol/symbolTable';
 
 export default abstract class ElementValidator {
   protected abstract elementKind: ElementKind;
@@ -49,26 +50,24 @@ export default abstract class ElementValidator {
   protected abstract subfield: SubFieldValidatorConfig;
 
   protected declarationNode: ElementDeclarationNode;
-  protected globalSchema: SchemaSymbolTable;
+  protected publicSchemaSymbol: SchemaSymbol;
   protected contextStack: ContextStack;
   protected errors: CompileError[];
   protected kindsGloballyFound: Set<ElementKind>;
   protected kindsLocallyFound: Set<ElementKind>;
 
-  protected elementEntry?: SymbolTableEntry;
-
   private registerNameFailed: boolean = false;
 
   constructor(
     declarationNode: ElementDeclarationNode,
-    globalSchema: SchemaSymbolTable,
+    publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
   ) {
     this.declarationNode = declarationNode;
-    this.globalSchema = globalSchema;
+    this.publicSchemaSymbol = publicSchemaSymbol;
     this.contextStack = contextStack;
     this.errors = errors;
     this.kindsGloballyFound = kindsGloballyFound;
@@ -116,6 +115,7 @@ export default abstract class ElementValidator {
 
     return true;
   }
+
   private validateGloballyUnique(): boolean {
     if (!this.unique.globally) {
       return true;
@@ -184,8 +184,11 @@ export default abstract class ElementValidator {
     }
 
     if (!hasError && nameNode && this.name.shouldRegister) {
-      this.elementEntry = this.registerElement(nameNode, this.globalSchema).unwrap_or(undefined);
-      if (!this.elementEntry) {
+      this.declarationNode.symbol = this.registerElement(
+        nameNode,
+        this.publicSchemaSymbol.symbolTable,
+      ).unwrap_or(undefined);
+      if (!this.declarationNode.symbol) {
         this.registerNameFailed = true;
         hasError = true;
       }
@@ -223,12 +226,12 @@ export default abstract class ElementValidator {
     }
 
     if (!hasError && aliasNode && this.name.shouldRegister && !this.registerNameFailed) {
-      this.elementEntry = this.registerElement(
-        aliasNode,
-        this.globalSchema,
-        this.elementEntry,
-      ).unwrap_or(undefined);
-      hasError = this.elementEntry === undefined || hasError;
+      hasError =
+        this.registerElement(
+          aliasNode,
+          this.publicSchemaSymbol.symbolTable,
+          this.declarationNode.symbol,
+        ).unwrap_or(undefined) === undefined || hasError;
     }
 
     return !hasError || !this.alias.stopOnError;
@@ -296,9 +299,9 @@ export default abstract class ElementValidator {
 
   private registerElement(
     nameNode: SyntaxNode,
-    schema: SchemaSymbolTable,
-    entry?: SymbolTableEntry,
-  ): Option<SymbolTableEntry> {
+    schema: SymbolTable,
+    defaultSymbol?: NodeSymbol,
+  ): Option<NodeSymbol> {
     const variables = destructureComplexVariable(nameNode).unwrap_or(undefined);
     if (!variables) {
       throw new Error(`${this.elementKind} must be a valid complex variable`);
@@ -308,12 +311,12 @@ export default abstract class ElementValidator {
       throw new Error(`${this.elementKind} name shouldn't be empty`);
     }
 
-    const symbol = createSymbol(name, this.context.name);
+    const id = createId(name, this.context.name);
     const registerSchema = registerSchemaStack(variables, schema);
-    if (!symbol) {
-      throw new Error(`${this.elementKind} isn't supposed to register its name`);
+    if (!id) {
+      throw new Error(`${this.elementKind} fails to create id to register in the symbol table`);
     }
-    if (registerSchema.has(symbol)) {
+    if (registerSchema.has(id)) {
       this.logError(
         nameNode,
         this.name.duplicateErrorCode,
@@ -323,12 +326,14 @@ export default abstract class ElementValidator {
       return new None();
     }
 
-    const newEntry = createEntry(this.context.name);
-    if (!newEntry) {
-      throw new Error(`${this.elementKind} can create symbol but not entry?`);
+    const newSymbol = createSymbol(this.declarationNode, this.context.name);
+    if (!newSymbol) {
+      throw new Error(
+        `${this.elementKind} fails to create a symbol to register in the symbol table`,
+      );
     }
 
-    return new Some(registerSchema.get(symbol, entry || (newEntry as any)));
+    return new Some(registerSchema.get(id, defaultSymbol || newSymbol));
   }
 
   protected validateBodyContent(): boolean {
@@ -374,7 +379,7 @@ export default abstract class ElementValidator {
 
     const validatorObject = new Val(
       sub,
-      this.globalSchema,
+      this.publicSchemaSymbol,
       this.contextStack,
       this.errors,
       this.kindsGloballyFound,
@@ -419,28 +424,34 @@ export default abstract class ElementValidator {
     }
 
     if (this.subfield.shouldRegister && !hasError) {
-      const entry = this.registerSubField(args[0]).unwrap_or(undefined);
+      const entry = this.registerSubField(sub, args[0]).unwrap_or(undefined);
       hasError = entry === undefined || hasError;
     }
 
     return !hasError;
   }
 
-  private registerSubField(nameNode: SyntaxNode): Option<SymbolTableEntry> {
-    if (!this.elementEntry || !this.elementEntry.symbolTable) {
+  private registerSubField(declarationNode: SyntaxNode, nameNode: SyntaxNode): Option<NodeSymbol> {
+    if (!this.declarationNode.symbol || !this.declarationNode.symbol.symbolTable) {
       throw new Error('If an element allows registering subfields, it must own a symbol table');
     }
+
     if (!isSimpleName(nameNode)) {
       throw new Error('If an element allows registering subfields, their name must be simple');
     }
     const name = extractIdentifierFromNode(nameNode)?.value;
-    const { symbolTable } = this.elementEntry;
+    const { symbolTable } = this.declarationNode.symbol;
     if (!name) {
       throw new Error(`${this.elementKind} subfield's name shouldn't be empty`);
     }
 
-    const symbol = createSubFieldSymbol(name, this.context.name);
-    if ((symbolTable as any).has(symbol)) {
+    const id = createSubfieldId(name, this.context.name);
+    if (!id) {
+      throw new Error(
+        `${this.elementKind} fails to create subfield id to register in the symbol table`,
+      );
+    }
+    if (symbolTable.has(id)) {
       this.logError(
         nameNode,
         this.subfield.duplicateErrorCode,
@@ -449,8 +460,14 @@ export default abstract class ElementValidator {
 
       return new None();
     }
+    const symbol = createSubfieldSymbol(declarationNode, this.context.name);
+    if (!symbol) {
+      throw new Error(
+        `${this.elementKind} fails to create subfield symbol to register in the symbol table`,
+      );
+    }
 
-    return new Some((symbolTable as any).get(symbol, createSubFieldEntry(this.context.name)));
+    return new Some(symbolTable.get(id, symbol));
   }
 
   protected validateSubFieldSettings(maybeSettings: ExpressionNode): boolean {

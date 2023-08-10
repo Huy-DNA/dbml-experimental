@@ -11,30 +11,6 @@ import {
   VariableNode,
 } from '../../parser/nodes';
 import { isAccessExpression, isHexChar } from '../../utils';
-import {
-  ColumnEntry,
-  EnumElementEntry,
-  EnumEntry,
-  EnumSymbolTable,
-  SchemaEntry,
-  SchemaSymbolTable,
-  SymbolTableEntry,
-  TableEntry,
-  TableGroupElementEntry,
-  TableGroupEntry,
-  TableGroupSymbolTable,
-  TableSymbolTable,
-} from '../symbol/symbolTable';
-import {
-  ColumnSymbol,
-  EnumElementSymbol,
-  EnumSymbol,
-  NodeSymbol,
-  SchemaSymbol,
-  TableGroupElementSymbol,
-  TableGroupSymbol,
-  TableSymbol,
-} from '../symbol/symbols';
 import { destructureComplexVariable } from '../utils';
 import { ValidatorContext } from './validatorContext';
 import CustomValidator from './elementValidators/custom';
@@ -45,6 +21,26 @@ import ProjectValidator from './elementValidators/project';
 import RefValidator from './elementValidators/ref';
 import TableValidator from './elementValidators/table';
 import TableGroupValidator from './elementValidators/tableGroup';
+import {
+  NodeSymbolId,
+  createColumnSymbolId,
+  createEnumElementSymbolId,
+  createEnumSymbolId,
+  createSchemaSymbolId,
+  createTableGroupSymbolId,
+  createTableSymbolId,
+} from '../symbol/symbolIndex';
+import {
+  ColumnSymbol,
+  EnumElementSymbol,
+  EnumSymbol,
+  NodeSymbol,
+  SchemaSymbol,
+  TableGroupElementSymbol,
+  TableGroupSymbol,
+  TableSymbol,
+} from '../symbol/symbols';
+import SymbolTable from '../symbol/symbolTable';
 
 export function pickValidator(element: ElementDeclarationNode) {
   switch (element.type.value.toLowerCase()) {
@@ -98,70 +94,84 @@ export function hasSimpleBody(
   return !!node.bodyOpenColon;
 }
 
-export function registerSchemaStack(
-  variables: string[],
-  initialSchema: SchemaSymbolTable,
-): SchemaSymbolTable {
+export function registerSchemaStack(variables: string[], initialSchema: SymbolTable): SymbolTable {
   let schema = initialSchema;
   // eslint-disable-next-line no-restricted-syntax
   for (const schemaName of variables) {
-    const schemaSymbol = new SchemaSymbol(schemaName);
-    schema = schema.get(schemaSymbol, new SchemaEntry(new SchemaSymbolTable())).symbolTable;
+    const schemaId = createSchemaSymbolId(schemaName);
+    if (!schema.has(schemaId)) {
+      const schemaST = new SymbolTable();
+      const schemaSymbol = new SchemaSymbol(schemaST);
+      schema.set(schemaId, schemaSymbol);
+      schema = schemaST;
+    } else {
+      const schemaSymbol = schema.get(schemaId)!;
+      if (!schemaSymbol.symbolTable) {
+        throw new Error('Expect a symbol table in a schema symbol');
+      }
+      schema = schemaSymbol.symbolTable;
+    }
   }
 
   return schema;
 }
 
-export function createSymbol(name: string, context: ValidatorContext): NodeSymbol | undefined {
+export function createId(name: string, context: ValidatorContext): NodeSymbolId | undefined {
   switch (context) {
     case ValidatorContext.TableContext:
-      return new TableSymbol(name);
+      return createTableSymbolId(name);
     case ValidatorContext.EnumContext:
-      return new EnumSymbol(name);
+      return createEnumSymbolId(name);
     case ValidatorContext.TableGroupContext:
-      return new TableGroupSymbol(name);
+      return createTableGroupSymbolId(name);
     default:
       return undefined;
   }
 }
 
-export function createSubFieldSymbol(
+export function createSubfieldId(
   name: string,
+  context: ValidatorContext,
+): NodeSymbolId | undefined {
+  switch (context) {
+    case ValidatorContext.TableContext:
+      return createColumnSymbolId(name);
+    case ValidatorContext.EnumContext:
+      return createEnumElementSymbolId(name);
+    case ValidatorContext.TableGroupContext:
+      return createTableGroupSymbolId(name);
+    default:
+      return undefined;
+  }
+}
+
+export function createSymbol(
+  declaration: SyntaxNode,
   context: ValidatorContext,
 ): NodeSymbol | undefined {
   switch (context) {
     case ValidatorContext.TableContext:
-      return new ColumnSymbol(name);
+      return new TableSymbol(new SymbolTable(), declaration);
     case ValidatorContext.EnumContext:
-      return new EnumElementSymbol(name);
+      return new EnumSymbol(new SymbolTable(), declaration);
     case ValidatorContext.TableGroupContext:
-      return new TableGroupElementSymbol(name);
+      return new TableGroupSymbol(new SymbolTable(), declaration);
     default:
       return undefined;
   }
 }
 
-export function createEntry(context: ValidatorContext): SymbolTableEntry | undefined {
+export function createSubfieldSymbol(
+  declaration: SyntaxNode,
+  context: ValidatorContext,
+): NodeSymbol | undefined {
   switch (context) {
     case ValidatorContext.TableContext:
-      return new TableEntry(new TableSymbolTable());
+      return new ColumnSymbol(declaration);
     case ValidatorContext.EnumContext:
-      return new EnumEntry(new EnumSymbolTable());
+      return new EnumElementSymbol(declaration);
     case ValidatorContext.TableGroupContext:
-      return new TableGroupEntry(new TableGroupSymbolTable());
-    default:
-      return undefined;
-  }
-}
-
-export function createSubFieldEntry(context: ValidatorContext): SymbolTableEntry | undefined {
-  switch (context) {
-    case ValidatorContext.TableContext:
-      return new ColumnEntry();
-    case ValidatorContext.EnumContext:
-      return new EnumElementEntry();
-    case ValidatorContext.TableGroupContext:
-      return new TableGroupElementEntry();
+      return new TableGroupElementSymbol(declaration);
     default:
       return undefined;
   }

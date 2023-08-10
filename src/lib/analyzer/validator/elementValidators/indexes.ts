@@ -13,7 +13,7 @@ import {
   VariableNode,
 } from '../../../parser/nodes';
 import { isQuotedStringNode } from '../../../utils';
-import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';
+import { SchemaSymbol, TableEntry } from '../../symbol/symbolTable';
 import { destructureIndex } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
@@ -58,11 +58,11 @@ export default class IndexesValidator extends ElementValidator {
     duplicateErrorCode: undefined,
   });
 
-  protected elementEntry?: TableEntry;
+  protected elementSymbol?: TableEntry;
 
   constructor(
     declarationNode: ElementDeclarationNode,
-    globalSchema: SchemaSymbolTable,
+    publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
@@ -70,7 +70,7 @@ export default class IndexesValidator extends ElementValidator {
   ) {
     super(
       declarationNode,
-      globalSchema,
+      publicSchemaSymbol,
       contextStack,
       errors,
       kindsGloballyFound,

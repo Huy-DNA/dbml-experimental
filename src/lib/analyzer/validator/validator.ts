@@ -2,15 +2,16 @@ import Report from '../../report';
 import { CompileError } from '../../errors';
 import { ProgramNode } from '../../parser/nodes';
 import { ContextStack } from './validatorContext';
-import { SchemaSymbolTable, SchemaEntry } from '../symbol/symbolTable';
 import { SchemaSymbol } from '../symbol/symbols';
 import { pickValidator } from './utils';
 import { ElementKind } from './types';
+import { createSchemaSymbolId } from '../symbol/symbolIndex';
+import SymbolTable from '../symbol/symbolTable';
 
 export default class Validator {
   private ast: ProgramNode;
 
-  private globalSchema: SchemaSymbolTable;
+  private publicSchemaSymbol: SchemaSymbol;
 
   private contextStack: ContextStack;
 
@@ -23,19 +24,22 @@ export default class Validator {
     this.ast = ast;
     this.contextStack = new ContextStack();
     this.errors = [];
-    this.globalSchema = new SchemaSymbolTable();
+    this.publicSchemaSymbol = new SchemaSymbol(new SymbolTable());
     this.kindsGloballyFound = new Set();
     this.kindsLocallyFound = new Set();
-    const publicSymbol = new SchemaSymbol('public');
-    this.globalSchema.set(publicSymbol, new SchemaEntry(this.globalSchema));
+
+    this.publicSchemaSymbol.symbolTable.set(
+      createSchemaSymbolId('public'),
+      this.publicSchemaSymbol,
+    );
   }
 
-  validate(): Report<{ program: ProgramNode; schema: SchemaSymbolTable }, CompileError> {
+  validate(): Report<{ program: ProgramNode; schema: SchemaSymbol }, CompileError> {
     this.ast.body.forEach((element) => {
       const Val = pickValidator(element);
       const validatorObject = new Val(
         element,
-        this.globalSchema,
+        this.publicSchemaSymbol,
         this.contextStack,
         this.errors,
         this.kindsGloballyFound,
@@ -44,6 +48,6 @@ export default class Validator {
       validatorObject.validate();
     });
 
-    return new Report({ program: this.ast, schema: this.globalSchema }, this.errors);
+    return new Report({ program: this.ast, schema: this.publicSchemaSymbol }, this.errors);
   }
 }
