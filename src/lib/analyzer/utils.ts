@@ -75,10 +75,10 @@ export function destructureIndex(node: SyntaxNode): Option<{ table: string[]; co
     return new None();
   }
 
-  if (isPrimaryVariableNode(column)) {
+  if (isValidIndexName(column)) {
     return new Some({
       table: fragments.map(extractVarNameFromPrimaryVariable),
-      column: [extractVarNameFromPrimaryVariable(column)],
+      column: [extractIndexName(column)],
     });
   }
 
