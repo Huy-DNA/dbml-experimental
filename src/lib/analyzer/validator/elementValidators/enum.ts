@@ -5,8 +5,7 @@ import {
   createSubFieldValidatorConfig,
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
-import { SyntaxToken } from '../../../lexer/tokens';
-import { ElementDeclarationNode, SyntaxNode } from '../../../parser/nodes';
+import { ElementDeclarationNode } from '../../../parser/nodes';
 import { isPrimaryVariableNode, isQuotedStringNode } from '../../../utils';
 import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';
 import { ContextStack, ValidatorContext } from '../validatorContext';
@@ -79,17 +78,4 @@ export default class EnumValidator extends ElementValidator {
   ) {
     super(declarationNode, globalSchema, contextStack, errors, uniqueKindsFound);
   }
-}
-
-export function allowValueForThisEnumElementSetting(
-  settingName: string,
-  value?: SyntaxNode | SyntaxToken[],
-): boolean {
-  return !!{
-    note: isQuotedStringNode,
-  }[settingName]?.call(undefined, value);
-}
-
-export function allowDuplicateForThisEnumElementSetting(settingName: string): boolean {
-  return false;
 }
