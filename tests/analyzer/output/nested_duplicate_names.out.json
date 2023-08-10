@@ -672,13 +672,6 @@
       "start": 49,
       "end": 50,
       "name": "CompileError"
-    },
-    {
-      "code": 3003,
-      "diagnostic": "This Table has a duplicated name",
-      "start": 49,
-      "end": 50,
-      "name": "CompileError"
     }
   ]
 }

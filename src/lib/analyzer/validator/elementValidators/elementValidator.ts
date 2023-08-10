@@ -57,6 +57,8 @@ export default abstract class ElementValidator {
 
   protected elementEntry?: SymbolTableEntry;
 
+  private registerNameFailed: boolean = false;
+
   constructor(
     declarationNode: ElementDeclarationNode,
     globalSchema: SchemaSymbolTable,
@@ -184,11 +186,7 @@ export default abstract class ElementValidator {
     if (!hasError && nameNode && this.name.shouldRegister) {
       this.elementEntry = this.registerElement(nameNode, this.globalSchema).unwrap_or(undefined);
       if (!this.elementEntry) {
-        this.logError(
-          nameNode,
-          this.name.duplicateErrorCode,
-          `This ${this.elementKind} has a duplicated name`,
-        );
+        this.registerNameFailed = true;
         hasError = true;
       }
     }
@@ -224,7 +222,7 @@ export default abstract class ElementValidator {
       hasError = true;
     }
 
-    if (!hasError && aliasNode && this.name.shouldRegister) {
+    if (!hasError && aliasNode && this.name.shouldRegister && !this.registerNameFailed) {
       this.elementEntry = this.registerElement(
         aliasNode,
         this.globalSchema,
