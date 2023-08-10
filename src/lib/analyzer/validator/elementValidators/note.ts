@@ -2,7 +2,6 @@ import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfi
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
 import { isQuotedStringNode } from '../../../utils';
-import { SchemaSymbol, TableEntry } from '../../symbol/symbolTable';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
@@ -12,6 +11,7 @@ import {
   noNameConfig,
   noSettingsConfig,
 } from './_preset_configs';
+import { SchemaSymbol } from 'lib/analyzer/symbol/symbols';
 
 export default class NoteValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.NOTE;
@@ -44,8 +44,6 @@ export default class NoteValidator extends ElementValidator {
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
-
-  protected elementSymbol?: TableEntry;
 
   constructor(
     declarationNode: ElementDeclarationNode,

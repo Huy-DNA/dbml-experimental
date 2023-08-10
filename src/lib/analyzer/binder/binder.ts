@@ -1,5 +1,4 @@
-import { SchemaSymbol } from '../symbol/symbolTable';
-import { NodeSymbol } from '../symbol/symbols';
+import { SchemaSymbol } from '../symbol/symbols';
 
 export default class Binder {
   private publicSchemaSymbol: SchemaSymbol;

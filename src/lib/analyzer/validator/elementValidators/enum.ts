@@ -7,7 +7,6 @@ import {
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
 import { isPrimaryVariableNode, isQuotedStringNode } from '../../../utils';
-import { SchemaSymbol, TableEntry } from '../../symbol/symbolTable';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
@@ -17,6 +16,7 @@ import {
   noUniqueConfig,
   registerNameConfig,
 } from './_preset_configs';
+import { SchemaSymbol } from 'lib/analyzer/symbol/symbols';
 
 export default class EnumValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.ENUM;
@@ -49,8 +49,6 @@ export default class EnumValidator extends ElementValidator {
     shouldRegister: true,
     duplicateErrorCode: CompileErrorCode.DUPLICATE_ENUM_ELEMENT_NAME,
   });
-
-  protected elementSymbol?: TableEntry;
 
   constructor(
     declarationNode: ElementDeclarationNode,

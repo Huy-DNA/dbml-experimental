@@ -1,7 +1,6 @@
 import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
-import { SchemaSymbol, TableEntry } from '../../symbol/symbolTable';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
@@ -11,6 +10,7 @@ import {
   noSettingsConfig,
   optionalNameConfig,
 } from './_preset_configs';
+import { SchemaSymbol } from 'lib/analyzer/symbol/symbols';
 
 export default class ProjectValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.PROJECT;
@@ -38,8 +38,6 @@ export default class ProjectValidator extends ElementValidator {
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
-
-  protected elementSymbol?: TableEntry;
 
   constructor(
     declarationNode: ElementDeclarationNode,

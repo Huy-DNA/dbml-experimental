@@ -12,7 +12,6 @@ import {
   SyntaxNode,
 } from '../../../parser/nodes';
 import { isAccessExpression, isPrimaryVariableNode, isQuotedStringNode } from '../../../utils';
-import { SchemaSymbol, TableEntry } from '../../symbol/symbolTable';
 import { destructureComplexVariable } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
@@ -25,6 +24,7 @@ import {
   complexBodyConfig,
   noUniqueConfig,
 } from './_preset_configs';
+import { SchemaSymbol } from 'lib/analyzer/symbol/symbols';
 
 export default class TableValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLE;
@@ -82,8 +82,6 @@ export default class TableValidator extends ElementValidator {
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
-
-  protected elementSymbol?: TableEntry;
 
   constructor(
     declarationNode: ElementDeclarationNode,

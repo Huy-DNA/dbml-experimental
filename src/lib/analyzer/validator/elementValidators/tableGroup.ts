@@ -1,7 +1,6 @@
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
 import { isPrimaryVariableNode } from '../../../utils';
-import { SchemaSymbol, TableEntry } from '../../symbol/symbolTable';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
@@ -12,6 +11,7 @@ import {
   noUniqueConfig,
   registerNameConfig,
 } from './_preset_configs';
+import { SchemaSymbol } from 'lib/analyzer/symbol/symbols';
 
 export default class TableGroupValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLEGROUP;
@@ -44,8 +44,6 @@ export default class TableGroupValidator extends ElementValidator {
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
-
-  protected elementSymbol?: TableEntry;
 
   constructor(
     declarationNode: ElementDeclarationNode,

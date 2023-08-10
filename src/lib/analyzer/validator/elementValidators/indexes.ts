@@ -13,7 +13,6 @@ import {
   VariableNode,
 } from '../../../parser/nodes';
 import { isQuotedStringNode } from '../../../utils';
-import { SchemaSymbol, TableEntry } from '../../symbol/symbolTable';
 import { destructureIndex } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
@@ -25,6 +24,7 @@ import {
   noSettingsConfig,
   noUniqueConfig,
 } from './_preset_configs';
+import { SchemaSymbol } from 'lib/analyzer/symbol/symbols';
 
 export default class IndexesValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.INDEXES;
@@ -57,8 +57,6 @@ export default class IndexesValidator extends ElementValidator {
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
-
-  protected elementSymbol?: TableEntry;
 
   constructor(
     declarationNode: ElementDeclarationNode,
