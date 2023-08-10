@@ -1,3 +1,13 @@
+import {
+  ElementKind,
+  createAliasValidatorConfig,
+  createBodyValidatorConfig,
+  createContextValidatorConfig,
+  createNameValidatorConfig,
+  createSettingsValidatorConfig,
+  createSubFieldValidatorConfig,
+  createUniqueValidatorConfig,
+} from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { SyntaxToken } from '../../../lexer/tokens';
 import {
@@ -10,71 +20,111 @@ import { isQuotedStringNode } from '../../../utils';
 import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';
 import { destructureIndex } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
-import ElementValidator, { ArgumentValidatorConfig, ElementKind } from './elementValidator';
-import { isVoid } from './utils';
+import ElementValidator from './elementValidator';
+import { isVoid } from '../utils';
 
 export default class IndexesValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.INDEXES;
 
-  protected associatedContext: ValidatorContext = ValidatorContext.IndexesContext;
-  protected contextErrorCode: CompileErrorCode = CompileErrorCode.INVALID_INDEXES_CONTEXT;
-  protected stopOnContextError: boolean = true;
+  protected context = createContextValidatorConfig({
+    name: ValidatorContext.IndexesContext,
+    errorCode: CompileErrorCode.INVALID_INDEXES_CONTEXT,
+    stopOnError: false,
+  });
 
-  protected shouldBeUnique: boolean = false;
-  protected nonuniqueErrorCode?: CompileErrorCode = undefined;
-  protected stopOnUniqueError: boolean = false;
+  protected unique = createUniqueValidatorConfig({
+    mandatory: false,
+    errorCode: undefined,
+    stopOnError: false,
+  });
 
-  protected allowNoName: boolean = true;
-  protected noNameFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowName: boolean = false;
-  protected nameFoundErrorCode?: CompileErrorCode = CompileErrorCode.UNEXPECTED_NAME;
-  protected allowComplexName: boolean = false;
-  protected complexNameFoundErrorCode?: CompileErrorCode = CompileErrorCode.UNEXPECTED_NAME;
-  protected stopOnNameError: boolean = false;
-  protected shouldRegisterName: boolean = false;
-  protected duplicateNameFoundErrorCode?: CompileErrorCode = undefined;
+  protected name = createNameValidatorConfig({
+    optional: true,
+    notFoundErrorCode: undefined,
+    allow: false,
+    foundErrorCode: CompileErrorCode.UNEXPECTED_NAME,
+    allowComplex: false,
+    complexErrorCode: CompileErrorCode.UNEXPECTED_NAME,
+    shouldRegister: false,
+    duplicateErrorCode: undefined,
+    stopOnError: false,
+  });
 
-  protected allowNoAlias: boolean = true;
-  protected noAliasFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowAlias: boolean = false;
-  protected aliasFoundErrorCode?: CompileErrorCode = CompileErrorCode.UNEXPECTED_ALIAS;
-  protected stopOnAliasError: boolean = false;
+  protected alias = createAliasValidatorConfig({
+    optional: true,
+    notFoundErrorCode: undefined,
+    allow: false,
+    foundErrorCode: CompileErrorCode.UNEXPECTED_ALIAS,
+    stopOnError: false,
+  });
 
-  protected allowNoSettings: boolean = true;
-  protected noSettingsFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowSettings: boolean = false;
-  protected settingsFoundErrorCode?: CompileErrorCode = CompileErrorCode.UNEXPECTED_SETTINGS;
-  protected stopOnSettingsError: boolean = false;
-  protected allowDuplicateForThisSetting? = undefined;
-  protected duplicateSettingsErrorCode? = undefined;
-  protected allowValueForThisSetting? = undefined;
-  protected invalidSettingValueErrorCode? = undefined;
-
-  protected allowSimpleBody: boolean = false;
-  protected simpleBodyFoundErrorCode?: CompileErrorCode = CompileErrorCode.SIMPLE_INDEXES_BODY;
-  protected allowComplexBody: boolean = true;
-  protected complexBodyFoundErrorCode?: CompileErrorCode = undefined;
-  protected stopOnBodyError: boolean = true;
-
-  protected nonSettingsArgsValidators: ArgumentValidatorConfig[] = [
+  protected settings = createSettingsValidatorConfig(
+    {},
     {
-      validateArg: (node) => destructureIndex(node).unwrap_or(undefined) !== undefined,
-      errorCode: CompileErrorCode.INVALID_INDEX,
+      optional: true,
+      notFoundErrorCode: undefined,
+      allow: false,
+      foundErrorCode: CompileErrorCode.UNEXPECTED_SETTINGS,
+      unknownErrorCode: undefined,
+      duplicateErrorCode: undefined,
+      invalidErrorCode: undefined,
+      stopOnError: false,
     },
-  ];
-  protected invalidNumberOfArgsErrorCode?: CompileErrorCode =
-    CompileErrorCode.INVALID_INDEXES_FIELD;
-  protected allowSubFieldSettings?: boolean = true;
-  protected subFieldSettingsFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowDuplicateForThisSubFieldSetting? = allowDuplicateForThisIndexSetting;
-  protected duplicateSubFieldSettingsErrorCode?: CompileErrorCode =
-    CompileErrorCode.DUPLICATE_INDEX_SETTING;
-  protected allowValueForThisSubFieldSetting? = allowValueForThisIndexSetting;
-  protected invalidSubFieldSettingValueErrorCode?: CompileErrorCode =
-    CompileErrorCode.UNEXPECTED_INDEX_SETTING_VALUE;
+  );
 
-  protected shouldRegisterSubField: boolean = false;
-  protected duplicateSubFieldNameErrorCode?: CompileErrorCode = undefined;
+  protected body = createBodyValidatorConfig({
+    allowSimple: false,
+    simpleErrorCode: CompileErrorCode.SIMPLE_INDEXES_BODY,
+    allowComplex: true,
+    complexErrorCode: undefined,
+    stopOnError: false,
+  });
+
+  protected subfield = createSubFieldValidatorConfig({
+    argValidators: [
+      {
+        validateArg: (node) => destructureIndex(node).unwrap_or(undefined) !== undefined,
+        errorCode: CompileErrorCode.INVALID_INDEX,
+      },
+    ],
+    invalidArgNumberErrorCode: CompileErrorCode.INVALID_INDEX,
+    setting: createSettingsValidatorConfig(
+      {
+        note: {
+          allowDuplicate: false,
+          isValid: isQuotedStringNode,
+        },
+        name: {
+          allowDuplicate: false,
+          isValid: isQuotedStringNode,
+        },
+        type: {
+          allowDuplicate: false,
+          isValid: isValidIndexesType,
+        },
+        unique: {
+          allowDuplicate: false,
+          isValid: isVoid,
+        },
+        pk: {
+          allowDuplicate: false,
+          isValid: isVoid,
+        },
+      },
+      {
+        optional: true,
+        notFoundErrorCode: undefined,
+        allow: true,
+        foundErrorCode: undefined,
+        unknownErrorCode: CompileErrorCode.UNKNOWN_INDEX_SETTING,
+        duplicateErrorCode: CompileErrorCode.DUPLICATE_INDEX_SETTING,
+        invalidErrorCode: CompileErrorCode.INVALID_INDEX_SETTING_VALUE,
+        stopOnError: false,
+      },
+    ),
+    shouldRegister: false,
+    duplicateErrorCode: undefined,
+  });
 
   protected elementEntry?: TableEntry;
 
@@ -89,29 +139,12 @@ export default class IndexesValidator extends ElementValidator {
   }
 }
 
-export function allowValueForThisIndexSetting(
-  settingName: string,
-  value?: SyntaxNode | SyntaxToken[],
-): boolean {
-  return !!{
-    note: isQuotedStringNode,
-    name: isQuotedStringNode,
-    type: isValidIndexesType,
-    unique: isVoid,
-    pk: isVoid,
-  }[settingName]?.call(undefined, value);
-}
-
-export function allowDuplicateForThisIndexSetting(settingName: string): boolean {
-  return false;
-}
-
-function isValidIndexesType(value?: SyntaxNode | SyntaxToken[]): boolean {
-  if (value instanceof PrimaryExpressionNode && value.expression instanceof VariableNode) {
-    const type = value.expression.variable.value;
-
-    return type === 'btree' || type === 'hash';
+export function isValidIndexesType(value?: SyntaxNode | SyntaxToken[]): boolean {
+  if (!(value instanceof PrimaryExpressionNode) || !(value.expression instanceof VariableNode)) {
+    return false;
   }
 
-  return false;
+  const str = value.expression.variable.value;
+
+  return str === 'btree' || str === 'hash';
 }

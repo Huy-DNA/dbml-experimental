@@ -1,5 +1,5 @@
 import Validator from './validator/validator';
-import Binder from './binder';
+import Binder from './binder/binder';
 import { ProgramNode } from '../parser/nodes';
 import Report from '../report';
 import { CompileError } from '../errors';

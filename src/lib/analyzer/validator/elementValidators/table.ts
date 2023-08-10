@@ -1,5 +1,14 @@
+import {
+  ElementKind,
+  createAliasValidatorConfig,
+  createBodyValidatorConfig,
+  createContextValidatorConfig,
+  createNameValidatorConfig,
+  createSettingsValidatorConfig,
+  createSubFieldValidatorConfig,
+  createUniqueValidatorConfig,
+} from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
-import { SyntaxToken } from '../../../lexer/tokens';
 import {
   CallExpressionNode,
   ElementDeclarationNode,
@@ -10,72 +19,142 @@ import { isAccessExpression, isPrimaryVariableNode, isQuotedStringNode } from '.
 import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';
 import { destructureComplexVariable } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
-import ElementValidator, { ArgumentValidatorConfig, ElementKind } from './elementValidator';
+import ElementValidator from './elementValidator';
 import {
  isUnaryRelationship, isValidColor, isValidDefaultValue, isVoid,
-} from './utils';
+} from '../utils';
 
 export default class TableValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLE;
 
-  protected associatedContext: ValidatorContext = ValidatorContext.TableContext;
-  protected contextErrorCode: CompileErrorCode = CompileErrorCode.INVALID_TABLE_CONTEXT;
-  protected stopOnContextError: boolean = true;
+  protected context = createContextValidatorConfig({
+    name: ValidatorContext.TableContext,
+    errorCode: CompileErrorCode.INVALID_TABLE_CONTEXT,
+    stopOnError: false,
+  });
 
-  protected shouldBeUnique: boolean = false;
-  protected nonuniqueErrorCode?: CompileErrorCode = undefined;
-  protected stopOnUniqueError: boolean = false;
+  protected unique = createUniqueValidatorConfig({
+    mandatory: false,
+    errorCode: undefined,
+    stopOnError: false,
+  });
 
-  protected allowNoName: boolean = false;
-  protected noNameFoundErrorCode?: CompileErrorCode = CompileErrorCode.NAME_NOT_FOUND;
-  protected allowName: boolean = true;
-  protected nameFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowComplexName: boolean = true;
-  protected complexNameFoundErrorCode?: CompileErrorCode = undefined;
-  protected stopOnNameError: boolean = true;
-  protected shouldRegisterName: boolean = true;
-  protected duplicateNameFoundErrorCode?: CompileErrorCode = CompileErrorCode.DUPLICATE_NAME;
+  protected name = createNameValidatorConfig({
+    optional: true,
+    notFoundErrorCode: undefined,
+    allow: true,
+    foundErrorCode: undefined,
+    allowComplex: true,
+    complexErrorCode: undefined,
+    shouldRegister: true,
+    duplicateErrorCode: CompileErrorCode.DUPLICATE_NAME,
+    stopOnError: false,
+  });
 
-  protected allowNoAlias: boolean = true;
-  protected noAliasFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowAlias: boolean = true;
-  protected aliasFoundErrorCode?: CompileErrorCode = undefined;
-  protected stopOnAliasError: boolean = false;
+  protected alias = createAliasValidatorConfig({
+    optional: true,
+    notFoundErrorCode: undefined,
+    allow: true,
+    foundErrorCode: undefined,
+    stopOnError: false,
+  });
 
-  protected allowNoSettings: boolean = true;
-  protected noSettingsFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowSettings: boolean = true;
-  protected settingsFoundErrorCode?: CompileErrorCode = undefined;
-  protected stopOnSettingsError: boolean = false;
-  protected allowDuplicateForThisSetting = allowDuplicateForThisTableSetting;
-  protected duplicateSettingsErrorCode?: CompileErrorCode =
-    CompileErrorCode.DUPLICATE_TABLE_SETTING;
-  protected allowValueForThisSetting = allowValueForThisTableSetting;
-  protected invalidSettingValueErrorCode?: CompileErrorCode =
-    CompileErrorCode.INVALID_TABLE_SETTING;
+  protected settings = createSettingsValidatorConfig(
+    {
+      headercolor: {
+        allowDuplicate: false,
+        isValid: isValidColor,
+      },
+      note: {
+        allowDuplicate: false,
+        isValid: isQuotedStringNode,
+      },
+    },
+    {
+      optional: true,
+      notFoundErrorCode: undefined,
+      allow: true,
+      foundErrorCode: undefined,
+      unknownErrorCode: CompileErrorCode.INVALID_TABLE_SETTING,
+      duplicateErrorCode: CompileErrorCode.DUPLICATE_TABLE_SETTING,
+      invalidErrorCode: CompileErrorCode.INVALID_TABLE_SETTING,
+      stopOnError: false,
+    },
+  );
 
-  protected allowSimpleBody: boolean = false;
-  protected simpleBodyFoundErrorCode?: CompileErrorCode = CompileErrorCode.SIMPLE_TABLE_BODY;
-  protected allowComplexBody: boolean = true;
-  protected complexBodyFoundErrorCode?: CompileErrorCode = undefined;
-  protected stopOnBodyError: boolean = false;
+  protected body = createBodyValidatorConfig({
+    allowSimple: false,
+    simpleErrorCode: CompileErrorCode.SIMPLE_TABLE_BODY,
+    allowComplex: true,
+    complexErrorCode: undefined,
+    stopOnError: false,
+  });
 
-  protected nonSettingsArgsValidators: ArgumentValidatorConfig[] = [
-    { validateArg: isPrimaryVariableNode, errorCode: CompileErrorCode.INVALID_COLUMN_NAME },
-    { validateArg: isValidColumnType, errorCode: CompileErrorCode.INVALID_COLUMN_TYPE },
-  ];
-  protected invalidNumberOfArgsErrorCode?: CompileErrorCode = CompileErrorCode.INVALID_COLUMN;
-  protected allowSubFieldSettings?: boolean = true;
-  protected subFieldSettingsFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowDuplicateForThisSubFieldSetting? = allowDuplicateForThisColumnSetting;
-  protected duplicateSubFieldSettingsErrorCode?: CompileErrorCode =
-    CompileErrorCode.DUPLICATE_COLUMN_SETTINGS;
-  protected allowValueForThisSubFieldSetting? = allowValueForThisColumnSetting;
-  protected invalidSubFieldSettingValueErrorCode?: CompileErrorCode =
-    CompileErrorCode.INVALID_COLUMN_SETTING;
-  protected shouldRegisterSubField: boolean = true;
-  protected duplicateSubFieldNameErrorCode?: CompileErrorCode =
-    CompileErrorCode.DUPLICATE_COLUMN_NAME;
+  protected subfield = createSubFieldValidatorConfig({
+    argValidators: [
+      {
+        validateArg: isPrimaryVariableNode,
+        errorCode: CompileErrorCode.INVALID_COLUMN_NAME,
+      },
+      {
+        validateArg: isValidColumnType,
+        errorCode: CompileErrorCode.INVALID_COLUMN_TYPE,
+      },
+    ],
+    invalidArgNumberErrorCode: CompileErrorCode.INVALID_COLUMN,
+    setting: createSettingsValidatorConfig(
+      {
+        note: {
+          allowDuplicate: false,
+          isValid: isQuotedStringNode,
+        },
+        ref: {
+          allowDuplicate: true,
+          isValid: isUnaryRelationship,
+        },
+        'primary key': {
+          allowDuplicate: false,
+          isValid: isVoid,
+        },
+        default: {
+          allowDuplicate: false,
+          isValid: isValidDefaultValue,
+        },
+        increment: {
+          allowDuplicate: false,
+          isValid: isVoid,
+        },
+        'not null': {
+          allowDuplicate: false,
+          isValid: isVoid,
+        },
+        null: {
+          allowDuplicate: false,
+          isValid: isVoid,
+        },
+        pk: {
+          allowDuplicate: false,
+          isValid: isVoid,
+        },
+        unique: {
+          allowDuplicate: false,
+          isValid: isVoid,
+        },
+      },
+      {
+        optional: true,
+        notFoundErrorCode: undefined,
+        allow: true,
+        foundErrorCode: undefined,
+        unknownErrorCode: CompileErrorCode.UNKNOWN_COLUMN_SETTING,
+        duplicateErrorCode: CompileErrorCode.DUPLICATE_COLUMN_SETTING,
+        invalidErrorCode: CompileErrorCode.INVALID_COLUMN_SETTING_VALUE,
+        stopOnError: false,
+      },
+    ),
+    shouldRegister: false,
+    duplicateErrorCode: undefined,
+  });
 
   protected elementEntry?: TableEntry;
 
@@ -88,20 +167,6 @@ export default class TableValidator extends ElementValidator {
   ) {
     super(declarationNode, globalSchema, contextStack, errors, uniqueKindsFound);
   }
-}
-
-function allowValueForThisTableSetting(
-  settingName: string,
-  value?: SyntaxToken[] | SyntaxNode,
-): boolean {
-  return !!{
-    note: isQuotedStringNode,
-    headercolor: isValidColor,
-  }[settingName]?.call(undefined, value);
-}
-
-function allowDuplicateForThisTableSetting(settingName: string): boolean {
-  return false;
 }
 
 function isValidColumnType(type: SyntaxNode): boolean {
@@ -123,28 +188,4 @@ function isValidColumnType(type: SyntaxNode): boolean {
   const variables = destructureComplexVariable(type).unwrap_or(undefined);
 
   return variables !== undefined && variables.length > 0;
-}
-
-export function allowDuplicateForThisColumnSetting(settingName: string): boolean {
-  // eslint-disable-next-line
-  const _settingName = settingName.toLowerCase();
-
-  return _settingName === 'ref';
-}
-
-function allowValueForThisColumnSetting(
-  settingName: string,
-  value?: SyntaxNode | SyntaxToken[],
-): boolean {
-  return !!{
-    note: isQuotedStringNode,
-    ref: isUnaryRelationship,
-    'primary key': isVoid,
-    default: isValidDefaultValue,
-    increment: isVoid,
-    'not null': isVoid,
-    null: isVoid,
-    pk: isVoid,
-    unique: isVoid,
-  }[settingName]?.call(undefined, value);
 }

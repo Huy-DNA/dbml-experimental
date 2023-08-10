@@ -8,7 +8,7 @@ import {
   TupleExpressionNode,
   VariableNode,
 } from '../parser/nodes';
-import { isRelationshipOp } from './validator/elementValidators/utils';
+import { isRelationshipOp } from './validator/utils';
 import { SyntaxToken } from '../lexer/tokens';
 
 export function destructureMemberAccessExpression(node: SyntaxNode): Option<SyntaxNode[]> {

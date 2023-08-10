@@ -4,8 +4,8 @@ import { ProgramNode } from '../../parser/nodes';
 import { ContextStack } from './validatorContext';
 import { SchemaSymbolTable, SchemaEntry } from '../symbol/symbolTable';
 import { SchemaSymbol } from '../symbol/symbols';
-import { pickValidator } from './elementValidators/utils';
-import { ElementKind } from './elementValidators/elementValidator';
+import { pickValidator } from './utils';
+import { ElementKind } from './types';
 
 export default class Validator {
   private ast: ProgramNode;

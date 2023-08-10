@@ -1,71 +1,101 @@
+import {
+  ElementKind,
+  createAliasValidatorConfig,
+  createBodyValidatorConfig,
+  createContextValidatorConfig,
+  createNameValidatorConfig,
+  createSettingsValidatorConfig,
+  createSubFieldValidatorConfig,
+  createUniqueValidatorConfig,
+} from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
 import { isQuotedStringNode } from '../../../utils';
 import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';
 import { ContextStack, ValidatorContext } from '../validatorContext';
-import ElementValidator, { ArgumentValidatorConfig, ElementKind } from './elementValidator';
+import ElementValidator from './elementValidator';
 
 export default class CustomValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.CUSTOM;
 
-  protected associatedContext: ValidatorContext = ValidatorContext.CustomContext;
-  protected contextErrorCode: CompileErrorCode = CompileErrorCode.INVALID_CUSTOM_CONTEXT;
-  protected stopOnContextError: boolean = false;
+  protected context = createContextValidatorConfig({
+    name: ValidatorContext.CustomContext,
+    errorCode: CompileErrorCode.INVALID_CUSTOM_CONTEXT,
+    stopOnError: false,
+  });
 
-  protected shouldBeUnique: boolean = false;
-  protected nonuniqueErrorCode?: CompileErrorCode = undefined;
-  protected stopOnUniqueError: boolean = false;
+  protected unique = createUniqueValidatorConfig({
+    mandatory: false,
+    errorCode: undefined,
+    stopOnError: false,
+  });
 
-  protected allowNoName: boolean = true;
-  protected noNameFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowName: boolean = false;
-  protected nameFoundErrorCode?: CompileErrorCode = CompileErrorCode.UNEXPECTED_NAME;
-  protected allowComplexName: boolean = true;
-  protected complexNameFoundErrorCode?: CompileErrorCode = undefined;
-  protected stopOnNameError: boolean = false;
-  protected shouldRegisterName: boolean = false;
-  protected duplicateNameFoundErrorCode?: CompileErrorCode = undefined;
+  protected name = createNameValidatorConfig({
+    optional: true,
+    notFoundErrorCode: undefined,
+    allow: false,
+    foundErrorCode: CompileErrorCode.UNEXPECTED_NAME,
+    allowComplex: false,
+    complexErrorCode: CompileErrorCode.UNEXPECTED_NAME,
+    shouldRegister: false,
+    duplicateErrorCode: undefined,
+    stopOnError: false,
+  });
 
-  protected allowNoAlias: boolean = true;
-  protected noAliasFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowAlias: boolean = false;
-  protected aliasFoundErrorCode?: CompileErrorCode = CompileErrorCode.UNEXPECTED_ALIAS;
-  protected stopOnAliasError: boolean = false;
+  protected alias = createAliasValidatorConfig({
+    optional: true,
+    notFoundErrorCode: undefined,
+    allow: false,
+    foundErrorCode: CompileErrorCode.UNEXPECTED_ALIAS,
+    stopOnError: false,
+  });
 
-  protected allowNoSettings: boolean = true;
-  protected noSettingsFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowSettings: boolean = false;
-  protected settingsFoundErrorCode?: CompileErrorCode = CompileErrorCode.UNEXPECTED_SETTINGS;
-  protected stopOnSettingsError: boolean = false;
-  protected allowDuplicateForThisSetting? = undefined;
-  protected duplicateSettingsErrorCode? = undefined;
-  protected allowValueForThisSetting? = undefined;
-  protected invalidSettingValueErrorCode? = undefined;
-
-  protected allowSimpleBody: boolean = true;
-  protected simpleBodyFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowComplexBody: boolean = false;
-  protected complexBodyFoundErrorCode?: CompileErrorCode = CompileErrorCode.COMPLEX_CUSTOM_BODY;
-  protected stopOnBodyError: boolean = false;
-
-  protected nonSettingsArgsValidators: ArgumentValidatorConfig[] = [
+  protected settings = createSettingsValidatorConfig(
+    {},
     {
-      validateArg: isQuotedStringNode,
-      errorCode: CompileErrorCode.INVALID_CUSTOM_ELEMENT_VALUE,
+      optional: true,
+      notFoundErrorCode: undefined,
+      allow: false,
+      foundErrorCode: CompileErrorCode.UNEXPECTED_SETTINGS,
+      unknownErrorCode: undefined,
+      duplicateErrorCode: undefined,
+      invalidErrorCode: undefined,
+      stopOnError: false,
     },
-  ];
-  protected invalidNumberOfArgsErrorCode?: CompileErrorCode =
-    CompileErrorCode.INVALID_CUSTOM_ELEMENT_VALUE;
-  protected allowSubFieldSettings?: boolean = false;
-  protected subFieldSettingsFoundErrorCode?: CompileErrorCode =
-    CompileErrorCode.UNEXPECTED_SETTINGS;
-  protected allowDuplicateForThisSubFieldSetting? = undefined;
-  protected duplicateSubFieldSettingsErrorCode?: CompileErrorCode = undefined;
-  protected allowValueForThisSubFieldSetting? = undefined;
-  protected invalidSubFieldSettingValueErrorCode?: CompileErrorCode = undefined;
+  );
 
-  protected shouldRegisterSubField: boolean = false;
-  protected duplicateSubFieldNameErrorCode?: CompileErrorCode = undefined;
+  protected body = createBodyValidatorConfig({
+    allowSimple: true,
+    simpleErrorCode: undefined,
+    allowComplex: false,
+    complexErrorCode: CompileErrorCode.COMPLEX_CUSTOM_BODY,
+    stopOnError: false,
+  });
+
+  protected subfield = createSubFieldValidatorConfig({
+    argValidators: [
+      {
+        validateArg: isQuotedStringNode,
+        errorCode: CompileErrorCode.INVALID_CUSTOM_ELEMENT_VALUE,
+      },
+    ],
+    invalidArgNumberErrorCode: CompileErrorCode.INVALID_CUSTOM_ELEMENT_VALUE,
+    setting: createSettingsValidatorConfig(
+      {},
+      {
+        optional: true,
+        notFoundErrorCode: undefined,
+        allow: false,
+        foundErrorCode: CompileErrorCode.UNEXPECTED_SETTINGS,
+        unknownErrorCode: undefined,
+        duplicateErrorCode: undefined,
+        invalidErrorCode: undefined,
+        stopOnError: false,
+      },
+    ),
+    shouldRegister: false,
+    duplicateErrorCode: undefined,
+  });
 
   protected elementEntry?: TableEntry;
 

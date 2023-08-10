@@ -1,3 +1,13 @@
+import {
+  AliasValidatorConfig,
+  BodyValidatorConfig,
+  ContextValidatorConfig,
+  ElementKind,
+  NameValidatorConfig,
+  SettingsValidatorConfig,
+  SubFieldValidatorConfig,
+  UniqueElementValidatorConfig,
+} from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { SyntaxToken } from '../../../lexer/tokens';
 import { None, Option, Some } from '../../../option';
@@ -5,14 +15,13 @@ import {
   ElementDeclarationNode,
   ExpressionNode,
   FunctionApplicationNode,
-  InfixExpressionNode,
   ListExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
 import { extractIdentifierFromNode } from '../../../utils';
 import { SchemaSymbolTable, SymbolTableEntry } from '../../symbol/symbolTable';
 import { destructureComplexVariable, joinTokenStrings } from '../../utils';
-import { ContextStack, ValidatorContext, canBeNestedWithin } from '../validatorContext';
+import { ContextStack, canBeNestedWithin } from '../validatorContext';
 import {
   createEntry,
   createSubFieldEntry,
@@ -26,85 +35,18 @@ import {
   isValidSettings,
   pickValidator,
   registerSchemaStack,
-} from './utils';
-
-export type ErrorMessage = string;
-
-export interface ArgumentValidatorConfig {
-  validateArg(node: SyntaxNode): boolean;
-  errorCode: CompileErrorCode;
-}
-
-export enum ElementKind {
-  TABLE = 'Table',
-  ENUM = 'Enum',
-  INDEXES = 'Indexes',
-  NOTE = 'Note',
-  PROJECT = 'Project',
-  REF = 'Ref',
-  TABLEGROUP = 'TableGroup',
-  CUSTOM = 'CUSTOM',
-}
+} from '../utils';
 
 export default abstract class ElementValidator {
   protected abstract elementKind: ElementKind;
 
-  protected abstract associatedContext: ValidatorContext;
-  protected abstract contextErrorCode: CompileErrorCode;
-  protected abstract stopOnContextError: boolean;
-
-  protected abstract shouldBeUnique: boolean;
-  protected abstract nonuniqueErrorCode?: CompileErrorCode;
-  protected abstract stopOnUniqueError: boolean;
-
-  protected abstract allowNoName: boolean;
-  protected abstract noNameFoundErrorCode?: CompileErrorCode;
-  protected abstract allowName: boolean;
-  protected abstract nameFoundErrorCode?: CompileErrorCode;
-  protected abstract allowComplexName: boolean;
-  protected abstract complexNameFoundErrorCode?: CompileErrorCode;
-  protected abstract stopOnNameError: boolean;
-  protected abstract shouldRegisterName: boolean;
-  protected abstract duplicateNameFoundErrorCode?: CompileErrorCode;
-
-  protected abstract allowNoAlias: boolean;
-  protected abstract noAliasFoundErrorCode?: CompileErrorCode;
-  protected abstract allowAlias: boolean;
-  protected abstract aliasFoundErrorCode?: CompileErrorCode;
-  protected abstract stopOnAliasError: boolean;
-
-  protected abstract allowNoSettings: boolean;
-  protected abstract noSettingsFoundErrorCode?: CompileErrorCode;
-  protected abstract allowSettings: boolean;
-  protected abstract settingsFoundErrorCode?: CompileErrorCode;
-  protected abstract stopOnSettingsError: boolean;
-  protected abstract allowDuplicateForThisSetting?: (settingName: string) => boolean;
-  protected abstract duplicateSettingsErrorCode?: CompileErrorCode;
-  protected abstract allowValueForThisSetting?: (
-    settingName: string,
-    value?: SyntaxToken[] | SyntaxNode,
-  ) => boolean;
-  protected abstract invalidSettingValueErrorCode?: CompileErrorCode;
-
-  protected abstract allowSimpleBody: boolean;
-  protected abstract simpleBodyFoundErrorCode?: CompileErrorCode;
-  protected abstract allowComplexBody: boolean;
-  protected abstract complexBodyFoundErrorCode?: CompileErrorCode;
-  protected abstract stopOnBodyError: boolean;
-
-  protected abstract nonSettingsArgsValidators: ArgumentValidatorConfig[];
-  protected abstract invalidNumberOfArgsErrorCode?: CompileErrorCode;
-  protected abstract allowSubFieldSettings?: boolean;
-  protected abstract subFieldSettingsFoundErrorCode?: CompileErrorCode;
-  protected abstract allowDuplicateForThisSubFieldSetting?: (settingName: string) => boolean;
-  protected abstract duplicateSubFieldSettingsErrorCode?: CompileErrorCode;
-  protected abstract allowValueForThisSubFieldSetting?: (
-    settingName: string,
-    value?: SyntaxToken[] | SyntaxNode,
-  ) => boolean;
-  protected abstract invalidSubFieldSettingValueErrorCode?: CompileErrorCode;
-  protected abstract shouldRegisterSubField: boolean;
-  protected abstract duplicateSubFieldNameErrorCode?: CompileErrorCode;
+  protected abstract context: ContextValidatorConfig;
+  protected abstract unique: UniqueElementValidatorConfig;
+  protected abstract name: NameValidatorConfig;
+  protected abstract alias: AliasValidatorConfig;
+  protected abstract body: BodyValidatorConfig;
+  protected abstract settings: SettingsValidatorConfig;
+  protected abstract subfield: SubFieldValidatorConfig;
 
   protected declarationNode: ElementDeclarationNode;
   protected globalSchema: SchemaSymbolTable;
@@ -129,13 +71,13 @@ export default abstract class ElementValidator {
   }
 
   validate(): boolean {
-    this.contextStack.push(this.associatedContext);
+    this.contextStack.push(this.context.name);
     const res =
       this.validateContext() &&
       this.validateUnique() &&
       this.validateName() &&
       this.validateAlias() &&
-      this.validateSetting() &&
+      this.validateSettings() &&
       this.validateBody();
 
     this.contextStack.pop();
@@ -144,18 +86,18 @@ export default abstract class ElementValidator {
   }
 
   private validateUnique(): boolean {
-    if (!this.shouldBeUnique) {
+    if (!this.unique.mandatory) {
       return true;
     }
 
     if (this.uniqueKindsFound.has(this.elementKind)) {
       this.logError(
         this.declarationNode.type,
-        this.nonuniqueErrorCode,
+        this.unique.errorCode,
         `A ${this.elementKind} has already been defined`,
       );
 
-      return false || !this.stopOnUniqueError;
+      return false || !this.unique.stopOnError;
     }
 
     this.uniqueKindsFound.add(this.elementKind);
@@ -169,12 +111,12 @@ export default abstract class ElementValidator {
     if (!res) {
       this.logError(
         this.declarationNode.type,
-        this.contextErrorCode,
+        this.context.errorCode,
         `${this.elementKind} can not appear here`,
       );
     }
 
-    return res || !this.stopOnContextError;
+    return res || !this.context.stopOnError;
   }
 
   private validateName(): boolean {
@@ -187,38 +129,42 @@ export default abstract class ElementValidator {
       hasError = true;
     }
 
-    if (!this.allowName && nameNode) {
-      this.logError(nameNode, this.nameFoundErrorCode, `${this.elementKind} shouldn't have a name`);
-      hasError = true;
-    }
-
-    if (!this.allowNoName && !nameNode) {
-      this.logError(node.type, this.noNameFoundErrorCode, `${this.elementKind} must have a name`);
-      hasError = true;
-    }
-
-    if (!this.allowComplexName && nameNode && !isSimpleName(nameNode)) {
+    if (!this.name.allow && nameNode) {
       this.logError(
         nameNode,
-        this.complexNameFoundErrorCode,
+        this.name.foundErrorCode,
+        `${this.elementKind} shouldn't have a name`,
+      );
+      hasError = true;
+    }
+
+    if (!this.name.optional && !nameNode) {
+      this.logError(node.type, this.name.foundErrorCode, `${this.elementKind} must have a name`);
+      hasError = true;
+    }
+
+    if (!this.name.allowComplex && nameNode && !isSimpleName(nameNode)) {
+      this.logError(
+        nameNode,
+        this.name.complexErrorCode,
         `${this.elementKind} must have a double-quoted string or an identifier name`,
       );
       hasError = true;
     }
 
-    if (!hasError && nameNode && this.shouldRegisterName) {
+    if (!hasError && nameNode && this.name.shouldRegister) {
       this.elementEntry = this.registerElement(nameNode, this.globalSchema).unwrap_or(undefined);
       if (!this.elementEntry) {
         this.logError(
           nameNode,
-          this.duplicateNameFoundErrorCode,
+          this.name.duplicateErrorCode,
           `This ${this.elementKind} has a duplicated name`,
         );
         hasError = true;
       }
     }
 
-    return !hasError || !this.stopOnNameError;
+    return !hasError || !this.name.stopOnError;
   }
 
   private validateAlias(): boolean {
@@ -231,25 +177,25 @@ export default abstract class ElementValidator {
       hasError = true;
     }
 
-    if (!this.allowAlias && aliasNode) {
+    if (!this.alias.allow && aliasNode) {
       this.logError(
         aliasNode,
-        this.aliasFoundErrorCode,
+        this.alias.foundErrorCode,
         `${this.elementKind} shouldn't have an alias`,
       );
       hasError = true;
     }
 
-    if (!this.allowNoAlias && !aliasNode) {
+    if (!this.alias.optional && !aliasNode) {
       this.logError(
         node.type,
-        this.noAliasFoundErrorCode,
+        this.alias.notFoundErrorCode,
         `${this.elementKind} must have an alias`,
       );
       hasError = true;
     }
 
-    if (!hasError && aliasNode && this.shouldRegisterName) {
+    if (!hasError && aliasNode && this.name.shouldRegister) {
       this.elementEntry = this.registerElement(
         aliasNode,
         this.globalSchema,
@@ -258,10 +204,10 @@ export default abstract class ElementValidator {
       hasError = this.elementEntry === undefined || hasError;
     }
 
-    return !hasError || !this.stopOnAliasError;
+    return !hasError || !this.alias.stopOnError;
   }
 
-  private validateSetting(): boolean {
+  private validateSettings(): boolean {
     let hasError = false;
     const node = this.declarationNode;
     const settingsNode = node.attributeList;
@@ -271,67 +217,48 @@ export default abstract class ElementValidator {
       hasError = true;
     }
 
-    if (!this.allowSettings && settingsNode) {
+    if (!this.settings.allow && settingsNode) {
       this.logError(
         settingsNode,
-        this.settingsFoundErrorCode,
+        this.settings.foundErrorCode,
         `${this.elementKind} shouldn't have a setting list`,
       );
       hasError = true;
     }
 
-    if (!this.allowNoSettings && !settingsNode) {
+    if (!this.settings.optional && !settingsNode) {
       this.logError(
         node.type,
-        this.noSettingsFoundErrorCode,
+        this.settings.notFoundErrorCode,
         `${this.elementKind} must have a setting list`,
       );
       hasError = true;
     }
 
-    if (this.allowDuplicateForThisSetting && this.allowValueForThisSetting && settingsNode) {
-      const settingsSet = new Set<string>();
-      // eslint-disable-next-line no-restricted-syntax
-      for (const setting of settingsNode.elementList) {
-        const settingName = joinTokenStrings(setting.name).toLowerCase();
-        const settingValue = setting.value;
-        if (settingsSet.has(settingName) && !this.allowDuplicateForThisSetting(settingName)) {
-          this.logError(setting, this.duplicateSettingsErrorCode, 'Duplicated setting');
-          hasError = true;
-          continue;
-        }
-        settingsSet.add(settingName);
-        if (!this.allowValueForThisSetting(settingName, settingValue)) {
-          this.logError(
-            setting,
-            this.invalidSettingValueErrorCode,
-            'Invalid value for this setting',
-          );
-          hasError = true;
-        }
-      }
+    if (settingsNode) {
+      hasError = this.validateSettingsContent(settingsNode, this.settings) || hasError;
     }
 
-    return !hasError || !this.stopOnSettingsError;
+    return !hasError || !this.settings.stopOnError;
   }
 
   private validateBody(): boolean {
     let hasError = false;
     const node = this.declarationNode;
 
-    if (!this.allowComplexBody && hasComplexBody(node)) {
+    if (!this.body.allowComplex && hasComplexBody(node)) {
       this.logError(
         node.body,
-        this.complexBodyFoundErrorCode,
+        this.body.complexErrorCode,
         `${this.elementKind} should not have a complex body`,
       );
       hasError = true;
     }
 
-    if (!this.allowSimpleBody && hasSimpleBody(node)) {
+    if (!this.body.allowSimple && hasSimpleBody(node)) {
       this.logError(
         node.body,
-        this.simpleBodyFoundErrorCode,
+        this.body.simpleErrorCode,
         `${this.elementKind} should not have a simple body`,
       );
       hasError = true;
@@ -350,7 +277,7 @@ export default abstract class ElementValidator {
         ) || hasError;
     }
 
-    return !hasError || !this.stopOnBodyError;
+    return !hasError || !this.body.stopOnError;
   }
 
   private registerElement(
@@ -367,7 +294,7 @@ export default abstract class ElementValidator {
       throw new Error(`${this.elementKind} name shouldn't be empty`);
     }
 
-    const symbol = createSymbol(name, this.associatedContext);
+    const symbol = createSymbol(name, this.context.name);
     const registerSchema = registerSchemaStack(variables, schema);
     if (!symbol) {
       throw new Error(`${this.elementKind} isn't supposed to register its name`);
@@ -375,14 +302,14 @@ export default abstract class ElementValidator {
     if (registerSchema.has(symbol)) {
       this.logError(
         nameNode,
-        this.duplicateNameFoundErrorCode,
+        this.name.duplicateErrorCode,
         `This ${this.elementKind} has a duplicated name`,
       );
 
       return new None();
     }
 
-    const newEntry = createEntry(this.associatedContext);
+    const newEntry = createEntry(this.context.name);
     if (!newEntry) {
       throw new Error(`${this.elementKind} can create symbol but not entry?`);
     }
@@ -432,44 +359,34 @@ export default abstract class ElementValidator {
     }
 
     const maybeSettings = args[args.length - 1];
-    let hasError = false;
-
+    this.validateSubFieldSettings(maybeSettings);
     if (maybeSettings instanceof ListExpressionNode) {
-      if (!this.allowSubFieldSettings) {
-        this.logError(
-          maybeSettings,
-          this.subFieldSettingsFoundErrorCode,
-          `A ${this.elementKind} subfield should not have a settings`,
-        );
-        hasError = true;
-      } else {
-        hasError = this.validateSubFieldSettings(maybeSettings) || hasError;
-      }
       args.pop();
     }
 
-    if (args.length !== this.nonSettingsArgsValidators.length) {
+    this.validateSubFieldSettings(maybeSettings);
+
+    if (args.length !== this.subfield.argValidators.length) {
       this.logError(
         sub,
-        this.invalidNumberOfArgsErrorCode,
-        `There must be ${this.nonSettingsArgsValidators.length} non-setting terms`,
+        this.subfield.invalidArgNumberErrorCode,
+        `There must be ${this.subfield.argValidators.length} non-setting terms`,
       );
-      hasError = true;
-    } else {
-      for (let i = 0; i < args.length; ++i) {
-        const res = this.nonSettingsArgsValidators[i].validateArg(args[i]);
-        if (!res) {
-          this.logError(
-            args[i],
-            this.nonSettingsArgsValidators[i].errorCode,
-            'Invalid field value',
-          );
-          hasError = true;
-        }
+
+      return false;
+    }
+
+    let hasError = false;
+
+    for (let i = 0; i < args.length; ++i) {
+      const res = this.subfield.argValidators[i].validateArg(args[i]);
+      if (!res) {
+        this.logError(args[i], this.subfield.argValidators[i].errorCode, 'Invalid field value');
+        hasError = true;
       }
     }
 
-    if (this.shouldRegisterSubField && !hasError) {
+    if (this.subfield.shouldRegister && !hasError) {
       const entry = this.registerSubField(args[0]).unwrap_or(undefined);
       hasError = entry === undefined || hasError;
     }
@@ -490,48 +407,71 @@ export default abstract class ElementValidator {
       throw new Error(`${this.elementKind} subfield's name shouldn't be empty`);
     }
 
-    const symbol = createSubFieldSymbol(name, this.associatedContext);
+    const symbol = createSubFieldSymbol(name, this.context.name);
     if ((symbolTable as any).has(symbol)) {
       this.logError(
         nameNode,
-        this.duplicateSubFieldNameErrorCode,
+        this.subfield.duplicateErrorCode,
         `${this.elementKind} subfield's name is duplicated`,
       );
 
       return new None();
     }
 
-    return new Some((symbolTable as any).get(symbol, createSubFieldEntry(this.associatedContext)));
+    return new Some((symbolTable as any).get(symbol, createSubFieldEntry(this.context.name)));
   }
 
-  protected validateSubFieldSettings(subSettings: ListExpressionNode): boolean {
-    if (!this.allowDuplicateForThisSubFieldSetting || !this.allowValueForThisSubFieldSetting) {
-      throw new Error('Subsettings validators must be passed to call validateSubFieldSettings');
-    }
-    let hasError = false;
+  protected validateSubFieldSettings(maybeSettings: ExpressionNode): boolean {
+    if (!(maybeSettings instanceof ListExpressionNode) && !this.subfield.setting.optional) {
+      this.logError(
+        maybeSettings,
+        this.subfield.setting.notFoundErrorCode,
+        `A ${this.elementKind} subfield must have a settings`,
+      );
 
+      return false;
+    }
+
+    if (maybeSettings instanceof ListExpressionNode && !this.subfield.setting.allow) {
+      this.logError(
+        maybeSettings,
+        this.subfield.setting.foundErrorCode,
+        `A ${this.elementKind} subfield should not have a settings`,
+      );
+
+      return false;
+    }
+
+    if (!(maybeSettings instanceof ListExpressionNode)) {
+      return true;
+    }
+
+    return this.validateSettingsContent(maybeSettings, this.subfield.setting);
+  }
+
+  private validateSettingsContent(
+    settingsNode: ListExpressionNode,
+    config: SettingsValidatorConfig,
+  ): boolean {
     const settingsSet = new Set<string>();
+    let hasError = false;
     // eslint-disable-next-line no-restricted-syntax
-    for (const setting of subSettings.elementList) {
-      const settingName = joinTokenStrings(setting.name).toLowerCase();
-      const settingValue = setting.value;
-      if (settingsSet.has(settingName) && !this.allowDuplicateForThisSubFieldSetting(settingName)) {
-        this.logError(
-          setting,
-          this.duplicateSubFieldSettingsErrorCode,
-          'Duplicated subfield setting',
-        );
+    for (const setting of settingsNode.elementList) {
+      const name = joinTokenStrings(setting.name).toLowerCase();
+      const { value } = setting;
+
+      if (!config.isValid(name, value).isOk()) {
+        this.logError(setting, config.unknownErrorCode, 'Unknown setting');
         hasError = true;
-        continue;
-      }
-      settingsSet.add(settingName);
-      if (!this.allowValueForThisSubFieldSetting(settingName, settingValue)) {
-        this.logError(
-          setting,
-          this.invalidSubFieldSettingValueErrorCode,
-          'Invalid value for this setting',
-        );
+      } else if (settingsSet.has(name) && !config.allowDuplicate) {
+        this.logError(setting, config.duplicateErrorCode, 'Duplicate setting');
         hasError = true;
+      } else {
+        settingsSet.add(name);
+        if (!config.isValid(name, value).unwrap()) {
+          this.logError(setting, config.invalidErrorCode, 'Invalid value for this setting');
+          hasError = true;
+        }
       }
     }
 

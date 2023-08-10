@@ -1,5 +1,6 @@
-import { SyntaxToken, SyntaxTokenKind } from '../../../lexer/tokens';
+import { SyntaxToken, SyntaxTokenKind } from '../../lexer/tokens';
 import {
+  AttributeNode,
   BlockExpressionNode,
   ElementDeclarationNode,
   FunctionExpressionNode,
@@ -9,8 +10,8 @@ import {
   PrimaryExpressionNode,
   SyntaxNode,
   VariableNode,
-} from '../../../parser/nodes';
-import { isAccessExpression, isHexChar } from '../../../utils';
+} from '../../parser/nodes';
+import { isAccessExpression, isHexChar } from '../../utils';
 import {
   ColumnEntry,
   EnumElementEntry,
@@ -24,7 +25,7 @@ import {
   TableGroupEntry,
   TableGroupSymbolTable,
   TableSymbolTable,
-} from '../../symbol/symbolTable';
+} from '../symbol/symbolTable';
 import {
   ColumnSymbol,
   EnumElementSymbol,
@@ -34,17 +35,17 @@ import {
   TableGroupElementSymbol,
   TableGroupSymbol,
   TableSymbol,
-} from '../../symbol/symbols';
-import { destructureComplexVariable } from '../../utils';
-import { ValidatorContext } from '../validatorContext';
-import CustomValidator from './custom';
-import EnumValidator from './enum';
-import IndexesValidator from './indexes';
-import NoteValidator from './note';
-import ProjectValidator from './project';
-import RefValidator from './ref';
-import TableValidator from './table';
-import TableGroupValidator from './tableGroup';
+} from '../symbol/symbols';
+import { destructureComplexVariable } from '../utils';
+import { ValidatorContext } from './validatorContext';
+import CustomValidator from './elementValidators/custom';
+import EnumValidator from './elementValidators/enum';
+import IndexesValidator from './elementValidators/indexes';
+import NoteValidator from './elementValidators/note';
+import ProjectValidator from './elementValidators/project';
+import RefValidator from './elementValidators/ref';
+import TableValidator from './elementValidators/table';
+import TableGroupValidator from './elementValidators/tableGroup';
 
 export function pickValidator(element: ElementDeclarationNode) {
   switch (element.type.value.toLowerCase()) {

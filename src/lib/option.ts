@@ -22,6 +22,10 @@ export class Some<T> {
   map<S>(callback: (_: T) => S): Option<S> {
     return new Some(callback(this.value));
   }
+
+  isOk(): boolean {
+    return true;
+  }
 }
 
 export class None<T> {
@@ -39,5 +43,9 @@ export class None<T> {
 
   map<S>(callback: (_: T) => S): Option<S> {
     return new None();
+  }
+
+  isOk(): boolean {
+    return false;
   }
 }

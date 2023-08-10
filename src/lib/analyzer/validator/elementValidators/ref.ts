@@ -1,3 +1,13 @@
+import {
+  ElementKind,
+  createAliasValidatorConfig,
+  createBodyValidatorConfig,
+  createContextValidatorConfig,
+  createNameValidatorConfig,
+  createSettingsValidatorConfig,
+  createSubFieldValidatorConfig,
+  createUniqueValidatorConfig,
+} from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { SyntaxToken } from '../../../lexer/tokens';
 import { ElementDeclarationNode, SyntaxNode } from '../../../parser/nodes';
@@ -5,69 +15,99 @@ import { isQuotedStringNode } from '../../../utils';
 import { SchemaSymbolTable, TableEntry } from '../../symbol/symbolTable';
 import { extractQuotedStringToken, isBinaryRelationship, joinTokenStrings } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
-import ElementValidator, { ArgumentValidatorConfig, ElementKind } from './elementValidator';
+import ElementValidator from './elementValidator';
 
 export default class RefValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.REF;
 
-  protected associatedContext: ValidatorContext = ValidatorContext.RefContext;
-  protected contextErrorCode: CompileErrorCode = CompileErrorCode.INVALID_REF_CONTEXT;
-  protected stopOnContextError: boolean = false;
+  protected context = createContextValidatorConfig({
+    name: ValidatorContext.RefContext,
+    errorCode: CompileErrorCode.INVALID_REF_CONTEXT,
+    stopOnError: false,
+  });
 
-  protected shouldBeUnique: boolean = false;
-  protected nonuniqueErrorCode?: CompileErrorCode = undefined;
-  protected stopOnUniqueError: boolean = false;
+  protected unique = createUniqueValidatorConfig({
+    mandatory: false,
+    errorCode: undefined,
+    stopOnError: false,
+  });
 
-  protected allowNoName: boolean = true;
-  protected noNameFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowName: boolean = true;
-  protected nameFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowComplexName: boolean = true;
-  protected complexNameFoundErrorCode?: CompileErrorCode = undefined;
-  protected stopOnNameError: boolean = false;
-  protected shouldRegisterName: boolean = false;
-  protected duplicateNameFoundErrorCode?: CompileErrorCode = undefined;
+  protected name = createNameValidatorConfig({
+    optional: true,
+    notFoundErrorCode: undefined,
+    allow: true,
+    foundErrorCode: undefined,
+    allowComplex: true,
+    complexErrorCode: undefined,
+    shouldRegister: false,
+    duplicateErrorCode: undefined,
+    stopOnError: false,
+  });
 
-  protected allowNoAlias: boolean = true;
-  protected noAliasFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowAlias: boolean = false;
-  protected aliasFoundErrorCode?: CompileErrorCode = CompileErrorCode.UNEXPECTED_ALIAS;
-  protected stopOnAliasError: boolean = false;
+  protected alias = createAliasValidatorConfig({
+    optional: true,
+    notFoundErrorCode: undefined,
+    allow: false,
+    foundErrorCode: CompileErrorCode.UNEXPECTED_ALIAS,
+    stopOnError: false,
+  });
 
-  protected allowNoSettings: boolean = true;
-  protected noSettingsFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowSettings: boolean = false;
-  protected settingsFoundErrorCode?: CompileErrorCode = CompileErrorCode.UNEXPECTED_SETTINGS;
-  protected stopOnSettingsError: boolean = false;
-  protected allowDuplicateForThisSetting? = allowDuplicateForThisRefSetting;
-  protected duplicateSettingsErrorCode? = CompileErrorCode.DUPLICATE_REF_SETTING;
-  protected allowValueForThisSetting? = allowValueForThisRefSetting;
-  protected invalidSettingValueErrorCode? = CompileErrorCode.INVALID_REF_SETTING_VALUE;
-
-  protected allowSimpleBody: boolean = true;
-  protected simpleBodyFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowComplexBody: boolean = true;
-  protected complexBodyFoundErrorCode?: CompileErrorCode = undefined;
-  protected stopOnBodyError: boolean = false;
-
-  protected nonSettingsArgsValidators: ArgumentValidatorConfig[] = [
+  protected settings = createSettingsValidatorConfig(
+    {},
     {
-      validateArg: isBinaryRelationship,
-      errorCode: CompileErrorCode.INVALID_REF_RELATIONSHIP,
+      optional: true,
+      notFoundErrorCode: undefined,
+      allow: false,
+      foundErrorCode: CompileErrorCode.UNEXPECTED_SETTINGS,
+      unknownErrorCode: undefined,
+      duplicateErrorCode: undefined,
+      invalidErrorCode: undefined,
+      stopOnError: false,
     },
-  ];
-  protected invalidNumberOfArgsErrorCode?: CompileErrorCode = CompileErrorCode.INVALID_REF_FIELD;
-  protected allowSubFieldSettings?: boolean = true;
-  protected subFieldSettingsFoundErrorCode?: CompileErrorCode = undefined;
-  protected allowDuplicateForThisSubFieldSetting? = allowDuplicateForThisRefSetting;
-  protected duplicateSubFieldSettingsErrorCode?: CompileErrorCode =
-    CompileErrorCode.DUPLICATE_REF_SETTING;
-  protected allowValueForThisSubFieldSetting? = allowValueForThisRefSetting;
-  protected invalidSubFieldSettingValueErrorCode?: CompileErrorCode =
-    CompileErrorCode.INVALID_REF_SETTING_VALUE;
+  );
 
-  protected shouldRegisterSubField: boolean = false;
-  protected duplicateSubFieldNameErrorCode?: CompileErrorCode = undefined;
+  protected body = createBodyValidatorConfig({
+    allowSimple: true,
+    simpleErrorCode: undefined,
+    allowComplex: true,
+    complexErrorCode: undefined,
+    stopOnError: false,
+  });
+
+  protected subfield = createSubFieldValidatorConfig({
+    argValidators: [
+      {
+        validateArg: isBinaryRelationship,
+        errorCode: CompileErrorCode.INVALID_REF_RELATIONSHIP,
+      },
+    ],
+    invalidArgNumberErrorCode: CompileErrorCode.INVALID_REF_FIELD,
+    setting: createSettingsValidatorConfig(
+      {
+        delete: {
+          allowDuplicate: false,
+          isValid: isValidPolicy,
+        },
+        update: {
+          allowDuplicate: false,
+          isValid: isValidPolicy,
+        },
+      },
+      {
+        optional: true,
+        notFoundErrorCode: undefined,
+        allow: true,
+        foundErrorCode: undefined,
+        unknownErrorCode: CompileErrorCode.UNKNOWN_REF_SETTING,
+        duplicateErrorCode: CompileErrorCode.DUPLICATE_REF_SETTING,
+        invalidErrorCode: CompileErrorCode.INVALID_REF_SETTING_VALUE,
+        stopOnError: false,
+      },
+    ),
+    shouldRegister: false,
+    duplicateErrorCode: undefined,
+  });
+
   protected elementEntry?: TableEntry;
 
   constructor(
@@ -79,20 +119,6 @@ export default class RefValidator extends ElementValidator {
   ) {
     super(declarationNode, globalSchema, contextStack, errors, uniqueKindsFound);
   }
-}
-
-export function allowValueForThisRefSetting(
-  settingName: string,
-  value?: SyntaxNode | SyntaxToken[],
-): boolean {
-  return !!{
-    delete: isValidPolicy,
-    update: isValidPolicy,
-  }[settingName]?.call(undefined, value);
-}
-
-export function allowDuplicateForThisRefSetting(settingName: string): boolean {
-  return false;
 }
 
 function isValidPolicy(value?: SyntaxNode | SyntaxToken[]): boolean {
