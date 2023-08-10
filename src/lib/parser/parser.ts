@@ -326,6 +326,8 @@ export default class Parser {
       name = maybeAlias;
     }
 
+    cpArgs.pop();
+
     return cpArgs.length === 0 ?
       new ElementDeclarationNode({
           type,
