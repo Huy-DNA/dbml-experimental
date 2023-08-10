@@ -11,7 +11,7 @@ import {
   noUniqueConfig,
   registerNameConfig,
 } from './_preset_configs';
-import { SchemaSymbol } from 'lib/analyzer/symbol/symbols';
+import { SchemaSymbol } from '../../symbol/symbols';
 
 export default class TableGroupValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLEGROUP;

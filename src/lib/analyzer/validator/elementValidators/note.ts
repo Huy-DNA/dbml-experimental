@@ -11,7 +11,7 @@ import {
   noNameConfig,
   noSettingsConfig,
 } from './_preset_configs';
-import { SchemaSymbol } from 'lib/analyzer/symbol/symbols';
+import { SchemaSymbol } from '../../symbol/symbols';
 
 export default class NoteValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.NOTE;
