@@ -27,7 +27,7 @@ import {
   noUniqueConfig,
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
-import { createEnumSymbolId, createSchemaSymbolId } from '../../symbol/symbolIndex';
+import { createEnumElementSymbolId, createEnumSymbolId, createSchemaSymbolId } from '../../symbol/symbolIndex';
 import { registerRelationshipOperand } from './utils';
 import { SyntaxToken } from '../../../lexer/tokens';
 
@@ -175,6 +175,7 @@ const columnSettings = () =>
       default: {
         allowDuplicate: false,
         isValid: isValidDefaultValue,
+        registerUnresolvedName: registerEnumValueIfComplexVar,
       },
       increment: {
         allowDuplicate: false,
@@ -219,4 +220,26 @@ function registerUnaryRelationship(
   }
 
   registerRelationshipOperand(value as NormalFormExpressionNode, ownerElement, unresolvedNames);
+}
+
+function registerEnumValueIfComplexVar(value: SyntaxNode | SyntaxToken[] | undefined, ownerElement: ElementDeclarationNode, unresolvedNames: UnresolvedName[]) {
+  if (!isValidDefaultValue(value)) {
+    throw new Error('Unreachable - Invalid default when registerEnumValueIfComplexVar is called');
+  }
+
+  if (value instanceof PrimaryExpressionNode) {
+    return;
+  }
+
+  const fragments = destructureComplexVariable(value as SyntaxNode).unwrap();
+  const enumFieldId = createEnumElementSymbolId(fragments.pop()!);
+  const enumId = createEnumSymbolId(fragments.pop()!);
+  const schemaId = fragments.map(createSchemaSymbolId);
+
+  unresolvedNames.push({
+    id: enumFieldId,
+    qualifiers: [...schemaId, enumId],
+    ownerElement,
+    referrer: value as SyntaxNode,
+  })
 }
