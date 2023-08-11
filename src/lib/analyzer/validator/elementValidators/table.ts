@@ -9,7 +9,6 @@ import { CompileError, CompileErrorCode } from '../../../errors';
 import {
   CallExpressionNode,
   ElementDeclarationNode,
-  NormalFormExpressionNode,
   PrefixExpressionNode,
   PrimaryExpressionNode,
   SyntaxNode,

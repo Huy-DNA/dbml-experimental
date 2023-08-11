@@ -3,8 +3,7 @@ import { ElementDeclarationNode, ProgramNode, SyntaxNode } from '../../parser/no
 import { SchemaSymbol } from '../symbol/symbols';
 import { UnresolvedName, UnresolvedQualifiedName, UnresolvedUnqualifiedName } from '../types';
 import Report from '../../report';
-import { NodeSymbolId, destructureId } from '../symbol/symbolIndex';
-import { SyntaxToken } from '../../lexer/tokens';
+import { destructureId } from '../symbol/symbolIndex';
 
 export default class Binder {
   private ast: ProgramNode;
