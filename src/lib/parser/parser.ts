@@ -589,14 +589,20 @@ export default class Parser {
       const commaList: SyntaxToken[] = [];
 
       if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACKET)) {
-        elementList.push(this.attribute());
+        const attribute = this.attribute();
+        if (attribute) {
+          elementList.push(attribute);
+        }
       }
 
       while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACKET)) {
         synchronizeHook(() => {
           this.consume('Expect a ,', SyntaxTokenKind.COMMA);
           commaList.push(this.previous());
-          elementList.push(this.attribute());
+          const attribute = this.attribute();
+          if (attribute) {
+            elementList.push(attribute);
+          }
         }, this.synchronizeList);
       }
 
@@ -626,7 +632,7 @@ export default class Parser {
     }
   };
 
-  private attribute(): AttributeNode {
+  private attribute(): AttributeNode | undefined {
     let valueOpenColon: SyntaxToken | undefined;
     let value: NormalFormExpressionNode | SyntaxToken[] | undefined;
 
@@ -652,7 +658,14 @@ export default class Parser {
       value = this.attributeValue(ignoredInvalidTokenKinds);
     }
 
-    return new AttributeNode({ name, valueOpenColon, value });
+    const attribute = new AttributeNode({ name, valueOpenColon, value });
+    if (name.length === 0) {
+      this.invalid.push(attribute);
+
+      return undefined;
+    }
+
+    return attribute;
   }
 
   private attributeName(ignoredInvalidTokenKinds: SyntaxTokenKind[]): SyntaxToken[] {
