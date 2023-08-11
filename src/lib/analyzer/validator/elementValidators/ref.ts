@@ -9,7 +9,7 @@ import {
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { SyntaxToken } from '../../../lexer/tokens';
 import { ElementDeclarationNode, InfixExpressionNode, SyntaxNode } from '../../../parser/nodes';
-import { isQuotedStringNode } from '../../../utils';
+import { isExpressionAQuotedString } from '../../../utils';
 import { extractQuotedStringToken, isBinaryRelationship, joinTokenStrings } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
@@ -100,7 +100,7 @@ function registerBinaryRelationship(
 }
 
 function isValidPolicy(value?: SyntaxNode | SyntaxToken[]): boolean {
-  if (!Array.isArray(value) && !isQuotedStringNode(value)) {
+  if (!Array.isArray(value) && !isExpressionAQuotedString(value)) {
     return false;
   }
 

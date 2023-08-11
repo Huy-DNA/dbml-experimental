@@ -1,8 +1,4 @@
-import {
-  extractIdentifierFromNode,
-  isIdentifierNode,
-  tryInterpretAsLiteralElement,
-} from '../utils';
+import { convertFuncAppToElem } from '../utils';
 import { CompileError, CompileErrorCode } from '../errors';
 import { SyntaxToken, SyntaxTokenKind, isOpToken } from '../lexer/tokens';
 import Report from '../report';
@@ -25,7 +21,6 @@ import {
   PrimaryExpressionNode,
   ProgramNode,
   SyntaxNode,
-  SyntaxNodeKind,
   TupleExpressionNode,
   VariableNode,
 } from './nodes';
@@ -290,9 +285,9 @@ export default class Parser {
       previousToken = this.previous();
     }
 
-    const maybeLiteralElement = tryInterpretAsLiteralElement(callee, args);
+    const literalElement = convertFuncAppToElem(callee, args).unwrap_or(undefined);
 
-    return maybeLiteralElement || new FunctionApplicationNode({ callee, args });
+    return literalElement || new FunctionApplicationNode({ callee, args });
   }
 
   private normalFormExpression(): NormalFormExpressionNode {

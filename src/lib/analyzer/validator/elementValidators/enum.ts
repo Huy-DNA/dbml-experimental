@@ -7,7 +7,7 @@ import {
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
-import { isPrimaryVariableNode, isQuotedStringNode } from '../../../utils';
+import { isExpressionAVariableNode, isExpressionAQuotedString } from '../../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
@@ -41,7 +41,7 @@ export default class EnumValidator extends ElementValidator {
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [
       {
-        validateArg: isPrimaryVariableNode,
+        validateArg: isExpressionAVariableNode,
         errorCode: CompileErrorCode.INVALID_ENUM_ELEMENT_NAME,
       },
     ],
@@ -77,7 +77,7 @@ const enumFieldSettings = () =>
     {
       note: {
         allowDuplicate: true,
-        isValid: isQuotedStringNode,
+        isValid: isExpressionAQuotedString,
       },
     },
     {

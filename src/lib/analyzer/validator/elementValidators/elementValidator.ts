@@ -19,7 +19,7 @@ import {
   ListExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
-import { extractIdentifierFromNode } from '../../../utils';
+import { extractVariableNode } from '../../../utils';
 import { destructureComplexVariable, joinTokenStrings } from '../../utils';
 import { ContextStack, canBeNestedWithin } from '../validatorContext';
 import {
@@ -450,7 +450,7 @@ export default abstract class ElementValidator {
     if (!isSimpleName(nameNode)) {
       throw new Error('If an element allows registering subfields, their name must be simple');
     }
-    const name = extractIdentifierFromNode(nameNode)?.value;
+    const name = extractVariableNode(nameNode).unwrap().value;
     const { symbolTable } = this.declarationNode.symbol;
     if (!name) {
       throw new Error(`${this.elementKind} subfield's name shouldn't be empty`);

@@ -2,7 +2,7 @@ import { UnresolvedName } from 'lib/analyzer/types';
 import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
-import { isQuotedStringNode } from '../../../utils';
+import { isExpressionAQuotedString } from '../../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
@@ -36,7 +36,7 @@ export default class NoteValidator extends ElementValidator {
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [
       {
-        validateArg: isQuotedStringNode,
+        validateArg: isExpressionAQuotedString,
         errorCode: CompileErrorCode.INVALID_NOTE,
       },
     ],

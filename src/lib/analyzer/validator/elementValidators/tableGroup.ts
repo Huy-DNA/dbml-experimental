@@ -1,7 +1,7 @@
 import { UnresolvedName } from 'lib/analyzer/types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
-import { isPrimaryVariableNode } from '../../../utils';
+import { isExpressionAVariableNode } from '../../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
@@ -36,7 +36,7 @@ export default class TableGroupValidator extends ElementValidator {
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [
       {
-        validateArg: isPrimaryVariableNode,
+        validateArg: isExpressionAVariableNode,
         errorCode: CompileErrorCode.INVALID_TABLEGROUP_ELEMENT_NAME,
       },
     ],

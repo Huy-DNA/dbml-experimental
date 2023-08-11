@@ -14,7 +14,7 @@ import {
   SyntaxNode,
   VariableNode,
 } from '../../../parser/nodes';
-import { isQuotedStringNode } from '../../../utils';
+import { isExpressionAQuotedString } from '../../../utils';
 import { destructureIndex } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
@@ -120,11 +120,11 @@ const indexSettings = () =>
     {
       note: {
         allowDuplicate: false,
-        isValid: isQuotedStringNode,
+        isValid: isExpressionAQuotedString,
       },
       name: {
         allowDuplicate: false,
-        isValid: isQuotedStringNode,
+        isValid: isExpressionAQuotedString,
       },
       type: {
         allowDuplicate: false,

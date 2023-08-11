@@ -14,7 +14,11 @@ import {
   PrimaryExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
-import { isAccessExpression, isPrimaryVariableNode, isQuotedStringNode } from '../../../utils';
+import {
+  isAccessExpression,
+  isExpressionAVariableNode,
+  isExpressionAQuotedString,
+} from '../../../utils';
 import { destructureComplexVariable } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
@@ -59,7 +63,7 @@ export default class TableValidator extends ElementValidator {
       },
       note: {
         allowDuplicate: false,
-        isValid: isQuotedStringNode,
+        isValid: isExpressionAQuotedString,
       },
     },
     {
@@ -79,7 +83,7 @@ export default class TableValidator extends ElementValidator {
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [
       {
-        validateArg: isPrimaryVariableNode,
+        validateArg: isExpressionAVariableNode,
         errorCode: CompileErrorCode.INVALID_COLUMN_NAME,
       },
       {
@@ -166,7 +170,7 @@ const columnSettings = () =>
     {
       note: {
         allowDuplicate: false,
-        isValid: isQuotedStringNode,
+        isValid: isExpressionAQuotedString,
       },
       ref: {
         allowDuplicate: true,

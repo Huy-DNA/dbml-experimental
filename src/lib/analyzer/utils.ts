@@ -1,4 +1,4 @@
-import { isAccessExpression, isPrimaryVariableNode, isQuotedStringNode } from '../utils';
+import { isAccessExpression, isExpressionAVariableNode, isExpressionAQuotedString } from '../utils';
 import { None, Option, Some } from '../option';
 import {
   FunctionExpressionNode,
@@ -55,7 +55,7 @@ export function destructureComplexVariable(node: SyntaxNode): Option<string[]> {
 }
 
 export function extractVariableFromExpression(node: SyntaxNode): Option<string> {
-  if (!isPrimaryVariableNode(node)) {
+  if (!isExpressionAVariableNode(node)) {
     return new None();
   }
 
@@ -78,7 +78,7 @@ export function destructureIndex(
       .filter((e) => e instanceof FunctionExpressionNode)
       .map(extractIndexName);
     const nonfunctionalIndexName = node.elementList
-      .filter(isPrimaryVariableNode)
+      .filter(isExpressionAVariableNode)
       .map(extractIndexName);
 
     return new Some({ functional: functionalIndexName, nonFunctional: nonfunctionalIndexName });
@@ -98,7 +98,7 @@ export function joinTokenStrings(tokens: SyntaxToken[]): string {
 }
 
 export function extractQuotedStringToken(value?: SyntaxNode): string | undefined {
-  if (!isQuotedStringNode(value)) {
+  if (!isExpressionAQuotedString(value)) {
     return undefined;
   }
 
