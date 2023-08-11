@@ -20,13 +20,6 @@ export default class Lexer {
     this.text = text;
   }
 
-  private init() {
-    this.start = 0;
-    this.current = 0;
-    this.tokens = [];
-    this.errors = [];
-  }
-
   private isAtEnd(): boolean {
     return this.current >= this.text.length;
   }
@@ -80,7 +73,6 @@ export default class Lexer {
   }
 
   lex(): Report<SyntaxToken[], CompileError> {
-    this.init();
     this.scanTokens();
     this.tokens.push(SyntaxToken.create(SyntaxTokenKind.EOF, this.start, 0, ''));
     this.gatherTrivia();

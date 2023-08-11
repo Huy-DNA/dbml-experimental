@@ -30,10 +30,12 @@ export default class Parser {
 
   private current: number = 0;
 
-  private errors: CompileError[] = [];
+  private errors: CompileError[] = []; // A list of errors during parsing
 
+  // A list of tokens/nodes not end up in the ast
   private invalid: (SyntaxToken | SyntaxNode)[] = [];
 
+  // Keep track of which context we're parsing in
   private contextStack: ParsingContextStack = new ParsingContextStack();
 
   constructor(tokens: SyntaxToken[]) {
@@ -44,15 +46,6 @@ export default class Parser {
     return (
       this.current >= this.tokens.length || this.tokens[this.current].kind === SyntaxTokenKind.EOF
     );
-  }
-
-  private init() {
-    this.current = 0;
-    this.errors = [];
-    this.invalid = [];
-    if (this.tokens[this.tokens.length - 1].kind !== SyntaxTokenKind.EOF) {
-      throw new Error('Expected EOF at the end of token stream');
-    }
   }
 
   private advance(): SyntaxToken {
@@ -98,8 +91,6 @@ export default class Parser {
 
   parse(): Report<ProgramNode, CompileError> {
     const body: ElementDeclarationNode[] = [];
-
-    this.init();
 
     while (!this.isAtEnd()) {
       try {
