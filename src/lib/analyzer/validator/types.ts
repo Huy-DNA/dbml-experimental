@@ -1,13 +1,19 @@
-import { SyntaxNode } from '../../parser/nodes';
+import { ElementDeclarationNode, SyntaxNode } from '../../parser/nodes';
 import { CompileErrorCode } from '../../errors';
 import { SyntaxToken } from '../../lexer/tokens';
 import { None, Option, Some } from '../../option';
 import { ValidatorContext } from './validatorContext';
 import { UnresolvedName } from '../types';
+import { NodeSymbol } from '../symbol/symbols';
 
 export interface SettingValidator {
   allowDuplicate: boolean;
   isValid: (value?: SyntaxNode | SyntaxToken[]) => boolean;
+  registerUnresolvedName?(
+    value: SyntaxNode | SyntaxToken[] | undefined,
+    ownerElement: ElementDeclarationNode,
+    unresolvedNames: UnresolvedName[],
+  ): void;
 }
 
 export enum ElementKind {
@@ -24,7 +30,11 @@ export enum ElementKind {
 export interface ArgumentValidatorConfig {
   validateArg(node: SyntaxNode): boolean;
   errorCode: Readonly<CompileErrorCode>;
-  registerUnresolvedName?(node: SyntaxNode, unresolvedNames: UnresolvedName[]): void;
+  registerUnresolvedName?(
+    node: SyntaxNode,
+    ownerElement: ElementDeclarationNode,
+    unresolvedNames: UnresolvedName[],
+  ): void;
 }
 
 export interface ContextValidatorConfig {
@@ -82,6 +92,12 @@ export interface SettingsValidatorConfig {
 
   isValid(name: string, value?: SyntaxNode | SyntaxToken[]): Option<boolean>;
   allowDuplicate(name: string): Option<boolean>;
+  registerUnresolvedName(
+    settingName: string,
+    value: SyntaxNode | SyntaxToken[] | undefined,
+    ownerElement: ElementDeclarationNode,
+    unresolvedNames: UnresolvedName[],
+  ): void;
 }
 
 export interface BodyValidatorConfig {
@@ -214,6 +230,22 @@ export function createSettingsValidatorConfig(
       }
 
       return new Some(validator.allowDuplicate);
+    },
+
+    registerUnresolvedName(
+      settingName: string,
+      value: SyntaxNode | SyntaxToken[] | undefined,
+      ownerElement: ElementDeclarationNode,
+      unresolvedNames: UnresolvedName[],
+    ): void {
+      const validator = validatorMap[settingName];
+      if (!validator) {
+        throw new Error(
+          'Unreachable - registerUnresolvedName should only be called after validity check',
+        );
+      }
+
+      validator.registerUnresolvedName?.call(undefined, value, ownerElement, unresolvedNames);
     },
   };
 }

@@ -1,3 +1,4 @@
+import { UnresolvedName } from 'lib/analyzer/types';
 import {
   AliasValidatorConfig,
   BodyValidatorConfig,
@@ -52,16 +53,16 @@ export default abstract class ElementValidator {
   protected declarationNode: ElementDeclarationNode;
   protected publicSchemaSymbol: SchemaSymbol;
   protected contextStack: ContextStack;
+  protected unresolvedNames: UnresolvedName[];
   protected errors: CompileError[];
   protected kindsGloballyFound: Set<ElementKind>;
   protected kindsLocallyFound: Set<ElementKind>;
-
-  private registerNameFailed: boolean = false;
 
   constructor(
     declarationNode: ElementDeclarationNode,
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
+    unresolvedNames: UnresolvedName[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -69,6 +70,7 @@ export default abstract class ElementValidator {
     this.declarationNode = declarationNode;
     this.publicSchemaSymbol = publicSchemaSymbol;
     this.contextStack = contextStack;
+    this.unresolvedNames = unresolvedNames;
     this.errors = errors;
     this.kindsGloballyFound = kindsGloballyFound;
     this.kindsLocallyFound = kindsLocallyFound;
@@ -184,14 +186,12 @@ export default abstract class ElementValidator {
     }
 
     if (!hasError && nameNode && this.name.shouldRegister) {
-      this.declarationNode.symbol = this.registerElement(
+      const { registeredSymbol, ok } = this.registerElement(
         nameNode,
         this.publicSchemaSymbol.symbolTable,
-      ).unwrap_or(undefined);
-      if (!this.declarationNode.symbol) {
-        this.registerNameFailed = true;
-        hasError = true;
-      }
+      );
+      this.declarationNode.symbol = registeredSymbol;
+      hasError = !ok || hasError;
     }
 
     return !hasError || !this.name.stopOnError;
@@ -225,13 +225,13 @@ export default abstract class ElementValidator {
       hasError = true;
     }
 
-    if (!hasError && aliasNode && this.name.shouldRegister && !this.registerNameFailed) {
-      hasError =
-        this.registerElement(
-          aliasNode,
-          this.publicSchemaSymbol.symbolTable,
-          this.declarationNode.symbol,
-        ).unwrap_or(undefined) === undefined || hasError;
+    if (!hasError && aliasNode && this.name.shouldRegister) {
+      const { ok } = this.registerElement(
+        aliasNode,
+        this.publicSchemaSymbol.symbolTable,
+        this.declarationNode.symbol,
+      );
+      hasError = !ok || hasError;
     }
 
     return !hasError || !this.alias.stopOnError;
@@ -301,7 +301,7 @@ export default abstract class ElementValidator {
     nameNode: SyntaxNode,
     schema: SymbolTable,
     defaultSymbol?: NodeSymbol,
-  ): Option<NodeSymbol> {
+  ): { registeredSymbol: NodeSymbol; ok: boolean } {
     const variables = destructureComplexVariable(nameNode).unwrap_or(undefined);
     if (!variables) {
       throw new Error(`${this.elementKind} must be a valid complex variable`);
@@ -316,15 +316,6 @@ export default abstract class ElementValidator {
     if (!id) {
       throw new Error(`${this.elementKind} fails to create id to register in the symbol table`);
     }
-    if (registerSchema.has(id)) {
-      this.logError(
-        nameNode,
-        this.name.duplicateErrorCode,
-        `This ${this.elementKind} has a duplicated name`,
-      );
-
-      return new None();
-    }
 
     const newSymbol = createSymbol(this.declarationNode, this.context.name);
     if (!newSymbol) {
@@ -333,7 +324,18 @@ export default abstract class ElementValidator {
       );
     }
 
-    return new Some(registerSchema.get(id, defaultSymbol || newSymbol));
+    if (registerSchema.has(id)) {
+      this.logError(
+        nameNode,
+        this.name.duplicateErrorCode,
+        `This ${this.elementKind} has a duplicated name`,
+      );
+
+      return { registeredSymbol: defaultSymbol || newSymbol, ok: false };
+    }
+    registerSchema.set(id, defaultSymbol || newSymbol);
+
+    return { registeredSymbol: defaultSymbol || newSymbol, ok: true };
   }
 
   protected validateBodyContent(): boolean {
@@ -375,12 +377,16 @@ export default abstract class ElementValidator {
     sub: ElementDeclarationNode,
     kindsFoundInScope: Set<ElementKind>,
   ): boolean {
+    // eslint-disable-next-line no-param-reassign
+    sub.parentElement = this.declarationNode;
+
     const Val = pickValidator(sub);
 
     const validatorObject = new Val(
       sub,
       this.publicSchemaSymbol,
       this.contextStack,
+      this.unresolvedNames,
       this.errors,
       this.kindsGloballyFound,
       kindsFoundInScope,
@@ -520,6 +526,8 @@ export default abstract class ElementValidator {
         if (!config.isValid(name, value).unwrap()) {
           this.logError(setting, config.invalidErrorCode, 'Invalid value for this setting');
           hasError = true;
+        } else {
+          config.registerUnresolvedName(name, value, this.declarationNode, this.unresolvedNames);
         }
       }
     }

@@ -62,31 +62,26 @@ export function extractVariableFromExpression(node: SyntaxNode): Option<string> 
   return new Some(node.expression.variable.value);
 }
 
-export function destructureIndex(node: SyntaxNode): Option<{ table: string[]; column: string[] }> {
-  const fragments = destructureMemberAccessExpression(node).unwrap_or(undefined);
+export function destructureIndex(
+  node: SyntaxNode,
+): Option<{ functional: string[]; nonFunctional: string[] }> {
+  if (isValidIndexName(node)) {
+    const indexName = extractIndexName(node);
 
-  if (!fragments || fragments.length === 0) {
-    return new None();
+    return node instanceof FunctionExpressionNode ?
+      new Some({ functional: [indexName], nonFunctional: [] }) :
+      new Some({ functional: [], nonFunctional: [indexName] });
   }
 
-  const column = fragments.pop()!;
+  if (node instanceof TupleExpressionNode && node.elementList.every(isValidIndexName)) {
+    const functionalIndexName = node.elementList
+      .filter((e) => e instanceof FunctionExpressionNode)
+      .map(extractIndexName);
+    const nonfunctionalIndexName = node.elementList
+      .filter(isPrimaryVariableNode)
+      .map(extractIndexName);
 
-  if (!fragments.every(isPrimaryVariableNode)) {
-    return new None();
-  }
-
-  if (isValidIndexName(column)) {
-    return new Some({
-      table: fragments.map(extractVarNameFromPrimaryVariable),
-      column: [extractIndexName(column)],
-    });
-  }
-
-  if (column instanceof TupleExpressionNode && column.elementList.every(isValidIndexName)) {
-    return new Some({
-      table: fragments.map(extractVarNameFromPrimaryVariable),
-      column: column.elementList.map(extractIndexName),
-    });
+    return new Some({ functional: functionalIndexName, nonFunctional: nonfunctionalIndexName });
   }
 
   return new None();

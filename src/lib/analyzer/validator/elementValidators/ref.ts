@@ -1,3 +1,5 @@
+import { UnresolvedName } from 'lib/analyzer/types';
+import { registerRelationshipOperand } from './utils';
 import {
   ElementKind,
   createContextValidatorConfig,
@@ -6,7 +8,7 @@ import {
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { SyntaxToken } from '../../../lexer/tokens';
-import { ElementDeclarationNode, SyntaxNode } from '../../../parser/nodes';
+import { ElementDeclarationNode, InfixExpressionNode, SyntaxNode } from '../../../parser/nodes';
 import { isQuotedStringNode } from '../../../utils';
 import { extractQuotedStringToken, isBinaryRelationship, joinTokenStrings } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
@@ -44,6 +46,7 @@ export default class RefValidator extends ElementValidator {
       {
         validateArg: isBinaryRelationship,
         errorCode: CompileErrorCode.INVALID_REF_RELATIONSHIP,
+        registerUnresolvedName: registerBinaryRelationship,
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_REF_FIELD,
@@ -56,6 +59,7 @@ export default class RefValidator extends ElementValidator {
     declarationNode: ElementDeclarationNode,
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
+    unresolvedNames: UnresolvedName[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -64,11 +68,35 @@ export default class RefValidator extends ElementValidator {
       declarationNode,
       publicSchemaSymbol,
       contextStack,
+      unresolvedNames,
       errors,
       kindsGloballyFound,
       kindsLocallyFound,
     );
   }
+}
+
+function registerBinaryRelationship(
+  node: SyntaxNode,
+  ownerElement: ElementDeclarationNode,
+  unresolvedNames: UnresolvedName[],
+) {
+  if (!isBinaryRelationship(node)) {
+    throw new Error(
+      'Unreachable - Must be a binary relationship when registerRelationshipOperands is called',
+    );
+  }
+
+  registerRelationshipOperand(
+    (node as InfixExpressionNode).leftExpression,
+    ownerElement,
+    unresolvedNames,
+  );
+  registerRelationshipOperand(
+    (node as InfixExpressionNode).rightExpression,
+    ownerElement,
+    unresolvedNames,
+  );
 }
 
 function isValidPolicy(value?: SyntaxNode | SyntaxToken[]): boolean {

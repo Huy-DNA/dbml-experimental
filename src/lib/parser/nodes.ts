@@ -86,6 +86,8 @@ export class ElementDeclarationNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
+  parentElement?: ElementDeclarationNode;
+
   constructor({
     type,
     name,

@@ -1,3 +1,4 @@
+import { UnresolvedName } from 'lib/analyzer/types';
 import {
   ElementKind,
   createContextValidatorConfig,
@@ -54,6 +55,7 @@ export default class EnumValidator extends ElementValidator {
     declarationNode: ElementDeclarationNode,
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
+    unresolvedNames: UnresolvedName[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -62,6 +64,7 @@ export default class EnumValidator extends ElementValidator {
       declarationNode,
       publicSchemaSymbol,
       contextStack,
+      unresolvedNames,
       errors,
       kindsGloballyFound,
       kindsLocallyFound,

@@ -1,3 +1,4 @@
+import { UnresolvedName } from 'lib/analyzer/types';
 import {
   ElementKind,
   createContextValidatorConfig,
@@ -8,6 +9,7 @@ import { CompileError, CompileErrorCode } from '../../../errors';
 import {
   CallExpressionNode,
   ElementDeclarationNode,
+  NormalFormExpressionNode,
   PrimaryExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
@@ -25,6 +27,9 @@ import {
   noUniqueConfig,
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
+import { createEnumSymbolId, createSchemaSymbolId } from '../../symbol/symbolIndex';
+import { registerRelationshipOperand } from './utils';
+import { SyntaxToken } from '../../../lexer/tokens';
 
 export default class TableValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLE;
@@ -75,6 +80,7 @@ export default class TableValidator extends ElementValidator {
       {
         validateArg: isValidColumnType,
         errorCode: CompileErrorCode.INVALID_COLUMN_TYPE,
+        registerUnresolvedName: registerEnumTypeIfComplexVariable,
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_COLUMN,
@@ -87,6 +93,7 @@ export default class TableValidator extends ElementValidator {
     declarationNode: ElementDeclarationNode,
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
+    unresolvedNames: UnresolvedName[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -95,11 +102,36 @@ export default class TableValidator extends ElementValidator {
       declarationNode,
       publicSchemaSymbol,
       contextStack,
+      unresolvedNames,
       errors,
       kindsGloballyFound,
       kindsLocallyFound,
     );
   }
+}
+
+function registerEnumTypeIfComplexVariable(
+  node: SyntaxNode,
+  ownerElement: ElementDeclarationNode,
+  unresolvedNames: UnresolvedName[],
+) {
+  if (!isAccessExpression(node)) {
+    return;
+  }
+
+  if (!isValidColumnType(node)) {
+    throw new Error('Unreachable - Invalid type when registerTypeIfComplexVariable is called');
+  }
+
+  const fragments = destructureComplexVariable(node).unwrap();
+  const enumId = createEnumSymbolId(fragments.pop()!);
+  const schemaIdStack = fragments.map(createSchemaSymbolId);
+
+  unresolvedNames.push({
+    id: enumId,
+    qualifiers: schemaIdStack,
+    ownerElement,
+  });
 }
 
 function isValidColumnType(type: SyntaxNode): boolean {
@@ -133,6 +165,7 @@ const columnSettings = () =>
       ref: {
         allowDuplicate: true,
         isValid: isUnaryRelationship,
+        registerUnresolvedName: registerUnaryRelationship,
       },
       'primary key': {
         allowDuplicate: false,
@@ -174,3 +207,15 @@ const columnSettings = () =>
       stopOnError: false,
     },
   );
+
+function registerUnaryRelationship(
+  value: SyntaxNode | SyntaxToken[] | undefined,
+  ownerElement: ElementDeclarationNode,
+  unresolvedNames: UnresolvedName[],
+) {
+  if (!isUnaryRelationship(value)) {
+    throw new Error('Unreachable - Must be an unary rel when regiterUnaryRelationship is called');
+  }
+
+  registerRelationshipOperand(value as NormalFormExpressionNode, ownerElement, unresolvedNames);
+}

@@ -1,3 +1,5 @@
+import { UnresolvedName } from '../../types';
+import { createColumnSymbolId } from '../../symbol/symbolIndex';
 import {
   ElementKind,
   createContextValidatorConfig,
@@ -24,7 +26,7 @@ import {
   noSettingsConfig,
   noUniqueConfig,
 } from './_preset_configs';
-import { SchemaSymbol } from '../../symbol/symbols';
+import { NodeSymbol, SchemaSymbol, SymbolKind } from '../../symbol/symbols';
 
 export default class IndexesValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.INDEXES;
@@ -50,6 +52,7 @@ export default class IndexesValidator extends ElementValidator {
       {
         validateArg: (node) => destructureIndex(node).unwrap_or(undefined) !== undefined,
         errorCode: CompileErrorCode.INVALID_INDEX,
+        registerUnresolvedName: registerIndexForResolution,
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_INDEX,
@@ -62,6 +65,7 @@ export default class IndexesValidator extends ElementValidator {
     declarationNode: ElementDeclarationNode,
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
+    unresolvedNames: UnresolvedName[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -70,11 +74,34 @@ export default class IndexesValidator extends ElementValidator {
       declarationNode,
       publicSchemaSymbol,
       contextStack,
+      unresolvedNames,
       errors,
       kindsGloballyFound,
       kindsLocallyFound,
     );
   }
+}
+
+export function registerIndexForResolution(
+  node: SyntaxNode,
+  ownerElement: ElementDeclarationNode,
+  unresolvedNames: UnresolvedName[],
+) {
+  const columnIds = destructureIndex(node)
+    .unwrap_or(undefined)
+    ?.nonFunctional.map(createColumnSymbolId);
+
+  if (!columnIds) {
+    throw new Error(
+      'Unreachable - Index should be validated before registerIndexForResolution is called',
+    );
+  }
+
+  columnIds.forEach((id) =>
+    unresolvedNames.push({
+      id: createColumnSymbolId(id),
+      ownerElement,
+    }));
 }
 
 export function isValidIndexesType(value?: SyntaxNode | SyntaxToken[]): boolean {

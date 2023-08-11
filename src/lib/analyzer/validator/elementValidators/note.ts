@@ -1,3 +1,4 @@
+import { UnresolvedName } from 'lib/analyzer/types';
 import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
@@ -49,6 +50,7 @@ export default class NoteValidator extends ElementValidator {
     declarationNode: ElementDeclarationNode,
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
+    unresolvedNames: UnresolvedName[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -57,6 +59,7 @@ export default class NoteValidator extends ElementValidator {
       declarationNode,
       publicSchemaSymbol,
       contextStack,
+      unresolvedNames,
       errors,
       kindsGloballyFound,
       kindsLocallyFound,
