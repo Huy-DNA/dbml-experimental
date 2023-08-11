@@ -34,7 +34,9 @@ export function canBeNestedWithin(
       );
     case ValidatorContext.TableContext:
       return (
-        containee === ValidatorContext.IndexesContext || containee === ValidatorContext.NoteContext
+        containee === ValidatorContext.IndexesContext ||
+        containee === ValidatorContext.NoteContext ||
+        containee === ValidatorContext.RefContext
       );
     default:
       return false;
