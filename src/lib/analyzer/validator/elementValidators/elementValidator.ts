@@ -512,7 +512,6 @@ export default abstract class ElementValidator {
     for (const setting of settingsNode.elementList) {
       const name = joinTokenStrings(setting.name).toLowerCase();
       const { value } = setting;
-      console.log(name)
 
       if (!config.isValid(name, value).isOk()) {
         this.logError(setting, config.unknownErrorCode, 'Unknown setting');
