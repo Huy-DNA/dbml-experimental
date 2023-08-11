@@ -1,13 +1,13 @@
 import SymbolTable from './symbolTable';
 import { SyntaxNode } from '../../parser/nodes';
 
-export const enum SymbolKind {
-  SCHEMA,
-  TABLE,
-  ENUM,
-  ENUM_MEMBER,
-  COLUMN,
-  TABLE_GROUP,
+export enum SymbolKind {
+  SCHEMA = 'Schema',
+  TABLE = 'Table',
+  ENUM = 'Enum',
+  ENUM_MEMBER = 'Enum field',
+  COLUMN = 'Column',
+  TABLE_GROUP = 'TableGroup',
 }
 
 export interface NodeSymbol {

@@ -11,9 +11,21 @@ export default class Analyzer {
     this.ast = ast;
   }
 
+  // Analyzing: Invoking both the validator and binder
   analyze(): Report<ProgramNode, CompileError> {
     const validator = new Validator(this.ast);
 
-    return validator.validate().chain(({ program, schema }) => new Report(program, []));
+    return validator.validate().chain(({ program, schema, unresolvedNames }) => {
+      const binder = new Binder(program, schema, unresolvedNames);
+
+      return binder.resolve();
+    });
+  }
+
+  // For invoking the validator only
+  validate(): Report<ProgramNode, CompileError> {
+    const validator = new Validator(this.ast);
+
+    return validator.validate().chain(({ program }) => new Report(program, []));
   }
 }

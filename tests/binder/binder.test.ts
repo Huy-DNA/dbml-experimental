@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { scanTestNames } from '../jestHelpers';
 import { serialize } from '../../src/lib/serialization/serialize';
 
-describe('#analyzer', () => {
+describe('#binder', () => {
   const testNames = scanTestNames(path.resolve(__dirname, './input/'));
 
   testNames.forEach((testName) => {

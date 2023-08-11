@@ -1,29 +1,38 @@
 export type NodeSymbolId = string;
 
 export function createSchemaSymbolId(key: string): NodeSymbolId {
-  return `schema:${key}`;
+  return `Schema:${key}`;
 }
 
 export function createTableSymbolId(key: string): NodeSymbolId {
-  return `table:${key}`;
+  return `Table:${key}`;
 }
 
 export function createColumnSymbolId(key: string): NodeSymbolId {
-  return `column:${key}`;
+  return `Column:${key}`;
 }
 
 export function createEnumSymbolId(key: string): NodeSymbolId {
-  return `enum:${key}`;
+  return `Enum:${key}`;
 }
 
 export function createEnumElementSymbolId(key: string): NodeSymbolId {
-  return `enum-element:${key}`;
+  return `Enum field:${key}`;
 }
 
 export function createTableGroupSymbolId(key: string): NodeSymbolId {
-  return `tablegroup:${key}`;
+  return `TableGroup:${key}`;
 }
 
 export function TableGroupElementSymbolId(key: string): NodeSymbolId {
-  return `tablegroup-element:${key}`;
+  return `Tablegroup field:${key}`;
+}
+
+export function destructureId(id: NodeSymbolId): { name: string; type: string } {
+  const [type, name] = id.split(':');
+
+  return {
+    name,
+    type,
+  };
 }
