@@ -52,7 +52,7 @@ export default class Binder {
       if (!symbol) {
         this.logError(
           referrer,
-          `There's no ${type} ${name} in ${curtype} ${accessedName.join('.')}`,
+          `There's no ${type} "${name}" in ${curtype} "${accessedName.join('.')}"`,
         );
 
         return;
@@ -70,7 +70,7 @@ export default class Binder {
 
     const { name, type } = destructureId(id);
     if (!symbolTable.has(id)) {
-      this.logError(referrer, `There's no ${type} ${name} in ${curtype} ${accessedName.join('.')}`);
+      this.logError(referrer, `There's no ${type} "${name}" in ${curtype} "${accessedName.join('.')}"`);
 
       return;
     }

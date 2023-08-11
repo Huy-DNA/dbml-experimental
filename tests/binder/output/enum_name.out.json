@@ -938,14 +938,14 @@
   "errors": [
     {
       "code": 4000,
-      "diagnostic": "There's no Enum statuss in Schema public",
+      "diagnostic": "There's no Enum \"statuss\" in Schema \"public\"",
       "start": 93,
       "end": 107,
       "name": "CompileError"
     },
     {
       "code": 4000,
-      "diagnostic": "There's no Enum statuss in Schema v2",
+      "diagnostic": "There's no Enum \"statuss\" in Schema \"v2\"",
       "start": 121,
       "end": 131,
       "name": "CompileError"
