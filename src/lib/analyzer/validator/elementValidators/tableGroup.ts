@@ -1,7 +1,6 @@
 import { UnresolvedName } from 'lib/analyzer/types';
 import { CompileError, CompileErrorCode } from '../../../errors';
-import { ElementDeclarationNode } from '../../../parser/nodes';
-import { isExpressionAVariableNode } from '../../../utils';
+import { ElementDeclarationNode, SyntaxNode } from '../../../parser/nodes';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
@@ -13,6 +12,9 @@ import {
   registerNameConfig,
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
+import { isValidName } from '../utils';
+import { destructureComplexVariable } from 'lib/analyzer/utils';
+import { createSchemaSymbolId, createTableSymbolId } from 'lib/analyzer/symbol/symbolIndex';
 
 export default class TableGroupValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLEGROUP;
@@ -36,8 +38,9 @@ export default class TableGroupValidator extends ElementValidator {
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [
       {
-        validateArg: isExpressionAVariableNode,
+        validateArg: isValidName,
         errorCode: CompileErrorCode.INVALID_TABLEGROUP_ELEMENT_NAME,
+        registerUnresolvedName: registerTableName,
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_TABLEGROUP_FIELD,
@@ -65,4 +68,20 @@ export default class TableGroupValidator extends ElementValidator {
       kindsLocallyFound,
     );
   }
+}
+
+function registerTableName(node: SyntaxNode, ownerElement: ElementDeclarationNode, unresolvedNames: UnresolvedName[]) {
+  if (!isValidName(node)) {
+    throw new Error("Unreachable - Must be a valid name when registerTableName is called");
+  }
+  const fragments = destructureComplexVariable(node).unwrap();
+  const tableId = createTableSymbolId(fragments.pop()!);
+  const schemaIdStack = fragments.map(createSchemaSymbolId);
+
+  unresolvedNames.push({
+    id: tableId,
+    qualifiers: schemaIdStack.length === 0 ? undefined : schemaIdStack,
+    referrer: node,
+    ownerElement,
+  })
 }
