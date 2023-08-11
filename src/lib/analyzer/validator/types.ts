@@ -4,7 +4,6 @@ import { SyntaxToken } from '../../lexer/tokens';
 import { None, Option, Some } from '../../option';
 import { ValidatorContext } from './validatorContext';
 import { UnresolvedName } from '../types';
-import { NodeSymbol } from '../symbol/symbols';
 
 export interface SettingValidator {
   allowDuplicate: boolean;

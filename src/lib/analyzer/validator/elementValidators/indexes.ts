@@ -26,7 +26,7 @@ import {
   noSettingsConfig,
   noUniqueConfig,
 } from './_preset_configs';
-import { NodeSymbol, SchemaSymbol, SymbolKind } from '../../symbol/symbols';
+import { SchemaSymbol } from '../../symbol/symbols';
 
 export default class IndexesValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.INDEXES;
@@ -101,6 +101,7 @@ export function registerIndexForResolution(
     unresolvedNames.push({
       id: createColumnSymbolId(id),
       ownerElement,
+      referrer: node,
     }));
 }
 

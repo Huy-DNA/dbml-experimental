@@ -131,6 +131,7 @@ function registerEnumTypeIfComplexVariable(
     id: enumId,
     qualifiers: schemaIdStack,
     ownerElement,
+    referrer: node,
   });
 }
 

@@ -19,6 +19,7 @@ export function registerRelationshipOperand(
     unresolvedNames.push({
       id: columnId,
       ownerElement,
+      referrer: node,
     });
   }
 
@@ -29,5 +30,6 @@ export function registerRelationshipOperand(
     id: columnId,
     qualifiers: [...schemaIdStack, tableId],
     ownerElement,
+    referrer: node,
   });
 }

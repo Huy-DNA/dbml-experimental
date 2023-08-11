@@ -407,8 +407,6 @@ export default abstract class ElementValidator {
       args.pop();
     }
 
-    this.validateSubFieldSettings(maybeSettings);
-
     if (args.length !== this.subfield.argValidators.length) {
       this.logError(
         sub,
@@ -514,11 +512,12 @@ export default abstract class ElementValidator {
     for (const setting of settingsNode.elementList) {
       const name = joinTokenStrings(setting.name).toLowerCase();
       const { value } = setting;
+      console.log(name)
 
       if (!config.isValid(name, value).isOk()) {
         this.logError(setting, config.unknownErrorCode, 'Unknown setting');
         hasError = true;
-      } else if (settingsSet.has(name) && !config.allowDuplicate) {
+      } else if (settingsSet.has(name) && !config.allowDuplicate(name).unwrap()) {
         this.logError(setting, config.duplicateErrorCode, 'Duplicate setting');
         hasError = true;
       } else {
@@ -536,7 +535,7 @@ export default abstract class ElementValidator {
   }
 
   protected logError(
-    node: SyntaxNode | SyntaxToken,
+    nodeOrToken: SyntaxNode | SyntaxToken,
     code: CompileErrorCode | undefined,
     message: string,
   ) {
@@ -545,8 +544,15 @@ export default abstract class ElementValidator {
        Error message: ${message}`);
     }
     // eslint-disable-next-line no-unused-expressions
-    node instanceof SyntaxToken ?
-      this.errors.push(new CompileError(code, message, node.offset, node.offset + node.length)) :
-      this.errors.push(new CompileError(code, message, node.start, node.end));
+    nodeOrToken instanceof SyntaxToken ?
+      this.errors.push(
+          new CompileError(
+            code,
+            message,
+            nodeOrToken.offset,
+            nodeOrToken.offset + nodeOrToken.length,
+          ),
+        ) :
+      this.errors.push(new CompileError(code, message, nodeOrToken.start, nodeOrToken.end));
   }
 }
