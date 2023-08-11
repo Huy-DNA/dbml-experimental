@@ -95,7 +95,6 @@ export default class Binder {
     const { symbolTable } = curElement.symbol as any;
     const { name, type } = destructureId(id);
     if (!symbolTable.has(id)) {
-      console.log(curElement.name)
       this.logError(
         referrer,
         `There's no ${type} ${name} in the enclosing ${curElement.symbol!.kind}`,
