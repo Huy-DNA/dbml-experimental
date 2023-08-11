@@ -29,7 +29,7 @@ export class Some<T> {
 }
 
 export class None<T> {
-  unwrap() {
+  unwrap(): T {
     throw new Error('Trying to unwrap a None value');
   }
 
