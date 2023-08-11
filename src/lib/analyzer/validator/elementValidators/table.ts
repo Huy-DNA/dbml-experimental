@@ -10,6 +10,7 @@ import {
   CallExpressionNode,
   ElementDeclarationNode,
   NormalFormExpressionNode,
+  PrefixExpressionNode,
   PrimaryExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
@@ -27,7 +28,11 @@ import {
   noUniqueConfig,
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
-import { createEnumElementSymbolId, createEnumSymbolId, createSchemaSymbolId } from '../../symbol/symbolIndex';
+import {
+  createEnumElementSymbolId,
+  createEnumSymbolId,
+  createSchemaSymbolId,
+} from '../../symbol/symbolIndex';
 import { registerRelationshipOperand } from './utils';
 import { SyntaxToken } from '../../../lexer/tokens';
 
@@ -219,10 +224,18 @@ function registerUnaryRelationship(
     throw new Error('Unreachable - Must be an unary rel when regiterUnaryRelationship is called');
   }
 
-  registerRelationshipOperand(value as NormalFormExpressionNode, ownerElement, unresolvedNames);
+  registerRelationshipOperand(
+    (value as PrefixExpressionNode).expression,
+    ownerElement,
+    unresolvedNames,
+  );
 }
 
-function registerEnumValueIfComplexVar(value: SyntaxNode | SyntaxToken[] | undefined, ownerElement: ElementDeclarationNode, unresolvedNames: UnresolvedName[]) {
+function registerEnumValueIfComplexVar(
+  value: SyntaxNode | SyntaxToken[] | undefined,
+  ownerElement: ElementDeclarationNode,
+  unresolvedNames: UnresolvedName[],
+) {
   if (!isValidDefaultValue(value)) {
     throw new Error('Unreachable - Invalid default when registerEnumValueIfComplexVar is called');
   }
@@ -241,5 +254,5 @@ function registerEnumValueIfComplexVar(value: SyntaxNode | SyntaxToken[] | undef
     qualifiers: [...schemaId, enumId],
     ownerElement,
     referrer: value as SyntaxNode,
-  })
+  });
 }
