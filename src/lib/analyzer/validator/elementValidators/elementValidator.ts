@@ -425,7 +425,12 @@ export default abstract class ElementValidator {
         this.logError(args[i], this.subfield.argValidators[i].errorCode, 'Invalid field value');
         hasError = true;
       } else {
-        this.subfield.argValidators[i].registerUnresolvedName?.call(undefined, args[i], this.declarationNode, this.unresolvedNames);
+        this.subfield.argValidators[i].registerUnresolvedName?.call(
+          undefined,
+          args[i],
+          this.declarationNode,
+          this.unresolvedNames,
+        );
       }
     }
 
