@@ -1,13 +1,8 @@
 import { SyntaxToken, SyntaxTokenKind } from './lexer/tokens';
 import { None, Option, Some } from './option';
 import {
-  BlockExpressionNode,
-  ElementDeclarationNode,
-  ExpressionNode,
   InfixExpressionNode,
-  ListExpressionNode,
   LiteralNode,
-  NormalFormExpressionNode,
   PrimaryExpressionNode,
   SyntaxNode,
   VariableNode,
@@ -86,63 +81,6 @@ export function isExpressionAnIdentifierNode(value?: unknown): value is PrimaryE
     value.expression instanceof VariableNode &&
     value.expression.variable.kind === SyntaxTokenKind.IDENTIFIER
   );
-}
-
-// Try to interpret a function application as an element
-export function convertFuncAppToElem(
-  callee: ExpressionNode,
-  args: NormalFormExpressionNode[],
-): Option<ElementDeclarationNode> {
-  if (!isExpressionAnIdentifierNode(callee) || args.length === 0) {
-    return new None();
-  }
-  const cpArgs = [...args];
-
-  const type = extractVariableNode(callee).unwrap();
-
-  const body = cpArgs.pop();
-  if (!(body instanceof BlockExpressionNode)) {
-    return new None();
-  }
-
-  const attributeList =
-    last(cpArgs) instanceof ListExpressionNode ? (cpArgs.pop() as ListExpressionNode) : undefined;
-
-  if (cpArgs.length === 3 && extractVariableNode(cpArgs[1]).unwrap().value === 'as') {
-    return new Some(
-      new ElementDeclarationNode({
-        type,
-        name: cpArgs[0],
-        as: extractVariableNode(cpArgs[1]).unwrap(),
-        alias: cpArgs[2],
-        attributeList,
-        body,
-      }),
-    );
-  }
-
-  if (cpArgs.length === 1) {
-    return new Some(
-      new ElementDeclarationNode({
-        type,
-        name: cpArgs[0],
-        attributeList,
-        body,
-      }),
-    );
-  }
-
-  if (cpArgs.length === 0) {
-    return new Some(
-      new ElementDeclarationNode({
-        type,
-        attributeList,
-        body,
-      }),
-    );
-  }
-
-  return new None();
 }
 
 export function last<T>(array: T[]): T | undefined {

@@ -1,4 +1,4 @@
-import { convertFuncAppToElem } from '../utils';
+import { convertFuncAppToElem } from './utils';
 import { CompileError, CompileErrorCode } from '../errors';
 import { SyntaxToken, SyntaxTokenKind, isOpToken } from '../lexer/tokens';
 import Report from '../report';
