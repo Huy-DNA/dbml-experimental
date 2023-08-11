@@ -384,6 +384,66 @@
       "diagnostic": "Table subfield's name is duplicated",
       "start": 35,
       "end": 37,
+      "value": {
+        "kind": "<primary-expression>",
+        "start": 35,
+        "end": 37,
+        "expression": {
+          "kind": "<variable>",
+          "start": 35,
+          "end": 37,
+          "variable": {
+            "kind": "<identifier>",
+            "offset": 35,
+            "value": "id",
+            "length": 2,
+            "leadingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 31,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 32,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 33,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 34,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ],
+            "trailingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 37,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ]
+          }
+        }
+      },
       "name": "CompileError"
     },
     {
@@ -391,6 +451,66 @@
       "diagnostic": "Table subfield's name is duplicated",
       "start": 51,
       "end": 53,
+      "value": {
+        "kind": "<primary-expression>",
+        "start": 51,
+        "end": 53,
+        "expression": {
+          "kind": "<variable>",
+          "start": 51,
+          "end": 53,
+          "variable": {
+            "kind": "<identifier>",
+            "offset": 51,
+            "value": "id",
+            "length": 2,
+            "leadingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 47,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 48,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 49,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 50,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ],
+            "trailingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 53,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ]
+          }
+        }
+      },
       "name": "CompileError"
     }
   ]

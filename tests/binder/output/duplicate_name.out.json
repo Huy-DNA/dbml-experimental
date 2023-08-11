@@ -249,6 +249,33 @@
       "diagnostic": "This Table has a duplicated name",
       "start": 25,
       "end": 27,
+      "value": {
+        "kind": "<primary-expression>",
+        "start": 25,
+        "end": 27,
+        "expression": {
+          "kind": "<variable>",
+          "start": 25,
+          "end": 27,
+          "variable": {
+            "kind": "<identifier>",
+            "offset": 25,
+            "value": "AB",
+            "length": 2,
+            "leadingTrivia": [],
+            "trailingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 27,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ]
+          }
+        }
+      },
       "name": "CompileError"
     }
   ]

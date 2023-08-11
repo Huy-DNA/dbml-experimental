@@ -671,6 +671,33 @@
       "diagnostic": "This Table has a duplicated name",
       "start": 49,
       "end": 50,
+      "value": {
+        "kind": "<primary-expression>",
+        "start": 49,
+        "end": 50,
+        "expression": {
+          "kind": "<variable>",
+          "start": 49,
+          "end": 50,
+          "variable": {
+            "kind": "<identifier>",
+            "offset": 49,
+            "value": "A",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 50,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ]
+          }
+        }
+      },
       "name": "CompileError"
     }
   ]

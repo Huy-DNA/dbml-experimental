@@ -280,6 +280,64 @@
       "diagnostic": "This Enum has a duplicated name",
       "start": 27,
       "end": 40,
+      "value": {
+        "kind": "<infix-expression>",
+        "start": 27,
+        "end": 40,
+        "op": {
+          "kind": "<op>",
+          "offset": 33,
+          "value": ".",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        "leftExpression": {
+          "kind": "<primary-expression>",
+          "start": 27,
+          "end": 33,
+          "expression": {
+            "kind": "<variable>",
+            "start": 27,
+            "end": 33,
+            "variable": {
+              "kind": "<identifier>",
+              "offset": 27,
+              "value": "public",
+              "length": 6,
+              "leadingTrivia": [],
+              "trailingTrivia": []
+            }
+          }
+        },
+        "rightExpression": {
+          "kind": "<primary-expression>",
+          "start": 34,
+          "end": 40,
+          "expression": {
+            "kind": "<variable>",
+            "start": 34,
+            "end": 40,
+            "variable": {
+              "kind": "<identifier>",
+              "offset": 34,
+              "value": "status",
+              "length": 6,
+              "leadingTrivia": [],
+              "trailingTrivia": [
+                {
+                  "kind": "<space>",
+                  "offset": 40,
+                  "value": " ",
+                  "length": 1,
+                  "leadingTrivia": [],
+                  "trailingTrivia": []
+                }
+              ]
+            }
+          }
+        }
+      },
       "name": "CompileError"
     }
   ]

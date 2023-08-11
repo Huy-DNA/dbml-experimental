@@ -488,6 +488,33 @@
       "diagnostic": "This Table has a duplicated name",
       "start": 34,
       "end": 39,
+      "value": {
+        "kind": "<primary-expression>",
+        "start": 34,
+        "end": 39,
+        "expression": {
+          "kind": "<variable>",
+          "start": 34,
+          "end": 39,
+          "variable": {
+            "kind": "<identifier>",
+            "offset": 34,
+            "value": "Users",
+            "length": 5,
+            "leadingTrivia": [],
+            "trailingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 39,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ]
+          }
+        }
+      },
       "name": "CompileError"
     },
     {
@@ -495,6 +522,33 @@
       "diagnostic": "This Table has a duplicated name",
       "start": 74,
       "end": 76,
+      "value": {
+        "kind": "<primary-expression>",
+        "start": 74,
+        "end": 76,
+        "expression": {
+          "kind": "<variable>",
+          "start": 74,
+          "end": 76,
+          "variable": {
+            "kind": "<identifier>",
+            "offset": 74,
+            "value": "U1",
+            "length": 2,
+            "leadingTrivia": [],
+            "trailingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 76,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ]
+          }
+        }
+      },
       "name": "CompileError"
     }
   ]

@@ -2048,6 +2048,98 @@
       "diagnostic": "Duplicate setting",
       "start": 73,
       "end": 105,
+      "value": {
+        "kind": "<attribute>",
+        "name": [
+          {
+            "kind": "<identifier>",
+            "offset": 73,
+            "value": "note",
+            "length": 4,
+            "leadingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 69,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 70,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 71,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 72,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ],
+            "trailingTrivia": []
+          }
+        ],
+        "value": {
+          "kind": "<primary-expression>",
+          "start": 79,
+          "end": 105,
+          "expression": {
+            "kind": "<literal>",
+            "start": 79,
+            "end": 105,
+            "literal": {
+              "kind": "<string>",
+              "offset": 79,
+              "value": "This is a duplicate note",
+              "length": 26,
+              "leadingTrivia": [],
+              "trailingTrivia": [
+                {
+                  "kind": "<newline>",
+                  "offset": 106,
+                  "value": "\n",
+                  "length": 1,
+                  "leadingTrivia": [],
+                  "trailingTrivia": []
+                }
+              ]
+            }
+          }
+        },
+        "valueOpenColon": {
+          "kind": "<colon>",
+          "offset": 77,
+          "value": ":",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": [
+            {
+              "kind": "<space>",
+              "offset": 78,
+              "value": " ",
+              "length": 1,
+              "leadingTrivia": [],
+              "trailingTrivia": []
+            }
+          ]
+        },
+        "start": 73,
+        "end": 105
+      },
       "name": "CompileError"
     },
     {
@@ -2055,6 +2147,56 @@
       "diagnostic": "Duplicate setting",
       "start": 253,
       "end": 281,
+      "value": {
+        "kind": "<attribute>",
+        "name": [
+          {
+            "kind": "<identifier>",
+            "offset": 253,
+            "value": "note",
+            "length": 4,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          }
+        ],
+        "value": {
+          "kind": "<primary-expression>",
+          "start": 259,
+          "end": 281,
+          "expression": {
+            "kind": "<literal>",
+            "start": 259,
+            "end": 281,
+            "literal": {
+              "kind": "<string>",
+              "offset": 259,
+              "value": "This is another note",
+              "length": 22,
+              "leadingTrivia": [],
+              "trailingTrivia": []
+            }
+          }
+        },
+        "valueOpenColon": {
+          "kind": "<colon>",
+          "offset": 257,
+          "value": ":",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": [
+            {
+              "kind": "<space>",
+              "offset": 258,
+              "value": " ",
+              "length": 1,
+              "leadingTrivia": [],
+              "trailingTrivia": []
+            }
+          ]
+        },
+        "start": 253,
+        "end": 281
+      },
       "name": "CompileError"
     }
   ]

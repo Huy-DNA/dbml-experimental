@@ -282,6 +282,66 @@
       "diagnostic": "Enum subfield's name is duplicated",
       "start": 30,
       "end": 35,
+      "value": {
+        "kind": "<primary-expression>",
+        "start": 30,
+        "end": 35,
+        "expression": {
+          "kind": "<variable>",
+          "start": 30,
+          "end": 35,
+          "variable": {
+            "kind": "<identifier>",
+            "offset": 30,
+            "value": "churn",
+            "length": 5,
+            "leadingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 26,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 27,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 28,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 29,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ],
+            "trailingTrivia": [
+              {
+                "kind": "<newline>",
+                "offset": 36,
+                "value": "\n",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ]
+          }
+        }
+      },
       "name": "CompileError"
     },
     {
@@ -289,6 +349,66 @@
       "diagnostic": "Enum subfield's name is duplicated",
       "start": 41,
       "end": 46,
+      "value": {
+        "kind": "<primary-expression>",
+        "start": 41,
+        "end": 46,
+        "expression": {
+          "kind": "<variable>",
+          "start": 41,
+          "end": 46,
+          "variable": {
+            "kind": "<identifier>",
+            "offset": 41,
+            "value": "churn",
+            "length": 5,
+            "leadingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 37,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 38,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 39,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              },
+              {
+                "kind": "<space>",
+                "offset": 40,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ],
+            "trailingTrivia": [
+              {
+                "kind": "<newline>",
+                "offset": 47,
+                "value": "\n",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ]
+          }
+        }
+      },
       "name": "CompileError"
     }
   ]

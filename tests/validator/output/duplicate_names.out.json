@@ -928,6 +928,33 @@
       "diagnostic": "This Table has a duplicated name",
       "start": 42,
       "end": 47,
+      "value": {
+        "kind": "<primary-expression>",
+        "start": 42,
+        "end": 47,
+        "expression": {
+          "kind": "<variable>",
+          "start": 42,
+          "end": 47,
+          "variable": {
+            "kind": "<identifier>",
+            "offset": 42,
+            "value": "Users",
+            "length": 5,
+            "leadingTrivia": [],
+            "trailingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 47,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ]
+          }
+        }
+      },
       "name": "CompileError"
     },
     {
@@ -935,6 +962,33 @@
       "diagnostic": "This TableGroup has a duplicated name",
       "start": 114,
       "end": 119,
+      "value": {
+        "kind": "<primary-expression>",
+        "start": 114,
+        "end": 119,
+        "expression": {
+          "kind": "<variable>",
+          "start": 114,
+          "end": 119,
+          "variable": {
+            "kind": "<identifier>",
+            "offset": 114,
+            "value": "Users",
+            "length": 5,
+            "leadingTrivia": [],
+            "trailingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 119,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ]
+          }
+        }
+      },
       "name": "CompileError"
     },
     {
@@ -942,6 +996,33 @@
       "diagnostic": "This Enum has a duplicated name",
       "start": 160,
       "end": 165,
+      "value": {
+        "kind": "<primary-expression>",
+        "start": 160,
+        "end": 165,
+        "expression": {
+          "kind": "<variable>",
+          "start": 160,
+          "end": 165,
+          "variable": {
+            "kind": "<identifier>",
+            "offset": 160,
+            "value": "Users",
+            "length": 5,
+            "leadingTrivia": [],
+            "trailingTrivia": [
+              {
+                "kind": "<space>",
+                "offset": 165,
+                "value": " ",
+                "length": 1,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            ]
+          }
+        }
+      },
       "name": "CompileError"
     }
   ]

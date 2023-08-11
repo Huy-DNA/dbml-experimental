@@ -1695,6 +1695,86 @@
       "diagnostic": "There's no Enum field \"churnn\" in Enum \"public.status\"",
       "start": 117,
       "end": 137,
+      "value": {
+        "kind": "<infix-expression>",
+        "start": 117,
+        "end": 137,
+        "op": {
+          "kind": "<op>",
+          "offset": 130,
+          "value": ".",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        "leftExpression": {
+          "kind": "<infix-expression>",
+          "start": 117,
+          "end": 130,
+          "op": {
+            "kind": "<op>",
+            "offset": 123,
+            "value": ".",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          },
+          "leftExpression": {
+            "kind": "<primary-expression>",
+            "start": 117,
+            "end": 123,
+            "expression": {
+              "kind": "<variable>",
+              "start": 117,
+              "end": 123,
+              "variable": {
+                "kind": "<identifier>",
+                "offset": 117,
+                "value": "public",
+                "length": 6,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            }
+          },
+          "rightExpression": {
+            "kind": "<primary-expression>",
+            "start": 124,
+            "end": 130,
+            "expression": {
+              "kind": "<variable>",
+              "start": 124,
+              "end": 130,
+              "variable": {
+                "kind": "<identifier>",
+                "offset": 124,
+                "value": "status",
+                "length": 6,
+                "leadingTrivia": [],
+                "trailingTrivia": []
+              }
+            }
+          }
+        },
+        "rightExpression": {
+          "kind": "<primary-expression>",
+          "start": 131,
+          "end": 137,
+          "expression": {
+            "kind": "<variable>",
+            "start": 131,
+            "end": 137,
+            "variable": {
+              "kind": "<identifier>",
+              "offset": 131,
+              "value": "churnn",
+              "length": 6,
+              "leadingTrivia": [],
+              "trailingTrivia": []
+            }
+          }
+        }
+      },
       "name": "CompileError"
     },
     {
@@ -1702,6 +1782,64 @@
       "diagnostic": "There's no Enum \"statuss\" in Schema \"public\"",
       "start": 152,
       "end": 166,
+      "value": {
+        "kind": "<infix-expression>",
+        "start": 152,
+        "end": 166,
+        "op": {
+          "kind": "<op>",
+          "offset": 158,
+          "value": ".",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        "leftExpression": {
+          "kind": "<primary-expression>",
+          "start": 152,
+          "end": 158,
+          "expression": {
+            "kind": "<variable>",
+            "start": 152,
+            "end": 158,
+            "variable": {
+              "kind": "<identifier>",
+              "offset": 152,
+              "value": "public",
+              "length": 6,
+              "leadingTrivia": [],
+              "trailingTrivia": []
+            }
+          }
+        },
+        "rightExpression": {
+          "kind": "<primary-expression>",
+          "start": 159,
+          "end": 166,
+          "expression": {
+            "kind": "<variable>",
+            "start": 159,
+            "end": 166,
+            "variable": {
+              "kind": "<identifier>",
+              "offset": 159,
+              "value": "statuss",
+              "length": 7,
+              "leadingTrivia": [],
+              "trailingTrivia": [
+                {
+                  "kind": "<newline>",
+                  "offset": 167,
+                  "value": "\n",
+                  "length": 1,
+                  "leadingTrivia": [],
+                  "trailingTrivia": []
+                }
+              ]
+            }
+          }
+        }
+      },
       "name": "CompileError"
     },
     {
@@ -1709,6 +1847,64 @@
       "diagnostic": "There's no Enum \"statuss\" in Schema \"v2\"",
       "start": 180,
       "end": 190,
+      "value": {
+        "kind": "<infix-expression>",
+        "start": 180,
+        "end": 190,
+        "op": {
+          "kind": "<op>",
+          "offset": 182,
+          "value": ".",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        "leftExpression": {
+          "kind": "<primary-expression>",
+          "start": 180,
+          "end": 182,
+          "expression": {
+            "kind": "<variable>",
+            "start": 180,
+            "end": 182,
+            "variable": {
+              "kind": "<identifier>",
+              "offset": 180,
+              "value": "v2",
+              "length": 2,
+              "leadingTrivia": [],
+              "trailingTrivia": []
+            }
+          }
+        },
+        "rightExpression": {
+          "kind": "<primary-expression>",
+          "start": 183,
+          "end": 190,
+          "expression": {
+            "kind": "<variable>",
+            "start": 183,
+            "end": 190,
+            "variable": {
+              "kind": "<identifier>",
+              "offset": 183,
+              "value": "statuss",
+              "length": 7,
+              "leadingTrivia": [],
+              "trailingTrivia": [
+                {
+                  "kind": "<newline>",
+                  "offset": 191,
+                  "value": "\n",
+                  "length": 1,
+                  "leadingTrivia": [],
+                  "trailingTrivia": []
+                }
+              ]
+            }
+          }
+        }
+      },
       "name": "CompileError"
     }
   ]
