@@ -223,7 +223,6 @@ function registerUnaryRelationship(
   if (!isUnaryRelationship(value)) {
     throw new Error('Unreachable - Must be an unary rel when regiterUnaryRelationship is called');
   }
-
   registerRelationshipOperand(
     (value as PrefixExpressionNode).expression,
     ownerElement,

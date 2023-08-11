@@ -21,6 +21,7 @@ export function registerRelationshipOperand(
       ownerElement,
       referrer: node,
     });
+    return;
   }
 
   const tableId = createTableSymbolId(fragments.pop()!);
