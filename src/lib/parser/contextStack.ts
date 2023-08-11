@@ -37,6 +37,8 @@ function canHandle(context: ParsingContext, token: SyntaxToken): boolean {
 
   return false;
 }
+
+type SynchronizeHook = (mayThrow: () => void, synchronizationCallback: () => void) => void;
 export class ParsingContextStack {
   private stack: ParsingContext[] = [];
 
@@ -85,14 +87,12 @@ export class ParsingContextStack {
   // Call the passed in callback
   // with the guarantee that the passed in context will be pushed and popped properly
   // even in cases of exceptions
-  // The callback is also passed the `synchronizationPoint` callback
+  // The callback is also passed the `synchronizeHook` callback
   // so that the callback can specify at which point to perform synchronization
   // in case of parsing errors
   withContextDo<T>(
     context: ParsingContext | undefined,
-    callback: (
-      synchronizationPoint: (mayThrow: () => void, synchronizationCallback: () => void) => void,
-    ) => T,
+    callback: (synchronizeHook: SynchronizeHook) => T,
   ): () => T {
     return () => {
       // The context could be `undefined`
@@ -102,14 +102,13 @@ export class ParsingContextStack {
       }
 
       try {
-        const res = callback(this.synchronizationPoint);
+        const res = callback(this.synchronizeHook);
 
         return res;
       } catch (e) {
         // Rethrow if the exception is not ContextJumpMessage
-        // The exception could be a CompileError
-        // which may be intended or an indication that a function forgets to
-        // guard some parsing code with `synchronizationPoint`
+        // If the exception is a CompileError, it may be an indication that
+        // a function forgets to guard some parsing code with `synchronizeHook`
         if (!(e instanceof ContextJumpMessage)) {
           throw e;
         }
@@ -165,7 +164,7 @@ export class ParsingContextStack {
   // also call the passed-in synchronization callback
   // If the offset > 0,
   // simply rethrow it, which will eventually be caught by the current context's `withContextDo`
-  synchronizationPoint = (mayThrow: () => void, synchronizationCallback: () => void) => {
+  synchronizeHook = (mayThrow: () => void, synchronizationCallback: () => void) => {
     try {
       mayThrow();
     } catch (e) {

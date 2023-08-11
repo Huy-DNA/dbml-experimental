@@ -123,75 +123,72 @@ export default class Parser {
     return new Report(program, this.errors);
   }
 
-  private elementDeclaration = this.contextStack.withContextDo(
-    undefined,
-    (synchronizationPoint) => {
-      this.consume('Expect identifier', SyntaxTokenKind.IDENTIFIER);
-      const type = this.previous();
-      let name: NormalFormExpressionNode | undefined;
-      let as: SyntaxToken | undefined;
-      let alias: NormalFormExpressionNode | undefined;
+  private elementDeclaration = this.contextStack.withContextDo(undefined, (synchronizeHook) => {
+    this.consume('Expect identifier', SyntaxTokenKind.IDENTIFIER);
+    const type = this.previous();
+    let name: NormalFormExpressionNode | undefined;
+    let as: SyntaxToken | undefined;
+    let alias: NormalFormExpressionNode | undefined;
 
-      if (
-        this.peek().kind !== SyntaxTokenKind.COLON &&
-        this.peek().kind !== SyntaxTokenKind.LBRACE &&
-        this.peek().kind !== SyntaxTokenKind.LBRACKET
-      ) {
-        // Parsing for element name, any normal expressions are accepted
-        synchronizationPoint(
+    if (
+      this.peek().kind !== SyntaxTokenKind.COLON &&
+      this.peek().kind !== SyntaxTokenKind.LBRACE &&
+      this.peek().kind !== SyntaxTokenKind.LBRACKET
+    ) {
+      // Parsing for element name, any normal expressions are accepted
+      synchronizeHook(
+        // eslint-disable-next-line no-return-assign
+        () => (name = this.normalFormExpression()),
+        this.synchronizeElementDeclarationName,
+      );
+
+      // Parsing for potential aliases
+      const nextWord = this.peek();
+      if (nextWord.kind === SyntaxTokenKind.IDENTIFIER && nextWord.value === 'as') {
+        as = this.advance();
+        synchronizeHook(
           // eslint-disable-next-line no-return-assign
-          () => (name = this.normalFormExpression()),
-          this.synchronizeElementDeclarationName,
+          () => (alias = this.normalFormExpression()),
+          this.synchronizeElementDeclarationAlias,
         );
-
-        // Parsing for potential aliases
-        const nextWord = this.peek();
-        if (nextWord.kind === SyntaxTokenKind.IDENTIFIER && nextWord.value === 'as') {
-          as = this.advance();
-          synchronizationPoint(
-            // eslint-disable-next-line no-return-assign
-            () => (alias = this.normalFormExpression()),
-            this.synchronizeElementDeclarationAlias,
-          );
-        }
       }
+    }
 
-      let attributeList: ListExpressionNode | undefined;
-      // Parsing attribute list for complex element declarations
-      // e.g Table Users [headercolor: #abc] { }
-      if (this.check(SyntaxTokenKind.LBRACKET)) {
-        attributeList = this.listExpression();
+    let attributeList: ListExpressionNode | undefined;
+    // Parsing attribute list for complex element declarations
+    // e.g Table Users [headercolor: #abc] { }
+    if (this.check(SyntaxTokenKind.LBRACKET)) {
+      attributeList = this.listExpression();
+    }
+
+    let body: ExpressionNode | BlockExpressionNode | undefined;
+    let bodyOpenColon: SyntaxToken | undefined;
+
+    // Discard tokens until { or : is met
+    if (!this.check(SyntaxTokenKind.COLON, SyntaxTokenKind.LBRACE)) {
+      this.logError(this.advance(), CompileErrorCode.UNEXPECTED_TOKEN, 'Expect { or :');
+      while (!this.isAtEnd() && !this.check(SyntaxTokenKind.COLON, SyntaxTokenKind.LBRACE)) {
+        this.invalid.push(this.advance());
       }
+    }
 
-      let body: ExpressionNode | BlockExpressionNode | undefined;
-      let bodyOpenColon: SyntaxToken | undefined;
+    if (this.match(SyntaxTokenKind.COLON)) {
+      bodyOpenColon = this.previous();
+      body = this.expression();
+    } else {
+      body = this.blockExpression();
+    }
 
-      // Discard tokens until { or : is met
-      if (!this.check(SyntaxTokenKind.COLON, SyntaxTokenKind.LBRACE)) {
-        this.logError(this.advance(), CompileErrorCode.UNEXPECTED_TOKEN, 'Expect { or :');
-        while (!this.isAtEnd() && !this.check(SyntaxTokenKind.COLON, SyntaxTokenKind.LBRACE)) {
-          this.invalid.push(this.advance());
-        }
-      }
-
-      if (this.match(SyntaxTokenKind.COLON)) {
-        bodyOpenColon = this.previous();
-        body = this.expression();
-      } else {
-        body = this.blockExpression();
-      }
-
-      return new ElementDeclarationNode({
-        type,
-        name,
-        as,
-        alias,
-        attributeList,
-        bodyOpenColon,
-        body,
-      });
-    },
-  );
+    return new ElementDeclarationNode({
+      type,
+      name,
+      as,
+      alias,
+      attributeList,
+      bodyOpenColon,
+      body,
+    });
+  });
 
   synchronizeElementDeclarationName = () => {
     while (!this.isAtEnd()) {
@@ -432,7 +429,7 @@ export default class Parser {
 
   private blockExpression = this.contextStack.withContextDo(
     ParsingContext.BlockExpression,
-    (synchronizationPoint) => {
+    (synchronizeHook) => {
       const body: ExpressionNode[] = [];
 
       this.consume('Expect {', SyntaxTokenKind.LBRACE);
@@ -441,7 +438,7 @@ export default class Parser {
         if (this.canBeField()) {
           body.push(this.fieldDeclaration());
         } else {
-          synchronizationPoint(() => body.push(this.expression()), this.synchronizeBlock);
+          synchronizeHook(() => body.push(this.expression()), this.synchronizeBlock);
         }
       }
       this.consume('Expect }', SyntaxTokenKind.RBRACE);
@@ -499,7 +496,7 @@ export default class Parser {
 
   private tupleExpression = this.contextStack.withContextDo(
     ParsingContext.GroupExpression,
-    (synchronizationPoint) => {
+    (synchronizeHook) => {
       const elementList: NormalFormExpressionNode[] = [];
       const commaList: SyntaxToken[] = [];
 
@@ -507,20 +504,17 @@ export default class Parser {
       const tupleOpenParen = this.previous();
 
       if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
-        synchronizationPoint(
-          () => elementList.push(this.normalFormExpression()),
-          this.synchronizeTuple,
-        );
+        synchronizeHook(() => elementList.push(this.normalFormExpression()), this.synchronizeTuple);
       }
       while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
-        synchronizationPoint(() => {
+        synchronizeHook(() => {
           this.consume('Expect ,', SyntaxTokenKind.COMMA);
           commaList.push(this.previous());
           elementList.push(this.normalFormExpression());
         }, this.synchronizeTuple);
       }
 
-      synchronizationPoint(
+      synchronizeHook(
         () => this.consume('Expect )', SyntaxTokenKind.RPAREN),
         this.synchronizeTuple,
       );
@@ -557,7 +551,7 @@ export default class Parser {
 
   private listExpression = this.contextStack.withContextDo(
     ParsingContext.ListExpression,
-    (synchronizationPoint) => {
+    (synchronizeHook) => {
       const elementList: AttributeNode[] = [];
       const commaList: SyntaxToken[] = [];
       const separator = SyntaxTokenKind.COMMA;
@@ -571,14 +565,14 @@ export default class Parser {
       }
 
       while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACKET)) {
-        synchronizationPoint(() => {
+        synchronizeHook(() => {
           this.consume('Expect a ,', SyntaxTokenKind.COMMA);
           commaList.push(this.previous());
           elementList.push(this.attribute(closing, separator));
         }, this.synchronizeList);
       }
 
-      synchronizationPoint(
+      synchronizeHook(
         () => this.consume('Expect a ]', SyntaxTokenKind.RBRACKET),
         this.synchronizeList,
       );
