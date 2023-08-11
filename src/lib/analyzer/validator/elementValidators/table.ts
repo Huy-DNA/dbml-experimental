@@ -90,8 +90,8 @@ export default class TableValidator extends ElementValidator {
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_COLUMN,
     setting: columnSettings(),
-    shouldRegister: false,
-    duplicateErrorCode: undefined,
+    shouldRegister: true,
+    duplicateErrorCode: CompileErrorCode.DUPLICATE_COLUMN_NAME,
   });
 
   constructor(
