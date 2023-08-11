@@ -2,7 +2,7 @@
   "value": {
     "kind": "<program>",
     "start": 0,
-    "end": 403,
+    "end": 402,
     "body": [
       {
         "kind": "<element-declaration>",
@@ -1722,7 +1722,7 @@
     ],
     "eof": {
       "kind": "<eof>",
-      "offset": 403,
+      "offset": 402,
       "value": "",
       "length": 0,
       "leadingTrivia": [
