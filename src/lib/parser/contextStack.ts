@@ -38,7 +38,7 @@ function canHandle(context: ParsingContext, token: SyntaxToken): boolean {
   return false;
 }
 
-type SynchronizeHook = (mayThrow: () => void, synchronizationCallback: () => void) => void;
+export type SynchronizeHook = (mayThrow: () => void, synchronizationCallback: () => void) => void;
 export class ParsingContextStack {
   private stack: ParsingContext[] = [];
 

@@ -1,3 +1,4 @@
+import { SyntaxToken, SyntaxTokenKind } from '../lexer/tokens';
 import { None, Option, Some } from '../option';
 import { extractVariableNode, isExpressionAnIdentifierNode, last } from '../utils';
 import {
@@ -63,4 +64,11 @@ export function convertFuncAppToElem(
   }
 
   return new None();
+}
+
+// Check if a token is an `as` keyword
+export function isAsKeyword(
+  token: SyntaxToken,
+): token is SyntaxToken & { kind: SyntaxTokenKind.IDENTIFIER; value: 'as' } {
+  return token.kind === SyntaxTokenKind.IDENTIFIER && token.value === 'as';
 }

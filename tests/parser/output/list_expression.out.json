@@ -753,25 +753,7 @@
       "leadingTrivia": [],
       "trailingTrivia": []
     },
-    "invalid": [
-      {
-        "kind": "<colon>",
-        "offset": 120,
-        "value": ":",
-        "length": 1,
-        "leadingTrivia": [],
-        "trailingTrivia": [
-          {
-            "kind": "<space>",
-            "offset": 121,
-            "value": " ",
-            "length": 1,
-            "leadingTrivia": [],
-            "trailingTrivia": []
-          }
-        ]
-      }
-    ]
+    "invalid": []
   },
   "errors": [
     {
