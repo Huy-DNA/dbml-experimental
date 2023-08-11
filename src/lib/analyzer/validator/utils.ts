@@ -201,7 +201,7 @@ export function isValidColor(value?: SyntaxNode | SyntaxToken[]): boolean {
     return false;
   }
 
-  for (let i = 1; i < color.length; ++i) {
+  for (let i = 1; i < color.length; i += 1) {
     if (!isHexChar(color[i])) {
       return false;
     }

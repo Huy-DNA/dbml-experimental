@@ -7,10 +7,14 @@ class ContextJumpMessage {
   offset: number;
 
   constructor(offset: number) {
-    if (offset === 0) {
-      throw new Error("A context jump message where the offset is 0 shouldn't be thrown");
+    if (offset < 0) {
+      throw new Error("A context jump message with a negative offset shouldn't be thrown");
     }
-    this.offset = offset - 1;
+    this.offset = offset;
+  }
+
+  goToOuterContext(): never {
+    throw new ContextJumpMessage(this.offset - 1);
   }
 }
 
@@ -45,26 +49,26 @@ export class ParsingContextStack {
   push(ctx: ParsingContext) {
     this.stack.push(ctx);
     if (ctx === ParsingContext.ListExpression) {
-      ++this.numberOfNestedLBrackets;
+      this.numberOfNestedLBrackets += 1;
     }
     if (ctx === ParsingContext.GroupExpression) {
-      ++this.numberOfNestedLParens;
+      this.numberOfNestedLParens += 1;
     }
     if (ctx === ParsingContext.BlockExpression) {
-      ++this.numberOfNestedLBraces;
+      this.numberOfNestedLBraces += 1;
     }
   }
 
   pop(): ParsingContext | undefined {
     const top = this.stack.pop();
     if (top === ParsingContext.ListExpression) {
-      --this.numberOfNestedLBrackets;
+      this.numberOfNestedLBrackets -= 1;
     }
     if (top === ParsingContext.GroupExpression) {
-      --this.numberOfNestedLParens;
+      this.numberOfNestedLParens -= 1;
     }
     if (top === ParsingContext.BlockExpression) {
-      --this.numberOfNestedLBraces;
+      this.numberOfNestedLBraces -= 1;
     }
 
     return top;
@@ -111,7 +115,8 @@ export class ParsingContextStack {
         }
         // If a ContextJumpMessage was thrown, rethrow a new ContextJumpMessage
         // with offset minused by 1
-        throw new ContextJumpMessage(e.offset);
+
+        return e.goToOuterContext() as any;
       } finally {
         if (context !== undefined) {
           this.pop();
@@ -132,7 +137,7 @@ export class ParsingContextStack {
     if (token.kind === SyntaxTokenKind.RBRACKET && this.numberOfNestedLBrackets <= 0) return 0;
     if (token.kind === SyntaxTokenKind.RPAREN && this.numberOfNestedLParens <= 0) return 0;
     if (token.kind === SyntaxTokenKind.RBRACE && this.numberOfNestedLBraces <= 0) return 0;
-    for (let i = this.stack.length - 1; i >= 0; --i) {
+    for (let i = this.stack.length - 1; i >= 0; i -= 1) {
       if (canHandle(this.stack[i], token)) {
         return this.stack.length - i - 1;
       }
@@ -148,7 +153,7 @@ export class ParsingContextStack {
       return;
     }
 
-    throw new ContextJumpMessage(offset + 1);
+    throw new ContextJumpMessage(offset);
   }
 
   // Call the passed-in callback that potentially throws

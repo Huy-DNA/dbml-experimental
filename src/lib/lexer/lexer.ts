@@ -45,7 +45,7 @@ export default class Lexer {
 
   // Check if the sequence ahead matches `sequence`
   check(sequence: string): boolean {
-    for (let i = 0; i < sequence.length; ++i) {
+    for (let i = 0; i < sequence.length; i += 1) {
       if (sequence[i] !== this.peek(i)) {
         return false;
       }
