@@ -1,4 +1,6 @@
 import { UnresolvedName } from 'lib/analyzer/types';
+import { destructureComplexVariable } from 'lib/analyzer/utils';
+import { createSchemaSymbolId, createTableSymbolId } from 'lib/analyzer/symbol/symbolIndex';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode, SyntaxNode } from '../../../parser/nodes';
 import { ContextStack, ValidatorContext } from '../validatorContext';
@@ -13,8 +15,6 @@ import {
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
 import { isValidName } from '../utils';
-import { destructureComplexVariable } from 'lib/analyzer/utils';
-import { createSchemaSymbolId, createTableSymbolId } from 'lib/analyzer/symbol/symbolIndex';
 
 export default class TableGroupValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLEGROUP;
@@ -70,9 +70,13 @@ export default class TableGroupValidator extends ElementValidator {
   }
 }
 
-function registerTableName(node: SyntaxNode, ownerElement: ElementDeclarationNode, unresolvedNames: UnresolvedName[]) {
+function registerTableName(
+  node: SyntaxNode,
+  ownerElement: ElementDeclarationNode,
+  unresolvedNames: UnresolvedName[],
+) {
   if (!isValidName(node)) {
-    throw new Error("Unreachable - Must be a valid name when registerTableName is called");
+    throw new Error('Unreachable - Must be a valid name when registerTableName is called');
   }
   const fragments = destructureComplexVariable(node).unwrap();
   const tableId = createTableSymbolId(fragments.pop()!);
@@ -83,5 +87,5 @@ function registerTableName(node: SyntaxNode, ownerElement: ElementDeclarationNod
     qualifiers: schemaIdStack.length === 0 ? undefined : schemaIdStack,
     referrer: node,
     ownerElement,
-  })
+  });
 }
