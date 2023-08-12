@@ -2,7 +2,7 @@ import { UnresolvedName } from 'lib/analyzer/types';
 import {
   ElementKind,
   createContextValidatorConfig,
-  createSettingsValidatorConfig,
+  createSettingListValidatorConfig,
   createSubFieldValidatorConfig,
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
@@ -13,7 +13,7 @@ import ElementValidator from './elementValidator';
 import {
   complexBodyConfig,
   noAliasConfig,
-  noSettingsConfig,
+  noSettingListConfig,
   noUniqueConfig,
   registerNameConfig,
 } from './_preset_configs';
@@ -34,7 +34,7 @@ export default class EnumValidator extends ElementValidator {
 
   protected alias = noAliasConfig(false);
 
-  protected settings = noSettingsConfig(false);
+  protected settingList = noSettingListConfig(false);
 
   protected body = complexBodyConfig(false);
 
@@ -46,7 +46,7 @@ export default class EnumValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_ENUM_ELEMENT,
-    setting: enumFieldSettings(),
+    setting: enumFieldSettingList(),
     shouldRegister: true,
     duplicateErrorCode: CompileErrorCode.DUPLICATE_ENUM_ELEMENT_NAME,
   });
@@ -72,8 +72,8 @@ export default class EnumValidator extends ElementValidator {
   }
 }
 
-const enumFieldSettings = () =>
-  createSettingsValidatorConfig(
+const enumFieldSettingList = () =>
+  createSettingListValidatorConfig(
     {
       note: {
         allowDuplicate: true,
@@ -82,9 +82,9 @@ const enumFieldSettings = () =>
     },
     {
       optional: true,
-      notFoundErrorCode: undefined,
+      notOptionalErrorCode: undefined,
       allow: true,
-      foundErrorCode: undefined,
+      notAllowErrorCode: undefined,
       unknownErrorCode: CompileErrorCode.UNKNOWN_ENUM_ELEMENT_SETTING,
       duplicateErrorCode: CompileErrorCode.DUPLICATE_ENUM_ELEMENT_SETTING,
       invalidErrorCode: CompileErrorCode.INVALID_ENUM_ELEMENT_SETTING,

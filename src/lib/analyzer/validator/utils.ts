@@ -78,8 +78,10 @@ export function isSimpleName(
   return nameNode instanceof PrimaryExpressionNode && nameNode.expression instanceof VariableNode;
 }
 
-export function isValidSettings(settingsNode: SyntaxNode): settingsNode is ListExpressionNode {
-  return settingsNode instanceof ListExpressionNode;
+export function isValidSettingList(
+  settingListNode: SyntaxNode,
+): settingListNode is ListExpressionNode {
+  return settingListNode instanceof ListExpressionNode;
 }
 
 export function hasComplexBody(

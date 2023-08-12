@@ -131,7 +131,7 @@ export default class Parser {
     } else {
       this.logError(invalidToken, CompileErrorCode.UNEXPECTED_EOF, 'Unexpected EOF');
     }
-  }
+  };
 
   /* Parsing and synchronizing top-level ElementDeclarationNode */
 

@@ -9,7 +9,7 @@ import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfi
 import {
   complexBodyConfig,
   noAliasConfig,
-  noSettingsConfig,
+  noSettingListConfig,
   noUniqueConfig,
   registerNameConfig,
 } from './_preset_configs';
@@ -31,7 +31,7 @@ export default class TableGroupValidator extends ElementValidator {
 
   protected alias = noAliasConfig(false);
 
-  protected settings = noSettingsConfig(false);
+  protected settingList = noSettingListConfig(false);
 
   protected body = complexBodyConfig(false);
 
@@ -44,7 +44,7 @@ export default class TableGroupValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_TABLEGROUP_FIELD,
-    setting: noSettingsConfig(false),
+    setting: noSettingListConfig(false),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });

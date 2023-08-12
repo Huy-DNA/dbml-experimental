@@ -2,7 +2,7 @@ import { UnresolvedName } from 'lib/analyzer/types';
 import {
   ElementKind,
   createContextValidatorConfig,
-  createSettingsValidatorConfig,
+  createSettingListValidatorConfig,
   createSubFieldValidatorConfig,
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
@@ -54,7 +54,7 @@ export default class TableValidator extends ElementValidator {
 
   protected alias = optionalAliasConfig(false);
 
-  protected settings = createSettingsValidatorConfig(
+  protected settingList = createSettingListValidatorConfig(
     {
       headercolor: {
         allowDuplicate: false,
@@ -67,9 +67,9 @@ export default class TableValidator extends ElementValidator {
     },
     {
       optional: true,
-      notFoundErrorCode: undefined,
+      notOptionalErrorCode: undefined,
       allow: true,
-      foundErrorCode: undefined,
+      notAllowErrorCode: undefined,
       unknownErrorCode: CompileErrorCode.INVALID_TABLE_SETTING,
       duplicateErrorCode: CompileErrorCode.DUPLICATE_TABLE_SETTING,
       invalidErrorCode: CompileErrorCode.INVALID_TABLE_SETTING,
@@ -92,7 +92,7 @@ export default class TableValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_COLUMN,
-    setting: columnSettings(),
+    setting: columnSettingList(),
     shouldRegister: true,
     duplicateErrorCode: CompileErrorCode.DUPLICATE_COLUMN_NAME,
   });
@@ -164,8 +164,8 @@ function isValidColumnType(type: SyntaxNode): boolean {
   return variables !== undefined && variables.length > 0;
 }
 
-const columnSettings = () =>
-  createSettingsValidatorConfig(
+const columnSettingList = () =>
+  createSettingListValidatorConfig(
     {
       note: {
         allowDuplicate: false,
@@ -208,9 +208,9 @@ const columnSettings = () =>
     },
     {
       optional: true,
-      notFoundErrorCode: undefined,
+      notOptionalErrorCode: undefined,
       allow: true,
-      foundErrorCode: undefined,
+      notAllowErrorCode: undefined,
       unknownErrorCode: CompileErrorCode.UNKNOWN_COLUMN_SETTING,
       duplicateErrorCode: CompileErrorCode.DUPLICATE_COLUMN_SETTING,
       invalidErrorCode: CompileErrorCode.INVALID_COLUMN_SETTING_VALUE,

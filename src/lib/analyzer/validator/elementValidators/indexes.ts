@@ -3,7 +3,7 @@ import { createColumnSymbolId } from '../../symbol/symbolIndex';
 import {
   ElementKind,
   createContextValidatorConfig,
-  createSettingsValidatorConfig,
+  createSettingListValidatorConfig,
   createSubFieldValidatorConfig,
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
@@ -23,7 +23,7 @@ import {
   complexBodyConfig,
   noAliasConfig,
   noNameConfig,
-  noSettingsConfig,
+  noSettingListConfig,
   noUniqueConfig,
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
@@ -43,7 +43,7 @@ export default class IndexesValidator extends ElementValidator {
 
   protected alias = noAliasConfig(false);
 
-  protected settings = noSettingsConfig(false);
+  protected settingList = noSettingListConfig(false);
 
   protected body = complexBodyConfig(false);
 
@@ -56,7 +56,7 @@ export default class IndexesValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_INDEX,
-    setting: indexSettings(),
+    setting: indexSettingList(),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
@@ -115,8 +115,8 @@ export function isValidIndexesType(value?: SyntaxNode | SyntaxToken[]): boolean 
   return str === 'btree' || str === 'hash';
 }
 
-const indexSettings = () =>
-  createSettingsValidatorConfig(
+const indexSettingList = () =>
+  createSettingListValidatorConfig(
     {
       note: {
         allowDuplicate: false,
@@ -141,9 +141,9 @@ const indexSettings = () =>
     },
     {
       optional: true,
-      notFoundErrorCode: undefined,
+      notOptionalErrorCode: undefined,
       allow: true,
-      foundErrorCode: undefined,
+      notAllowErrorCode: undefined,
       unknownErrorCode: CompileErrorCode.UNKNOWN_INDEX_SETTING,
       duplicateErrorCode: CompileErrorCode.DUPLICATE_INDEX_SETTING,
       invalidErrorCode: CompileErrorCode.INVALID_INDEX_SETTING_VALUE,

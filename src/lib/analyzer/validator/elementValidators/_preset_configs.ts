@@ -3,7 +3,7 @@ import {
   createAliasValidatorConfig,
   createBodyValidatorConfig,
   createNameValidatorConfig,
-  createSettingsValidatorConfig,
+  createSettingListValidatorConfig,
   createUniqueValidatorConfig,
 } from '../types';
 
@@ -37,9 +37,9 @@ export function complexBodyConfig(stopOnError: boolean) {
 export function optionalAliasConfig(stopOnError: boolean) {
   return createAliasValidatorConfig({
     optional: true,
-    notFoundErrorCode: undefined,
+    notOptionalErrorCode: undefined,
     allow: true,
-    foundErrorCode: undefined,
+    notAllowErrorCode: undefined,
     stopOnError,
   });
 }
@@ -47,9 +47,9 @@ export function optionalAliasConfig(stopOnError: boolean) {
 export function optionalNameConfig(stopOnError: boolean) {
   return createNameValidatorConfig({
     optional: true,
-    notFoundErrorCode: undefined,
+    notOptionalErrorCode: undefined,
     allow: true,
-    foundErrorCode: undefined,
+    notAllowErrorCode: undefined,
     allowComplex: true,
     complexErrorCode: undefined,
     shouldRegister: false,
@@ -61,9 +61,9 @@ export function optionalNameConfig(stopOnError: boolean) {
 export function registerNameConfig(stopOnError: boolean) {
   return createNameValidatorConfig({
     optional: false,
-    notFoundErrorCode: CompileErrorCode.NAME_NOT_FOUND,
+    notOptionalErrorCode: CompileErrorCode.NAME_NOT_FOUND,
     allow: true,
-    foundErrorCode: undefined,
+    notAllowErrorCode: undefined,
     allowComplex: true,
     complexErrorCode: undefined,
     shouldRegister: true,
@@ -72,14 +72,14 @@ export function registerNameConfig(stopOnError: boolean) {
   });
 }
 
-export function noSettingsConfig(stopOnError: boolean) {
-  return createSettingsValidatorConfig(
+export function noSettingListConfig(stopOnError: boolean) {
+  return createSettingListValidatorConfig(
     {},
     {
       optional: true,
-      notFoundErrorCode: undefined,
+      notOptionalErrorCode: undefined,
       allow: false,
-      foundErrorCode: CompileErrorCode.UNEXPECTED_SETTINGS,
+      notAllowErrorCode: CompileErrorCode.UNEXPECTED_SETTINGS,
       unknownErrorCode: undefined,
       duplicateErrorCode: undefined,
       invalidErrorCode: undefined,
@@ -120,9 +120,9 @@ export function noUniqueConfig(stopOnError: boolean) {
 export function noNameConfig(stopOnError: boolean) {
   return createNameValidatorConfig({
     optional: true,
-    notFoundErrorCode: undefined,
+    notOptionalErrorCode: undefined,
     allow: false,
-    foundErrorCode: CompileErrorCode.UNEXPECTED_NAME,
+    notAllowErrorCode: CompileErrorCode.UNEXPECTED_NAME,
     allowComplex: false,
     complexErrorCode: CompileErrorCode.UNEXPECTED_NAME,
     shouldRegister: false,
@@ -134,9 +134,9 @@ export function noNameConfig(stopOnError: boolean) {
 export function noAliasConfig(stopOnError: boolean) {
   return createAliasValidatorConfig({
     optional: true,
-    notFoundErrorCode: undefined,
+    notOptionalErrorCode: undefined,
     allow: false,
-    foundErrorCode: CompileErrorCode.UNEXPECTED_ALIAS,
+    notAllowErrorCode: CompileErrorCode.UNEXPECTED_ALIAS,
     stopOnError,
   });
 }

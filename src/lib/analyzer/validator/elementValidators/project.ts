@@ -8,7 +8,7 @@ import {
   complexBodyConfig,
   globallyUniqueConfig,
   noAliasConfig,
-  noSettingsConfig,
+  noSettingListConfig,
   optionalNameConfig,
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
@@ -28,14 +28,14 @@ export default class ProjectValidator extends ElementValidator {
 
   protected alias = noAliasConfig(false);
 
-  protected settings = noSettingsConfig(false);
+  protected settingList = noSettingListConfig(false);
 
   protected body = complexBodyConfig(false);
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_PROJECT_FIELD,
-    setting: noSettingsConfig(false),
+    setting: noSettingListConfig(false),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });

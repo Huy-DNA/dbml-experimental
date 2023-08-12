@@ -10,7 +10,7 @@ import {
   locallyUniqueConfig,
   noAliasConfig,
   noNameConfig,
-  noSettingsConfig,
+  noSettingListConfig,
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
 
@@ -29,7 +29,7 @@ export default class NoteValidator extends ElementValidator {
 
   protected alias = noAliasConfig(false);
 
-  protected settings = noSettingsConfig(false);
+  protected settingList = noSettingListConfig(false);
 
   protected body = anyBodyConfig(false);
 
@@ -41,7 +41,7 @@ export default class NoteValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_NOTE,
-    setting: noSettingsConfig(false),
+    setting: noSettingListConfig(false),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });

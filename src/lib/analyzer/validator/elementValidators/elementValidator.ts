@@ -5,7 +5,7 @@ import {
   ContextValidatorConfig,
   ElementKind,
   NameValidatorConfig,
-  SettingsValidatorConfig,
+  SettingListValidatorConfig,
   SubFieldValidatorConfig,
   UniqueElementValidatorConfig,
 } from '../types';
@@ -32,7 +32,7 @@ import {
   isSimpleName,
   isValidAlias,
   isValidName,
-  isValidSettings,
+  isValidSettingList,
   pickValidator,
   registerSchemaStack,
 } from '../utils';
@@ -47,7 +47,7 @@ export default abstract class ElementValidator {
   protected abstract name: NameValidatorConfig;
   protected abstract alias: AliasValidatorConfig;
   protected abstract body: BodyValidatorConfig;
-  protected abstract settings: SettingsValidatorConfig;
+  protected abstract settingList: SettingListValidatorConfig;
   protected abstract subfield: SubFieldValidatorConfig;
 
   protected declarationNode: ElementDeclarationNode;
@@ -83,7 +83,7 @@ export default abstract class ElementValidator {
       this.validateUnique() &&
       this.validateName() &&
       this.validateAlias() &&
-      this.validateSettings() &&
+      this.validateSettingList() &&
       this.validateBodyForm() &&
       this.validateBodyContent();
 
@@ -165,14 +165,18 @@ export default abstract class ElementValidator {
     if (!this.name.allow && nameNode) {
       this.logError(
         nameNode,
-        this.name.foundErrorCode,
+        this.name.notAllowErrorCode,
         `${this.elementKind} shouldn't have a name`,
       );
       hasError = true;
     }
 
     if (!this.name.optional && !nameNode) {
-      this.logError(node.type, this.name.notFoundErrorCode, `${this.elementKind} must have a name`);
+      this.logError(
+        node.type,
+        this.name.notOptionalErrorCode,
+        `${this.elementKind} must have a name`,
+      );
       hasError = true;
     }
 
@@ -210,7 +214,7 @@ export default abstract class ElementValidator {
     if (!this.alias.allow && aliasNode) {
       this.logError(
         aliasNode,
-        this.alias.foundErrorCode,
+        this.alias.notAllowErrorCode,
         `${this.elementKind} shouldn't have an alias`,
       );
       hasError = true;
@@ -219,7 +223,7 @@ export default abstract class ElementValidator {
     if (!this.alias.optional && !aliasNode) {
       this.logError(
         node.type,
-        this.alias.notFoundErrorCode,
+        this.alias.notOptionalErrorCode,
         `${this.elementKind} must have an alias`,
       );
       hasError = true;
@@ -237,39 +241,43 @@ export default abstract class ElementValidator {
     return !hasError || !this.alias.stopOnError;
   }
 
-  private validateSettings(): boolean {
+  private validateSettingList(): boolean {
     let hasError = false;
     const node = this.declarationNode;
-    const settingsNode = node.attributeList;
+    const settingListNode = node.attributeList;
 
-    if (settingsNode && !isValidSettings(settingsNode)) {
-      this.logError(settingsNode, CompileErrorCode.INVALID_SETTINGS, 'Settings must be a list');
+    if (settingListNode && !isValidSettingList(settingListNode)) {
+      this.logError(
+        settingListNode,
+        CompileErrorCode.INVALID_SETTINGS,
+        'SettingList must be a list',
+      );
       hasError = true;
     }
 
-    if (!this.settings.allow && settingsNode) {
+    if (!this.settingList.allow && settingListNode) {
       this.logError(
-        settingsNode,
-        this.settings.foundErrorCode,
+        settingListNode,
+        this.settingList.notAllowErrorCode,
         `${this.elementKind} shouldn't have a setting list`,
       );
       hasError = true;
     }
 
-    if (!this.settings.optional && !settingsNode) {
+    if (!this.settingList.optional && !settingListNode) {
       this.logError(
         node.type,
-        this.settings.notFoundErrorCode,
+        this.settingList.notOptionalErrorCode,
         `${this.elementKind} must have a setting list`,
       );
       hasError = true;
     }
 
-    if (settingsNode) {
-      hasError = this.validateSettingsContent(settingsNode, this.settings) || hasError;
+    if (settingListNode) {
+      hasError = this.validateSettingListContent(settingListNode, this.settingList) || hasError;
     }
 
-    return !hasError || !this.settings.stopOnError;
+    return !hasError || !this.settingList.stopOnError;
   }
 
   private validateBodyForm(): boolean {
@@ -401,9 +409,9 @@ export default abstract class ElementValidator {
       throw new Error('A function application node always has at least 1 callee');
     }
 
-    const maybeSettings = args[args.length - 1];
-    this.validateSubFieldSettings(maybeSettings);
-    if (maybeSettings instanceof ListExpressionNode) {
+    const maybeSettingList = args[args.length - 1];
+    this.validateSubFieldSettingList(maybeSettingList);
+    if (maybeSettingList instanceof ListExpressionNode) {
       args.pop();
     }
 
@@ -481,53 +489,53 @@ export default abstract class ElementValidator {
     return new Some(symbolTable.get(id, symbol));
   }
 
-  protected validateSubFieldSettings(maybeSettings: ExpressionNode): boolean {
-    if (!(maybeSettings instanceof ListExpressionNode) && !this.subfield.setting.optional) {
+  protected validateSubFieldSettingList(maybeSettingList: ExpressionNode): boolean {
+    if (!(maybeSettingList instanceof ListExpressionNode) && !this.subfield.settingList.optional) {
       this.logError(
-        maybeSettings,
-        this.subfield.setting.notFoundErrorCode,
-        `A ${this.elementKind} subfield must have a settings`,
+        maybeSettingList,
+        this.subfield.settingList.notOptionalErrorCode,
+        `A ${this.elementKind} subfield must have a settingList`,
       );
 
       return false;
     }
 
-    if (maybeSettings instanceof ListExpressionNode && !this.subfield.setting.allow) {
+    if (maybeSettingList instanceof ListExpressionNode && !this.subfield.settingList.allow) {
       this.logError(
-        maybeSettings,
-        this.subfield.setting.foundErrorCode,
-        `A ${this.elementKind} subfield should not have a settings`,
+        maybeSettingList,
+        this.subfield.settingList.notAllowErrorCode,
+        `A ${this.elementKind} subfield should not have a settingList`,
       );
 
       return false;
     }
 
-    if (!(maybeSettings instanceof ListExpressionNode)) {
+    if (!(maybeSettingList instanceof ListExpressionNode)) {
       return true;
     }
 
-    return this.validateSettingsContent(maybeSettings, this.subfield.setting);
+    return this.validateSettingListContent(maybeSettingList, this.subfield.settingList);
   }
 
-  private validateSettingsContent(
-    settingsNode: ListExpressionNode,
-    config: SettingsValidatorConfig,
+  private validateSettingListContent(
+    settingListNode: ListExpressionNode,
+    config: SettingListValidatorConfig,
   ): boolean {
-    const settingsSet = new Set<string>();
+    const settingListSet = new Set<string>();
     let hasError = false;
     // eslint-disable-next-line no-restricted-syntax
-    for (const setting of settingsNode.elementList) {
+    for (const setting of settingListNode.elementList) {
       const name = joinTokenStrings(setting.name).toLowerCase();
       const { value } = setting;
 
       if (!config.isValid(name, value).isOk()) {
         this.logError(setting, config.unknownErrorCode, 'Unknown setting');
         hasError = true;
-      } else if (settingsSet.has(name) && !config.allowDuplicate(name).unwrap()) {
+      } else if (settingListSet.has(name) && !config.allowDuplicate(name).unwrap()) {
         this.logError(setting, config.duplicateErrorCode, 'Duplicate setting');
         hasError = true;
       } else {
-        settingsSet.add(name);
+        settingListSet.add(name);
         if (!config.isValid(name, value).unwrap()) {
           this.logError(setting, config.invalidErrorCode, 'Invalid value for this setting');
           hasError = true;

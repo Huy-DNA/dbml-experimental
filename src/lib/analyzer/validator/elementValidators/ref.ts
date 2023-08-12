@@ -3,7 +3,7 @@ import { registerRelationshipOperand } from './utils';
 import {
   ElementKind,
   createContextValidatorConfig,
-  createSettingsValidatorConfig,
+  createSettingListValidatorConfig,
   createSubFieldValidatorConfig,
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
@@ -16,7 +16,7 @@ import ElementValidator from './elementValidator';
 import {
   anyBodyConfig,
   noAliasConfig,
-  noSettingsConfig,
+  noSettingListConfig,
   noUniqueConfig,
   optionalNameConfig,
 } from './_preset_configs';
@@ -37,7 +37,7 @@ export default class RefValidator extends ElementValidator {
 
   protected alias = noAliasConfig(false);
 
-  protected settings = noSettingsConfig(false);
+  protected settingList = noSettingListConfig(false);
 
   protected body = anyBodyConfig(false);
 
@@ -50,7 +50,7 @@ export default class RefValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_REF_FIELD,
-    setting: refFieldSettings(),
+    setting: refFieldSettingList(),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
@@ -127,8 +127,8 @@ function isValidPolicy(value?: SyntaxNode | SyntaxToken[]): boolean {
   return false; // unreachable
 }
 
-const refFieldSettings = () =>
-  createSettingsValidatorConfig(
+const refFieldSettingList = () =>
+  createSettingListValidatorConfig(
     {
       delete: {
         allowDuplicate: false,
@@ -141,9 +141,9 @@ const refFieldSettings = () =>
     },
     {
       optional: true,
-      notFoundErrorCode: undefined,
+      notOptionalErrorCode: undefined,
       allow: true,
-      foundErrorCode: undefined,
+      notAllowErrorCode: undefined,
       unknownErrorCode: CompileErrorCode.UNKNOWN_REF_SETTING,
       duplicateErrorCode: CompileErrorCode.DUPLICATE_REF_SETTING,
       invalidErrorCode: CompileErrorCode.INVALID_REF_SETTING_VALUE,

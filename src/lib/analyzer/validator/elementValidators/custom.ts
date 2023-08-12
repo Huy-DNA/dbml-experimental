@@ -8,7 +8,7 @@ import ElementValidator from './elementValidator';
 import {
   noAliasConfig,
   noNameConfig,
-  noSettingsConfig,
+  noSettingListConfig,
   noUniqueConfig,
   simpleBodyConfig,
 } from './_preset_configs';
@@ -29,7 +29,7 @@ export default class CustomValidator extends ElementValidator {
 
   protected alias = noAliasConfig(false);
 
-  protected settings = noSettingsConfig(false);
+  protected settingList = noSettingListConfig(false);
 
   protected body = simpleBodyConfig(false);
 
@@ -41,7 +41,7 @@ export default class CustomValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_CUSTOM_ELEMENT_VALUE,
-    setting: noSettingsConfig(false),
+    setting: noSettingListConfig(false),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
