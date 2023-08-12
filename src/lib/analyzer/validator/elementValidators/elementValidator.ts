@@ -17,6 +17,7 @@ import {
   ExpressionNode,
   FunctionApplicationNode,
   ListExpressionNode,
+  NormalFormExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
 import { extractVariableNode } from '../../../utils';
@@ -94,6 +95,8 @@ export default abstract class ElementValidator {
     return res;
   }
 
+  /* Validate uniqueness according to config `this.unique` */
+
   private validateUnique(): boolean {
     return (
       (this.validateGloballyUnique() && this.validateLocallyUnique()) || !this.unique.stopOnError
@@ -140,147 +143,267 @@ export default abstract class ElementValidator {
     return true;
   }
 
-  private validateContext(): boolean {
-    const res = canBeNestedWithin(this.contextStack.parent(), this.contextStack.top());
+  /* Validate context according to config `this.context` */
 
-    if (!res) {
+  private validateContext(): boolean {
+    if (!canBeNestedWithin(this.contextStack.parent(), this.contextStack.top())) {
       this.logError(
         this.declarationNode.type,
         this.context.errorCode,
         `${this.elementKind} can not appear here`,
       );
+
+      return !this.context.stopOnError;
     }
 
-    return res || !this.context.stopOnError;
+    return true;
   }
 
-  private validateName(): boolean {
-    let hasError = false;
-    const node = this.declarationNode;
-    const nameNode = node.name;
+  /* Validate and register name according to config `this.name` */
 
-    if (nameNode && !isValidName(nameNode)) {
-      this.logError(nameNode, CompileErrorCode.INVALID_NAME, 'Invalid element name');
-      hasError = true;
+  private validateName(): boolean {
+    return (
+      (this.checkNameInValidForm() &&
+        this.checkNameAllowed() &&
+        this.checkNameOptional() &&
+        this.checkNameComplex() &&
+        // Short-circuting prevents registerName to be called if a previous check fails
+        this.registerName()) ||
+      !this.name.stopOnError
+    );
+  }
+
+  private checkNameInValidForm(): boolean {
+    const { name } = this.declarationNode;
+    if (name && !isValidName(name)) {
+      this.logError(name, CompileErrorCode.INVALID_NAME, 'Invalid element name');
+
+      return false;
     }
 
-    if (!this.name.allow && nameNode) {
+    return true;
+  }
+
+  private checkNameAllowed(): boolean {
+    if (!this.name.allow && this.declarationNode.name) {
       this.logError(
-        nameNode,
+        this.declarationNode.name,
         this.name.notAllowErrorCode,
         `${this.elementKind} shouldn't have a name`,
       );
-      hasError = true;
+
+      return false;
     }
 
-    if (!this.name.optional && !nameNode) {
+    return true;
+  }
+
+  private checkNameOptional(): boolean {
+    if (!this.name.optional && !this.declarationNode.name) {
       this.logError(
-        node.type,
+        this.declarationNode.type,
         this.name.notOptionalErrorCode,
         `${this.elementKind} must have a name`,
       );
-      hasError = true;
+
+      return false;
     }
 
-    if (!this.name.allowComplex && nameNode && !isSimpleName(nameNode)) {
+    return true;
+  }
+
+  private checkNameComplex(): boolean {
+    const { name } = this.declarationNode;
+    if (!this.name.allowComplex && name && !isSimpleName(name)) {
       this.logError(
-        nameNode,
+        name,
         this.name.complexErrorCode,
         `${this.elementKind} must have a double-quoted string or an identifier name`,
       );
-      hasError = true;
+
+      return false;
     }
 
-    if (!hasError && nameNode && this.name.shouldRegister) {
-      const { registeredSymbol, ok } = this.registerElement(
-        nameNode,
-        this.publicSchemaSymbol.symbolTable,
-      );
-      this.declarationNode.symbol = registeredSymbol;
-      hasError = !ok || hasError;
-    }
-
-    return !hasError || !this.name.stopOnError;
+    return true;
   }
 
-  private validateAlias(): boolean {
-    let hasError = false;
-    const node = this.declarationNode;
-    const aliasNode = node.alias;
+  private registerName(): boolean {
+    if (this.declarationNode.name && this.name.shouldRegister) {
+      const { registeredSymbol, ok } = this.registerElement(this.declarationNode.name);
+      this.declarationNode.symbol = registeredSymbol;
 
-    if (aliasNode && !isValidAlias(aliasNode)) {
-      this.logError(aliasNode, CompileErrorCode.INVALID_ALIAS, 'Invalid element alias');
-      hasError = true;
+      return ok;
     }
 
-    if (!this.alias.allow && aliasNode) {
+    return true;
+  }
+
+  /* Validate and register alias according to config `this.alias` */
+
+  private validateAlias(): boolean {
+    return (
+      (this.checkAliasInValidForm() &&
+        this.checkAliasAllow() &&
+        this.checkAliasOptional() &&
+        // Short-circuting prevents registerAlias to be called if a previous check fails
+        this.registerAlias()) ||
+      !this.alias.stopOnError
+    );
+  }
+
+  private checkAliasInValidForm() {
+    const { alias } = this.declarationNode;
+    if (alias && !isValidAlias(alias)) {
+      this.logError(alias, CompileErrorCode.INVALID_ALIAS, 'Invalid element alias');
+
+      return false;
+    }
+
+    return true;
+  }
+
+  private checkAliasAllow(): boolean {
+    const { alias } = this.declarationNode;
+
+    if (!this.alias.allow && alias) {
       this.logError(
-        aliasNode,
+        alias,
         this.alias.notAllowErrorCode,
         `${this.elementKind} shouldn't have an alias`,
       );
-      hasError = true;
+
+      return false;
     }
 
-    if (!this.alias.optional && !aliasNode) {
+    return true;
+  }
+
+  private checkAliasOptional(): boolean {
+    const { alias } = this.declarationNode;
+
+    if (!this.alias.optional && !alias) {
       this.logError(
-        node.type,
+        this.declarationNode.type,
         this.alias.notOptionalErrorCode,
         `${this.elementKind} must have an alias`,
       );
-      hasError = true;
+
+      return false;
     }
 
-    if (!hasError && aliasNode && this.name.shouldRegister) {
-      const { ok } = this.registerElement(
-        aliasNode,
-        this.publicSchemaSymbol.symbolTable,
-        this.declarationNode.symbol,
-      );
-      hasError = !ok || hasError;
-    }
-
-    return !hasError || !this.alias.stopOnError;
+    return true;
   }
 
-  private validateSettingList(): boolean {
-    let hasError = false;
-    const node = this.declarationNode;
-    const settingListNode = node.attributeList;
+  private registerAlias(): boolean {
+    const { alias } = this.declarationNode;
+    if (alias && this.name.shouldRegister) {
+      const { ok } = this.registerElement(alias, this.declarationNode.symbol);
 
-    if (settingListNode && !isValidSettingList(settingListNode)) {
-      this.logError(
-        settingListNode,
-        CompileErrorCode.INVALID_SETTINGS,
-        'SettingList must be a list',
-      );
-      hasError = true;
+      return ok;
     }
 
-    if (!this.settingList.allow && settingListNode) {
+    return true;
+  }
+
+  // Register a name extracted from `nameNode` into the `public` schema
+  // Also check for duplicated name
+  // If `defaultSymbol` is undefined, create the symbol anew corresponding to the name
+  // If `defaultSymbol` is given, the symbol (and its symbol table) is reused
+  private registerElement(
+    nameNode: SyntaxNode,
+    defaultSymbol?: NodeSymbol,
+  ): { registeredSymbol: NodeSymbol; ok: boolean } {
+    const variables = destructureComplexVariable(nameNode).unwrap_or(undefined);
+    if (!variables) {
+      throw new Error(`${this.elementKind} must be a valid complex variable`);
+    }
+    const name = variables.pop();
+    if (!name) {
+      throw new Error(`${this.elementKind} name shouldn't be empty`);
+    }
+
+    const id = createIdFromContext(name, this.context.name);
+    const registerSchema = registerSchemaStack(variables, this.publicSchemaSymbol.symbolTable);
+    if (!id) {
+      throw new Error(`${this.elementKind} fails to create id to register in the symbol table`);
+    }
+
+    const newSymbol = createSymbolFromContext(this.declarationNode, this.context.name);
+    if (!newSymbol) {
+      throw new Error(
+        `${this.elementKind} fails to create a symbol to register in the symbol table`,
+      );
+    }
+
+    if (registerSchema.has(id)) {
       this.logError(
-        settingListNode,
+        nameNode,
+        this.name.duplicateErrorCode,
+        `This ${this.elementKind} has a duplicated name`,
+      );
+
+      return { registeredSymbol: defaultSymbol || newSymbol, ok: false };
+    }
+    registerSchema.set(id, defaultSymbol || newSymbol);
+
+    return { registeredSymbol: defaultSymbol || newSymbol, ok: true };
+  }
+
+  /* Validate element according to config `this.settingList` */
+
+  private validateSettingList(): boolean {
+    return (
+      (this.checkSettingListInValidForm() &&
+        this.checkSettingListAllow() &&
+        this.checkSettingListOptional() &&
+        (!this.declarationNode.attributeList ||
+          this.validateSettingListContent(this.declarationNode.attributeList, this.settingList))) ||
+      !this.settingList.stopOnError
+    );
+  }
+
+  private checkSettingListInValidForm(): boolean {
+    const { attributeList } = this.declarationNode;
+    if (attributeList && !isValidSettingList(attributeList)) {
+      this.logError(attributeList, CompileErrorCode.INVALID_SETTINGS, 'SettingList must be a list');
+
+      return false;
+    }
+
+    return true;
+  }
+
+  private checkSettingListAllow(): boolean {
+    const { attributeList } = this.declarationNode;
+    if (!this.settingList.allow && attributeList) {
+      this.logError(
+        attributeList,
         this.settingList.notAllowErrorCode,
         `${this.elementKind} shouldn't have a setting list`,
       );
-      hasError = true;
+
+      return false;
     }
 
-    if (!this.settingList.optional && !settingListNode) {
+    return true;
+  }
+
+  private checkSettingListOptional(): boolean {
+    const { attributeList } = this.declarationNode;
+    if (!this.settingList.optional && !attributeList) {
       this.logError(
-        node.type,
+        this.declarationNode.type,
         this.settingList.notOptionalErrorCode,
         `${this.elementKind} must have a setting list`,
       );
-      hasError = true;
+
+      return false;
     }
 
-    if (settingListNode) {
-      hasError = this.validateSettingListContent(settingListNode, this.settingList) || hasError;
-    }
-
-    return !hasError || !this.settingList.stopOnError;
+    return true;
   }
+
+  /* Validate body format according to config `this.body` */
 
   private validateBodyForm(): boolean {
     let hasError = false;
@@ -307,46 +430,7 @@ export default abstract class ElementValidator {
     return !hasError || !this.body.stopOnError;
   }
 
-  private registerElement(
-    nameNode: SyntaxNode,
-    schema: SymbolTable,
-    defaultSymbol?: NodeSymbol,
-  ): { registeredSymbol: NodeSymbol; ok: boolean } {
-    const variables = destructureComplexVariable(nameNode).unwrap_or(undefined);
-    if (!variables) {
-      throw new Error(`${this.elementKind} must be a valid complex variable`);
-    }
-    const name = variables.pop();
-    if (!name) {
-      throw new Error(`${this.elementKind} name shouldn't be empty`);
-    }
-
-    const id = createIdFromContext(name, this.context.name);
-    const registerSchema = registerSchemaStack(variables, schema);
-    if (!id) {
-      throw new Error(`${this.elementKind} fails to create id to register in the symbol table`);
-    }
-
-    const newSymbol = createSymbolFromContext(this.declarationNode, this.context.name);
-    if (!newSymbol) {
-      throw new Error(
-        `${this.elementKind} fails to create a symbol to register in the symbol table`,
-      );
-    }
-
-    if (registerSchema.has(id)) {
-      this.logError(
-        nameNode,
-        this.name.duplicateErrorCode,
-        `This ${this.elementKind} has a duplicated name`,
-      );
-
-      return { registeredSymbol: defaultSymbol || newSymbol, ok: false };
-    }
-    registerSchema.set(id, defaultSymbol || newSymbol);
-
-    return { registeredSymbol: defaultSymbol || newSymbol, ok: true };
-  }
+  /* Validate the body content */
 
   protected validateBodyContent(): boolean {
     const node = this.declarationNode;
@@ -360,6 +444,7 @@ export default abstract class ElementValidator {
 
       return !hasError;
     }
+
     if (node.body instanceof FunctionApplicationNode) {
       return this.validateSubField(node.body);
     }
@@ -367,6 +452,8 @@ export default abstract class ElementValidator {
     return this.validateSubField(new FunctionApplicationNode({ callee: node.body, args: [] }));
   }
 
+  // Switch to the appropriate validator method based on the type of content
+  // Either a nested element or a subfield
   protected validateEachOfComplexBody(
     sub: SyntaxNode,
     kindsFoundInScope: Set<ElementKind>,
@@ -404,6 +491,8 @@ export default abstract class ElementValidator {
 
     return validatorObject.validate();
   }
+
+  /* Validate and register subfield according to config `this.subfield` */
 
   protected validateSubField(sub: FunctionApplicationNode): boolean {
     const args = [sub.callee, ...sub.args];
