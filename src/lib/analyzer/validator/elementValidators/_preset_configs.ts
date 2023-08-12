@@ -8,6 +8,8 @@ import {
   createUniqueValidatorConfig,
 } from '../types';
 
+// A wrapper for preset configs
+// so that `stopOnError` configuration by element validators is more readable
 class PartialConfig<T extends { stopOnError: boolean }> {
   partialConfig: T;
 
