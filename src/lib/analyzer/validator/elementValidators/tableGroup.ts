@@ -84,7 +84,7 @@ function registerTableName(
 
   unresolvedNames.push({
     id: tableId,
-    qualifiers: schemaIdStack.length === 0 ? undefined : schemaIdStack,
+    qualifiers: schemaIdStack.length === 0 ? [createSchemaSymbolId('public')] : schemaIdStack,
     referrer: node,
     ownerElement,
   });
