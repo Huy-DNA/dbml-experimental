@@ -34,7 +34,12 @@ import {
 } from '../utils';
 import { NodeSymbol, SchemaSymbol } from '../../symbol/symbols';
 import SymbolTable from '../../symbol/symbolTable';
-import { createIdFromContext, createSubfieldId, createSubfieldSymbol, createSymbolFromContext } from '../../symbol/utils';
+import {
+  createIdFromContext,
+  createSubfieldId,
+  createSubfieldSymbol,
+  createSymbolFromContext,
+} from '../../symbol/utils';
 
 export default abstract class ElementValidator {
   protected abstract elementKind: ElementKind;

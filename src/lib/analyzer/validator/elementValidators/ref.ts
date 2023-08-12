@@ -32,15 +32,15 @@ export default class RefValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = noUniqueConfig(false);
+  protected unique = noUniqueConfig.doNotStopOnError();
 
-  protected name = optionalNameConfig(false);
+  protected name = optionalNameConfig.doNotStopOnError();
 
-  protected alias = noAliasConfig(false);
+  protected alias = noAliasConfig.doNotStopOnError();
 
-  protected settingList = noSettingListConfig(false);
+  protected settingList = noSettingListConfig.doNotStopOnError();
 
-  protected body = anyBodyConfig(false);
+  protected body = anyBodyConfig.doNotStopOnError();
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [

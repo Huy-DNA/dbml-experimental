@@ -23,15 +23,15 @@ export default class NoteValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = locallyUniqueConfig(CompileErrorCode.NOTE_REDEFINED, false);
+  protected unique = locallyUniqueConfig(CompileErrorCode.NOTE_REDEFINED).doNotStopOnError();
 
-  protected name = noNameConfig(false);
+  protected name = noNameConfig.doNotStopOnError();
 
-  protected alias = noAliasConfig(false);
+  protected alias = noAliasConfig.doNotStopOnError();
 
-  protected settingList = noSettingListConfig(false);
+  protected settingList = noSettingListConfig.doNotStopOnError();
 
-  protected body = anyBodyConfig(false);
+  protected body = anyBodyConfig.doNotStopOnError();
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [
@@ -41,7 +41,7 @@ export default class NoteValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_NOTE,
-    settingList: noSettingListConfig(false),
+    settingList: noSettingListConfig.doNotStopOnError(),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });

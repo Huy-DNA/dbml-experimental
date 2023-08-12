@@ -48,11 +48,11 @@ export default class TableValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = noUniqueConfig(false);
+  protected unique = noUniqueConfig.doNotStopOnError();
 
-  protected name = registerNameConfig(false);
+  protected name = registerNameConfig.doNotStopOnError();
 
-  protected alias = optionalAliasConfig(false);
+  protected alias = optionalAliasConfig.doNotStopOnError();
 
   protected settingList = createSettingListValidatorConfig(
     {
@@ -77,7 +77,7 @@ export default class TableValidator extends ElementValidator {
     },
   );
 
-  protected body = complexBodyConfig(false);
+  protected body = complexBodyConfig.doNotStopOnError();
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [

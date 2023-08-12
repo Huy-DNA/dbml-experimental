@@ -25,15 +25,15 @@ export default class TableGroupValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = noUniqueConfig(false);
+  protected unique = noUniqueConfig.doNotStopOnError();
 
-  protected name = registerNameConfig(false);
+  protected name = registerNameConfig.doNotStopOnError();
 
-  protected alias = noAliasConfig(false);
+  protected alias = noAliasConfig.doNotStopOnError();
 
-  protected settingList = noSettingListConfig(false);
+  protected settingList = noSettingListConfig.doNotStopOnError();
 
-  protected body = complexBodyConfig(false);
+  protected body = complexBodyConfig.doNotStopOnError();
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [
@@ -44,7 +44,7 @@ export default class TableGroupValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_TABLEGROUP_FIELD,
-    settingList: noSettingListConfig(false),
+    settingList: noSettingListConfig.doNotStopOnError(),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });

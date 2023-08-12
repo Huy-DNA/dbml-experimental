@@ -23,15 +23,15 @@ export default class CustomValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = noUniqueConfig(false);
+  protected unique = noUniqueConfig.doNotStopOnError();
 
-  protected name = noNameConfig(false);
+  protected name = noNameConfig.doNotStopOnError();
 
-  protected alias = noAliasConfig(false);
+  protected alias = noAliasConfig.doNotStopOnError();
 
-  protected settingList = noSettingListConfig(false);
+  protected settingList = noSettingListConfig.doNotStopOnError();
 
-  protected body = simpleBodyConfig(false);
+  protected body = simpleBodyConfig.doNotStopOnError();
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [
@@ -41,7 +41,7 @@ export default class CustomValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_CUSTOM_ELEMENT_VALUE,
-    settingList: noSettingListConfig(false),
+    settingList: noSettingListConfig.doNotStopOnError(),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });

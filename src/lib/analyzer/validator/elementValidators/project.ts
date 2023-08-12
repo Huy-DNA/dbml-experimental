@@ -22,20 +22,20 @@ export default class ProjectValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = globallyUniqueConfig(CompileErrorCode.PROJECT_REDEFINED, false);
+  protected unique = globallyUniqueConfig(CompileErrorCode.PROJECT_REDEFINED).doNotStopOnError();
 
-  protected name = optionalNameConfig(false);
+  protected name = optionalNameConfig.doNotStopOnError();
 
-  protected alias = noAliasConfig(false);
+  protected alias = noAliasConfig.doNotStopOnError();
 
-  protected settingList = noSettingListConfig(false);
+  protected settingList = noSettingListConfig.doNotStopOnError();
 
-  protected body = complexBodyConfig(false);
+  protected body = complexBodyConfig.doNotStopOnError();
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_PROJECT_FIELD,
-    settingList: noSettingListConfig(false),
+    settingList: noSettingListConfig.doNotStopOnError(),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });

@@ -37,15 +37,15 @@ export default class IndexesValidator extends ElementValidator {
     stopOnError: false,
   });
 
-  protected unique = noUniqueConfig(false);
+  protected unique = noUniqueConfig.doNotStopOnError();
 
-  protected name = noNameConfig(false);
+  protected name = noNameConfig.doNotStopOnError();
 
-  protected alias = noAliasConfig(false);
+  protected alias = noAliasConfig.doNotStopOnError();
 
-  protected settingList = noSettingListConfig(false);
+  protected settingList = noSettingListConfig.doNotStopOnError();
 
-  protected body = complexBodyConfig(false);
+  protected body = complexBodyConfig.doNotStopOnError();
 
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [
