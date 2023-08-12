@@ -124,7 +124,7 @@ export default class Parser {
     return body;
   });
 
-  private synchronizeProgram() {
+  private synchronizeProgram = () => {
     const invalidToken = this.peek();
     if (invalidToken.kind !== SyntaxTokenKind.EOF) {
       this.invalid.push(this.advance());
