@@ -1,6 +1,6 @@
-import { UnresolvedName } from 'lib/analyzer/types';
-import { destructureComplexVariable } from 'lib/analyzer/utils';
-import { createSchemaSymbolId, createTableSymbolId } from 'lib/analyzer/symbol/symbolIndex';
+import { UnresolvedName } from '../../types';
+import { destructureComplexVariable } from '../../utils';
+import { createSchemaSymbolId, createTableSymbolId } from '../../symbol/symbolIndex';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode, SyntaxNode } from '../../../parser/nodes';
 import { ContextStack, ValidatorContext } from '../validatorContext';
