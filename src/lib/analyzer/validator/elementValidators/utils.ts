@@ -7,6 +7,8 @@ import {
 import { UnresolvedName } from '../../types';
 import { destructureComplexVariable } from '../../utils';
 
+// Register a relationship operand for later resolution
+// eslint-disable-next-line import/prefer-default-export
 export function registerRelationshipOperand(
   node: NormalFormExpressionNode,
   ownerElement: ElementDeclarationNode,
