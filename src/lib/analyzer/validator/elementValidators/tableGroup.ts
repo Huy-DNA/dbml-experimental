@@ -44,7 +44,7 @@ export default class TableGroupValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_TABLEGROUP_FIELD,
-    setting: noSettingListConfig(false),
+    settingList: noSettingListConfig(false),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });

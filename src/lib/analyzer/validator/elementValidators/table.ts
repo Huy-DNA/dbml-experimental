@@ -92,7 +92,7 @@ export default class TableValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_COLUMN,
-    setting: columnSettingList(),
+    settingList: columnSettingList(),
     shouldRegister: true,
     duplicateErrorCode: CompileErrorCode.DUPLICATE_COLUMN_NAME,
   });

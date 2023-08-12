@@ -46,7 +46,7 @@ export default class EnumValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_ENUM_ELEMENT,
-    setting: enumFieldSettingList(),
+    settingList: enumFieldSettingList(),
     shouldRegister: true,
     duplicateErrorCode: CompileErrorCode.DUPLICATE_ENUM_ELEMENT_NAME,
   });

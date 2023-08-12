@@ -35,7 +35,7 @@ export default class ProjectValidator extends ElementValidator {
   protected subfield = createSubFieldValidatorConfig({
     argValidators: [],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_PROJECT_FIELD,
-    setting: noSettingListConfig(false),
+    settingList: noSettingListConfig(false),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });

@@ -56,7 +56,7 @@ export default class IndexesValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_INDEX,
-    setting: indexSettingList(),
+    settingList: indexSettingList(),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });

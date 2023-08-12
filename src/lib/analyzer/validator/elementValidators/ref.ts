@@ -50,7 +50,7 @@ export default class RefValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_REF_FIELD,
-    setting: refFieldSettingList(),
+    settingList: refFieldSettings(),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
@@ -127,7 +127,7 @@ function isValidPolicy(value?: SyntaxNode | SyntaxToken[]): boolean {
   return false; // unreachable
 }
 
-const refFieldSettingList = () =>
+const refFieldSettings = () =>
   createSettingListValidatorConfig(
     {
       delete: {

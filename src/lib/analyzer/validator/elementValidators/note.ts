@@ -41,7 +41,7 @@ export default class NoteValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_NOTE,
-    setting: noSettingListConfig(false),
+    settingList: noSettingListConfig(false),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });

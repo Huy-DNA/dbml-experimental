@@ -41,7 +41,7 @@ export default class CustomValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_CUSTOM_ELEMENT_VALUE,
-    setting: noSettingListConfig(false),
+    settingList: noSettingListConfig(false),
     shouldRegister: false,
     duplicateErrorCode: undefined,
   });
