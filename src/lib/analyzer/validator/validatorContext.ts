@@ -77,7 +77,7 @@ export class ContextStack {
   }
 
   isWithinContext(ctx: ValidatorContext): boolean {
-    for (let i = this.stack.length - 1; i >= 0; --i) {
+    for (let i = this.stack.length - 1; i >= 0; i -= 1) {
       if (this.stack[i] === ctx) {
         return true;
       }
