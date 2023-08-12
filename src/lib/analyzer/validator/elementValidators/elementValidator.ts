@@ -23,10 +23,6 @@ import { extractVariableNode } from '../../../utils';
 import { destructureComplexVariable, joinTokenStrings } from '../../utils';
 import { ContextStack, canBeNestedWithin } from '../validatorContext';
 import {
-  createId,
-  createSubfieldId,
-  createSubfieldSymbol,
-  createSymbol,
   hasComplexBody,
   hasSimpleBody,
   isSimpleName,
@@ -38,6 +34,7 @@ import {
 } from '../utils';
 import { NodeSymbol, SchemaSymbol } from '../../symbol/symbols';
 import SymbolTable from '../../symbol/symbolTable';
+import { createIdFromContext, createSubfieldId, createSubfieldSymbol, createSymbolFromContext } from '../../symbol/utils';
 
 export default abstract class ElementValidator {
   protected abstract elementKind: ElementKind;
@@ -319,13 +316,13 @@ export default abstract class ElementValidator {
       throw new Error(`${this.elementKind} name shouldn't be empty`);
     }
 
-    const id = createId(name, this.context.name);
+    const id = createIdFromContext(name, this.context.name);
     const registerSchema = registerSchemaStack(variables, schema);
     if (!id) {
       throw new Error(`${this.elementKind} fails to create id to register in the symbol table`);
     }
 
-    const newSymbol = createSymbol(this.declarationNode, this.context.name);
+    const newSymbol = createSymbolFromContext(this.declarationNode, this.context.name);
     if (!newSymbol) {
       throw new Error(
         `${this.elementKind} fails to create a symbol to register in the symbol table`,

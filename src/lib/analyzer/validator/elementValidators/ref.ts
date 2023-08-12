@@ -10,9 +10,10 @@ import { CompileError, CompileErrorCode } from '../../../errors';
 import { SyntaxToken } from '../../../lexer/tokens';
 import { ElementDeclarationNode, InfixExpressionNode, SyntaxNode } from '../../../parser/nodes';
 import { isExpressionAQuotedString } from '../../../utils';
-import { extractQuotedStringToken, isBinaryRelationship, joinTokenStrings } from '../../utils';
+import { extractQuotedStringToken, joinTokenStrings } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
+import { isBinaryRelationship } from '../utils';
 import {
   anyBodyConfig,
   noAliasConfig,

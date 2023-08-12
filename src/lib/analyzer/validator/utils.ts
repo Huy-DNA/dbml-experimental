@@ -2,7 +2,6 @@ import { SyntaxToken, SyntaxTokenKind } from '../../lexer/tokens';
 import {
   BlockExpressionNode,
   ElementDeclarationNode,
-  FunctionExpressionNode,
   ListExpressionNode,
   LiteralNode,
   PrefixExpressionNode,
@@ -11,8 +10,7 @@ import {
   VariableNode,
 } from '../../parser/nodes';
 import { isAccessExpression, isHexChar } from '../../utils';
-import { destructureComplexVariable } from '../utils';
-import { ValidatorContext } from './validatorContext';
+import { destructureComplexVariable, isBinaryRelationship } from '../utils';
 import CustomValidator from './elementValidators/custom';
 import EnumValidator from './elementValidators/enum';
 import IndexesValidator from './elementValidators/indexes';
@@ -21,27 +19,11 @@ import ProjectValidator from './elementValidators/project';
 import RefValidator from './elementValidators/ref';
 import TableValidator from './elementValidators/table';
 import TableGroupValidator from './elementValidators/tableGroup';
-import {
-  NodeSymbolId,
-  createColumnSymbolId,
-  createEnumElementSymbolId,
-  createEnumSymbolId,
-  createSchemaSymbolId,
-  createTableGroupSymbolId,
-  createTableSymbolId,
-} from '../symbol/symbolIndex';
-import {
-  ColumnSymbol,
-  EnumElementSymbol,
-  EnumSymbol,
-  NodeSymbol,
-  SchemaSymbol,
-  TableGroupElementSymbol,
-  TableGroupSymbol,
-  TableSymbol,
-} from '../symbol/symbols';
+import { createSchemaSymbolId } from '../symbol/symbolIndex';
+import { SchemaSymbol } from '../symbol/symbols';
 import SymbolTable from '../symbol/symbolTable';
 
+// Pick a validator suitable for `element`
 export function pickValidator(element: ElementDeclarationNode) {
   switch (element.type.value.toLowerCase()) {
     case 'enum':
@@ -62,121 +44,70 @@ export function pickValidator(element: ElementDeclarationNode) {
       return CustomValidator;
   }
 }
+
+// Is the name valid (either simple or complex)
 export function isValidName(nameNode: SyntaxNode): boolean {
   return !!destructureComplexVariable(nameNode).unwrap_or(false);
 }
 
+// Is the alias valid (only simple name is allowed)
 export function isValidAlias(
   aliasNode: SyntaxNode,
 ): aliasNode is PrimaryExpressionNode & { expression: VariableNode } {
   return isSimpleName(aliasNode);
 }
 
+// Is the name valid and simple
 export function isSimpleName(
   nameNode: SyntaxNode,
 ): nameNode is PrimaryExpressionNode & { expression: VariableNode } {
   return nameNode instanceof PrimaryExpressionNode && nameNode.expression instanceof VariableNode;
 }
 
+// Is the argument a ListExpression
 export function isValidSettingList(
   settingListNode: SyntaxNode,
 ): settingListNode is ListExpressionNode {
   return settingListNode instanceof ListExpressionNode;
 }
 
+// Does the element has complex body
 export function hasComplexBody(
   node: ElementDeclarationNode,
 ): node is ElementDeclarationNode & { body: BlockExpressionNode; bodyOpenColon: undefined } {
   return node.body instanceof BlockExpressionNode && !node.bodyOpenColon;
 }
 
+// Does the element has simple body
 export function hasSimpleBody(
   node: ElementDeclarationNode,
 ): node is ElementDeclarationNode & { bodyOpenColon: SyntaxToken } {
   return !!node.bodyOpenColon;
 }
 
+// Register the `variables` array as a stack of schema, the following nested within the former
+// `initialSchema` is the schema in which the first variable of `variables` is nested within
 export function registerSchemaStack(variables: string[], initialSchema: SymbolTable): SymbolTable {
-  let schema = initialSchema;
+  let prevSchema = initialSchema;
   // eslint-disable-next-line no-restricted-syntax
-  for (const schemaName of variables) {
-    const schemaId = createSchemaSymbolId(schemaName);
-    if (!schema.has(schemaId)) {
-      const schemaST = new SymbolTable();
-      const schemaSymbol = new SchemaSymbol(schemaST);
-      schema.set(schemaId, schemaSymbol);
-      schema = schemaST;
+  for (const curName of variables) {
+    let curSchema: SymbolTable | undefined;
+    const curId = createSchemaSymbolId(curName);
+
+    if (!prevSchema.has(curId)) {
+      curSchema = new SymbolTable();
+      const curSymbol = new SchemaSymbol(curSchema);
+      prevSchema.set(curId, curSymbol);
     } else {
-      const schemaSymbol = schema.get(schemaId)!;
-      if (!schemaSymbol.symbolTable) {
+      curSchema = prevSchema.get(curId)?.symbolTable;
+      if (!curSchema) {
         throw new Error('Expect a symbol table in a schema symbol');
       }
-      schema = schemaSymbol.symbolTable;
     }
+    prevSchema = curSchema;
   }
 
-  return schema;
-}
-
-export function createId(name: string, context: ValidatorContext): NodeSymbolId | undefined {
-  switch (context) {
-    case ValidatorContext.TableContext:
-      return createTableSymbolId(name);
-    case ValidatorContext.EnumContext:
-      return createEnumSymbolId(name);
-    case ValidatorContext.TableGroupContext:
-      return createTableGroupSymbolId(name);
-    default:
-      return undefined;
-  }
-}
-
-export function createSubfieldId(
-  name: string,
-  context: ValidatorContext,
-): NodeSymbolId | undefined {
-  switch (context) {
-    case ValidatorContext.TableContext:
-      return createColumnSymbolId(name);
-    case ValidatorContext.EnumContext:
-      return createEnumElementSymbolId(name);
-    case ValidatorContext.TableGroupContext:
-      return createTableGroupSymbolId(name);
-    default:
-      return undefined;
-  }
-}
-
-export function createSymbol(
-  declaration: SyntaxNode,
-  context: ValidatorContext,
-): NodeSymbol | undefined {
-  switch (context) {
-    case ValidatorContext.TableContext:
-      return new TableSymbol(new SymbolTable(), declaration);
-    case ValidatorContext.EnumContext:
-      return new EnumSymbol(new SymbolTable(), declaration);
-    case ValidatorContext.TableGroupContext:
-      return new TableGroupSymbol(new SymbolTable(), declaration);
-    default:
-      return undefined;
-  }
-}
-
-export function createSubfieldSymbol(
-  declaration: SyntaxNode,
-  context: ValidatorContext,
-): NodeSymbol | undefined {
-  switch (context) {
-    case ValidatorContext.TableContext:
-      return new ColumnSymbol(declaration);
-    case ValidatorContext.EnumContext:
-      return new EnumElementSymbol(declaration);
-    case ValidatorContext.TableGroupContext:
-      return new TableGroupElementSymbol(declaration);
-    default:
-      return undefined;
-  }
+  return prevSchema;
 }
 
 export function isRelationshipOp(op: string): boolean {
@@ -212,6 +143,7 @@ export function isValidColor(value?: SyntaxNode | SyntaxToken[]): boolean {
   return true;
 }
 
+// Is the value non-existent
 export function isVoid(value?: SyntaxNode | SyntaxToken[]): boolean {
   return (
     value === undefined ||
@@ -220,11 +152,10 @@ export function isVoid(value?: SyntaxNode | SyntaxToken[]): boolean {
   );
 }
 
+// Is the `value` a valid value for a column's `default` setting
+// It's a valid only if it's a literal or a complex variable (potentially an enum member)
 export function isValidDefaultValue(value?: SyntaxNode | SyntaxToken[]): boolean {
-  if (
-    (value instanceof PrimaryExpressionNode && value.expression instanceof LiteralNode) ||
-    value instanceof FunctionExpressionNode
-  ) {
+  if (value instanceof PrimaryExpressionNode && value.expression instanceof LiteralNode) {
     return true;
   }
 
@@ -250,3 +181,5 @@ export function isUnaryRelationship(value?: SyntaxNode | SyntaxToken[]): boolean
 
   return variables !== undefined && variables.length > 0;
 }
+
+export { isBinaryRelationship };
