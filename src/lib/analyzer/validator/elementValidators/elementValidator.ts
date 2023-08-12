@@ -162,6 +162,9 @@ export default abstract class ElementValidator {
   /* Validate and register name according to config `this.name` */
 
   private validateName(): boolean {
+    // Default symbol in case one of the check fails which cause registerName to not be called
+    this.declarationNode.symbol = createSymbolFromContext(this.declarationNode, this.context.name);
+
     return (
       (this.checkNameInValidForm() &&
         this.checkNameAllowed() &&
