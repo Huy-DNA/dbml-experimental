@@ -1,4 +1,4 @@
-import { UnresolvedName } from 'lib/analyzer/types';
+import { UnresolvedName } from '../../types';
 import {
   AliasValidatorConfig,
   BodyValidatorConfig,

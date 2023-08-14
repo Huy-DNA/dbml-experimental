@@ -1,4 +1,4 @@
-import { UnresolvedName } from 'lib/analyzer/types';
+import { UnresolvedName } from '../../types';
 import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
