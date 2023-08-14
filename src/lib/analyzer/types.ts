@@ -1,4 +1,4 @@
-import { ElementDeclarationNode, SyntaxNode } from 'lib/parser/nodes';
+import { ElementDeclarationNode, SyntaxNode } from '../parser/nodes';
 import { NodeSymbolId } from './symbol/symbolIndex';
 
 export type UnresolvedName = UnresolvedUnqualifiedName | UnresolvedQualifiedName;
