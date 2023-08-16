@@ -16,7 +16,6 @@ export enum SyntaxNodeKind {
 
   LITERAL = '<literal>',
   VARIABLE = '<variable>',
-  INVALID_EXPRESSION = '<invalid-expression>',
   PREFIX_EXPRESSION = '<prefix-expression>',
   INFIX_EXPRESSION = '<infix-expression>',
   POSTFIX_EXPRESSION = '<postfix-expression>',
