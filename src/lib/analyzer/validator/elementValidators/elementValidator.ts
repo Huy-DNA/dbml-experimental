@@ -17,7 +17,7 @@ import {
   ExpressionNode,
   FunctionApplicationNode,
   ListExpressionNode,
-  NormalFormExpressionNode,
+  NormalExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
 import { extractVariableNode } from '../../../utils';

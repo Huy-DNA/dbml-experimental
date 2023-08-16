@@ -1,4 +1,4 @@
-import { ElementDeclarationNode, NormalFormExpressionNode } from '../../../parser/nodes';
+import { ElementDeclarationNode, NormalExpressionNode } from '../../../parser/nodes';
 import {
   createColumnSymbolId,
   createSchemaSymbolId,
@@ -10,7 +10,7 @@ import { destructureComplexVariable } from '../../utils';
 // Register a relationship operand for later resolution
 // eslint-disable-next-line import/prefer-default-export
 export function registerRelationshipOperand(
-  node: NormalFormExpressionNode,
+  node: NormalExpressionNode,
   ownerElement: ElementDeclarationNode,
   unresolvedNames: UnresolvedName[],
 ) {
