@@ -3,7 +3,7 @@ import { ValidatorContext } from '../validator/validatorContext';
 import {
   NodeSymbolId,
   createColumnSymbolId,
-  createEnumElementSymbolId,
+  createEnumFieldSymbolId,
   createEnumSymbolId,
   createTableGroupSymbolId,
   createTableSymbolId,
@@ -11,10 +11,10 @@ import {
 import SymbolTable from './symbolTable';
 import {
   ColumnSymbol,
-  EnumElementSymbol,
+  EnumFieldSymbol,
   EnumSymbol,
   NodeSymbol,
-  TableGroupElementSymbol,
+  TableGroupFieldSymbol,
   TableGroupSymbol,
   TableSymbol,
 } from './symbols';
@@ -43,7 +43,7 @@ export function createSubfieldId(
     case ValidatorContext.TableContext:
       return createColumnSymbolId(name);
     case ValidatorContext.EnumContext:
-      return createEnumElementSymbolId(name);
+      return createEnumFieldSymbolId(name);
     case ValidatorContext.TableGroupContext:
       return createTableGroupSymbolId(name);
     default:
@@ -75,9 +75,9 @@ export function createSubfieldSymbol(
     case ValidatorContext.TableContext:
       return new ColumnSymbol(declaration);
     case ValidatorContext.EnumContext:
-      return new EnumElementSymbol(declaration);
+      return new EnumFieldSymbol(declaration);
     case ValidatorContext.TableGroupContext:
-      return new TableGroupElementSymbol(declaration);
+      return new TableGroupFieldSymbol(declaration);
     default:
       return undefined;
   }

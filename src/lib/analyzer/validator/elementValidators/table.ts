@@ -32,7 +32,7 @@ import {
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
 import {
-  createEnumElementSymbolId,
+  createEnumFieldSymbolId,
   createEnumSymbolId,
   createSchemaSymbolId,
 } from '../../symbol/symbolIndex';
@@ -247,7 +247,7 @@ function registerEnumValueIfComplexVar(
   }
 
   const fragments = destructureComplexVariable(value as SyntaxNode).unwrap();
-  const enumFieldId = createEnumElementSymbolId(fragments.pop()!);
+  const enumFieldId = createEnumFieldSymbolId(fragments.pop()!);
   const enumId = createEnumSymbolId(fragments.pop()!);
   const schemaId = fragments.map(createSchemaSymbolId);
 
