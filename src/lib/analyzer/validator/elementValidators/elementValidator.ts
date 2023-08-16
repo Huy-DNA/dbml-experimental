@@ -438,6 +438,10 @@ export default abstract class ElementValidator {
     const node = this.declarationNode;
 
     if (hasComplexBody(node)) {
+      if (!this.body.allowComplex) {
+        return false;
+      }
+
       const kindsFoundInScope = new Set<ElementKind>();
       let hasError = false;
       node.body.body.forEach((sub) => {
