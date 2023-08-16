@@ -377,7 +377,7 @@
                           }
                         }
                       },
-                      "valueOpenColon": {
+                      "colon": {
                         "kind": "<colon>",
                         "offset": 57,
                         "value": ":",
@@ -612,7 +612,7 @@
                           }
                         }
                       },
-                      "valueOpenColon": {
+                      "colon": {
                         "kind": "<colon>",
                         "offset": 106,
                         "value": ":",
@@ -933,7 +933,7 @@
                           }
                         }
                       },
-                      "valueOpenColon": {
+                      "colon": {
                         "kind": "<colon>",
                         "offset": 158,
                         "value": ":",

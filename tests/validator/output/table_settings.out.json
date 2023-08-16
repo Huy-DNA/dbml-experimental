@@ -142,7 +142,7 @@
                   }
                 }
               },
-              "valueOpenColon": {
+              "colon": {
                 "kind": "<colon>",
                 "offset": 30,
                 "value": ":",
@@ -230,7 +230,7 @@
                   }
                 }
               },
-              "valueOpenColon": {
+              "colon": {
                 "kind": "<colon>",
                 "offset": 48,
                 "value": ":",
@@ -327,7 +327,7 @@
                   }
                 }
               },
-              "valueOpenColon": {
+              "colon": {
                 "kind": "<colon>",
                 "offset": 77,
                 "value": ":",
@@ -996,7 +996,7 @@
                           }
                         }
                       },
-                      "valueOpenColon": {
+                      "colon": {
                         "kind": "<colon>",
                         "offset": 223,
                         "value": ":",
@@ -1051,7 +1051,7 @@
                           }
                         }
                       },
-                      "valueOpenColon": {
+                      "colon": {
                         "kind": "<colon>",
                         "offset": 233,
                         "value": ":",
@@ -1106,7 +1106,7 @@
                           }
                         }
                       },
-                      "valueOpenColon": {
+                      "colon": {
                         "kind": "<colon>",
                         "offset": 257,
                         "value": ":",
@@ -1464,7 +1464,7 @@
                           }
                         }
                       },
-                      "valueOpenColon": {
+                      "colon": {
                         "kind": "<colon>",
                         "offset": 344,
                         "value": ":",
@@ -2173,7 +2173,7 @@
             }
           }
         },
-        "valueOpenColon": {
+        "colon": {
           "kind": "<colon>",
           "offset": 77,
           "value": ":",
@@ -2233,7 +2233,7 @@
             }
           }
         },
-        "valueOpenColon": {
+        "colon": {
           "kind": "<colon>",
           "offset": 257,
           "value": ":",

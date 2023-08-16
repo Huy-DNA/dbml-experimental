@@ -265,7 +265,7 @@
                     "start": 40,
                     "end": 49
                   },
-                  "valueOpenColon": {
+                  "colon": {
                     "kind": "<colon>",
                     "offset": 38,
                     "value": ":",
@@ -363,7 +363,7 @@
           "start": 40,
           "end": 49
         },
-        "valueOpenColon": {
+        "colon": {
           "kind": "<colon>",
           "offset": 38,
           "value": ":",

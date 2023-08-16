@@ -572,7 +572,7 @@
                                 }
                               }
                             },
-                            "valueOpenColon": {
+                            "colon": {
                               "kind": "<colon>",
                               "offset": 86,
                               "value": ":",
