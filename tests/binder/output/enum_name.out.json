@@ -306,16 +306,21 @@
                   "elementList": [
                     {
                       "kind": "<attribute>",
-                      "name": [
-                        {
-                          "kind": "<identifier>",
-                          "offset": 54,
-                          "value": "default",
-                          "length": 7,
-                          "leadingTrivia": [],
-                          "trailingTrivia": []
-                        }
-                      ],
+                      "name": {
+                        "kind": "<identifer-stream>",
+                        "identifiers": [
+                          {
+                            "kind": "<identifier>",
+                            "offset": 54,
+                            "value": "default",
+                            "length": 7,
+                            "leadingTrivia": [],
+                            "trailingTrivia": []
+                          }
+                        ],
+                        "start": 54,
+                        "end": 61
+                      },
                       "value": {
                         "kind": "<infix-expression>",
                         "start": 63,
@@ -576,16 +581,21 @@
                   "elementList": [
                     {
                       "kind": "<attribute>",
-                      "name": [
-                        {
-                          "kind": "<identifier>",
-                          "offset": 108,
-                          "value": "default",
-                          "length": 7,
-                          "leadingTrivia": [],
-                          "trailingTrivia": []
-                        }
-                      ],
+                      "name": {
+                        "kind": "<identifer-stream>",
+                        "identifiers": [
+                          {
+                            "kind": "<identifier>",
+                            "offset": 108,
+                            "value": "default",
+                            "length": 7,
+                            "leadingTrivia": [],
+                            "trailingTrivia": []
+                          }
+                        ],
+                        "start": 108,
+                        "end": 115
+                      },
                       "value": {
                         "kind": "<infix-expression>",
                         "start": 117,

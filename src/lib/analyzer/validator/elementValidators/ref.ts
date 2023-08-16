@@ -8,9 +8,14 @@ import {
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { SyntaxToken } from '../../../lexer/tokens';
-import { ElementDeclarationNode, InfixExpressionNode, SyntaxNode } from '../../../parser/nodes';
+import {
+  ElementDeclarationNode,
+  IdentiferStreamNode,
+  InfixExpressionNode,
+  SyntaxNode,
+} from '../../../parser/nodes';
 import { isExpressionAQuotedString } from '../../../utils';
-import { extractQuotedStringToken, joinTokenStrings } from '../../utils';
+import { extractQuotedStringToken, extractStringFromIdentifierStream } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import { isBinaryRelationship } from '../utils';
@@ -100,14 +105,14 @@ function registerBinaryRelationship(
   );
 }
 
-function isValidPolicy(value?: SyntaxNode | SyntaxToken[]): boolean {
+function isValidPolicy(value?: SyntaxNode): boolean {
   if (!Array.isArray(value) && !isExpressionAQuotedString(value)) {
     return false;
   }
 
   let extractedString: string | undefined;
-  if (Array.isArray(value)) {
-    extractedString = joinTokenStrings(value);
+  if (value instanceof IdentiferStreamNode) {
+    extractedString = extractStringFromIdentifierStream(value);
   } else {
     extractedString = extractQuotedStringToken(value);
   }

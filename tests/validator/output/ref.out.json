@@ -218,43 +218,53 @@
               "elementList": [
                 {
                   "kind": "<attribute>",
-                  "name": [
-                    {
-                      "kind": "<identifier>",
-                      "offset": 32,
-                      "value": "update",
-                      "length": 6,
-                      "leadingTrivia": [],
-                      "trailingTrivia": []
-                    }
-                  ],
-                  "value": [
-                    {
-                      "kind": "<identifier>",
-                      "offset": 40,
-                      "value": "no",
-                      "length": 2,
-                      "leadingTrivia": [],
-                      "trailingTrivia": [
-                        {
-                          "kind": "<space>",
-                          "offset": 42,
-                          "value": " ",
-                          "length": 1,
-                          "leadingTrivia": [],
-                          "trailingTrivia": []
-                        }
-                      ]
-                    },
-                    {
-                      "kind": "<identifier>",
-                      "offset": 43,
-                      "value": "action",
-                      "length": 6,
-                      "leadingTrivia": [],
-                      "trailingTrivia": []
-                    }
-                  ],
+                  "name": {
+                    "kind": "<identifer-stream>",
+                    "identifiers": [
+                      {
+                        "kind": "<identifier>",
+                        "offset": 32,
+                        "value": "update",
+                        "length": 6,
+                        "leadingTrivia": [],
+                        "trailingTrivia": []
+                      }
+                    ],
+                    "start": 32,
+                    "end": 38
+                  },
+                  "value": {
+                    "kind": "<identifer-stream>",
+                    "identifiers": [
+                      {
+                        "kind": "<identifier>",
+                        "offset": 40,
+                        "value": "no",
+                        "length": 2,
+                        "leadingTrivia": [],
+                        "trailingTrivia": [
+                          {
+                            "kind": "<space>",
+                            "offset": 42,
+                            "value": " ",
+                            "length": 1,
+                            "leadingTrivia": [],
+                            "trailingTrivia": []
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "<identifier>",
+                        "offset": 43,
+                        "value": "action",
+                        "length": 6,
+                        "leadingTrivia": [],
+                        "trailingTrivia": []
+                      }
+                    ],
+                    "start": 40,
+                    "end": 49
+                  },
                   "valueOpenColon": {
                     "kind": "<colon>",
                     "offset": 38,
@@ -300,5 +310,80 @@
     },
     "invalid": []
   },
-  "errors": []
+  "errors": [
+    {
+      "code": 3034,
+      "diagnostic": "Invalid value for this setting",
+      "nodeOrToken": {
+        "kind": "<attribute>",
+        "name": {
+          "kind": "<identifer-stream>",
+          "identifiers": [
+            {
+              "kind": "<identifier>",
+              "offset": 32,
+              "value": "update",
+              "length": 6,
+              "leadingTrivia": [],
+              "trailingTrivia": []
+            }
+          ],
+          "start": 32,
+          "end": 38
+        },
+        "value": {
+          "kind": "<identifer-stream>",
+          "identifiers": [
+            {
+              "kind": "<identifier>",
+              "offset": 40,
+              "value": "no",
+              "length": 2,
+              "leadingTrivia": [],
+              "trailingTrivia": [
+                {
+                  "kind": "<space>",
+                  "offset": 42,
+                  "value": " ",
+                  "length": 1,
+                  "leadingTrivia": [],
+                  "trailingTrivia": []
+                }
+              ]
+            },
+            {
+              "kind": "<identifier>",
+              "offset": 43,
+              "value": "action",
+              "length": 6,
+              "leadingTrivia": [],
+              "trailingTrivia": []
+            }
+          ],
+          "start": 40,
+          "end": 49
+        },
+        "valueOpenColon": {
+          "kind": "<colon>",
+          "offset": 38,
+          "value": ":",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": [
+            {
+              "kind": "<space>",
+              "offset": 39,
+              "value": " ",
+              "length": 1,
+              "leadingTrivia": [],
+              "trailingTrivia": []
+            }
+          ]
+        },
+        "start": 32,
+        "end": 49
+      },
+      "name": "CompileError"
+    }
+  ]
 }

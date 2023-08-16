@@ -35,11 +35,11 @@ export interface SettingValidator {
   allowDuplicate: boolean;
 
   // A callback that validates whether `value` is valid for the setting
-  isValid: (value?: SyntaxNode | SyntaxToken[]) => boolean;
+  isValid: (value?: SyntaxNode) => boolean;
 
   // An optional callback that registers the setting value for later name resolution
   registerUnresolvedName?(
-    value: SyntaxNode | SyntaxToken[] | undefined,
+    value: SyntaxNode | undefined,
     ownerElement: ElementDeclarationNode,
     unresolvedNames: UnresolvedName[],
   ): void;
@@ -167,7 +167,7 @@ export interface SettingListValidatorConfig {
   // Return `Some(true)` if it's allowed
   //        `Some(false)` if it's not allowed
   //        `None` if the setting name is unknown
-  isValid(name: string, value?: SyntaxNode | SyntaxToken[]): Option<boolean>;
+  isValid(name: string, value?: SyntaxNode): Option<boolean>;
 
   // A function that determines whether a specific setting is allowed to be duplicated
   // Return value is similar to `isValid`
@@ -176,7 +176,7 @@ export interface SettingListValidatorConfig {
   // A function that can register a value of a setting for later name resolution
   registerUnresolvedName(
     settingName: string,
-    value: SyntaxNode | SyntaxToken[] | undefined,
+    value: SyntaxNode | undefined,
     ownerElement: ElementDeclarationNode,
     unresolvedNames: UnresolvedName[],
   ): void;
@@ -323,7 +323,7 @@ export function createSettingListValidatorConfig(
   return {
     ...config,
 
-    isValid(name: string, value?: SyntaxNode | SyntaxToken[]): Option<boolean> {
+    isValid(name: string, value?: SyntaxNode): Option<boolean> {
       const validator = validatorMap[name];
       if (!validator) {
         return new None();
@@ -343,7 +343,7 @@ export function createSettingListValidatorConfig(
 
     registerUnresolvedName(
       settingName: string,
-      value: SyntaxNode | SyntaxToken[] | undefined,
+      value: SyntaxNode | undefined,
       ownerElement: ElementDeclarationNode,
       unresolvedNames: UnresolvedName[],
     ): void {

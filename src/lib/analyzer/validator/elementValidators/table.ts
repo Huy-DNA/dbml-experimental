@@ -219,7 +219,7 @@ const columnSettingList = () =>
   );
 
 function registerUnaryRelationship(
-  value: SyntaxNode | SyntaxToken[] | undefined,
+  value: SyntaxNode | undefined,
   ownerElement: ElementDeclarationNode,
   unresolvedNames: UnresolvedName[],
 ) {
@@ -234,7 +234,7 @@ function registerUnaryRelationship(
 }
 
 function registerEnumValueIfComplexVar(
-  value: SyntaxNode | SyntaxToken[] | undefined,
+  value: SyntaxNode | undefined,
   ownerElement: ElementDeclarationNode,
   unresolvedNames: UnresolvedName[],
 ) {

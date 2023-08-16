@@ -477,16 +477,21 @@
                         "elementList": [
                           {
                             "kind": "<attribute>",
-                            "name": [
-                              {
-                                "kind": "<identifier>",
-                                "offset": 79,
-                                "value": "default",
-                                "length": 7,
-                                "leadingTrivia": [],
-                                "trailingTrivia": []
-                              }
-                            ],
+                            "name": {
+                              "kind": "<identifer-stream>",
+                              "identifiers": [
+                                {
+                                  "kind": "<identifier>",
+                                  "offset": 79,
+                                  "value": "default",
+                                  "length": 7,
+                                  "leadingTrivia": [],
+                                  "trailingTrivia": []
+                                }
+                              ],
+                              "start": 79,
+                              "end": 86
+                            },
                             "value": {
                               "kind": "<infix-expression>",
                               "start": 88,

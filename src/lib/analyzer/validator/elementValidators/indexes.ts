@@ -105,7 +105,7 @@ export function registerIndexForResolution(
     }));
 }
 
-export function isValidIndexesType(value?: SyntaxNode | SyntaxToken[]): boolean {
+export function isValidIndexesType(value?: SyntaxNode): boolean {
   if (!(value instanceof PrimaryExpressionNode) || !(value.expression instanceof VariableNode)) {
     return false;
   }

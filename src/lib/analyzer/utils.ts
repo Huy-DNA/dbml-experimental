@@ -2,6 +2,7 @@ import { isAccessExpression, isExpressionAVariableNode, isExpressionAQuotedStrin
 import { None, Option, Some } from '../option';
 import {
   FunctionExpressionNode,
+  IdentiferStreamNode,
   InfixExpressionNode,
   LiteralNode,
   PrimaryExpressionNode,
@@ -93,8 +94,8 @@ export function extractVarNameFromPrimaryVariable(
   return node.expression.variable.value;
 }
 
-export function joinTokenStrings(tokens: SyntaxToken[]): string {
-  return tokens.map((token) => token.value).join(' ');
+export function extractStringFromIdentifierStream(stream: IdentiferStreamNode): string {
+  return stream.identifiers.map((identifier) => identifier.value).join(' ');
 }
 
 export function extractQuotedStringToken(value?: SyntaxNode): string | undefined {
@@ -114,7 +115,7 @@ export function extractQuotedStringToken(value?: SyntaxNode): string | undefined
   return undefined; // unreachable
 }
 
-export function isBinaryRelationship(value?: SyntaxNode | SyntaxToken[]): boolean {
+export function isBinaryRelationship(value?: SyntaxNode): boolean {
   if (!(value instanceof InfixExpressionNode)) {
     return false;
   }

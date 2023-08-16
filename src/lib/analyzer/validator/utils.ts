@@ -114,7 +114,7 @@ export function isRelationshipOp(op: string): boolean {
   return op === '-' || op === '<>' || op === '>' || op === '<';
 }
 
-export function isValidColor(value?: SyntaxNode | SyntaxToken[]): boolean {
+export function isValidColor(value?: SyntaxNode): boolean {
   if (
     !(value instanceof PrimaryExpressionNode) ||
     !(value.expression instanceof LiteralNode) ||
@@ -144,7 +144,7 @@ export function isValidColor(value?: SyntaxNode | SyntaxToken[]): boolean {
 }
 
 // Is the value non-existent
-export function isVoid(value?: SyntaxNode | SyntaxToken[]): boolean {
+export function isVoid(value?: SyntaxNode): boolean {
   return (
     value === undefined ||
     (!Array.isArray(value) && value.end === -1 && value.start === -1) ||
@@ -154,7 +154,7 @@ export function isVoid(value?: SyntaxNode | SyntaxToken[]): boolean {
 
 // Is the `value` a valid value for a column's `default` setting
 // It's a valid only if it's a literal or a complex variable (potentially an enum member)
-export function isValidDefaultValue(value?: SyntaxNode | SyntaxToken[]): boolean {
+export function isValidDefaultValue(value?: SyntaxNode): boolean {
   if (value instanceof PrimaryExpressionNode && value.expression instanceof LiteralNode) {
     return true;
   }
@@ -168,7 +168,7 @@ export function isValidDefaultValue(value?: SyntaxNode | SyntaxToken[]): boolean
   return variables !== undefined && variables.length > 0;
 }
 
-export function isUnaryRelationship(value?: SyntaxNode | SyntaxToken[]): boolean {
+export function isUnaryRelationship(value?: SyntaxNode): boolean {
   if (!(value instanceof PrefixExpressionNode)) {
     return false;
   }
