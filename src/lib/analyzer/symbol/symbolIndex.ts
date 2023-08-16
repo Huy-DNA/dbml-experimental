@@ -1,3 +1,4 @@
+// Used to index a symbol table to obtain a symbol
 export type NodeSymbolId = string;
 
 export function createSchemaSymbolId(key: string): NodeSymbolId {
