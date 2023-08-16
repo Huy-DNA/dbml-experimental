@@ -486,9 +486,7 @@
     {
       "code": 3003,
       "diagnostic": "This Table has a duplicated name",
-      "start": 34,
-      "end": 39,
-      "node": {
+      "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 34,
         "end": 39,
@@ -520,9 +518,7 @@
     {
       "code": 3003,
       "diagnostic": "This Table has a duplicated name",
-      "start": 74,
-      "end": 76,
-      "node": {
+      "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 74,
         "end": 76,

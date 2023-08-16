@@ -760,9 +760,7 @@
     {
       "code": 1010,
       "diagnostic": "Expect a non-empty attribute name",
-      "start": 120,
-      "end": 121,
-      "token": {
+      "nodeOrToken": {
         "kind": "<colon>",
         "offset": 120,
         "value": ":",

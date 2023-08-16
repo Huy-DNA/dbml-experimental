@@ -280,9 +280,7 @@
     {
       "code": 3027,
       "diagnostic": "Enum subfield's name is duplicated",
-      "start": 30,
-      "end": 35,
-      "node": {
+      "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 30,
         "end": 35,
@@ -347,9 +345,7 @@
     {
       "code": 3027,
       "diagnostic": "Enum subfield's name is duplicated",
-      "start": 41,
-      "end": 46,
-      "node": {
+      "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 41,
         "end": 46,

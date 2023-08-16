@@ -615,9 +615,7 @@
     {
       "code": 3039,
       "diagnostic": "A Note has already been defined in this scope",
-      "start": 55,
-      "end": 59,
-      "token": {
+      "nodeOrToken": {
         "kind": "<identifier>",
         "offset": 55,
         "value": "Note",
@@ -672,9 +670,7 @@
     {
       "code": 3037,
       "diagnostic": "Note can not appear here",
-      "start": 113,
-      "end": 117,
-      "token": {
+      "nodeOrToken": {
         "kind": "<identifier>",
         "offset": 113,
         "value": "Note",
@@ -705,9 +701,7 @@
     {
       "code": 3037,
       "diagnostic": "Note can not appear here",
-      "start": 155,
-      "end": 159,
-      "token": {
+      "nodeOrToken": {
         "kind": "<identifier>",
         "offset": 155,
         "value": "Note",
@@ -729,9 +723,7 @@
     {
       "code": 3039,
       "diagnostic": "A Note has already been defined in this scope",
-      "start": 155,
-      "end": 159,
-      "token": {
+      "nodeOrToken": {
         "kind": "<identifier>",
         "offset": 155,
         "value": "Note",

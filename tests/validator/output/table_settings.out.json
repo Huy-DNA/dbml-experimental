@@ -2046,9 +2046,7 @@
     {
       "code": 3012,
       "diagnostic": "Duplicate setting",
-      "start": 73,
-      "end": 105,
-      "node": {
+      "nodeOrToken": {
         "kind": "<attribute>",
         "name": [
           {
@@ -2145,9 +2143,7 @@
     {
       "code": 3022,
       "diagnostic": "Duplicate setting",
-      "start": 253,
-      "end": 281,
-      "node": {
+      "nodeOrToken": {
         "kind": "<attribute>",
         "name": [
           {

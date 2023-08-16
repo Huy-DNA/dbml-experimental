@@ -652,24 +652,6 @@ export default abstract class ElementValidator {
        Error message: ${message}`);
     }
     // eslint-disable-next-line no-unused-expressions
-    this.errors.push(
-      nodeOrToken instanceof SyntaxToken ?
-        new CompileError(
-            code,
-            message,
-            nodeOrToken.offset,
-            nodeOrToken.offset + nodeOrToken.length,
-            nodeOrToken,
-            undefined,
-          ) :
-        new CompileError(
-            code,
-            message,
-            nodeOrToken.start,
-            nodeOrToken.end,
-            undefined,
-            nodeOrToken,
-          ),
-    );
+    this.errors.push(new CompileError(code, message, nodeOrToken));
   }
 }

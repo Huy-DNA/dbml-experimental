@@ -382,9 +382,7 @@
     {
       "code": 3021,
       "diagnostic": "Table subfield's name is duplicated",
-      "start": 35,
-      "end": 37,
-      "node": {
+      "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 35,
         "end": 37,
@@ -449,9 +447,7 @@
     {
       "code": 3021,
       "diagnostic": "Table subfield's name is duplicated",
-      "start": 51,
-      "end": 53,
-      "node": {
+      "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 51,
         "end": 53,

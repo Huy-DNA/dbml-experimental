@@ -278,9 +278,7 @@
     {
       "code": 3003,
       "diagnostic": "This Enum has a duplicated name",
-      "start": 27,
-      "end": 40,
-      "node": {
+      "nodeOrToken": {
         "kind": "<infix-expression>",
         "start": 27,
         "end": 40,

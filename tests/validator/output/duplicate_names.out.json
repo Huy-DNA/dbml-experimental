@@ -926,9 +926,7 @@
     {
       "code": 3003,
       "diagnostic": "This Table has a duplicated name",
-      "start": 42,
-      "end": 47,
-      "node": {
+      "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 42,
         "end": 47,
@@ -960,9 +958,7 @@
     {
       "code": 3003,
       "diagnostic": "This TableGroup has a duplicated name",
-      "start": 114,
-      "end": 119,
-      "node": {
+      "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 114,
         "end": 119,
@@ -994,9 +990,7 @@
     {
       "code": 3003,
       "diagnostic": "This Enum has a duplicated name",
-      "start": 160,
-      "end": 165,
-      "node": {
+      "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 160,
         "end": 165,

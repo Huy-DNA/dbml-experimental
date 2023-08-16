@@ -511,9 +511,7 @@
     {
       "code": 3002,
       "diagnostic": "Enum must have a name",
-      "start": 21,
-      "end": 25,
-      "token": {
+      "nodeOrToken": {
         "kind": "<identifier>",
         "offset": 21,
         "value": "enum",
@@ -544,9 +542,7 @@
     {
       "code": 3027,
       "diagnostic": "Enum subfield's name is duplicated",
-      "start": 42,
-      "end": 45,
-      "node": {
+      "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 42,
         "end": 45,
@@ -611,9 +607,7 @@
     {
       "code": 3025,
       "diagnostic": "Invalid field value",
-      "start": 51,
-      "end": 52,
-      "node": {
+      "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 51,
         "end": 52,

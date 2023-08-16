@@ -327,9 +327,7 @@
     {
       "code": 4000,
       "diagnostic": "There's no Table \"Products\" in Schema \"public\"",
-      "start": 57,
-      "end": 65,
-      "node": {
+      "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 57,
         "end": 65,
