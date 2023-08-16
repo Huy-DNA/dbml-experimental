@@ -739,8 +739,8 @@ export default class Parser {
       } catch (e) {
         if (
           e instanceof CompileError &&
-          e.value instanceof SyntaxToken &&
-          ignoredInvalidTokenKinds.includes(e.value.kind)
+          e.token &&
+          ignoredInvalidTokenKinds.includes(e.token.kind)
         ) {
           synchronizeCallback();
         } else {
@@ -779,8 +779,16 @@ export default class Parser {
             tokenOrNode.offset,
             tokenOrNode.offset + tokenOrNode.length,
             tokenOrNode,
+            undefined,
           ) :
-        new CompileError(code, message, tokenOrNode.start, tokenOrNode.end, tokenOrNode);
+        new CompileError(
+            code,
+            message,
+            tokenOrNode.start,
+            tokenOrNode.end,
+            undefined,
+            tokenOrNode,
+          );
     this.errors.push(e);
   }
 
@@ -800,8 +808,16 @@ export default class Parser {
             tokenOrNode.offset,
             tokenOrNode.offset + tokenOrNode.length,
             tokenOrNode,
+            undefined,
           ) :
-        new CompileError(code, message, tokenOrNode.start, tokenOrNode.end, tokenOrNode);
+        new CompileError(
+            code,
+            message,
+            tokenOrNode.start,
+            tokenOrNode.end,
+            undefined,
+            tokenOrNode,
+          );
     this.errors.push(e);
     throw e;
   }

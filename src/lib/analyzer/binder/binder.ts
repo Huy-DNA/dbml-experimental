@@ -108,7 +108,14 @@ export default class Binder {
 
   protected logError(node: SyntaxNode, message: string) {
     this.errors.push(
-      new CompileError(CompileErrorCode.BINDING_ERROR, message, node.start, node.end, node),
+      new CompileError(
+        CompileErrorCode.BINDING_ERROR,
+        message,
+        node.start,
+        node.end,
+        undefined,
+        node,
+      ),
     );
   }
 }

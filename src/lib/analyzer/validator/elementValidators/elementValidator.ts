@@ -659,8 +659,17 @@ export default abstract class ElementValidator {
             message,
             nodeOrToken.offset,
             nodeOrToken.offset + nodeOrToken.length,
+            nodeOrToken,
+            undefined,
           ) :
-        new CompileError(code, message, nodeOrToken.start, nodeOrToken.end, nodeOrToken),
+        new CompileError(
+            code,
+            message,
+            nodeOrToken.start,
+            nodeOrToken.end,
+            undefined,
+            nodeOrToken,
+          ),
     );
   }
 }

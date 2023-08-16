@@ -329,7 +329,7 @@
       "diagnostic": "There's no Table \"Products\" in Schema \"public\"",
       "start": 57,
       "end": 65,
-      "value": {
+      "node": {
         "kind": "<primary-expression>",
         "start": 57,
         "end": 65,

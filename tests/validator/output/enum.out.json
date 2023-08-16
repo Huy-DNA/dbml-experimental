@@ -513,6 +513,32 @@
       "diagnostic": "Enum must have a name",
       "start": 21,
       "end": 25,
+      "token": {
+        "kind": "<identifier>",
+        "offset": 21,
+        "value": "enum",
+        "length": 4,
+        "leadingTrivia": [
+          {
+            "kind": "<newline>",
+            "offset": 20,
+            "value": "\n",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          }
+        ],
+        "trailingTrivia": [
+          {
+            "kind": "<space>",
+            "offset": 25,
+            "value": " ",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          }
+        ]
+      },
       "name": "CompileError"
     },
     {
@@ -520,7 +546,7 @@
       "diagnostic": "Enum subfield's name is duplicated",
       "start": 42,
       "end": 45,
-      "value": {
+      "node": {
         "kind": "<primary-expression>",
         "start": 42,
         "end": 45,
@@ -587,7 +613,7 @@
       "diagnostic": "Invalid field value",
       "start": 51,
       "end": 52,
-      "value": {
+      "node": {
         "kind": "<primary-expression>",
         "start": 51,
         "end": 52,

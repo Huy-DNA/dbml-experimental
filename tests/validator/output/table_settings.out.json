@@ -2048,7 +2048,7 @@
       "diagnostic": "Duplicate setting",
       "start": 73,
       "end": 105,
-      "value": {
+      "node": {
         "kind": "<attribute>",
         "name": [
           {
@@ -2147,7 +2147,7 @@
       "diagnostic": "Duplicate setting",
       "start": 253,
       "end": 281,
-      "value": {
+      "node": {
         "kind": "<attribute>",
         "name": [
           {

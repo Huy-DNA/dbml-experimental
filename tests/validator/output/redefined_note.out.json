@@ -617,6 +617,56 @@
       "diagnostic": "A Note has already been defined in this scope",
       "start": 55,
       "end": 59,
+      "token": {
+        "kind": "<identifier>",
+        "offset": 55,
+        "value": "Note",
+        "length": 4,
+        "leadingTrivia": [
+          {
+            "kind": "<space>",
+            "offset": 51,
+            "value": " ",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          },
+          {
+            "kind": "<space>",
+            "offset": 52,
+            "value": " ",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          },
+          {
+            "kind": "<space>",
+            "offset": 53,
+            "value": " ",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          },
+          {
+            "kind": "<space>",
+            "offset": 54,
+            "value": " ",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          }
+        ],
+        "trailingTrivia": [
+          {
+            "kind": "<space>",
+            "offset": 59,
+            "value": " ",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          }
+        ]
+      },
       "name": "CompileError"
     },
     {
@@ -624,6 +674,32 @@
       "diagnostic": "Note can not appear here",
       "start": 113,
       "end": 117,
+      "token": {
+        "kind": "<identifier>",
+        "offset": 113,
+        "value": "Note",
+        "length": 4,
+        "leadingTrivia": [
+          {
+            "kind": "<newline>",
+            "offset": 112,
+            "value": "\n",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          }
+        ],
+        "trailingTrivia": [
+          {
+            "kind": "<space>",
+            "offset": 117,
+            "value": " ",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          }
+        ]
+      },
       "name": "CompileError"
     },
     {
@@ -631,6 +707,23 @@
       "diagnostic": "Note can not appear here",
       "start": 155,
       "end": 159,
+      "token": {
+        "kind": "<identifier>",
+        "offset": 155,
+        "value": "Note",
+        "length": 4,
+        "leadingTrivia": [
+          {
+            "kind": "<newline>",
+            "offset": 154,
+            "value": "\n",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          }
+        ],
+        "trailingTrivia": []
+      },
       "name": "CompileError"
     },
     {
@@ -638,6 +731,23 @@
       "diagnostic": "A Note has already been defined in this scope",
       "start": 155,
       "end": 159,
+      "token": {
+        "kind": "<identifier>",
+        "offset": 155,
+        "value": "Note",
+        "length": 4,
+        "leadingTrivia": [
+          {
+            "kind": "<newline>",
+            "offset": 154,
+            "value": "\n",
+            "length": 1,
+            "leadingTrivia": [],
+            "trailingTrivia": []
+          }
+        ],
+        "trailingTrivia": []
+      },
       "name": "CompileError"
     }
   ]

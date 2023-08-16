@@ -249,7 +249,7 @@
       "diagnostic": "This Table has a duplicated name",
       "start": 25,
       "end": 27,
-      "value": {
+      "node": {
         "kind": "<primary-expression>",
         "start": 25,
         "end": 27,

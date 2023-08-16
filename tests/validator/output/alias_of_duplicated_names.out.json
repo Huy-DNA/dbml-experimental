@@ -488,7 +488,7 @@
       "diagnostic": "This Table has a duplicated name",
       "start": 34,
       "end": 39,
-      "value": {
+      "node": {
         "kind": "<primary-expression>",
         "start": 34,
         "end": 39,
@@ -522,7 +522,7 @@
       "diagnostic": "This Table has a duplicated name",
       "start": 74,
       "end": 76,
-      "value": {
+      "node": {
         "kind": "<primary-expression>",
         "start": 74,
         "end": 76,

@@ -928,7 +928,7 @@
       "diagnostic": "This Table has a duplicated name",
       "start": 42,
       "end": 47,
-      "value": {
+      "node": {
         "kind": "<primary-expression>",
         "start": 42,
         "end": 47,
@@ -962,7 +962,7 @@
       "diagnostic": "This TableGroup has a duplicated name",
       "start": 114,
       "end": 119,
-      "value": {
+      "node": {
         "kind": "<primary-expression>",
         "start": 114,
         "end": 119,
@@ -996,7 +996,7 @@
       "diagnostic": "This Enum has a duplicated name",
       "start": 160,
       "end": 165,
-      "value": {
+      "node": {
         "kind": "<primary-expression>",
         "start": 160,
         "end": 165,

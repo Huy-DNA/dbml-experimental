@@ -1695,7 +1695,7 @@
       "diagnostic": "There's no Enum field \"churnn\" in Enum \"public.status\"",
       "start": 117,
       "end": 137,
-      "value": {
+      "node": {
         "kind": "<infix-expression>",
         "start": 117,
         "end": 137,
@@ -1782,7 +1782,7 @@
       "diagnostic": "There's no Enum \"statuss\" in Schema \"public\"",
       "start": 152,
       "end": 166,
-      "value": {
+      "node": {
         "kind": "<infix-expression>",
         "start": 152,
         "end": 166,
@@ -1847,7 +1847,7 @@
       "diagnostic": "There's no Enum \"statuss\" in Schema \"v2\"",
       "start": 180,
       "end": 190,
-      "value": {
+      "node": {
         "kind": "<infix-expression>",
         "start": 180,
         "end": 190,

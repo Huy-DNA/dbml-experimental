@@ -280,7 +280,7 @@
       "diagnostic": "This Enum has a duplicated name",
       "start": 27,
       "end": 40,
-      "value": {
+      "node": {
         "kind": "<infix-expression>",
         "start": 27,
         "end": 40,
