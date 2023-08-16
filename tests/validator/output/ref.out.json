@@ -43,7 +43,7 @@
             }
           }
         },
-        "bodyOpenColon": {
+        "bodyColon": {
           "kind": "<colon>",
           "offset": 5,
           "value": ":",

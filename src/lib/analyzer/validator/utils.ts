@@ -74,15 +74,15 @@ export function isValidSettingList(
 // Does the element has complex body
 export function hasComplexBody(
   node: ElementDeclarationNode,
-): node is ElementDeclarationNode & { body: BlockExpressionNode; bodyOpenColon: undefined } {
-  return node.body instanceof BlockExpressionNode && !node.bodyOpenColon;
+): node is ElementDeclarationNode & { body: BlockExpressionNode; bodyColon: undefined } {
+  return node.body instanceof BlockExpressionNode && !node.bodyColon;
 }
 
 // Does the element has simple body
 export function hasSimpleBody(
   node: ElementDeclarationNode,
-): node is ElementDeclarationNode & { bodyOpenColon: SyntaxToken } {
-  return !!node.bodyOpenColon;
+): node is ElementDeclarationNode & { bodyColon: SyntaxToken } {
+  return !!node.bodyColon;
 }
 
 // Register the `variables` array as a stack of schema, the following nested within the former
