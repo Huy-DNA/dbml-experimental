@@ -326,7 +326,7 @@
   "errors": [
     {
       "code": 4000,
-      "diagnostic": "There's no Table \"Products\" in Schema \"public\"",
+      "diagnostic": "Schema 'public' does not have Table 'Products'",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "start": 57,

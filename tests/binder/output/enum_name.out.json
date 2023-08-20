@@ -1702,7 +1702,7 @@
   "errors": [
     {
       "code": 4000,
-      "diagnostic": "There's no Enum field \"churnn\" in Enum \"public.status\"",
+      "diagnostic": "Enum 'status' does not have Enum field 'churnn'",
       "nodeOrToken": {
         "kind": "<infix-expression>",
         "start": 117,
@@ -1787,7 +1787,7 @@
     },
     {
       "code": 4000,
-      "diagnostic": "There's no Enum \"statuss\" in Schema \"public\"",
+      "diagnostic": "Schema 'public' does not have Enum 'statuss'",
       "nodeOrToken": {
         "kind": "<infix-expression>",
         "start": 152,
@@ -1850,7 +1850,7 @@
     },
     {
       "code": 4000,
-      "diagnostic": "There's no Enum \"statuss\" in Schema \"v2\"",
+      "diagnostic": "Schema 'v2' does not have Enum 'statuss'",
       "nodeOrToken": {
         "kind": "<infix-expression>",
         "start": 180,
