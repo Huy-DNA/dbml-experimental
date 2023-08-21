@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 18,
     "start": 0,
     "end": 67,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 17,
         "start": 0,
         "end": 67,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 1,
           "start": 5,
           "end": 19,
           "expression": {
             "kind": "<variable>",
+            "id": 0,
             "start": 5,
             "end": 19,
             "variable": {
@@ -54,6 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 16,
           "start": 20,
           "end": 67,
           "blockOpenBrace": {
@@ -244,10 +249,12 @@
           "body": [
             {
               "kind": "<call-expression>",
+              "id": 8,
               "start": 49,
               "end": 53,
               "callee": {
                 "kind": "<prefix-expression>",
+                "id": 6,
                 "start": 49,
                 "end": 51,
                 "op": {
@@ -293,10 +300,12 @@
                 },
                 "expression": {
                   "kind": "<primary-expression>",
+                  "id": 5,
                   "start": 50,
                   "end": 51,
                   "expression": {
                     "kind": "<literal>",
+                    "id": 4,
                     "start": 50,
                     "end": 51,
                     "literal": {
@@ -312,6 +321,7 @@
               },
               "argumentList": {
                 "kind": "<tuple-expression>",
+                "id": 7,
                 "start": 51,
                 "end": 53,
                 "tupleOpenParen": {
@@ -345,10 +355,12 @@
             },
             {
               "kind": "<call-expression>",
+              "id": 15,
               "start": 59,
               "end": 64,
               "callee": {
                 "kind": "<infix-expression>",
+                "id": 13,
                 "start": 59,
                 "end": 62,
                 "op": {
@@ -361,10 +373,12 @@
                 },
                 "leftExpression": {
                   "kind": "<primary-expression>",
+                  "id": 10,
                   "start": 59,
                   "end": 60,
                   "expression": {
                     "kind": "<variable>",
+                    "id": 9,
                     "start": 59,
                     "end": 60,
                     "variable": {
@@ -412,10 +426,12 @@
                 },
                 "rightExpression": {
                   "kind": "<primary-expression>",
+                  "id": 12,
                   "start": 61,
                   "end": 62,
                   "expression": {
                     "kind": "<variable>",
+                    "id": 11,
                     "start": 61,
                     "end": 62,
                     "variable": {
@@ -431,6 +447,7 @@
               },
               "argumentList": {
                 "kind": "<tuple-expression>",
+                "id": 14,
                 "start": 62,
                 "end": 64,
                 "tupleOpenParen": {

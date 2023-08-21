@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 39,
     "start": 0,
     "end": 148,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 20,
         "start": 0,
         "end": 12,
         "type": {
@@ -27,6 +29,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 19,
           "start": 6,
           "end": 12,
           "blockOpenBrace": {
@@ -77,6 +80,7 @@
       },
       {
         "kind": "<element-declaration>",
+        "id": 24,
         "start": 16,
         "end": 39,
         "type": {
@@ -107,10 +111,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 22,
           "start": 27,
           "end": 32,
           "expression": {
             "kind": "<variable>",
+            "id": 21,
             "start": 27,
             "end": 32,
             "variable": {
@@ -134,6 +140,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 23,
           "start": 33,
           "end": 39,
           "blockOpenBrace": {
@@ -184,6 +191,7 @@
       },
       {
         "kind": "<element-declaration>",
+        "id": 26,
         "start": 43,
         "end": 53,
         "type": {
@@ -214,6 +222,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 25,
           "start": 47,
           "end": 53,
           "blockOpenBrace": {
@@ -264,6 +273,7 @@
       },
       {
         "kind": "<element-declaration>",
+        "id": 29,
         "start": 57,
         "end": 79,
         "type": {
@@ -302,10 +312,12 @@
         },
         "body": {
           "kind": "<primary-expression>",
+          "id": 28,
           "start": 63,
           "end": 79,
           "expression": {
             "kind": "<literal>",
+            "id": 27,
             "start": 63,
             "end": 79,
             "literal": {
@@ -330,6 +342,7 @@
       },
       {
         "kind": "<element-declaration>",
+        "id": 32,
         "start": 83,
         "end": 117,
         "type": {
@@ -368,10 +381,12 @@
         },
         "body": {
           "kind": "<primary-expression>",
+          "id": 31,
           "start": 89,
           "end": 117,
           "expression": {
             "kind": "<literal>",
+            "id": 30,
             "start": 89,
             "end": 117,
             "literal": {
@@ -396,6 +411,7 @@
       },
       {
         "kind": "<element-declaration>",
+        "id": 38,
         "start": 121,
         "end": 148,
         "type": {
@@ -426,10 +442,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 34,
           "start": 127,
           "end": 132,
           "expression": {
             "kind": "<variable>",
+            "id": 33,
             "start": 127,
             "end": 132,
             "variable": {
@@ -470,10 +488,12 @@
         },
         "alias": {
           "kind": "<primary-expression>",
+          "id": 36,
           "start": 136,
           "end": 137,
           "expression": {
             "kind": "<variable>",
+            "id": 35,
             "start": 136,
             "end": 137,
             "variable": {
@@ -497,6 +517,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 37,
           "start": 138,
           "end": 148,
           "blockOpenBrace": {

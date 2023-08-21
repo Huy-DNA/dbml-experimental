@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 262,
     "start": 0,
     "end": 146,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 261,
         "start": 0,
         "end": 146,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 239,
           "start": 5,
           "end": 19,
           "expression": {
             "kind": "<variable>",
+            "id": 238,
             "start": 5,
             "end": 19,
             "variable": {
@@ -54,6 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 260,
           "start": 20,
           "end": 146,
           "blockOpenBrace": {
@@ -76,14 +81,17 @@
           "body": [
             {
               "kind": "<function-application>",
+              "id": 259,
               "start": 27,
               "end": 143,
               "callee": {
                 "kind": "<primary-expression>",
+                "id": 241,
                 "start": 27,
                 "end": 29,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 240,
                   "start": 27,
                   "end": 29,
                   "variable": {
@@ -141,10 +149,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
+                  "id": 243,
                   "start": 30,
                   "end": 37,
                   "expression": {
                     "kind": "<variable>",
+                    "id": 242,
                     "start": 30,
                     "end": 37,
                     "variable": {
@@ -168,6 +178,7 @@
                 },
                 {
                   "kind": "<list-expression>",
+                  "id": 258,
                   "start": 38,
                   "end": 143,
                   "listOpenBracket": {
@@ -181,8 +192,10 @@
                   "elementList": [
                     {
                       "kind": "<attribute>",
+                      "id": 245,
                       "name": {
                         "kind": "<identifer-stream>",
+                        "id": 244,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
@@ -201,8 +214,10 @@
                     },
                     {
                       "kind": "<attribute>",
+                      "id": 249,
                       "name": {
                         "kind": "<identifer-stream>",
+                        "id": 246,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
@@ -218,10 +233,12 @@
                       },
                       "value": {
                         "kind": "<primary-expression>",
+                        "id": 248,
                         "start": 49,
                         "end": 54,
                         "expression": {
                           "kind": "<literal>",
+                          "id": 247,
                           "start": 49,
                           "end": 54,
                           "literal": {
@@ -256,8 +273,10 @@
                     },
                     {
                       "kind": "<attribute>",
+                      "id": 253,
                       "name": {
                         "kind": "<identifer-stream>",
+                        "id": 250,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
@@ -402,10 +421,12 @@
                       },
                       "value": {
                         "kind": "<primary-expression>",
+                        "id": 252,
                         "start": 80,
                         "end": 87,
                         "expression": {
                           "kind": "<literal>",
+                          "id": 251,
                           "start": 80,
                           "end": 87,
                           "literal": {
@@ -440,8 +461,10 @@
                     },
                     {
                       "kind": "<attribute>",
+                      "id": 255,
                       "name": {
                         "kind": "<identifer-stream>",
+                        "id": 254,
                         "identifiers": [
                           {
                             "kind": "<identifier>",

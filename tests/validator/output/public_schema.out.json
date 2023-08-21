@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 296,
     "start": 0,
     "end": 51,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 288,
         "start": 0,
         "end": 18,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 286,
           "start": 5,
           "end": 11,
           "expression": {
             "kind": "<variable>",
+            "id": 285,
             "start": 5,
             "end": 11,
             "variable": {
@@ -54,6 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 287,
           "start": 12,
           "end": 18,
           "blockOpenBrace": {
@@ -101,17 +106,12 @@
             ]
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": []
-            }
-          }
-        }
+        "parentElement": 296,
+        "symbol": 70
       },
       {
         "kind": "<element-declaration>",
+        "id": 295,
         "start": 22,
         "end": 51,
         "type": {
@@ -142,6 +142,7 @@
         },
         "name": {
           "kind": "<infix-expression>",
+          "id": 293,
           "start": 27,
           "end": 40,
           "op": {
@@ -154,10 +155,12 @@
           },
           "leftExpression": {
             "kind": "<primary-expression>",
+            "id": 290,
             "start": 27,
             "end": 33,
             "expression": {
               "kind": "<variable>",
+              "id": 289,
               "start": 27,
               "end": 33,
               "variable": {
@@ -172,10 +175,12 @@
           },
           "rightExpression": {
             "kind": "<primary-expression>",
+            "id": 292,
             "start": 34,
             "end": 40,
             "expression": {
               "kind": "<variable>",
+              "id": 291,
               "start": 34,
               "end": 40,
               "variable": {
@@ -200,6 +205,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 294,
           "start": 41,
           "end": 51,
           "blockOpenBrace": {
@@ -270,14 +276,8 @@
             "trailingTrivia": []
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": []
-            }
-          }
-        }
+        "parentElement": 296,
+        "symbol": 72
       }
     ],
     "eof": {
@@ -290,23 +290,15 @@
     },
     "symbol": {
       "symbolTable": {
-        "table": {
-          "dataType": "Map",
-          "value": [
-            [
-              "Enum:status",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
-            ]
-          ]
+        "Enum:status": {
+          "references": [],
+          "id": 70,
+          "symbolTable": {},
+          "declaration": 288
         }
-      }
+      },
+      "references": [],
+      "id": 68
     }
   },
   "errors": [
@@ -315,6 +307,7 @@
       "diagnostic": "This Enum has a duplicated name",
       "nodeOrToken": {
         "kind": "<infix-expression>",
+        "id": 293,
         "start": 27,
         "end": 40,
         "op": {
@@ -327,10 +320,12 @@
         },
         "leftExpression": {
           "kind": "<primary-expression>",
+          "id": 290,
           "start": 27,
           "end": 33,
           "expression": {
             "kind": "<variable>",
+            "id": 289,
             "start": 27,
             "end": 33,
             "variable": {
@@ -345,10 +340,12 @@
         },
         "rightExpression": {
           "kind": "<primary-expression>",
+          "id": 292,
           "start": 34,
           "end": 40,
           "expression": {
             "kind": "<variable>",
+            "id": 291,
             "start": 34,
             "end": 40,
             "variable": {

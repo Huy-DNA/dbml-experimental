@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 319,
     "start": 0,
     "end": 202,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 310,
         "start": 0,
         "end": 109,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 298,
           "start": 6,
           "end": 7,
           "expression": {
             "kind": "<variable>",
+            "id": 297,
             "start": 6,
             "end": 7,
             "variable": {
@@ -54,6 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 309,
           "start": 8,
           "end": 109,
           "blockOpenBrace": {
@@ -76,6 +81,7 @@
           "body": [
             {
               "kind": "<element-declaration>",
+              "id": 301,
               "start": 15,
               "end": 49,
               "type": {
@@ -138,10 +144,12 @@
               },
               "body": {
                 "kind": "<primary-expression>",
+                "id": 300,
                 "start": 21,
                 "end": 49,
                 "expression": {
                   "kind": "<literal>",
+                  "id": 299,
                   "start": 21,
                   "end": 49,
                   "literal": {
@@ -162,10 +170,12 @@
                     ]
                   }
                 }
-              }
+              },
+              "parentElement": 310
             },
             {
               "kind": "<element-declaration>",
+              "id": 307,
               "start": 55,
               "end": 106,
               "type": {
@@ -220,6 +230,7 @@
               },
               "body": {
                 "kind": "<block-expression>",
+                "id": 306,
                 "start": 60,
                 "end": 106,
                 "blockOpenBrace": {
@@ -242,10 +253,12 @@
                 "body": [
                   {
                     "kind": "<primary-expression>",
+                    "id": 305,
                     "start": 71,
                     "end": 99,
                     "expression": {
                       "kind": "<literal>",
+                      "id": 304,
                       "start": 71,
                       "end": 99,
                       "literal": {
@@ -383,7 +396,8 @@
                     }
                   ]
                 }
-              }
+              },
+              "parentElement": 310
             }
           ],
           "blockCloseBrace": {
@@ -404,17 +418,12 @@
             ]
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": []
-            }
-          }
-        }
+        "parentElement": 319,
+        "symbol": 75
       },
       {
         "kind": "<element-declaration>",
+        "id": 314,
         "start": 113,
         "end": 151,
         "type": {
@@ -445,6 +454,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 313,
           "start": 118,
           "end": 151,
           "blockOpenBrace": {
@@ -467,10 +477,12 @@
           "body": [
             {
               "kind": "<primary-expression>",
+              "id": 312,
               "start": 125,
               "end": 148,
               "expression": {
                 "kind": "<literal>",
+                "id": 311,
                 "start": 125,
                 "end": 148,
                 "literal": {
@@ -543,10 +555,12 @@
               }
             ]
           }
-        }
+        },
+        "parentElement": 319
       },
       {
         "kind": "<element-declaration>",
+        "id": 318,
         "start": 155,
         "end": 202,
         "type": {
@@ -585,14 +599,17 @@
         },
         "body": {
           "kind": "<function-application>",
+          "id": 317,
           "start": 161,
           "end": 202,
           "callee": {
             "kind": "<primary-expression>",
+            "id": 316,
             "start": 161,
             "end": 202,
             "expression": {
               "kind": "<literal>",
+              "id": 315,
               "start": 161,
               "end": 202,
               "literal": {
@@ -606,7 +623,8 @@
             }
           },
           "args": []
-        }
+        },
+        "parentElement": 319
       }
     ],
     "eof": {
@@ -619,23 +637,15 @@
     },
     "symbol": {
       "symbolTable": {
-        "table": {
-          "dataType": "Map",
-          "value": [
-            [
-              "Table:A",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
-            ]
-          ]
+        "Table:A": {
+          "references": [],
+          "id": 75,
+          "symbolTable": {},
+          "declaration": 310
         }
-      }
+      },
+      "references": [],
+      "id": 73
     }
   },
   "errors": [

@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 342,
     "start": 0,
     "end": 50,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 341,
         "start": 0,
         "end": 50,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 324,
           "start": 4,
           "end": 5,
           "expression": {
             "kind": "<variable>",
+            "id": 323,
             "start": 4,
             "end": 5,
             "variable": {
@@ -62,10 +66,12 @@
         },
         "body": {
           "kind": "<function-application>",
+          "id": 340,
           "start": 7,
           "end": 50,
           "callee": {
             "kind": "<infix-expression>",
+            "id": 335,
             "start": 7,
             "end": 30,
             "op": {
@@ -87,6 +93,7 @@
             },
             "leftExpression": {
               "kind": "<infix-expression>",
+              "id": 329,
               "start": 7,
               "end": 15,
               "op": {
@@ -99,10 +106,12 @@
               },
               "leftExpression": {
                 "kind": "<primary-expression>",
+                "id": 326,
                 "start": 7,
                 "end": 12,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 325,
                   "start": 7,
                   "end": 12,
                   "variable": {
@@ -117,10 +126,12 @@
               },
               "rightExpression": {
                 "kind": "<primary-expression>",
+                "id": 328,
                 "start": 13,
                 "end": 15,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 327,
                   "start": 13,
                   "end": 15,
                   "variable": {
@@ -145,6 +156,7 @@
             },
             "rightExpression": {
               "kind": "<infix-expression>",
+              "id": 334,
               "start": 18,
               "end": 30,
               "op": {
@@ -157,10 +169,12 @@
               },
               "leftExpression": {
                 "kind": "<primary-expression>",
+                "id": 331,
                 "start": 18,
                 "end": 26,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 330,
                   "start": 18,
                   "end": 26,
                   "variable": {
@@ -175,10 +189,12 @@
               },
               "rightExpression": {
                 "kind": "<primary-expression>",
+                "id": 333,
                 "start": 27,
                 "end": 30,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 332,
                   "start": 27,
                   "end": 30,
                   "variable": {
@@ -205,6 +221,7 @@
           "args": [
             {
               "kind": "<list-expression>",
+              "id": 339,
               "start": 31,
               "end": 50,
               "listOpenBracket": {
@@ -218,8 +235,10 @@
               "elementList": [
                 {
                   "kind": "<attribute>",
+                  "id": 338,
                   "name": {
                     "kind": "<identifer-stream>",
+                    "id": 336,
                     "identifiers": [
                       {
                         "kind": "<identifier>",
@@ -235,6 +254,7 @@
                   },
                   "value": {
                     "kind": "<identifer-stream>",
+                    "id": 337,
                     "identifiers": [
                       {
                         "kind": "<identifier>",
@@ -297,7 +317,8 @@
               }
             }
           ]
-        }
+        },
+        "parentElement": 342
       }
     ],
     "eof": {
@@ -309,12 +330,9 @@
       "trailingTrivia": []
     },
     "symbol": {
-      "symbolTable": {
-        "table": {
-          "dataType": "Map",
-          "value": []
-        }
-      }
+      "symbolTable": {},
+      "references": [],
+      "id": 76
     }
   },
   "errors": [
@@ -323,8 +341,10 @@
       "diagnostic": "Invalid value for this setting",
       "nodeOrToken": {
         "kind": "<attribute>",
+        "id": 338,
         "name": {
           "kind": "<identifer-stream>",
+          "id": 336,
           "identifiers": [
             {
               "kind": "<identifier>",
@@ -340,6 +360,7 @@
         },
         "value": {
           "kind": "<identifer-stream>",
+          "id": 337,
           "identifiers": [
             {
               "kind": "<identifier>",

@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 284,
     "start": 0,
     "end": 98,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 283,
         "start": 0,
         "end": 98,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 260,
           "start": 8,
           "end": 9,
           "expression": {
             "kind": "<variable>",
+            "id": 259,
             "start": 8,
             "end": 9,
             "variable": {
@@ -54,6 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 282,
           "start": 10,
           "end": 98,
           "blockOpenBrace": {
@@ -76,6 +81,7 @@
           "body": [
             {
               "kind": "<element-declaration>",
+              "id": 266,
               "start": 17,
               "end": 35,
               "type": {
@@ -130,10 +136,12 @@
               },
               "name": {
                 "kind": "<primary-expression>",
+                "id": 264,
                 "start": 23,
                 "end": 24,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 263,
                   "start": 23,
                   "end": 24,
                   "variable": {
@@ -157,6 +165,7 @@
               },
               "body": {
                 "kind": "<block-expression>",
+                "id": 265,
                 "start": 25,
                 "end": 35,
                 "blockOpenBrace": {
@@ -236,17 +245,12 @@
                   ]
                 }
               },
-              "symbol": {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
+              "parentElement": 283,
+              "symbol": 63
             },
             {
               "kind": "<element-declaration>",
+              "id": 273,
               "start": 43,
               "end": 61,
               "type": {
@@ -309,10 +313,12 @@
               },
               "name": {
                 "kind": "<primary-expression>",
+                "id": 271,
                 "start": 49,
                 "end": 50,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 270,
                   "start": 49,
                   "end": 50,
                   "variable": {
@@ -336,6 +342,7 @@
               },
               "body": {
                 "kind": "<block-expression>",
+                "id": 272,
                 "start": 51,
                 "end": 61,
                 "blockOpenBrace": {
@@ -415,17 +422,12 @@
                   ]
                 }
               },
-              "symbol": {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
+              "parentElement": 283,
+              "symbol": 65
             },
             {
               "kind": "<element-declaration>",
+              "id": 280,
               "start": 69,
               "end": 95,
               "type": {
@@ -488,10 +490,12 @@
               },
               "name": {
                 "kind": "<primary-expression>",
+                "id": 278,
                 "start": 75,
                 "end": 76,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 277,
                   "start": 75,
                   "end": 76,
                   "variable": {
@@ -515,6 +519,7 @@
               },
               "body": {
                 "kind": "<block-expression>",
+                "id": 279,
                 "start": 77,
                 "end": 95,
                 "blockOpenBrace": {
@@ -658,14 +663,8 @@
                   ]
                 }
               },
-              "symbol": {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
+              "parentElement": 283,
+              "symbol": 67
             }
           ],
           "blockCloseBrace": {
@@ -676,7 +675,8 @@
             "leadingTrivia": [],
             "trailingTrivia": []
           }
-        }
+        },
+        "parentElement": 284
       }
     ],
     "eof": {
@@ -689,34 +689,21 @@
     },
     "symbol": {
       "symbolTable": {
-        "table": {
-          "dataType": "Map",
-          "value": [
-            [
-              "Table:A",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
-            ],
-            [
-              "Table:B",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
-            ]
-          ]
+        "Table:A": {
+          "references": [],
+          "id": 63,
+          "symbolTable": {},
+          "declaration": 266
+        },
+        "Table:B": {
+          "references": [],
+          "id": 67,
+          "symbolTable": {},
+          "declaration": 280
         }
-      }
+      },
+      "references": [],
+      "id": 61
     }
   },
   "errors": [
@@ -725,10 +712,12 @@
       "diagnostic": "This Table has a duplicated name",
       "nodeOrToken": {
         "kind": "<primary-expression>",
+        "id": 271,
         "start": 49,
         "end": 50,
         "expression": {
           "kind": "<variable>",
+          "id": 270,
           "start": 49,
           "end": 50,
           "variable": {

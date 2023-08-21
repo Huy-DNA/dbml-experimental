@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 178,
     "start": 0,
     "end": 68,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 169,
         "start": 0,
         "end": 18,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 167,
           "start": 6,
           "end": 11,
           "expression": {
             "kind": "<variable>",
+            "id": 166,
             "start": 6,
             "end": 11,
             "variable": {
@@ -54,6 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 168,
           "start": 12,
           "end": 18,
           "blockOpenBrace": {
@@ -101,17 +106,12 @@
             ]
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": []
-            }
-          }
-        }
+        "parentElement": 178,
+        "symbol": 39
       },
       {
         "kind": "<element-declaration>",
+        "id": 177,
         "start": 22,
         "end": 68,
         "type": {
@@ -142,10 +142,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 171,
           "start": 33,
           "end": 38,
           "expression": {
             "kind": "<variable>",
+            "id": 170,
             "start": 33,
             "end": 38,
             "variable": {
@@ -169,6 +171,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 176,
           "start": 39,
           "end": 68,
           "blockOpenBrace": {
@@ -191,10 +194,12 @@
           "body": [
             {
               "kind": "<primary-expression>",
+              "id": 173,
               "start": 46,
               "end": 51,
               "expression": {
                 "kind": "<variable>",
+                "id": 172,
                 "start": 46,
                 "end": 51,
                 "variable": {
@@ -248,21 +253,16 @@
                   ]
                 }
               },
-              "referee": {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
+              "referee": 39
             },
             {
               "kind": "<primary-expression>",
+              "id": 175,
               "start": 57,
               "end": 65,
               "expression": {
                 "kind": "<variable>",
+                "id": 174,
                 "start": 57,
                 "end": 65,
                 "variable": {
@@ -327,14 +327,8 @@
             "trailingTrivia": []
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": []
-            }
-          }
-        }
+        "parentElement": 178,
+        "symbol": 41
       }
     ],
     "eof": {
@@ -347,34 +341,85 @@
     },
     "symbol": {
       "symbolTable": {
-        "table": {
-          "dataType": "Map",
-          "value": [
-            [
-              "Table:Users",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
+        "Table:Users": {
+          "references": [
+            {
+              "kind": "<primary-expression>",
+              "id": 173,
+              "start": 46,
+              "end": 51,
+              "expression": {
+                "kind": "<variable>",
+                "id": 172,
+                "start": 46,
+                "end": 51,
+                "variable": {
+                  "kind": "<identifier>",
+                  "offset": 46,
+                  "value": "Users",
+                  "length": 5,
+                  "leadingTrivia": [
+                    {
+                      "kind": "<space>",
+                      "offset": 42,
+                      "value": " ",
+                      "length": 1,
+                      "leadingTrivia": [],
+                      "trailingTrivia": []
+                    },
+                    {
+                      "kind": "<space>",
+                      "offset": 43,
+                      "value": " ",
+                      "length": 1,
+                      "leadingTrivia": [],
+                      "trailingTrivia": []
+                    },
+                    {
+                      "kind": "<space>",
+                      "offset": 44,
+                      "value": " ",
+                      "length": 1,
+                      "leadingTrivia": [],
+                      "trailingTrivia": []
+                    },
+                    {
+                      "kind": "<space>",
+                      "offset": 45,
+                      "value": " ",
+                      "length": 1,
+                      "leadingTrivia": [],
+                      "trailingTrivia": []
+                    }
+                  ],
+                  "trailingTrivia": [
+                    {
+                      "kind": "<newline>",
+                      "offset": 52,
+                      "value": "\n",
+                      "length": 1,
+                      "leadingTrivia": [],
+                      "trailingTrivia": []
+                    }
+                  ]
                 }
-              }
-            ],
-            [
-              "TableGroup:Group",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
-            ]
-          ]
+              },
+              "referee": 39
+            }
+          ],
+          "id": 39,
+          "symbolTable": {},
+          "declaration": 169
+        },
+        "TableGroup:Group": {
+          "references": [],
+          "id": 41,
+          "symbolTable": {},
+          "declaration": 177
         }
-      }
+      },
+      "references": [],
+      "id": 37
     }
   },
   "errors": [
@@ -383,10 +428,12 @@
       "diagnostic": "Schema 'public' does not have Table 'Products'",
       "nodeOrToken": {
         "kind": "<primary-expression>",
+        "id": 175,
         "start": 57,
         "end": 65,
         "expression": {
           "kind": "<variable>",
+          "id": 174,
           "start": 57,
           "end": 65,
           "variable": {

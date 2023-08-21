@@ -1,23 +1,46 @@
-import { CompileError } from '../errors';
-import { ProgramNode } from '../parser/nodes';
+import { NodeSymbol } from 'lib/analyzer/symbol/symbols';
+import { ProgramNode, SyntaxNode } from '../parser/nodes';
 import Report from '../report';
+import { CompileError } from '../errors';
 
-export function serialize(report: Report<ProgramNode, CompileError>): string {
+export function serialize(
+  report: Report<ProgramNode, CompileError>,
+  pretty: boolean = false,
+): string {
   return JSON.stringify(
     report,
-    (key, value) => {
-      if (['parentElement', 'declaration', 'references'].includes(key)) {
-        return undefined;
+    function (key: string, value: any) {
+      if (!(this instanceof ProgramNode) && key === 'symbol') {
+        return (value as NodeSymbol)?.id;
       }
-      if (value instanceof Map) {
+
+      if (key === 'symbol') {
         return {
-          dataType: 'Map',
-          value: Array.from(value.entries()),
+          symbolTable: (value as NodeSymbol)?.symbolTable,
+          references: (value as NodeSymbol)?.references.map((ref) => ref.id),
+          id: (value as NodeSymbol)?.id,
+          declaration: (value as NodeSymbol)?.declaration?.id,
         };
+      }
+
+      if (key === 'referee') {
+        return (value as NodeSymbol)?.id;
+      }
+
+      if (key === 'parentElement') {
+        return (value as SyntaxNode)?.id;
+      }
+
+      if (key === 'declaration') {
+        return (value as SyntaxNode)?.id;
+      }
+
+      if (key === 'symbolTable') {
+        return Object.fromEntries((value as any).table);
       }
 
       return value;
     },
-    2,
+    pretty ? 2 : 0,
   );
 }

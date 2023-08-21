@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 164,
     "start": 0,
     "end": 188,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 146,
         "start": 0,
         "end": 115,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 109,
           "start": 6,
           "end": 11,
           "expression": {
             "kind": "<variable>",
+            "id": 108,
             "start": 6,
             "end": 11,
             "variable": {
@@ -54,6 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 145,
           "start": 12,
           "end": 115,
           "blockOpenBrace": {
@@ -76,14 +81,17 @@
           "body": [
             {
               "kind": "<function-application>",
+              "id": 114,
               "start": 16,
               "end": 26,
               "callee": {
                 "kind": "<primary-expression>",
+                "id": 111,
                 "start": 16,
                 "end": 18,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 110,
                   "start": 16,
                   "end": 18,
                   "variable": {
@@ -117,10 +125,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
+                  "id": 113,
                   "start": 19,
                   "end": 26,
                   "expression": {
                     "kind": "<variable>",
+                    "id": 112,
                     "start": 19,
                     "end": 26,
                     "variable": {
@@ -146,14 +156,17 @@
             },
             {
               "kind": "<function-application>",
+              "id": 133,
               "start": 32,
               "end": 73,
               "callee": {
                 "kind": "<primary-expression>",
+                "id": 116,
                 "start": 32,
                 "end": 38,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 115,
                   "start": 32,
                   "end": 38,
                   "variable": {
@@ -211,6 +224,7 @@
               "args": [
                 {
                   "kind": "<infix-expression>",
+                  "id": 121,
                   "start": 39,
                   "end": 48,
                   "op": {
@@ -223,10 +237,12 @@
                   },
                   "leftExpression": {
                     "kind": "<primary-expression>",
+                    "id": 118,
                     "start": 39,
                     "end": 41,
                     "expression": {
                       "kind": "<variable>",
+                      "id": 117,
                       "start": 39,
                       "end": 41,
                       "variable": {
@@ -241,10 +257,12 @@
                   },
                   "rightExpression": {
                     "kind": "<primary-expression>",
+                    "id": 120,
                     "start": 42,
                     "end": 48,
                     "expression": {
                       "kind": "<variable>",
+                      "id": 119,
                       "start": 42,
                       "end": 48,
                       "variable": {
@@ -266,26 +284,11 @@
                       }
                     }
                   },
-                  "referee": {
-                    "symbolTable": {
-                      "table": {
-                        "dataType": "Map",
-                        "value": [
-                          [
-                            "Enum field:churn",
-                            {}
-                          ],
-                          [
-                            "Enum field:new",
-                            {}
-                          ]
-                        ]
-                      }
-                    }
-                  }
+                  "referee": 34
                 },
                 {
                   "kind": "<list-expression>",
+                  "id": 132,
                   "start": 49,
                   "end": 73,
                   "listOpenBracket": {
@@ -299,8 +302,10 @@
                   "elementList": [
                     {
                       "kind": "<attribute>",
+                      "id": 131,
                       "name": {
                         "kind": "<identifer-stream>",
+                        "id": 122,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
@@ -316,6 +321,7 @@
                       },
                       "value": {
                         "kind": "<infix-expression>",
+                        "id": 130,
                         "start": 59,
                         "end": 72,
                         "op": {
@@ -328,6 +334,7 @@
                         },
                         "leftExpression": {
                           "kind": "<infix-expression>",
+                          "id": 127,
                           "start": 59,
                           "end": 68,
                           "op": {
@@ -340,10 +347,12 @@
                           },
                           "leftExpression": {
                             "kind": "<primary-expression>",
+                            "id": 124,
                             "start": 59,
                             "end": 61,
                             "expression": {
                               "kind": "<variable>",
+                              "id": 123,
                               "start": 59,
                               "end": 61,
                               "variable": {
@@ -358,10 +367,12 @@
                           },
                           "rightExpression": {
                             "kind": "<primary-expression>",
+                            "id": 126,
                             "start": 62,
                             "end": 68,
                             "expression": {
                               "kind": "<variable>",
+                              "id": 125,
                               "start": 62,
                               "end": 68,
                               "variable": {
@@ -377,10 +388,12 @@
                         },
                         "rightExpression": {
                           "kind": "<primary-expression>",
+                          "id": 129,
                           "start": 69,
                           "end": 72,
                           "expression": {
                             "kind": "<variable>",
+                            "id": 128,
                             "start": 69,
                             "end": 72,
                             "variable": {
@@ -393,7 +406,7 @@
                             }
                           }
                         },
-                        "referee": {}
+                        "referee": 36
                       },
                       "colon": {
                         "kind": "<colon>",
@@ -439,14 +452,17 @@
             },
             {
               "kind": "<function-application>",
+              "id": 144,
               "start": 85,
               "end": 112,
               "callee": {
                 "kind": "<primary-expression>",
+                "id": 135,
                 "start": 85,
                 "end": 93,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 134,
                   "start": 85,
                   "end": 93,
                   "variable": {
@@ -544,10 +560,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
+                  "id": 137,
                   "start": 94,
                   "end": 101,
                   "expression": {
                     "kind": "<variable>",
+                    "id": 136,
                     "start": 94,
                     "end": 101,
                     "variable": {
@@ -571,6 +589,7 @@
                 },
                 {
                   "kind": "<list-expression>",
+                  "id": 143,
                   "start": 102,
                   "end": 112,
                   "listOpenBracket": {
@@ -584,8 +603,10 @@
                   "elementList": [
                     {
                       "kind": "<attribute>",
+                      "id": 142,
                       "name": {
                         "kind": "<identifer-stream>",
+                        "id": 138,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
@@ -601,6 +622,7 @@
                       },
                       "value": {
                         "kind": "<prefix-expression>",
+                        "id": 141,
                         "start": 108,
                         "end": 111,
                         "op": {
@@ -613,10 +635,12 @@
                         },
                         "expression": {
                           "kind": "<primary-expression>",
+                          "id": 140,
                           "start": 109,
                           "end": 111,
                           "expression": {
                             "kind": "<variable>",
+                            "id": 139,
                             "start": 109,
                             "end": 111,
                             "variable": {
@@ -691,30 +715,12 @@
             ]
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": [
-                [
-                  "Column:id",
-                  {}
-                ],
-                [
-                  "Column:status",
-                  {}
-                ],
-                [
-                  "Column:referrer",
-                  {}
-                ]
-              ]
-            }
-          }
-        }
+        "parentElement": 164,
+        "symbol": 28
       },
       {
         "kind": "<element-declaration>",
+        "id": 163,
         "start": 119,
         "end": 188,
         "type": {
@@ -745,6 +751,7 @@
         },
         "name": {
           "kind": "<infix-expression>",
+          "id": 151,
           "start": 124,
           "end": 133,
           "op": {
@@ -757,10 +764,12 @@
           },
           "leftExpression": {
             "kind": "<primary-expression>",
+            "id": 148,
             "start": 124,
             "end": 126,
             "expression": {
               "kind": "<variable>",
+              "id": 147,
               "start": 124,
               "end": 126,
               "variable": {
@@ -775,10 +784,12 @@
           },
           "rightExpression": {
             "kind": "<primary-expression>",
+            "id": 150,
             "start": 127,
             "end": 133,
             "expression": {
               "kind": "<variable>",
+              "id": 149,
               "start": 127,
               "end": 133,
               "variable": {
@@ -803,6 +814,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 162,
           "start": 134,
           "end": 188,
           "blockOpenBrace": {
@@ -825,10 +837,12 @@
           "body": [
             {
               "kind": "<primary-expression>",
+              "id": 153,
               "start": 138,
               "end": 143,
               "expression": {
                 "kind": "<variable>",
+                "id": 152,
                 "start": 138,
                 "end": 143,
                 "variable": {
@@ -861,14 +875,17 @@
             },
             {
               "kind": "<function-application>",
+              "id": 161,
               "start": 149,
               "end": 185,
               "callee": {
                 "kind": "<primary-expression>",
+                "id": 155,
                 "start": 149,
                 "end": 152,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 154,
                   "start": 149,
                   "end": 152,
                   "variable": {
@@ -926,6 +943,7 @@
               "args": [
                 {
                   "kind": "<list-expression>",
+                  "id": 160,
                   "start": 153,
                   "end": 185,
                   "listOpenBracket": {
@@ -939,8 +957,10 @@
                   "elementList": [
                     {
                       "kind": "<attribute>",
+                      "id": 159,
                       "name": {
                         "kind": "<identifer-stream>",
+                        "id": 156,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
@@ -956,10 +976,12 @@
                       },
                       "value": {
                         "kind": "<primary-expression>",
+                        "id": 158,
                         "start": 160,
                         "end": 184,
                         "expression": {
                           "kind": "<literal>",
+                          "id": 157,
                           "start": 160,
                           "end": 184,
                           "literal": {
@@ -1024,23 +1046,8 @@
             "trailingTrivia": []
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": [
-                [
-                  "Enum field:churn",
-                  {}
-                ],
-                [
-                  "Enum field:new",
-                  {}
-                ]
-              ]
-            }
-          }
-        }
+        "parentElement": 164,
+        "symbol": 34
       }
     ],
     "eof": {
@@ -1053,68 +1060,209 @@
     },
     "symbol": {
       "symbolTable": {
-        "table": {
-          "dataType": "Map",
-          "value": [
-            [
-              "Table:Users",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": [
-                      [
-                        "Column:id",
-                        {}
-                      ],
-                      [
-                        "Column:status",
-                        {}
-                      ],
-                      [
-                        "Column:referrer",
-                        {}
-                      ]
-                    ]
-                  }
+        "Table:Users": {
+          "references": [],
+          "id": 28,
+          "symbolTable": {
+            "Column:id": {
+              "references": [],
+              "id": 29,
+              "declaration": 114
+            },
+            "Column:status": {
+              "references": [],
+              "id": 30,
+              "declaration": 133
+            },
+            "Column:referrer": {
+              "references": [],
+              "id": 31,
+              "declaration": 144
+            }
+          },
+          "declaration": 146
+        },
+        "Schema:v2": {
+          "references": [],
+          "id": 33,
+          "symbolTable": {
+            "Enum:status": {
+              "references": [
+                {
+                  "kind": "<infix-expression>",
+                  "id": 121,
+                  "start": 39,
+                  "end": 48,
+                  "op": {
+                    "kind": "<op>",
+                    "offset": 41,
+                    "value": ".",
+                    "length": 1,
+                    "leadingTrivia": [],
+                    "trailingTrivia": []
+                  },
+                  "leftExpression": {
+                    "kind": "<primary-expression>",
+                    "id": 118,
+                    "start": 39,
+                    "end": 41,
+                    "expression": {
+                      "kind": "<variable>",
+                      "id": 117,
+                      "start": 39,
+                      "end": 41,
+                      "variable": {
+                        "kind": "<identifier>",
+                        "offset": 39,
+                        "value": "v2",
+                        "length": 2,
+                        "leadingTrivia": [],
+                        "trailingTrivia": []
+                      }
+                    }
+                  },
+                  "rightExpression": {
+                    "kind": "<primary-expression>",
+                    "id": 120,
+                    "start": 42,
+                    "end": 48,
+                    "expression": {
+                      "kind": "<variable>",
+                      "id": 119,
+                      "start": 42,
+                      "end": 48,
+                      "variable": {
+                        "kind": "<identifier>",
+                        "offset": 42,
+                        "value": "status",
+                        "length": 6,
+                        "leadingTrivia": [],
+                        "trailingTrivia": [
+                          {
+                            "kind": "<space>",
+                            "offset": 48,
+                            "value": " ",
+                            "length": 1,
+                            "leadingTrivia": [],
+                            "trailingTrivia": []
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "referee": 34
                 }
-              }
-            ],
-            [
-              "Schema:v2",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": [
-                      [
-                        "Enum:status",
-                        {
-                          "symbolTable": {
-                            "table": {
-                              "dataType": "Map",
-                              "value": [
-                                [
-                                  "Enum field:churn",
-                                  {}
-                                ],
-                                [
-                                  "Enum field:new",
-                                  {}
-                                ]
-                              ]
+              ],
+              "id": 34,
+              "symbolTable": {
+                "Enum field:churn": {
+                  "references": [],
+                  "id": 35,
+                  "declaration": 165
+                },
+                "Enum field:new": {
+                  "references": [
+                    {
+                      "kind": "<infix-expression>",
+                      "id": 130,
+                      "start": 59,
+                      "end": 72,
+                      "op": {
+                        "kind": "<op>",
+                        "offset": 68,
+                        "value": ".",
+                        "length": 1,
+                        "leadingTrivia": [],
+                        "trailingTrivia": []
+                      },
+                      "leftExpression": {
+                        "kind": "<infix-expression>",
+                        "id": 127,
+                        "start": 59,
+                        "end": 68,
+                        "op": {
+                          "kind": "<op>",
+                          "offset": 61,
+                          "value": ".",
+                          "length": 1,
+                          "leadingTrivia": [],
+                          "trailingTrivia": []
+                        },
+                        "leftExpression": {
+                          "kind": "<primary-expression>",
+                          "id": 124,
+                          "start": 59,
+                          "end": 61,
+                          "expression": {
+                            "kind": "<variable>",
+                            "id": 123,
+                            "start": 59,
+                            "end": 61,
+                            "variable": {
+                              "kind": "<identifier>",
+                              "offset": 59,
+                              "value": "v2",
+                              "length": 2,
+                              "leadingTrivia": [],
+                              "trailingTrivia": []
+                            }
+                          }
+                        },
+                        "rightExpression": {
+                          "kind": "<primary-expression>",
+                          "id": 126,
+                          "start": 62,
+                          "end": 68,
+                          "expression": {
+                            "kind": "<variable>",
+                            "id": 125,
+                            "start": 62,
+                            "end": 68,
+                            "variable": {
+                              "kind": "<identifier>",
+                              "offset": 62,
+                              "value": "status",
+                              "length": 6,
+                              "leadingTrivia": [],
+                              "trailingTrivia": []
                             }
                           }
                         }
-                      ]
-                    ]
-                  }
+                      },
+                      "rightExpression": {
+                        "kind": "<primary-expression>",
+                        "id": 129,
+                        "start": 69,
+                        "end": 72,
+                        "expression": {
+                          "kind": "<variable>",
+                          "id": 128,
+                          "start": 69,
+                          "end": 72,
+                          "variable": {
+                            "kind": "<identifier>",
+                            "offset": 69,
+                            "value": "new",
+                            "length": 3,
+                            "leadingTrivia": [],
+                            "trailingTrivia": []
+                          }
+                        }
+                      },
+                      "referee": 36
+                    }
+                  ],
+                  "id": 36,
+                  "declaration": 161
                 }
-              }
-            ]
-          ]
+              },
+              "declaration": 163
+            }
+          }
         }
-      }
+      },
+      "references": [],
+      "id": 26
     }
   },
   "errors": []

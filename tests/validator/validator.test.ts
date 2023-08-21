@@ -22,6 +22,7 @@ describe('#validator', () => {
           const analyzer = new Analyzer(ast);
           return analyzer.validate();
         }),
+      true,
     );
     it('should equal snapshot', () =>
       expect(output).toMatchFileSnapshot(path.resolve(__dirname, `./output/${testName}.out.json`)));

@@ -22,6 +22,7 @@ describe('#binder', () => {
           const analyzer = new Analyzer(ast);
           return analyzer.analyze();
         }),
+      true,
     );
     it('should equal snapshot', () =>
       expect(output).toMatchFileSnapshot(path.resolve(__dirname, `./output/${testName}.out.json`)));

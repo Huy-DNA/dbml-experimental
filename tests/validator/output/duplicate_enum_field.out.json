@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 191,
     "start": 0,
     "end": 49,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 190,
         "start": 0,
         "end": 49,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 182,
           "start": 5,
           "end": 11,
           "expression": {
             "kind": "<variable>",
+            "id": 181,
             "start": 5,
             "end": 11,
             "variable": {
@@ -54,6 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 189,
           "start": 12,
           "end": 49,
           "blockOpenBrace": {
@@ -76,10 +81,12 @@
           "body": [
             {
               "kind": "<primary-expression>",
+              "id": 184,
               "start": 19,
               "end": 24,
               "expression": {
                 "kind": "<variable>",
+                "id": 183,
                 "start": 19,
                 "end": 24,
                 "variable": {
@@ -136,10 +143,12 @@
             },
             {
               "kind": "<primary-expression>",
+              "id": 186,
               "start": 30,
               "end": 35,
               "expression": {
                 "kind": "<variable>",
+                "id": 185,
                 "start": 30,
                 "end": 35,
                 "variable": {
@@ -196,10 +205,12 @@
             },
             {
               "kind": "<primary-expression>",
+              "id": 188,
               "start": 41,
               "end": 46,
               "expression": {
                 "kind": "<variable>",
+                "id": 187,
                 "start": 41,
                 "end": 46,
                 "variable": {
@@ -264,19 +275,8 @@
             "trailingTrivia": []
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": [
-                [
-                  "Enum field:churn",
-                  {}
-                ]
-              ]
-            }
-          }
-        }
+        "parentElement": 191,
+        "symbol": 36
       }
     ],
     "eof": {
@@ -289,28 +289,21 @@
     },
     "symbol": {
       "symbolTable": {
-        "table": {
-          "dataType": "Map",
-          "value": [
-            [
-              "Enum:status",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": [
-                      [
-                        "Enum field:churn",
-                        {}
-                      ]
-                    ]
-                  }
-                }
-              }
-            ]
-          ]
+        "Enum:status": {
+          "references": [],
+          "id": 36,
+          "symbolTable": {
+            "Enum field:churn": {
+              "references": [],
+              "id": 37,
+              "declaration": 192
+            }
+          },
+          "declaration": 190
         }
-      }
+      },
+      "references": [],
+      "id": 34
     }
   },
   "errors": [
@@ -319,10 +312,12 @@
       "diagnostic": "Enum subfield's name is duplicated",
       "nodeOrToken": {
         "kind": "<primary-expression>",
+        "id": 186,
         "start": 30,
         "end": 35,
         "expression": {
           "kind": "<variable>",
+          "id": 185,
           "start": 30,
           "end": 35,
           "variable": {
@@ -384,10 +379,12 @@
       "diagnostic": "Enum subfield's name is duplicated",
       "nodeOrToken": {
         "kind": "<primary-expression>",
+        "id": 188,
         "start": 41,
         "end": 46,
         "expression": {
           "kind": "<variable>",
+          "id": 187,
           "start": 41,
           "end": 46,
           "variable": {

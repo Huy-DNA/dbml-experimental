@@ -2,12 +2,20 @@ import { findEnd, last } from '../utils';
 import { SyntaxToken } from '../lexer/tokens';
 import { NodeSymbol } from '../analyzer/symbol/symbols';
 
+export type SyntaxNodeId = number;
+
 export interface SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
   kind: SyntaxNodeKind;
-  start: number;
-  end: number;
+  start: Readonly<number>;
+  end: Readonly<number>;
   symbol?: NodeSymbol;
   referee?: NodeSymbol; // The symbol that this syntax node refers to
+}
+
+let gid = 0;
+function nextId(): number {
+  return gid++;
 }
 
 export enum SyntaxNodeKind {
@@ -36,6 +44,8 @@ export enum SyntaxNodeKind {
 }
 
 export class ProgramNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.PROGRAM = SyntaxNodeKind.PROGRAM;
 
   start: Readonly<number>;
@@ -48,7 +58,11 @@ export class ProgramNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({ body, eof }: { body: ElementDeclarationNode[]; eof: SyntaxToken }) {
+  constructor(
+    { body, eof }: { body: ElementDeclarationNode[]; eof: SyntaxToken },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    this.id = id;
     this.start = 0;
     this.end = eof.offset;
     this.body = body;
@@ -57,6 +71,8 @@ export class ProgramNode implements SyntaxNode {
 }
 
 export class ElementDeclarationNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.ELEMENT_DECLARATION = SyntaxNodeKind.ELEMENT_DECLARATION;
 
   start: Readonly<number>;
@@ -81,23 +97,27 @@ export class ElementDeclarationNode implements SyntaxNode {
 
   parentElement?: ElementDeclarationNode | ProgramNode;
 
-  constructor({
-    type,
-    name,
-    as,
-    alias,
-    attributeList,
-    bodyColon,
-    body,
-  }: {
-    type: SyntaxToken;
-    name?: NormalExpressionNode;
-    as?: SyntaxToken;
-    alias?: NormalExpressionNode;
-    attributeList?: ListExpressionNode;
-    bodyColon?: SyntaxToken;
-    body: BlockExpressionNode | ExpressionNode;
-  }) {
+  constructor(
+    {
+      type,
+      name,
+      as,
+      alias,
+      attributeList,
+      bodyColon,
+      body,
+    }: {
+      type: SyntaxToken;
+      name?: NormalExpressionNode;
+      as?: SyntaxToken;
+      alias?: NormalExpressionNode;
+      attributeList?: ListExpressionNode;
+      bodyColon?: SyntaxToken;
+      body: BlockExpressionNode | ExpressionNode;
+    },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    this.id = id;
     this.start = type.offset;
     this.end = body.end;
     this.type = type;
@@ -111,6 +131,8 @@ export class ElementDeclarationNode implements SyntaxNode {
 }
 
 export class IdentiferStreamNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.IDENTIFIER_STREAM = SyntaxNodeKind.IDENTIFIER_STREAM;
 
   start: Readonly<number>;
@@ -119,7 +141,8 @@ export class IdentiferStreamNode implements SyntaxNode {
 
   identifiers: SyntaxToken[];
 
-  constructor({ identifiers }: { identifiers: SyntaxToken[] }) {
+  constructor({ identifiers }: { identifiers: SyntaxToken[] }, id: SyntaxNodeId = nextId()) {
+    this.id = id;
     if (identifiers.length === 0) {
       throw new Error("An IdentifierStreamNode shouldn't be created with zero tokens");
     }
@@ -128,7 +151,10 @@ export class IdentiferStreamNode implements SyntaxNode {
     this.end = findEnd(last(identifiers)!);
   }
 }
+
 export class AttributeNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.ATTRIBUTE = SyntaxNodeKind.ATTRIBUTE;
 
   start: Readonly<number>;
@@ -143,15 +169,19 @@ export class AttributeNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({
-    name,
-    colon,
-    value,
-  }: {
-    name: IdentiferStreamNode;
-    colon?: SyntaxToken;
-    value?: NormalExpressionNode | IdentiferStreamNode;
-  }) {
+  constructor(
+    {
+      name,
+      colon,
+      value,
+    }: {
+      name: IdentiferStreamNode;
+      colon?: SyntaxToken;
+      value?: NormalExpressionNode | IdentiferStreamNode;
+    },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    this.id = id;
     this.name = name;
     this.value = value;
     this.colon = colon;
@@ -183,6 +213,8 @@ export type ExpressionNode =
   | FunctionApplicationNode;
 
 export class PrefixExpressionNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.PREFIX_EXPRESSION = SyntaxNodeKind.PREFIX_EXPRESSION;
 
   start: Readonly<number>;
@@ -195,7 +227,11 @@ export class PrefixExpressionNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({ op, expression }: { op: SyntaxToken; expression: NormalExpressionNode }) {
+  constructor(
+    { op, expression }: { op: SyntaxToken; expression: NormalExpressionNode },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    this.id = id;
     this.start = op.offset;
     this.end = expression.end;
     this.op = op;
@@ -204,6 +240,8 @@ export class PrefixExpressionNode implements SyntaxNode {
 }
 
 export class InfixExpressionNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.INFIX_EXPRESSION = SyntaxNodeKind.INFIX_EXPRESSION;
 
   start: Readonly<number>;
@@ -218,15 +256,19 @@ export class InfixExpressionNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({
-    op,
-    leftExpression,
-    rightExpression,
-  }: {
-    op: SyntaxToken;
-    leftExpression: NormalExpressionNode;
-    rightExpression: NormalExpressionNode;
-  }) {
+  constructor(
+    {
+      op,
+      leftExpression,
+      rightExpression,
+    }: {
+      op: SyntaxToken;
+      leftExpression: NormalExpressionNode;
+      rightExpression: NormalExpressionNode;
+    },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    this.id = id;
     this.start = leftExpression.start;
     this.end = rightExpression.end;
     this.op = op;
@@ -236,6 +278,8 @@ export class InfixExpressionNode implements SyntaxNode {
 }
 
 export class PostfixExpressionNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.POSTFIX_EXPRESSION = SyntaxNodeKind.POSTFIX_EXPRESSION;
 
   start: Readonly<number>;
@@ -248,7 +292,11 @@ export class PostfixExpressionNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({ op, expression }: { op: SyntaxToken; expression: NormalExpressionNode }) {
+  constructor(
+    { op, expression }: { op: SyntaxToken; expression: NormalExpressionNode },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    this.id = id;
     this.start = expression.start;
     this.end = op.offset + 1;
     this.op = op;
@@ -257,6 +305,8 @@ export class PostfixExpressionNode implements SyntaxNode {
 }
 
 export class FunctionExpressionNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.FUNCTION_EXPRESSION = SyntaxNodeKind.FUNCTION_EXPRESSION;
 
   start: Readonly<number>;
@@ -267,7 +317,8 @@ export class FunctionExpressionNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({ value }: { value: SyntaxToken }) {
+  constructor({ value }: { value: SyntaxToken }, id: SyntaxNodeId = nextId()) {
+    this.id = id;
     this.start = value.offset;
     this.end = value.offset + value.length;
     this.value = value;
@@ -275,6 +326,8 @@ export class FunctionExpressionNode implements SyntaxNode {
 }
 
 export class FunctionApplicationNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.FUNCTION_APPLICATION = SyntaxNodeKind.FUNCTION_APPLICATION;
 
   start: Readonly<number>;
@@ -287,7 +340,11 @@ export class FunctionApplicationNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({ callee, args }: { callee: ExpressionNode; args: ExpressionNode[] }) {
+  constructor(
+    { callee, args }: { callee: ExpressionNode; args: ExpressionNode[] },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    this.id = id;
     this.start = callee.start;
     if (args.length === 0) {
       this.end = callee.end;
@@ -300,6 +357,8 @@ export class FunctionApplicationNode implements SyntaxNode {
 }
 
 export class BlockExpressionNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.BLOCK_EXPRESSION = SyntaxNodeKind.BLOCK_EXPRESSION;
 
   start: Readonly<number>;
@@ -314,15 +373,19 @@ export class BlockExpressionNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({
-    blockOpenBrace,
-    body,
-    blockCloseBrace,
-  }: {
-    blockOpenBrace: SyntaxToken;
-    body: ExpressionNode[];
-    blockCloseBrace: SyntaxToken;
-  }) {
+  constructor(
+    {
+      blockOpenBrace,
+      body,
+      blockCloseBrace,
+    }: {
+      blockOpenBrace: SyntaxToken;
+      body: ExpressionNode[];
+      blockCloseBrace: SyntaxToken;
+    },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    this.id = id;
     this.start = blockOpenBrace.offset;
     this.end = blockCloseBrace.offset + 1;
     this.blockOpenBrace = blockOpenBrace;
@@ -332,6 +395,8 @@ export class BlockExpressionNode implements SyntaxNode {
 }
 
 export class ListExpressionNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.LIST_EXPRESSION = SyntaxNodeKind.LIST_EXPRESSION;
 
   start: Readonly<number>;
@@ -348,17 +413,21 @@ export class ListExpressionNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({
-    listOpenBracket,
-    elementList,
-    commaList,
-    listCloseBracket,
-  }: {
-    listOpenBracket: SyntaxToken;
-    elementList: AttributeNode[];
-    commaList: SyntaxToken[];
-    listCloseBracket: SyntaxToken;
-  }) {
+  constructor(
+    {
+      listOpenBracket,
+      elementList,
+      commaList,
+      listCloseBracket,
+    }: {
+      listOpenBracket: SyntaxToken;
+      elementList: AttributeNode[];
+      commaList: SyntaxToken[];
+      listCloseBracket: SyntaxToken;
+    },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    this.id = id;
     this.start = listOpenBracket.offset;
     this.end = listCloseBracket.offset + 1;
     this.listOpenBracket = listOpenBracket;
@@ -369,6 +438,8 @@ export class ListExpressionNode implements SyntaxNode {
 }
 
 export class TupleExpressionNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.TUPLE_EXPRESSION | SyntaxNodeKind.GROUP_EXPRESSION =
     SyntaxNodeKind.TUPLE_EXPRESSION;
 
@@ -386,17 +457,21 @@ export class TupleExpressionNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({
-    tupleOpenParen,
-    elementList,
-    commaList,
-    tupleCloseParen,
-  }: {
-    tupleOpenParen: SyntaxToken;
-    elementList: NormalExpressionNode[];
-    commaList: SyntaxToken[];
-    tupleCloseParen: SyntaxToken;
-  }) {
+  constructor(
+    {
+      tupleOpenParen,
+      elementList,
+      commaList,
+      tupleCloseParen,
+    }: {
+      tupleOpenParen: SyntaxToken;
+      elementList: NormalExpressionNode[];
+      commaList: SyntaxToken[];
+      tupleCloseParen: SyntaxToken;
+    },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    this.id = id;
     this.start = tupleOpenParen.offset;
     this.end = tupleCloseParen.offset + 1;
     this.tupleOpenParen = tupleOpenParen;
@@ -411,25 +486,33 @@ export class GroupExpressionNode extends TupleExpressionNode {
 
   symbol?: NodeSymbol;
 
-  constructor({
-    groupOpenParen,
-    expression,
-    groupCloseParen,
-  }: {
-    groupOpenParen: SyntaxToken;
-    expression: NormalExpressionNode;
-    groupCloseParen: SyntaxToken;
-  }) {
-    super({
-      tupleOpenParen: groupOpenParen,
-      elementList: [expression],
-      commaList: [],
-      tupleCloseParen: groupCloseParen,
-    });
+  constructor(
+    {
+      groupOpenParen,
+      expression,
+      groupCloseParen,
+    }: {
+      groupOpenParen: SyntaxToken;
+      expression: NormalExpressionNode;
+      groupCloseParen: SyntaxToken;
+    },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    super(
+      {
+        tupleOpenParen: groupOpenParen,
+        elementList: [expression],
+        commaList: [],
+        tupleCloseParen: groupCloseParen,
+      },
+      id,
+    );
   }
 }
 
 export class CallExpressionNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.CALL_EXPRESSION = SyntaxNodeKind.CALL_EXPRESSION;
 
   start: Readonly<number>;
@@ -442,13 +525,17 @@ export class CallExpressionNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({
-    callee,
-    argumentList,
-  }: {
-    callee: NormalExpressionNode;
-    argumentList: TupleExpressionNode;
-  }) {
+  constructor(
+    {
+      callee,
+      argumentList,
+    }: {
+      callee: NormalExpressionNode;
+      argumentList: TupleExpressionNode;
+    },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    this.id = id;
     this.start = callee.start;
     this.end = argumentList.end;
     this.callee = callee;
@@ -457,6 +544,8 @@ export class CallExpressionNode implements SyntaxNode {
 }
 
 export class LiteralNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.LITERAL = SyntaxNodeKind.LITERAL;
 
   start: Readonly<number>;
@@ -467,7 +556,8 @@ export class LiteralNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({ literal }: { literal: SyntaxToken }) {
+  constructor({ literal }: { literal: SyntaxToken }, id: SyntaxNodeId = nextId()) {
+    this.id = id;
     this.start = literal.offset;
     this.end = literal.offset + literal.length;
     this.literal = literal;
@@ -475,6 +565,8 @@ export class LiteralNode implements SyntaxNode {
 }
 
 export class VariableNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.VARIABLE = SyntaxNodeKind.VARIABLE;
 
   start: Readonly<number>;
@@ -485,7 +577,8 @@ export class VariableNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({ variable }: { variable: SyntaxToken }) {
+  constructor({ variable }: { variable: SyntaxToken }, id: SyntaxNodeId = nextId()) {
+    this.id = id;
     this.start = variable.offset;
     this.end = variable.offset + variable.length;
     this.variable = variable;
@@ -493,6 +586,8 @@ export class VariableNode implements SyntaxNode {
 }
 
 export class PrimaryExpressionNode implements SyntaxNode {
+  id: Readonly<SyntaxNodeId>;
+
   kind: SyntaxNodeKind.PRIMARY_EXPRESSION = SyntaxNodeKind.PRIMARY_EXPRESSION;
 
   start: Readonly<number>;
@@ -503,7 +598,11 @@ export class PrimaryExpressionNode implements SyntaxNode {
 
   symbol?: NodeSymbol;
 
-  constructor({ expression }: { expression: LiteralNode | VariableNode }) {
+  constructor(
+    { expression }: { expression: LiteralNode | VariableNode },
+    id: SyntaxNodeId = nextId(),
+  ) {
+    this.id = id;
     this.start = expression.start;
     this.end = expression.end;
     this.expression = expression;

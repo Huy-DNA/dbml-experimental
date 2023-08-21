@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 237,
     "start": 0,
     "end": 89,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 236,
         "start": 0,
         "end": 89,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 214,
           "start": 5,
           "end": 24,
           "expression": {
             "kind": "<variable>",
+            "id": 213,
             "start": 5,
             "end": 24,
             "variable": {
@@ -54,6 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 235,
           "start": 25,
           "end": 89,
           "blockOpenBrace": {
@@ -76,14 +81,17 @@
           "body": [
             {
               "kind": "<function-application>",
+              "id": 222,
               "start": 32,
               "end": 56,
               "callee": {
                 "kind": "<primary-expression>",
+                "id": 216,
                 "start": 32,
                 "end": 34,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 215,
                   "start": 32,
                   "end": 34,
                   "variable": {
@@ -141,10 +149,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
+                  "id": 218,
                   "start": 35,
                   "end": 42,
                   "expression": {
                     "kind": "<variable>",
+                    "id": 217,
                     "start": 35,
                     "end": 42,
                     "variable": {
@@ -168,6 +178,7 @@
                 },
                 {
                   "kind": "<list-expression>",
+                  "id": 221,
                   "start": 43,
                   "end": 56,
                   "listOpenBracket": {
@@ -181,8 +192,10 @@
                   "elementList": [
                     {
                       "kind": "<attribute>",
+                      "id": 220,
                       "name": {
                         "kind": "<identifer-stream>",
+                        "id": 219,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
@@ -240,14 +253,17 @@
             },
             {
               "kind": "<function-application>",
+              "id": 234,
               "start": 62,
               "end": 86,
               "callee": {
                 "kind": "<primary-expression>",
+                "id": 224,
                 "start": 62,
                 "end": 66,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 223,
                   "start": 62,
                   "end": 66,
                   "variable": {
@@ -305,14 +321,17 @@
               "args": [
                 {
                   "kind": "<call-expression>",
+                  "id": 230,
                   "start": 67,
                   "end": 77,
                   "callee": {
                     "kind": "<primary-expression>",
+                    "id": 226,
                     "start": 67,
                     "end": 71,
                     "expression": {
                       "kind": "<variable>",
+                      "id": 225,
                       "start": 67,
                       "end": 71,
                       "variable": {
@@ -336,6 +355,7 @@
                   },
                   "argumentList": {
                     "kind": "<group-expression>",
+                    "id": 229,
                     "start": 72,
                     "end": 77,
                     "tupleOpenParen": {
@@ -349,10 +369,12 @@
                     "elementList": [
                       {
                         "kind": "<primary-expression>",
+                        "id": 228,
                         "start": 73,
                         "end": 76,
                         "expression": {
                           "kind": "<literal>",
+                          "id": 227,
                           "start": 73,
                           "end": 76,
                           "literal": {
@@ -388,6 +410,7 @@
                 },
                 {
                   "kind": "<list-expression>",
+                  "id": 233,
                   "start": 78,
                   "end": 86,
                   "listOpenBracket": {
@@ -401,8 +424,10 @@
                   "elementList": [
                     {
                       "kind": "<attribute>",
+                      "id": 232,
                       "name": {
                         "kind": "<identifer-stream>",
+                        "id": 231,
                         "identifiers": [
                           {
                             "kind": "<identifier>",

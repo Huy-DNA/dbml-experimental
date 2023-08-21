@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 8,
     "start": 0,
     "end": 38,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 3,
         "start": 0,
         "end": 15,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 1,
           "start": 6,
           "end": 8,
           "expression": {
             "kind": "<variable>",
+            "id": 0,
             "start": 6,
             "end": 8,
             "variable": {
@@ -54,6 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 2,
           "start": 9,
           "end": 15,
           "blockOpenBrace": {
@@ -101,17 +106,12 @@
             ]
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": []
-            }
-          }
-        }
+        "parentElement": 8,
+        "symbol": 2
       },
       {
         "kind": "<element-declaration>",
+        "id": 7,
         "start": 19,
         "end": 38,
         "type": {
@@ -142,10 +142,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 5,
           "start": 25,
           "end": 27,
           "expression": {
             "kind": "<variable>",
+            "id": 4,
             "start": 25,
             "end": 27,
             "variable": {
@@ -169,6 +171,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 6,
           "start": 28,
           "end": 38,
           "blockOpenBrace": {
@@ -239,14 +242,8 @@
             "trailingTrivia": []
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": []
-            }
-          }
-        }
+        "parentElement": 8,
+        "symbol": 4
       }
     ],
     "eof": {
@@ -259,23 +256,15 @@
     },
     "symbol": {
       "symbolTable": {
-        "table": {
-          "dataType": "Map",
-          "value": [
-            [
-              "Table:AB",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
-            ]
-          ]
+        "Table:AB": {
+          "references": [],
+          "id": 2,
+          "symbolTable": {},
+          "declaration": 3
         }
-      }
+      },
+      "references": [],
+      "id": 0
     }
   },
   "errors": [
@@ -284,10 +273,12 @@
       "diagnostic": "This Table has a duplicated name",
       "nodeOrToken": {
         "kind": "<primary-expression>",
+        "id": 5,
         "start": 25,
         "end": 27,
         "expression": {
           "kind": "<variable>",
+          "id": 4,
           "start": 25,
           "end": 27,
           "variable": {

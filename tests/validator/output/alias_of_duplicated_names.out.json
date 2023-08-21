@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 18,
     "start": 0,
     "end": 87,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 5,
         "start": 0,
         "end": 24,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 1,
           "start": 6,
           "end": 11,
           "expression": {
             "kind": "<variable>",
+            "id": 0,
             "start": 6,
             "end": 11,
             "variable": {
@@ -71,10 +75,12 @@
         },
         "alias": {
           "kind": "<primary-expression>",
+          "id": 3,
           "start": 15,
           "end": 17,
           "expression": {
             "kind": "<variable>",
+            "id": 2,
             "start": 15,
             "end": 17,
             "variable": {
@@ -98,6 +104,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 4,
           "start": 18,
           "end": 24,
           "blockOpenBrace": {
@@ -145,17 +152,12 @@
             ]
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": []
-            }
-          }
-        }
+        "parentElement": 18,
+        "symbol": 2
       },
       {
         "kind": "<element-declaration>",
+        "id": 11,
         "start": 28,
         "end": 52,
         "type": {
@@ -186,10 +188,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 7,
           "start": 34,
           "end": 39,
           "expression": {
             "kind": "<variable>",
+            "id": 6,
             "start": 34,
             "end": 39,
             "variable": {
@@ -230,10 +234,12 @@
         },
         "alias": {
           "kind": "<primary-expression>",
+          "id": 9,
           "start": 43,
           "end": 45,
           "expression": {
             "kind": "<variable>",
+            "id": 8,
             "start": 43,
             "end": 45,
             "variable": {
@@ -257,6 +263,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 10,
           "start": 46,
           "end": 52,
           "blockOpenBrace": {
@@ -304,17 +311,12 @@
             ]
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": []
-            }
-          }
-        }
+        "parentElement": 18,
+        "symbol": 5
       },
       {
         "kind": "<element-declaration>",
+        "id": 17,
         "start": 56,
         "end": 87,
         "type": {
@@ -345,10 +347,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 13,
           "start": 62,
           "end": 70,
           "expression": {
             "kind": "<variable>",
+            "id": 12,
             "start": 62,
             "end": 70,
             "variable": {
@@ -389,10 +393,12 @@
         },
         "alias": {
           "kind": "<primary-expression>",
+          "id": 15,
           "start": 74,
           "end": 76,
           "expression": {
             "kind": "<variable>",
+            "id": 14,
             "start": 74,
             "end": 76,
             "variable": {
@@ -416,6 +422,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 16,
           "start": 77,
           "end": 87,
           "blockOpenBrace": {
@@ -486,14 +493,8 @@
             "trailingTrivia": []
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": []
-            }
-          }
-        }
+        "parentElement": 18,
+        "symbol": 8
       }
     ],
     "eof": {
@@ -506,56 +507,33 @@
     },
     "symbol": {
       "symbolTable": {
-        "table": {
-          "dataType": "Map",
-          "value": [
-            [
-              "Table:Users",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
-            ],
-            [
-              "Table:U1",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
-            ],
-            [
-              "Table:U2",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
-            ],
-            [
-              "Table:Products",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": []
-                  }
-                }
-              }
-            ]
-          ]
+        "Table:Users": {
+          "references": [],
+          "id": 2,
+          "symbolTable": {},
+          "declaration": 5
+        },
+        "Table:U1": {
+          "references": [],
+          "id": 2,
+          "symbolTable": {},
+          "declaration": 5
+        },
+        "Table:U2": {
+          "references": [],
+          "id": 5,
+          "symbolTable": {},
+          "declaration": 11
+        },
+        "Table:Products": {
+          "references": [],
+          "id": 8,
+          "symbolTable": {},
+          "declaration": 17
         }
-      }
+      },
+      "references": [],
+      "id": 0
     }
   },
   "errors": [
@@ -564,10 +542,12 @@
       "diagnostic": "This Table has a duplicated name",
       "nodeOrToken": {
         "kind": "<primary-expression>",
+        "id": 7,
         "start": 34,
         "end": 39,
         "expression": {
           "kind": "<variable>",
+          "id": 6,
           "start": 34,
           "end": 39,
           "variable": {
@@ -596,10 +576,12 @@
       "diagnostic": "This Table has a duplicated name",
       "nodeOrToken": {
         "kind": "<primary-expression>",
+        "id": 15,
         "start": 74,
         "end": 76,
         "expression": {
           "kind": "<variable>",
+          "id": 14,
           "start": 74,
           "end": 76,
           "variable": {

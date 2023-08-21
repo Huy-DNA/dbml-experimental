@@ -1,11 +1,13 @@
 {
   "value": {
     "kind": "<program>",
+    "id": 180,
     "start": 0,
     "end": 64,
     "body": [
       {
         "kind": "<element-declaration>",
+        "id": 179,
         "start": 0,
         "end": 64,
         "type": {
@@ -27,10 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
+          "id": 162,
           "start": 6,
           "end": 11,
           "expression": {
             "kind": "<variable>",
+            "id": 161,
             "start": 6,
             "end": 11,
             "variable": {
@@ -54,6 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
+          "id": 178,
           "start": 12,
           "end": 64,
           "blockOpenBrace": {
@@ -76,14 +81,17 @@
           "body": [
             {
               "kind": "<function-application>",
+              "id": 167,
               "start": 19,
               "end": 29,
               "callee": {
                 "kind": "<primary-expression>",
+                "id": 164,
                 "start": 19,
                 "end": 21,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 163,
                   "start": 19,
                   "end": 21,
                   "variable": {
@@ -141,10 +149,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
+                  "id": 166,
                   "start": 22,
                   "end": 29,
                   "expression": {
                     "kind": "<variable>",
+                    "id": 165,
                     "start": 22,
                     "end": 29,
                     "variable": {
@@ -170,14 +180,17 @@
             },
             {
               "kind": "<function-application>",
+              "id": 172,
               "start": 35,
               "end": 45,
               "callee": {
                 "kind": "<primary-expression>",
+                "id": 169,
                 "start": 35,
                 "end": 37,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 168,
                   "start": 35,
                   "end": 37,
                   "variable": {
@@ -235,10 +248,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
+                  "id": 171,
                   "start": 38,
                   "end": 45,
                   "expression": {
                     "kind": "<variable>",
+                    "id": 170,
                     "start": 38,
                     "end": 45,
                     "variable": {
@@ -264,14 +279,17 @@
             },
             {
               "kind": "<function-application>",
+              "id": 177,
               "start": 51,
               "end": 61,
               "callee": {
                 "kind": "<primary-expression>",
+                "id": 174,
                 "start": 51,
                 "end": 53,
                 "expression": {
                   "kind": "<variable>",
+                  "id": 173,
                   "start": 51,
                   "end": 53,
                   "variable": {
@@ -329,10 +347,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
+                  "id": 176,
                   "start": 54,
                   "end": 61,
                   "expression": {
                     "kind": "<variable>",
+                    "id": 175,
                     "start": 54,
                     "end": 61,
                     "variable": {
@@ -366,19 +386,8 @@
             "trailingTrivia": []
           }
         },
-        "symbol": {
-          "symbolTable": {
-            "table": {
-              "dataType": "Map",
-              "value": [
-                [
-                  "Column:id",
-                  {}
-                ]
-              ]
-            }
-          }
-        }
+        "parentElement": 180,
+        "symbol": 32
       }
     ],
     "eof": {
@@ -391,28 +400,21 @@
     },
     "symbol": {
       "symbolTable": {
-        "table": {
-          "dataType": "Map",
-          "value": [
-            [
-              "Table:Users",
-              {
-                "symbolTable": {
-                  "table": {
-                    "dataType": "Map",
-                    "value": [
-                      [
-                        "Column:id",
-                        {}
-                      ]
-                    ]
-                  }
-                }
-              }
-            ]
-          ]
+        "Table:Users": {
+          "references": [],
+          "id": 32,
+          "symbolTable": {
+            "Column:id": {
+              "references": [],
+              "id": 33,
+              "declaration": 167
+            }
+          },
+          "declaration": 179
         }
-      }
+      },
+      "references": [],
+      "id": 30
     }
   },
   "errors": [
@@ -421,10 +423,12 @@
       "diagnostic": "Table subfield's name is duplicated",
       "nodeOrToken": {
         "kind": "<primary-expression>",
+        "id": 169,
         "start": 35,
         "end": 37,
         "expression": {
           "kind": "<variable>",
+          "id": 168,
           "start": 35,
           "end": 37,
           "variable": {
@@ -486,10 +490,12 @@
       "diagnostic": "Table subfield's name is duplicated",
       "nodeOrToken": {
         "kind": "<primary-expression>",
+        "id": 174,
         "start": 51,
         "end": 53,
         "expression": {
           "kind": "<variable>",
+          "id": 173,
           "start": 51,
           "end": 53,
           "variable": {
