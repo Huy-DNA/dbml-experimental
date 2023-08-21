@@ -665,6 +665,28 @@
                     }
                   ]
                 }
+              },
+              "symbol": {
+                "kind": "Table",
+                "symbolTable": {
+                  "table": {
+                    "dataType": "Map",
+                    "value": [
+                      [
+                        "Column:id",
+                        {
+                          "kind": "Column"
+                        }
+                      ],
+                      [
+                        "Column:status",
+                        {
+                          "kind": "Column"
+                        }
+                      ]
+                    ]
+                  }
+                }
               }
             },
             {
@@ -1228,6 +1250,40 @@
                     }
                   ]
                 }
+              },
+              "symbol": {
+                "kind": "Enum",
+                "symbolTable": {
+                  "table": {
+                    "dataType": "Map",
+                    "value": [
+                      [
+                        "Enum field:new",
+                        {
+                          "kind": "Enum field"
+                        }
+                      ],
+                      [
+                        "Enum field:churn",
+                        {
+                          "kind": "Enum field"
+                        }
+                      ],
+                      [
+                        "Enum field:active",
+                        {
+                          "kind": "Enum field"
+                        }
+                      ],
+                      [
+                        "Enum field:tenant",
+                        {
+                          "kind": "Enum field"
+                        }
+                      ]
+                    ]
+                  }
+                }
               }
             }
           ],
@@ -1249,6 +1305,104 @@
       "length": 0,
       "leadingTrivia": [],
       "trailingTrivia": []
+    },
+    "symbol": {
+      "kind": "Schema",
+      "symbolTable": {
+        "table": {
+          "dataType": "Map",
+          "value": [
+            [
+              "Schema:v1",
+              {
+                "kind": "Schema",
+                "symbolTable": {
+                  "table": {
+                    "dataType": "Map",
+                    "value": [
+                      [
+                        "Table:Users",
+                        {
+                          "kind": "Table",
+                          "symbolTable": {
+                            "table": {
+                              "dataType": "Map",
+                              "value": [
+                                [
+                                  "Column:id",
+                                  {
+                                    "kind": "Column"
+                                  }
+                                ],
+                                [
+                                  "Column:status",
+                                  {
+                                    "kind": "Column"
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    ]
+                  }
+                }
+              }
+            ],
+            [
+              "Schema:v2",
+              {
+                "kind": "Schema",
+                "symbolTable": {
+                  "table": {
+                    "dataType": "Map",
+                    "value": [
+                      [
+                        "Enum:Status",
+                        {
+                          "kind": "Enum",
+                          "symbolTable": {
+                            "table": {
+                              "dataType": "Map",
+                              "value": [
+                                [
+                                  "Enum field:new",
+                                  {
+                                    "kind": "Enum field"
+                                  }
+                                ],
+                                [
+                                  "Enum field:churn",
+                                  {
+                                    "kind": "Enum field"
+                                  }
+                                ],
+                                [
+                                  "Enum field:active",
+                                  {
+                                    "kind": "Enum field"
+                                  }
+                                ],
+                                [
+                                  "Enum field:tenant",
+                                  {
+                                    "kind": "Enum field"
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    ]
+                  }
+                }
+              }
+            ]
+          ]
+        }
+      }
     }
   },
   "errors": []

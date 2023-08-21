@@ -100,6 +100,15 @@
               }
             ]
           }
+        },
+        "symbol": {
+          "kind": "Table",
+          "symbolTable": {
+            "table": {
+              "dataType": "Map",
+              "value": []
+            }
+          }
         }
       },
       {
@@ -230,6 +239,15 @@
             ],
             "trailingTrivia": []
           }
+        },
+        "symbol": {
+          "kind": "Table",
+          "symbolTable": {
+            "table": {
+              "dataType": "Map",
+              "value": []
+            }
+          }
         }
       }
     ],
@@ -240,6 +258,28 @@
       "length": 0,
       "leadingTrivia": [],
       "trailingTrivia": []
+    },
+    "symbol": {
+      "kind": "Schema",
+      "symbolTable": {
+        "table": {
+          "dataType": "Map",
+          "value": [
+            [
+              "Table:AB",
+              {
+                "kind": "Table",
+                "symbolTable": {
+                  "table": {
+                    "dataType": "Map",
+                    "value": []
+                  }
+                }
+              }
+            ]
+          ]
+        }
+      }
     }
   },
   "errors": [

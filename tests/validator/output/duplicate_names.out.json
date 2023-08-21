@@ -186,6 +186,22 @@
               }
             ]
           }
+        },
+        "symbol": {
+          "kind": "Table",
+          "symbolTable": {
+            "table": {
+              "dataType": "Map",
+              "value": [
+                [
+                  "Column:id",
+                  {
+                    "kind": "Column"
+                  }
+                ]
+              ]
+            }
+          }
         }
       },
       {
@@ -426,6 +442,22 @@
               }
             ]
           }
+        },
+        "symbol": {
+          "kind": "Table",
+          "symbolTable": {
+            "table": {
+              "dataType": "Map",
+              "value": [
+                [
+                  "Column:name",
+                  {
+                    "kind": "Column"
+                  }
+                ]
+              ]
+            }
+          }
         }
       },
       {
@@ -532,6 +564,15 @@
                 "trailingTrivia": []
               }
             ]
+          }
+        },
+        "symbol": {
+          "kind": "TableGroup",
+          "symbolTable": {
+            "table": {
+              "dataType": "Map",
+              "value": []
+            }
           }
         }
       },
@@ -672,6 +713,15 @@
               }
             ]
           }
+        },
+        "symbol": {
+          "kind": "TableGroup",
+          "symbolTable": {
+            "table": {
+              "dataType": "Map",
+              "value": []
+            }
+          }
         }
       },
       {
@@ -778,6 +828,15 @@
                 "trailingTrivia": []
               }
             ]
+          }
+        },
+        "symbol": {
+          "kind": "Enum",
+          "symbolTable": {
+            "table": {
+              "dataType": "Map",
+              "value": []
+            }
           }
         }
       },
@@ -909,6 +968,15 @@
             ],
             "trailingTrivia": []
           }
+        },
+        "symbol": {
+          "kind": "Enum",
+          "symbolTable": {
+            "table": {
+              "dataType": "Map",
+              "value": []
+            }
+          }
         }
       }
     ],
@@ -919,6 +987,59 @@
       "length": 0,
       "leadingTrivia": [],
       "trailingTrivia": []
+    },
+    "symbol": {
+      "kind": "Schema",
+      "symbolTable": {
+        "table": {
+          "dataType": "Map",
+          "value": [
+            [
+              "Table:Users",
+              {
+                "kind": "Table",
+                "symbolTable": {
+                  "table": {
+                    "dataType": "Map",
+                    "value": [
+                      [
+                        "Column:id",
+                        {
+                          "kind": "Column"
+                        }
+                      ]
+                    ]
+                  }
+                }
+              }
+            ],
+            [
+              "TableGroup:Users",
+              {
+                "kind": "TableGroup",
+                "symbolTable": {
+                  "table": {
+                    "dataType": "Map",
+                    "value": []
+                  }
+                }
+              }
+            ],
+            [
+              "Enum:Users",
+              {
+                "kind": "Enum",
+                "symbolTable": {
+                  "table": {
+                    "dataType": "Map",
+                    "value": []
+                  }
+                }
+              }
+            ]
+          ]
+        }
+      }
     }
   },
   "errors": [

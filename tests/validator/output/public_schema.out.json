@@ -100,6 +100,15 @@
               }
             ]
           }
+        },
+        "symbol": {
+          "kind": "Enum",
+          "symbolTable": {
+            "table": {
+              "dataType": "Map",
+              "value": []
+            }
+          }
         }
       },
       {
@@ -261,6 +270,15 @@
             ],
             "trailingTrivia": []
           }
+        },
+        "symbol": {
+          "kind": "Enum",
+          "symbolTable": {
+            "table": {
+              "dataType": "Map",
+              "value": []
+            }
+          }
         }
       }
     ],
@@ -271,6 +289,28 @@
       "length": 0,
       "leadingTrivia": [],
       "trailingTrivia": []
+    },
+    "symbol": {
+      "kind": "Schema",
+      "symbolTable": {
+        "table": {
+          "dataType": "Map",
+          "value": [
+            [
+              "Enum:status",
+              {
+                "kind": "Enum",
+                "symbolTable": {
+                  "table": {
+                    "dataType": "Map",
+                    "value": []
+                  }
+                }
+              }
+            ]
+          ]
+        }
+      }
     }
   },
   "errors": [

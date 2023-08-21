@@ -1742,6 +1742,40 @@
               }
             ]
           }
+        },
+        "symbol": {
+          "kind": "Table",
+          "symbolTable": {
+            "table": {
+              "dataType": "Map",
+              "value": [
+                [
+                  "Column:id",
+                  {
+                    "kind": "Column"
+                  }
+                ],
+                [
+                  "Column:country",
+                  {
+                    "kind": "Column"
+                  }
+                ],
+                [
+                  "Column:booking_date",
+                  {
+                    "kind": "Column"
+                  }
+                ],
+                [
+                  "Column:created_at",
+                  {
+                    "kind": "Column"
+                  }
+                ]
+              ]
+            }
+          }
         }
       }
     ],
@@ -1761,6 +1795,53 @@
         }
       ],
       "trailingTrivia": []
+    },
+    "symbol": {
+      "kind": "Schema",
+      "symbolTable": {
+        "table": {
+          "dataType": "Map",
+          "value": [
+            [
+              "Table:bookings",
+              {
+                "kind": "Table",
+                "symbolTable": {
+                  "table": {
+                    "dataType": "Map",
+                    "value": [
+                      [
+                        "Column:id",
+                        {
+                          "kind": "Column"
+                        }
+                      ],
+                      [
+                        "Column:country",
+                        {
+                          "kind": "Column"
+                        }
+                      ],
+                      [
+                        "Column:booking_date",
+                        {
+                          "kind": "Column"
+                        }
+                      ],
+                      [
+                        "Column:created_at",
+                        {
+                          "kind": "Column"
+                        }
+                      ]
+                    ]
+                  }
+                }
+              }
+            ]
+          ]
+        }
+      }
     }
   },
   "errors": []
