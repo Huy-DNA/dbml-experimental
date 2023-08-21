@@ -110,6 +110,14 @@
           "trailingTrivia": []
         },
         {
+          "kind": "<invalid>",
+          "offset": 156,
+          "value": "\"This is an unclosed quoted string\r",
+          "length": 35,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        {
           "kind": "<newline>",
           "offset": 191,
           "value": "\n",
@@ -122,6 +130,14 @@
           "offset": 193,
           "value": "\n",
           "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        {
+          "kind": "<invalid>",
+          "offset": 194,
+          "value": "'This is an unclosed string literal\r",
+          "length": 36,
           "leadingTrivia": [],
           "trailingTrivia": []
         },
@@ -166,6 +182,14 @@
           "length": 1,
           "leadingTrivia": [],
           "trailingTrivia": []
+        },
+        {
+          "kind": "<invalid>",
+          "offset": 271,
+          "value": "'''This is an unclosed multiline string\r\n",
+          "length": 41,
+          "leadingTrivia": [],
+          "trailingTrivia": []
         }
       ],
       "trailingTrivia": []
@@ -176,7 +200,7 @@
       "code": 1003,
       "diagnostic": "Invalid newline encountered while parsing",
       "nodeOrToken": {
-        "kind": "<string>",
+        "kind": "<invalid>",
         "offset": 156,
         "value": "\"This is an unclosed quoted string\r",
         "length": 35,
@@ -189,7 +213,7 @@
       "code": 1003,
       "diagnostic": "Invalid newline encountered while parsing",
       "nodeOrToken": {
-        "kind": "<string>",
+        "kind": "<invalid>",
         "offset": 194,
         "value": "'This is an unclosed string literal\r",
         "length": 36,
@@ -202,7 +226,7 @@
       "code": 1002,
       "diagnostic": "EOF reached while parsing",
       "nodeOrToken": {
-        "kind": "<string>",
+        "kind": "<invalid>",
         "offset": 271,
         "value": "'''This is an unclosed multiline string\r\n",
         "length": 41,

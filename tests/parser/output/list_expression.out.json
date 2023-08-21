@@ -679,6 +679,40 @@
                           "length": 1,
                           "leadingTrivia": [],
                           "trailingTrivia": []
+                        },
+                        {
+                          "kind": "<invalid>",
+                          "offset": 120,
+                          "value": ":",
+                          "length": 1,
+                          "leadingTrivia": [],
+                          "trailingTrivia": [
+                            {
+                              "kind": "<space>",
+                              "offset": 121,
+                              "value": " ",
+                              "length": 1,
+                              "leadingTrivia": [],
+                              "trailingTrivia": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "<invalid>",
+                          "offset": 122,
+                          "value": "invalid-attribute",
+                          "length": 19,
+                          "leadingTrivia": [],
+                          "trailingTrivia": [
+                            {
+                              "kind": "<space>",
+                              "offset": 141,
+                              "value": " ",
+                              "length": 1,
+                              "leadingTrivia": [],
+                              "trailingTrivia": []
+                            }
+                          ]
                         }
                       ]
                     }
@@ -722,60 +756,14 @@
       "length": 0,
       "leadingTrivia": [],
       "trailingTrivia": []
-    },
-    "invalid": [
-      {
-        "kind": "<colon>",
-        "offset": 120,
-        "value": ":",
-        "length": 1,
-        "leadingTrivia": [],
-        "trailingTrivia": [
-          {
-            "kind": "<space>",
-            "offset": 121,
-            "value": " ",
-            "length": 1,
-            "leadingTrivia": [],
-            "trailingTrivia": []
-          }
-        ]
-      },
-      {
-        "kind": "<primary-expression>",
-        "start": 122,
-        "end": 141,
-        "expression": {
-          "kind": "<literal>",
-          "start": 122,
-          "end": 141,
-          "literal": {
-            "kind": "<string>",
-            "offset": 122,
-            "value": "invalid-attribute",
-            "length": 19,
-            "leadingTrivia": [],
-            "trailingTrivia": [
-              {
-                "kind": "<space>",
-                "offset": 141,
-                "value": " ",
-                "length": 1,
-                "leadingTrivia": [],
-                "trailingTrivia": []
-              }
-            ]
-          }
-        }
-      }
-    ]
+    }
   },
   "errors": [
     {
       "code": 1010,
       "diagnostic": "Expect a non-empty attribute name",
       "nodeOrToken": {
-        "kind": "<colon>",
+        "kind": "<invalid>",
         "offset": 120,
         "value": ":",
         "length": 1,

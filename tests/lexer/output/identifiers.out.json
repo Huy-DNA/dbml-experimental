@@ -117,6 +117,14 @@
           "trailingTrivia": []
         },
         {
+          "kind": "<invalid>",
+          "offset": 43,
+          "value": "3a",
+          "length": 2,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        {
           "kind": "<space>",
           "offset": 45,
           "value": " ",
@@ -141,7 +149,7 @@
       "code": 1004,
       "diagnostic": "Invalid number",
       "nodeOrToken": {
-        "kind": "<number>",
+        "kind": "<invalid>",
         "offset": 43,
         "value": "3a",
         "length": 2,

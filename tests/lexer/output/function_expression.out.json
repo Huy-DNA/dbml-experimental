@@ -57,6 +57,14 @@
           "trailingTrivia": []
         },
         {
+          "kind": "<invalid>",
+          "offset": 18,
+          "value": "`\r",
+          "length": 2,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        {
           "kind": "<newline>",
           "offset": 20,
           "value": "\n",
@@ -147,7 +155,16 @@
       "offset": 34,
       "value": "",
       "length": 0,
-      "leadingTrivia": [],
+      "leadingTrivia": [
+        {
+          "kind": "<invalid>",
+          "offset": 33,
+          "value": "`",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        }
+      ],
       "trailingTrivia": []
     }
   ],
@@ -156,7 +173,7 @@
       "code": 1003,
       "diagnostic": "Invalid newline encountered while parsing",
       "nodeOrToken": {
-        "kind": "<string>",
+        "kind": "<invalid>",
         "offset": 18,
         "value": "`\r",
         "length": 2,
@@ -169,7 +186,7 @@
       "code": 1002,
       "diagnostic": "EOF reached while parsing",
       "nodeOrToken": {
-        "kind": "<string>",
+        "kind": "<invalid>",
         "offset": 33,
         "value": "`",
         "length": 1,

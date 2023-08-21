@@ -424,7 +424,16 @@
                           "trailingTrivia": []
                         }
                       ],
-                      "trailingTrivia": []
+                      "trailingTrivia": [
+                        {
+                          "kind": "<invalid>",
+                          "offset": 73,
+                          "value": ",",
+                          "length": 1,
+                          "leadingTrivia": [],
+                          "trailingTrivia": []
+                        }
+                      ]
                     }
                   }
                 }
@@ -473,7 +482,7 @@
                   ]
                 },
                 {
-                  "kind": "<comma>",
+                  "kind": "<invalid>",
                   "offset": 73,
                   "value": ",",
                   "length": 1,
@@ -1146,17 +1155,7 @@
       "length": 0,
       "leadingTrivia": [],
       "trailingTrivia": []
-    },
-    "invalid": [
-      {
-        "kind": "<comma>",
-        "offset": 73,
-        "value": ",",
-        "length": 1,
-        "leadingTrivia": [],
-        "trailingTrivia": []
-      }
-    ]
+    }
   },
   "errors": [
     {

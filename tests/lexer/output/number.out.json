@@ -115,6 +115,14 @@
           "trailingTrivia": []
         },
         {
+          "kind": "<invalid>",
+          "offset": 58,
+          "value": "8.6a",
+          "length": 4,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        {
           "kind": "<space>",
           "offset": 62,
           "value": " ",
@@ -123,10 +131,26 @@
           "trailingTrivia": []
         },
         {
+          "kind": "<invalid>",
+          "offset": 63,
+          "value": "24.10b",
+          "length": 6,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        {
           "kind": "<space>",
           "offset": 69,
           "value": " ",
           "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        {
+          "kind": "<invalid>",
+          "offset": 70,
+          "value": "1.2.3.4.5",
+          "length": 9,
           "leadingTrivia": [],
           "trailingTrivia": []
         },
@@ -155,7 +179,7 @@
       "code": 1004,
       "diagnostic": "Invalid number",
       "nodeOrToken": {
-        "kind": "<number>",
+        "kind": "<invalid>",
         "offset": 58,
         "value": "8.6a",
         "length": 4,
@@ -168,7 +192,7 @@
       "code": 1004,
       "diagnostic": "Invalid number",
       "nodeOrToken": {
-        "kind": "<number>",
+        "kind": "<invalid>",
         "offset": 63,
         "value": "24.10b",
         "length": 6,
@@ -181,7 +205,7 @@
       "code": 1004,
       "diagnostic": "Invalid number",
       "nodeOrToken": {
-        "kind": "<number>",
+        "kind": "<invalid>",
         "offset": 70,
         "value": "1.2.3.4.5",
         "length": 9,
