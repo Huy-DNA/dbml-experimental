@@ -265,6 +265,23 @@
                         ]
                       }
                     }
+                  },
+                  "referee": {
+                    "symbolTable": {
+                      "table": {
+                        "dataType": "Map",
+                        "value": [
+                          [
+                            "Enum field:churn",
+                            {}
+                          ],
+                          [
+                            "Enum field:new",
+                            {}
+                          ]
+                        ]
+                      }
+                    }
                   }
                 },
                 {
@@ -375,7 +392,8 @@
                               "trailingTrivia": []
                             }
                           }
-                        }
+                        },
+                        "referee": {}
                       },
                       "colon": {
                         "kind": "<colon>",
@@ -674,28 +692,21 @@
           }
         },
         "symbol": {
-          "kind": "Table",
           "symbolTable": {
             "table": {
               "dataType": "Map",
               "value": [
                 [
                   "Column:id",
-                  {
-                    "kind": "Column"
-                  }
+                  {}
                 ],
                 [
                   "Column:status",
-                  {
-                    "kind": "Column"
-                  }
+                  {}
                 ],
                 [
                   "Column:referrer",
-                  {
-                    "kind": "Column"
-                  }
+                  {}
                 ]
               ]
             }
@@ -1014,22 +1025,17 @@
           }
         },
         "symbol": {
-          "kind": "Enum",
           "symbolTable": {
             "table": {
               "dataType": "Map",
               "value": [
                 [
                   "Enum field:churn",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ],
                 [
                   "Enum field:new",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ]
               ]
             }
@@ -1046,7 +1052,6 @@
       "trailingTrivia": []
     },
     "symbol": {
-      "kind": "Schema",
       "symbolTable": {
         "table": {
           "dataType": "Map",
@@ -1054,28 +1059,21 @@
             [
               "Table:Users",
               {
-                "kind": "Table",
                 "symbolTable": {
                   "table": {
                     "dataType": "Map",
                     "value": [
                       [
                         "Column:id",
-                        {
-                          "kind": "Column"
-                        }
+                        {}
                       ],
                       [
                         "Column:status",
-                        {
-                          "kind": "Column"
-                        }
+                        {}
                       ],
                       [
                         "Column:referrer",
-                        {
-                          "kind": "Column"
-                        }
+                        {}
                       ]
                     ]
                   }
@@ -1085,7 +1083,6 @@
             [
               "Schema:v2",
               {
-                "kind": "Schema",
                 "symbolTable": {
                   "table": {
                     "dataType": "Map",
@@ -1093,22 +1090,17 @@
                       [
                         "Enum:status",
                         {
-                          "kind": "Enum",
                           "symbolTable": {
                             "table": {
                               "dataType": "Map",
                               "value": [
                                 [
                                   "Enum field:churn",
-                                  {
-                                    "kind": "Enum field"
-                                  }
+                                  {}
                                 ],
                                 [
                                   "Enum field:new",
-                                  {
-                                    "kind": "Enum field"
-                                  }
+                                  {}
                                 ]
                               ]
                             }

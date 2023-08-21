@@ -367,16 +367,13 @@
           }
         },
         "symbol": {
-          "kind": "Table",
           "symbolTable": {
             "table": {
               "dataType": "Map",
               "value": [
                 [
                   "Column:id",
-                  {
-                    "kind": "Column"
-                  }
+                  {}
                 ]
               ]
             }
@@ -393,7 +390,6 @@
       "trailingTrivia": []
     },
     "symbol": {
-      "kind": "Schema",
       "symbolTable": {
         "table": {
           "dataType": "Map",
@@ -401,16 +397,13 @@
             [
               "Table:Users",
               {
-                "kind": "Table",
                 "symbolTable": {
                   "table": {
                     "dataType": "Map",
                     "value": [
                       [
                         "Column:id",
-                        {
-                          "kind": "Column"
-                        }
+                        {}
                       ]
                     ]
                   }

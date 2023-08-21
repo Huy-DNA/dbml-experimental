@@ -6,7 +6,7 @@ export function serialize(report: Report<ProgramNode, CompileError>): string {
   return JSON.stringify(
     report,
     (key, value) => {
-      if (['parentElement', 'declaration'].includes(key)) {
+      if (['parentElement', 'declaration', 'references'].includes(key)) {
         return undefined;
       }
       if (value instanceof Map) {

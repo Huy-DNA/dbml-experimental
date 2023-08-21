@@ -188,16 +188,13 @@
           }
         },
         "symbol": {
-          "kind": "Table",
           "symbolTable": {
             "table": {
               "dataType": "Map",
               "value": [
                 [
                   "Column:id",
-                  {
-                    "kind": "Column"
-                  }
+                  {}
                 ]
               ]
             }
@@ -444,16 +441,13 @@
           }
         },
         "symbol": {
-          "kind": "Table",
           "symbolTable": {
             "table": {
               "dataType": "Map",
               "value": [
                 [
                   "Column:name",
-                  {
-                    "kind": "Column"
-                  }
+                  {}
                 ]
               ]
             }
@@ -567,7 +561,6 @@
           }
         },
         "symbol": {
-          "kind": "TableGroup",
           "symbolTable": {
             "table": {
               "dataType": "Map",
@@ -715,7 +708,6 @@
           }
         },
         "symbol": {
-          "kind": "TableGroup",
           "symbolTable": {
             "table": {
               "dataType": "Map",
@@ -831,7 +823,6 @@
           }
         },
         "symbol": {
-          "kind": "Enum",
           "symbolTable": {
             "table": {
               "dataType": "Map",
@@ -970,7 +961,6 @@
           }
         },
         "symbol": {
-          "kind": "Enum",
           "symbolTable": {
             "table": {
               "dataType": "Map",
@@ -989,7 +979,6 @@
       "trailingTrivia": []
     },
     "symbol": {
-      "kind": "Schema",
       "symbolTable": {
         "table": {
           "dataType": "Map",
@@ -997,16 +986,13 @@
             [
               "Table:Users",
               {
-                "kind": "Table",
                 "symbolTable": {
                   "table": {
                     "dataType": "Map",
                     "value": [
                       [
                         "Column:id",
-                        {
-                          "kind": "Column"
-                        }
+                        {}
                       ]
                     ]
                   }
@@ -1016,7 +1002,6 @@
             [
               "TableGroup:Users",
               {
-                "kind": "TableGroup",
                 "symbolTable": {
                   "table": {
                     "dataType": "Map",
@@ -1028,7 +1013,6 @@
             [
               "Enum:Users",
               {
-                "kind": "Enum",
                 "symbolTable": {
                   "table": {
                     "dataType": "Map",

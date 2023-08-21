@@ -102,7 +102,6 @@
           }
         },
         "symbol": {
-          "kind": "Table",
           "symbolTable": {
             "table": {
               "dataType": "Map",
@@ -241,7 +240,6 @@
           }
         },
         "symbol": {
-          "kind": "Table",
           "symbolTable": {
             "table": {
               "dataType": "Map",
@@ -260,7 +258,6 @@
       "trailingTrivia": []
     },
     "symbol": {
-      "kind": "Schema",
       "symbolTable": {
         "table": {
           "dataType": "Map",
@@ -268,7 +265,6 @@
             [
               "Table:AB",
               {
-                "kind": "Table",
                 "symbolTable": {
                   "table": {
                     "dataType": "Map",

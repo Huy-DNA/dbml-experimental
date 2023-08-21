@@ -289,6 +289,31 @@
                         ]
                       }
                     }
+                  },
+                  "referee": {
+                    "symbolTable": {
+                      "table": {
+                        "dataType": "Map",
+                        "value": [
+                          [
+                            "Enum field:churn",
+                            {}
+                          ],
+                          [
+                            "Enum field:new",
+                            {}
+                          ],
+                          [
+                            "Enum field:active",
+                            {}
+                          ],
+                          [
+                            "Enum field:tenant",
+                            {}
+                          ]
+                        ]
+                      }
+                    }
                   }
                 },
                 {
@@ -399,7 +424,8 @@
                               "trailingTrivia": []
                             }
                           }
-                        }
+                        },
+                        "referee": {}
                       },
                       "colon": {
                         "kind": "<colon>",
@@ -561,6 +587,31 @@
                             "leadingTrivia": [],
                             "trailingTrivia": []
                           }
+                        ]
+                      }
+                    }
+                  },
+                  "referee": {
+                    "symbolTable": {
+                      "table": {
+                        "dataType": "Map",
+                        "value": [
+                          [
+                            "Enum field:churn",
+                            {}
+                          ],
+                          [
+                            "Enum field:new",
+                            {}
+                          ],
+                          [
+                            "Enum field:active",
+                            {}
+                          ],
+                          [
+                            "Enum field:tenant",
+                            {}
+                          ]
                         ]
                       }
                     }
@@ -988,40 +1039,29 @@
           }
         },
         "symbol": {
-          "kind": "Table",
           "symbolTable": {
             "table": {
               "dataType": "Map",
               "value": [
                 [
                   "Column:id",
-                  {
-                    "kind": "Column"
-                  }
+                  {}
                 ],
                 [
                   "Column:status1",
-                  {
-                    "kind": "Column"
-                  }
+                  {}
                 ],
                 [
                   "Column:status2",
-                  {
-                    "kind": "Column"
-                  }
+                  {}
                 ],
                 [
                   "Column:status3",
-                  {
-                    "kind": "Column"
-                  }
+                  {}
                 ],
                 [
                   "Column:status4",
-                  {
-                    "kind": "Column"
-                  }
+                  {}
                 ]
               ]
             }
@@ -1398,34 +1438,25 @@
           }
         },
         "symbol": {
-          "kind": "Enum",
           "symbolTable": {
             "table": {
               "dataType": "Map",
               "value": [
                 [
                   "Enum field:churn",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ],
                 [
                   "Enum field:new",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ],
                 [
                   "Enum field:active",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ],
                 [
                   "Enum field:tenant",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ]
               ]
             }
@@ -1762,34 +1793,25 @@
           }
         },
         "symbol": {
-          "kind": "Enum",
           "symbolTable": {
             "table": {
               "dataType": "Map",
               "value": [
                 [
                   "Enum field:churn",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ],
                 [
                   "Enum field:new",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ],
                 [
                   "Enum field:active",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ],
                 [
                   "Enum field:tenant",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ]
               ]
             }
@@ -1806,7 +1828,6 @@
       "trailingTrivia": []
     },
     "symbol": {
-      "kind": "Schema",
       "symbolTable": {
         "table": {
           "dataType": "Map",
@@ -1814,40 +1835,29 @@
             [
               "Table:Users",
               {
-                "kind": "Table",
                 "symbolTable": {
                   "table": {
                     "dataType": "Map",
                     "value": [
                       [
                         "Column:id",
-                        {
-                          "kind": "Column"
-                        }
+                        {}
                       ],
                       [
                         "Column:status1",
-                        {
-                          "kind": "Column"
-                        }
+                        {}
                       ],
                       [
                         "Column:status2",
-                        {
-                          "kind": "Column"
-                        }
+                        {}
                       ],
                       [
                         "Column:status3",
-                        {
-                          "kind": "Column"
-                        }
+                        {}
                       ],
                       [
                         "Column:status4",
-                        {
-                          "kind": "Column"
-                        }
+                        {}
                       ]
                     ]
                   }
@@ -1857,7 +1867,6 @@
             [
               "Schema:v2",
               {
-                "kind": "Schema",
                 "symbolTable": {
                   "table": {
                     "dataType": "Map",
@@ -1865,34 +1874,25 @@
                       [
                         "Enum:status",
                         {
-                          "kind": "Enum",
                           "symbolTable": {
                             "table": {
                               "dataType": "Map",
                               "value": [
                                 [
                                   "Enum field:churn",
-                                  {
-                                    "kind": "Enum field"
-                                  }
+                                  {}
                                 ],
                                 [
                                   "Enum field:new",
-                                  {
-                                    "kind": "Enum field"
-                                  }
+                                  {}
                                 ],
                                 [
                                   "Enum field:active",
-                                  {
-                                    "kind": "Enum field"
-                                  }
+                                  {}
                                 ],
                                 [
                                   "Enum field:tenant",
-                                  {
-                                    "kind": "Enum field"
-                                  }
+                                  {}
                                 ]
                               ]
                             }
@@ -1907,34 +1907,25 @@
             [
               "Enum:status",
               {
-                "kind": "Enum",
                 "symbolTable": {
                   "table": {
                     "dataType": "Map",
                     "value": [
                       [
                         "Enum field:churn",
-                        {
-                          "kind": "Enum field"
-                        }
+                        {}
                       ],
                       [
                         "Enum field:new",
-                        {
-                          "kind": "Enum field"
-                        }
+                        {}
                       ],
                       [
                         "Enum field:active",
-                        {
-                          "kind": "Enum field"
-                        }
+                        {}
                       ],
                       [
                         "Enum field:tenant",
-                        {
-                          "kind": "Enum field"
-                        }
+                        {}
                       ]
                     ]
                   }

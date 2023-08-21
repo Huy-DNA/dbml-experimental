@@ -133,7 +133,6 @@
           }
         },
         "symbol": {
-          "kind": "Enum",
           "symbolTable": {
             "table": {
               "dataType": "Map",
@@ -505,28 +504,21 @@
           }
         },
         "symbol": {
-          "kind": "Enum",
           "symbolTable": {
             "table": {
               "dataType": "Map",
               "value": [
                 [
                   "Enum field:1",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ],
                 [
                   "Enum field:a",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ],
                 [
                   "Enum field:ab",
-                  {
-                    "kind": "Enum field"
-                  }
+                  {}
                 ]
               ]
             }
@@ -543,7 +535,6 @@
       "trailingTrivia": []
     },
     "symbol": {
-      "kind": "Schema",
       "symbolTable": {
         "table": {
           "dataType": "Map",
@@ -551,7 +542,6 @@
             [
               "Schema:v",
               {
-                "kind": "Schema",
                 "symbolTable": {
                   "table": {
                     "dataType": "Map",
@@ -559,7 +549,6 @@
                       [
                         "Enum:A",
                         {
-                          "kind": "Enum",
                           "symbolTable": {
                             "table": {
                               "dataType": "Map",

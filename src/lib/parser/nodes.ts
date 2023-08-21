@@ -7,6 +7,7 @@ export interface SyntaxNode {
   start: number;
   end: number;
   symbol?: NodeSymbol;
+  referee?: NodeSymbol; // The symbol that this syntax node refers to
 }
 
 export enum SyntaxNodeKind {
