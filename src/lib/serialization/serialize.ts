@@ -1,4 +1,4 @@
-import { NodeSymbol } from 'lib/analyzer/symbol/symbols';
+import { NodeSymbol } from '../analyzer/symbol/symbols';
 import { ProgramNode, SyntaxNode } from '../parser/nodes';
 import Report from '../report';
 import { CompileError } from '../errors';
