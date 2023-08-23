@@ -1871,8 +1871,8 @@
           "declaration": 77
         }
       },
-      "references": [],
-      "id": 0
+      "id": 0,
+      "references": []
     }
   },
   "errors": []

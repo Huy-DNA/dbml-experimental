@@ -998,8 +998,8 @@
           "declaration": 33
         }
       },
-      "references": [],
-      "id": 0
+      "id": 0,
+      "references": []
     }
   },
   "errors": [
