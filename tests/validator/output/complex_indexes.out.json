@@ -1,13 +1,13 @@
 {
   "value": {
     "kind": "<program>",
-    "id": 97,
+    "id": 78,
     "start": 0,
     "end": 402,
     "body": [
       {
         "kind": "<element-declaration>",
-        "id": 96,
+        "id": 77,
         "start": 0,
         "end": 383,
         "type": {
@@ -29,12 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 20,
+          "id": 1,
           "start": 6,
           "end": 14,
           "expression": {
             "kind": "<variable>",
-            "id": 19,
+            "id": 0,
             "start": 6,
             "end": 14,
             "variable": {
@@ -58,7 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 95,
+          "id": 76,
           "start": 15,
           "end": 383,
           "blockOpenBrace": {
@@ -81,17 +81,17 @@
           "body": [
             {
               "kind": "<function-application>",
-              "id": 25,
+              "id": 6,
               "start": 20,
               "end": 30,
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 22,
+                "id": 3,
                 "start": 20,
                 "end": 22,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 21,
+                  "id": 2,
                   "start": 20,
                   "end": 22,
                   "variable": {
@@ -133,12 +133,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
-                  "id": 24,
+                  "id": 5,
                   "start": 23,
                   "end": 30,
                   "expression": {
                     "kind": "<variable>",
-                    "id": 23,
+                    "id": 4,
                     "start": 23,
                     "end": 30,
                     "variable": {
@@ -164,17 +164,17 @@
             },
             {
               "kind": "<function-application>",
-              "id": 30,
+              "id": 11,
               "start": 34,
               "end": 49,
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 27,
+                "id": 8,
                 "start": 34,
                 "end": 41,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 26,
+                  "id": 7,
                   "start": 34,
                   "end": 41,
                   "variable": {
@@ -216,12 +216,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
-                  "id": 29,
+                  "id": 10,
                   "start": 42,
                   "end": 49,
                   "expression": {
                     "kind": "<variable>",
-                    "id": 28,
+                    "id": 9,
                     "start": 42,
                     "end": 49,
                     "variable": {
@@ -247,17 +247,17 @@
             },
             {
               "kind": "<function-application>",
-              "id": 35,
+              "id": 16,
               "start": 53,
               "end": 70,
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 32,
+                "id": 13,
                 "start": 53,
                 "end": 65,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 31,
+                  "id": 12,
                   "start": 53,
                   "end": 65,
                   "variable": {
@@ -299,12 +299,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
-                  "id": 34,
+                  "id": 15,
                   "start": 66,
                   "end": 70,
                   "expression": {
                     "kind": "<variable>",
-                    "id": 33,
+                    "id": 14,
                     "start": 66,
                     "end": 70,
                     "variable": {
@@ -330,17 +330,17 @@
             },
             {
               "kind": "<function-application>",
-              "id": 40,
+              "id": 21,
               "start": 74,
               "end": 94,
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 37,
+                "id": 18,
                 "start": 74,
                 "end": 84,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 36,
+                  "id": 17,
                   "start": 74,
                   "end": 84,
                   "variable": {
@@ -382,12 +382,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
-                  "id": 39,
+                  "id": 20,
                   "start": 85,
                   "end": 94,
                   "expression": {
                     "kind": "<variable>",
-                    "id": 38,
+                    "id": 19,
                     "start": 85,
                     "end": 94,
                     "variable": {
@@ -413,7 +413,7 @@
             },
             {
               "kind": "<element-declaration>",
-              "id": 93,
+              "id": 74,
               "start": 100,
               "end": 380,
               "type": {
@@ -460,7 +460,7 @@
               },
               "body": {
                 "kind": "<block-expression>",
-                "id": 92,
+                "id": 73,
                 "start": 108,
                 "end": 380,
                 "blockOpenBrace": {
@@ -483,12 +483,12 @@
                 "body": [
                   {
                     "kind": "<function-application>",
-                    "id": 51,
+                    "id": 32,
                     "start": 117,
                     "end": 135,
                     "callee": {
                       "kind": "<tuple-expression>",
-                      "id": 47,
+                      "id": 28,
                       "start": 117,
                       "end": 130,
                       "tupleOpenParen": {
@@ -551,12 +551,12 @@
                       "elementList": [
                         {
                           "kind": "<primary-expression>",
-                          "id": 44,
+                          "id": 25,
                           "start": 118,
                           "end": 120,
                           "expression": {
                             "kind": "<variable>",
-                            "id": 43,
+                            "id": 24,
                             "start": 118,
                             "end": 120,
                             "variable": {
@@ -571,12 +571,12 @@
                         },
                         {
                           "kind": "<primary-expression>",
-                          "id": 46,
+                          "id": 27,
                           "start": 122,
                           "end": 129,
                           "expression": {
                             "kind": "<variable>",
-                            "id": 45,
+                            "id": 26,
                             "start": 122,
                             "end": 129,
                             "variable": {
@@ -630,7 +630,7 @@
                     "args": [
                       {
                         "kind": "<list-expression>",
-                        "id": 50,
+                        "id": 31,
                         "start": 131,
                         "end": 135,
                         "listOpenBracket": {
@@ -644,10 +644,10 @@
                         "elementList": [
                           {
                             "kind": "<attribute>",
-                            "id": 49,
+                            "id": 30,
                             "name": {
                               "kind": "<identifer-stream>",
-                              "id": 48,
+                              "id": 29,
                               "identifiers": [
                                 {
                                   "kind": "<identifier>",
@@ -704,17 +704,17 @@
                   },
                   {
                     "kind": "<function-application>",
-                    "id": 63,
+                    "id": 44,
                     "start": 168,
                     "end": 219,
                     "callee": {
                       "kind": "<primary-expression>",
-                      "id": 53,
+                      "id": 34,
                       "start": 168,
                       "end": 178,
                       "expression": {
                         "kind": "<variable>",
-                        "id": 52,
+                        "id": 33,
                         "start": 168,
                         "end": 178,
                         "variable": {
@@ -788,7 +788,7 @@
                     "args": [
                       {
                         "kind": "<list-expression>",
-                        "id": 62,
+                        "id": 43,
                         "start": 179,
                         "end": 219,
                         "listOpenBracket": {
@@ -802,10 +802,10 @@
                         "elementList": [
                           {
                             "kind": "<attribute>",
-                            "id": 57,
+                            "id": 38,
                             "name": {
                               "kind": "<identifer-stream>",
-                              "id": 54,
+                              "id": 35,
                               "identifiers": [
                                 {
                                   "kind": "<identifier>",
@@ -821,12 +821,12 @@
                             },
                             "value": {
                               "kind": "<primary-expression>",
-                              "id": 56,
+                              "id": 37,
                               "start": 186,
                               "end": 204,
                               "expression": {
                                 "kind": "<literal>",
-                                "id": 55,
+                                "id": 36,
                                 "start": 186,
                                 "end": 204,
                                 "literal": {
@@ -861,10 +861,10 @@
                           },
                           {
                             "kind": "<attribute>",
-                            "id": 61,
+                            "id": 42,
                             "name": {
                               "kind": "<identifer-stream>",
-                              "id": 58,
+                              "id": 39,
                               "identifiers": [
                                 {
                                   "kind": "<identifier>",
@@ -880,12 +880,12 @@
                             },
                             "value": {
                               "kind": "<primary-expression>",
-                              "id": 60,
+                              "id": 41,
                               "start": 212,
                               "end": 218,
                               "expression": {
                                 "kind": "<literal>",
-                                "id": 59,
+                                "id": 40,
                                 "start": 212,
                                 "end": 218,
                                 "literal": {
@@ -960,12 +960,12 @@
                   },
                   {
                     "kind": "<primary-expression>",
-                    "id": 65,
+                    "id": 46,
                     "start": 227,
                     "end": 239,
                     "expression": {
                       "kind": "<variable>",
-                      "id": 64,
+                      "id": 45,
                       "start": 227,
                       "end": 239,
                       "variable": {
@@ -1038,12 +1038,12 @@
                   },
                   {
                     "kind": "<function-application>",
-                    "id": 74,
+                    "id": 55,
                     "start": 247,
                     "end": 279,
                     "callee": {
                       "kind": "<tuple-expression>",
-                      "id": 70,
+                      "id": 51,
                       "start": 247,
                       "end": 270,
                       "tupleOpenParen": {
@@ -1106,12 +1106,12 @@
                       "elementList": [
                         {
                           "kind": "<primary-expression>",
-                          "id": 67,
+                          "id": 48,
                           "start": 248,
                           "end": 255,
                           "expression": {
                             "kind": "<variable>",
-                            "id": 66,
+                            "id": 47,
                             "start": 248,
                             "end": 255,
                             "variable": {
@@ -1126,12 +1126,12 @@
                         },
                         {
                           "kind": "<primary-expression>",
-                          "id": 69,
+                          "id": 50,
                           "start": 257,
                           "end": 269,
                           "expression": {
                             "kind": "<variable>",
-                            "id": 68,
+                            "id": 49,
                             "start": 257,
                             "end": 269,
                             "variable": {
@@ -1185,7 +1185,7 @@
                     "args": [
                       {
                         "kind": "<list-expression>",
-                        "id": 73,
+                        "id": 54,
                         "start": 271,
                         "end": 279,
                         "listOpenBracket": {
@@ -1199,10 +1199,10 @@
                         "elementList": [
                           {
                             "kind": "<attribute>",
-                            "id": 72,
+                            "id": 53,
                             "name": {
                               "kind": "<identifer-stream>",
-                              "id": 71,
+                              "id": 52,
                               "identifiers": [
                                 {
                                   "kind": "<identifier>",
@@ -1243,17 +1243,17 @@
                   },
                   {
                     "kind": "<function-application>",
-                    "id": 82,
+                    "id": 63,
                     "start": 287,
                     "end": 312,
                     "callee": {
                       "kind": "<primary-expression>",
-                      "id": 76,
+                      "id": 57,
                       "start": 287,
                       "end": 299,
                       "expression": {
                         "kind": "<variable>",
-                        "id": 75,
+                        "id": 56,
                         "start": 287,
                         "end": 299,
                         "variable": {
@@ -1327,7 +1327,7 @@
                     "args": [
                       {
                         "kind": "<list-expression>",
-                        "id": 81,
+                        "id": 62,
                         "start": 300,
                         "end": 312,
                         "listOpenBracket": {
@@ -1341,10 +1341,10 @@
                         "elementList": [
                           {
                             "kind": "<attribute>",
-                            "id": 80,
+                            "id": 61,
                             "name": {
                               "kind": "<identifer-stream>",
-                              "id": 77,
+                              "id": 58,
                               "identifiers": [
                                 {
                                   "kind": "<identifier>",
@@ -1360,12 +1360,12 @@
                             },
                             "value": {
                               "kind": "<primary-expression>",
-                              "id": 79,
+                              "id": 60,
                               "start": 307,
                               "end": 311,
                               "expression": {
                                 "kind": "<variable>",
-                                "id": 78,
+                                "id": 59,
                                 "start": 307,
                                 "end": 311,
                                 "variable": {
@@ -1422,7 +1422,7 @@
                   },
                   {
                     "kind": "<group-expression>",
-                    "id": 84,
+                    "id": 65,
                     "start": 320,
                     "end": 328,
                     "tupleOpenParen": {
@@ -1485,7 +1485,7 @@
                     "elementList": [
                       {
                         "kind": "<function-expression>",
-                        "id": 83,
+                        "id": 64,
                         "start": 321,
                         "end": 327,
                         "value": {
@@ -1519,7 +1519,7 @@
                   },
                   {
                     "kind": "<tuple-expression>",
-                    "id": 87,
+                    "id": 68,
                     "start": 336,
                     "end": 356,
                     "tupleOpenParen": {
@@ -1582,7 +1582,7 @@
                     "elementList": [
                       {
                         "kind": "<function-expression>",
-                        "id": 85,
+                        "id": 66,
                         "start": 337,
                         "end": 343,
                         "value": {
@@ -1596,7 +1596,7 @@
                       },
                       {
                         "kind": "<function-expression>",
-                        "id": 86,
+                        "id": 67,
                         "start": 344,
                         "end": 355,
                         "value": {
@@ -1639,7 +1639,7 @@
                   },
                   {
                     "kind": "<tuple-expression>",
-                    "id": 91,
+                    "id": 72,
                     "start": 364,
                     "end": 375,
                     "tupleOpenParen": {
@@ -1702,7 +1702,7 @@
                     "elementList": [
                       {
                         "kind": "<function-expression>",
-                        "id": 88,
+                        "id": 69,
                         "start": 365,
                         "end": 371,
                         "value": {
@@ -1716,12 +1716,12 @@
                       },
                       {
                         "kind": "<primary-expression>",
-                        "id": 90,
+                        "id": 71,
                         "start": 372,
                         "end": 374,
                         "expression": {
                           "kind": "<variable>",
-                          "id": 89,
+                          "id": 70,
                           "start": 372,
                           "end": 374,
                           "variable": {
@@ -1799,7 +1799,7 @@
                   ]
                 }
               },
-              "parentElement": 96
+              "parentElement": 77
             }
           ],
           "blockCloseBrace": {
@@ -1820,8 +1820,8 @@
             ]
           }
         },
-        "parentElement": 97,
-        "symbol": 12
+        "parentElement": 78,
+        "symbol": 2
       }
     ],
     "eof": {
@@ -1845,34 +1845,34 @@
       "symbolTable": {
         "Table:bookings": {
           "references": [],
-          "id": 12,
+          "id": 2,
           "symbolTable": {
             "Column:id": {
               "references": [],
-              "id": 13,
-              "declaration": 25
+              "id": 3,
+              "declaration": 6
             },
             "Column:country": {
               "references": [],
-              "id": 14,
-              "declaration": 30
+              "id": 4,
+              "declaration": 11
             },
             "Column:booking_date": {
               "references": [],
-              "id": 15,
-              "declaration": 35
+              "id": 5,
+              "declaration": 16
             },
             "Column:created_at": {
               "references": [],
-              "id": 16,
-              "declaration": 40
+              "id": 6,
+              "declaration": 21
             }
           },
-          "declaration": 96
+          "declaration": 77
         }
       },
       "references": [],
-      "id": 10
+      "id": 0
     }
   },
   "errors": []

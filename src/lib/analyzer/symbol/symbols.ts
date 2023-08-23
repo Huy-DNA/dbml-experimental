@@ -2,10 +2,16 @@ import SymbolTable from './symbolTable';
 import { SyntaxNode } from '../../parser/nodes';
 
 export type NodeSymbolId = number;
+export class NodeSymbolIdGenerator {
+  private static id = 0;
 
-let gid = 0;
-function nextId(): number {
-  return gid++;
+  static reset() {
+    this.id = 0;
+  }
+
+  static nextId(): NodeSymbolId {
+    return this.id++;
+  }
 }
 
 export interface NodeSymbol {
@@ -23,7 +29,7 @@ export class SchemaSymbol implements NodeSymbol {
 
   references: SyntaxNode[] = [];
 
-  constructor(symbolTable: SymbolTable, id: NodeSymbolId = nextId()) {
+  constructor(symbolTable: SymbolTable, id: NodeSymbolId = NodeSymbolIdGenerator.nextId()) {
     this.id = id;
     this.symbolTable = symbolTable;
   }
@@ -40,7 +46,11 @@ export class EnumSymbol implements NodeSymbol {
 
   references: SyntaxNode[] = [];
 
-  constructor(symbolTable: SymbolTable, declaration: SyntaxNode, id: NodeSymbolId = nextId()) {
+  constructor(
+    symbolTable: SymbolTable,
+    declaration: SyntaxNode,
+    id: NodeSymbolId = NodeSymbolIdGenerator.nextId(),
+  ) {
     this.id = id;
     this.symbolTable = symbolTable;
     this.declaration = declaration;
@@ -55,7 +65,7 @@ export class EnumFieldSymbol implements NodeSymbol {
 
   references: SyntaxNode[] = [];
 
-  constructor(declaration: SyntaxNode, id: NodeSymbolId = nextId()) {
+  constructor(declaration: SyntaxNode, id: NodeSymbolId = NodeSymbolIdGenerator.nextId()) {
     this.id = id;
     this.declaration = declaration;
   }
@@ -72,7 +82,11 @@ export class TableSymbol implements NodeSymbol {
 
   references: SyntaxNode[] = [];
 
-  constructor(symbolTable: SymbolTable, declaration: SyntaxNode, id: NodeSymbolId = nextId()) {
+  constructor(
+    symbolTable: SymbolTable,
+    declaration: SyntaxNode,
+    id: NodeSymbolId = NodeSymbolIdGenerator.nextId(),
+  ) {
     this.id = id;
     this.symbolTable = symbolTable;
     this.declaration = declaration;
@@ -87,7 +101,7 @@ export class ColumnSymbol implements NodeSymbol {
 
   references: SyntaxNode[] = [];
 
-  constructor(declaration: SyntaxNode, id: NodeSymbolId = nextId()) {
+  constructor(declaration: SyntaxNode, id: NodeSymbolId = NodeSymbolIdGenerator.nextId()) {
     this.id = id;
     this.declaration = declaration;
   }
@@ -104,7 +118,11 @@ export class TableGroupSymbol implements NodeSymbol {
 
   references: SyntaxNode[] = [];
 
-  constructor(symbolTable: SymbolTable, declaration: SyntaxNode, id: NodeSymbolId = nextId()) {
+  constructor(
+    symbolTable: SymbolTable,
+    declaration: SyntaxNode,
+    id: NodeSymbolId = NodeSymbolIdGenerator.nextId(),
+  ) {
     this.id = id;
     this.symbolTable = symbolTable;
     this.declaration = declaration;
@@ -119,7 +137,7 @@ export class TableGroupFieldSymbol implements NodeSymbol {
 
   references: SyntaxNode[] = [];
 
-  constructor(declaration: SyntaxNode, id: NodeSymbolId = nextId()) {
+  constructor(declaration: SyntaxNode, id: NodeSymbolId = NodeSymbolIdGenerator.nextId()) {
     this.id = id;
     this.declaration = declaration;
   }

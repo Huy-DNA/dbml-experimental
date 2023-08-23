@@ -1,13 +1,13 @@
 {
   "value": {
     "kind": "<program>",
-    "id": 253,
+    "id": 19,
     "start": 0,
     "end": 72,
     "body": [
       {
         "kind": "<element-declaration>",
-        "id": 240,
+        "id": 6,
         "start": 0,
         "end": 17,
         "type": {
@@ -29,7 +29,7 @@
         },
         "name": {
           "kind": "<infix-expression>",
-          "id": 238,
+          "id": 4,
           "start": 5,
           "end": 10,
           "op": {
@@ -42,12 +42,12 @@
           },
           "leftExpression": {
             "kind": "<primary-expression>",
-            "id": 235,
+            "id": 1,
             "start": 5,
             "end": 6,
             "expression": {
               "kind": "<variable>",
-              "id": 234,
+              "id": 0,
               "start": 5,
               "end": 6,
               "variable": {
@@ -62,12 +62,12 @@
           },
           "rightExpression": {
             "kind": "<primary-expression>",
-            "id": 237,
+            "id": 3,
             "start": 7,
             "end": 10,
             "expression": {
               "kind": "<variable>",
-              "id": 236,
+              "id": 2,
               "start": 7,
               "end": 10,
               "variable": {
@@ -92,7 +92,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 239,
+          "id": 5,
           "start": 11,
           "end": 17,
           "blockOpenBrace": {
@@ -140,12 +140,12 @@
             ]
           }
         },
-        "parentElement": 253,
-        "symbol": 56
+        "parentElement": 19,
+        "symbol": 3
       },
       {
         "kind": "<element-declaration>",
-        "id": 252,
+        "id": 18,
         "start": 21,
         "end": 72,
         "type": {
@@ -176,7 +176,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 251,
+          "id": 17,
           "start": 26,
           "end": 72,
           "blockOpenBrace": {
@@ -199,12 +199,12 @@
           "body": [
             {
               "kind": "<primary-expression>",
-              "id": 242,
+              "id": 8,
               "start": 33,
               "end": 36,
               "expression": {
                 "kind": "<variable>",
-                "id": 241,
+                "id": 7,
                 "start": 33,
                 "end": 36,
                 "variable": {
@@ -261,12 +261,12 @@
             },
             {
               "kind": "<primary-expression>",
-              "id": 244,
+              "id": 10,
               "start": 42,
               "end": 45,
               "expression": {
                 "kind": "<variable>",
-                "id": 243,
+                "id": 9,
                 "start": 42,
                 "end": 45,
                 "variable": {
@@ -323,12 +323,12 @@
             },
             {
               "kind": "<primary-expression>",
-              "id": 246,
+              "id": 12,
               "start": 51,
               "end": 52,
               "expression": {
                 "kind": "<literal>",
-                "id": 245,
+                "id": 11,
                 "start": 51,
                 "end": 52,
                 "literal": {
@@ -385,12 +385,12 @@
             },
             {
               "kind": "<primary-expression>",
-              "id": 248,
+              "id": 14,
               "start": 58,
               "end": 59,
               "expression": {
                 "kind": "<variable>",
-                "id": 247,
+                "id": 13,
                 "start": 58,
                 "end": 59,
                 "variable": {
@@ -447,12 +447,12 @@
             },
             {
               "kind": "<primary-expression>",
-              "id": 250,
+              "id": 16,
               "start": 65,
               "end": 69,
               "expression": {
                 "kind": "<variable>",
-                "id": 249,
+                "id": 15,
                 "start": 65,
                 "end": 69,
                 "variable": {
@@ -517,8 +517,8 @@
             "trailingTrivia": []
           }
         },
-        "parentElement": 253,
-        "symbol": 57
+        "parentElement": 19,
+        "symbol": 4
       }
     ],
     "eof": {
@@ -533,19 +533,19 @@
       "symbolTable": {
         "Schema:v": {
           "references": [],
-          "id": 55,
+          "id": 2,
           "symbolTable": {
             "Enum:A": {
               "references": [],
-              "id": 56,
+              "id": 3,
               "symbolTable": {},
-              "declaration": 240
+              "declaration": 6
             }
           }
         }
       },
       "references": [],
-      "id": 53
+      "id": 0
     }
   },
   "errors": [
@@ -585,12 +585,12 @@
       "diagnostic": "Enum subfield's name is duplicated",
       "nodeOrToken": {
         "kind": "<primary-expression>",
-        "id": 244,
+        "id": 10,
         "start": 42,
         "end": 45,
         "expression": {
           "kind": "<variable>",
-          "id": 243,
+          "id": 9,
           "start": 42,
           "end": 45,
           "variable": {
@@ -652,12 +652,12 @@
       "diagnostic": "Invalid field value",
       "nodeOrToken": {
         "kind": "<primary-expression>",
-        "id": 246,
+        "id": 12,
         "start": 51,
         "end": 52,
         "expression": {
           "kind": "<literal>",
-          "id": 245,
+          "id": 11,
           "start": 51,
           "end": 52,
           "literal": {

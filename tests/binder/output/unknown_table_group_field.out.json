@@ -1,13 +1,13 @@
 {
   "value": {
     "kind": "<program>",
-    "id": 178,
+    "id": 12,
     "start": 0,
     "end": 68,
     "body": [
       {
         "kind": "<element-declaration>",
-        "id": 169,
+        "id": 3,
         "start": 0,
         "end": 18,
         "type": {
@@ -29,12 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 167,
+          "id": 1,
           "start": 6,
           "end": 11,
           "expression": {
             "kind": "<variable>",
-            "id": 166,
+            "id": 0,
             "start": 6,
             "end": 11,
             "variable": {
@@ -58,7 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 168,
+          "id": 2,
           "start": 12,
           "end": 18,
           "blockOpenBrace": {
@@ -106,12 +106,12 @@
             ]
           }
         },
-        "parentElement": 178,
-        "symbol": 39
+        "parentElement": 12,
+        "symbol": 2
       },
       {
         "kind": "<element-declaration>",
-        "id": 177,
+        "id": 11,
         "start": 22,
         "end": 68,
         "type": {
@@ -142,12 +142,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 171,
+          "id": 5,
           "start": 33,
           "end": 38,
           "expression": {
             "kind": "<variable>",
-            "id": 170,
+            "id": 4,
             "start": 33,
             "end": 38,
             "variable": {
@@ -171,7 +171,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 176,
+          "id": 10,
           "start": 39,
           "end": 68,
           "blockOpenBrace": {
@@ -194,12 +194,12 @@
           "body": [
             {
               "kind": "<primary-expression>",
-              "id": 173,
+              "id": 7,
               "start": 46,
               "end": 51,
               "expression": {
                 "kind": "<variable>",
-                "id": 172,
+                "id": 6,
                 "start": 46,
                 "end": 51,
                 "variable": {
@@ -253,16 +253,16 @@
                   ]
                 }
               },
-              "referee": 39
+              "referee": 2
             },
             {
               "kind": "<primary-expression>",
-              "id": 175,
+              "id": 9,
               "start": 57,
               "end": 65,
               "expression": {
                 "kind": "<variable>",
-                "id": 174,
+                "id": 8,
                 "start": 57,
                 "end": 65,
                 "variable": {
@@ -327,8 +327,8 @@
             "trailingTrivia": []
           }
         },
-        "parentElement": 178,
-        "symbol": 41
+        "parentElement": 12,
+        "symbol": 4
       }
     ],
     "eof": {
@@ -345,12 +345,12 @@
           "references": [
             {
               "kind": "<primary-expression>",
-              "id": 173,
+              "id": 7,
               "start": 46,
               "end": 51,
               "expression": {
                 "kind": "<variable>",
-                "id": 172,
+                "id": 6,
                 "start": 46,
                 "end": 51,
                 "variable": {
@@ -404,22 +404,22 @@
                   ]
                 }
               },
-              "referee": 39
+              "referee": 2
             }
           ],
-          "id": 39,
+          "id": 2,
           "symbolTable": {},
-          "declaration": 169
+          "declaration": 3
         },
         "TableGroup:Group": {
           "references": [],
-          "id": 41,
+          "id": 4,
           "symbolTable": {},
-          "declaration": 177
+          "declaration": 11
         }
       },
       "references": [],
-      "id": 37
+      "id": 0
     }
   },
   "errors": [
@@ -428,12 +428,12 @@
       "diagnostic": "Schema 'public' does not have Table 'Products'",
       "nodeOrToken": {
         "kind": "<primary-expression>",
-        "id": 175,
+        "id": 9,
         "start": 57,
         "end": 65,
         "expression": {
           "kind": "<variable>",
-          "id": 174,
+          "id": 8,
           "start": 57,
           "end": 65,
           "variable": {

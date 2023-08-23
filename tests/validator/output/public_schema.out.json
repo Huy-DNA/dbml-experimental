@@ -1,13 +1,13 @@
 {
   "value": {
     "kind": "<program>",
-    "id": 296,
+    "id": 11,
     "start": 0,
     "end": 51,
     "body": [
       {
         "kind": "<element-declaration>",
-        "id": 288,
+        "id": 3,
         "start": 0,
         "end": 18,
         "type": {
@@ -29,12 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 286,
+          "id": 1,
           "start": 5,
           "end": 11,
           "expression": {
             "kind": "<variable>",
-            "id": 285,
+            "id": 0,
             "start": 5,
             "end": 11,
             "variable": {
@@ -58,7 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 287,
+          "id": 2,
           "start": 12,
           "end": 18,
           "blockOpenBrace": {
@@ -106,12 +106,12 @@
             ]
           }
         },
-        "parentElement": 296,
-        "symbol": 70
+        "parentElement": 11,
+        "symbol": 2
       },
       {
         "kind": "<element-declaration>",
-        "id": 295,
+        "id": 10,
         "start": 22,
         "end": 51,
         "type": {
@@ -142,7 +142,7 @@
         },
         "name": {
           "kind": "<infix-expression>",
-          "id": 293,
+          "id": 8,
           "start": 27,
           "end": 40,
           "op": {
@@ -155,12 +155,12 @@
           },
           "leftExpression": {
             "kind": "<primary-expression>",
-            "id": 290,
+            "id": 5,
             "start": 27,
             "end": 33,
             "expression": {
               "kind": "<variable>",
-              "id": 289,
+              "id": 4,
               "start": 27,
               "end": 33,
               "variable": {
@@ -175,12 +175,12 @@
           },
           "rightExpression": {
             "kind": "<primary-expression>",
-            "id": 292,
+            "id": 7,
             "start": 34,
             "end": 40,
             "expression": {
               "kind": "<variable>",
-              "id": 291,
+              "id": 6,
               "start": 34,
               "end": 40,
               "variable": {
@@ -205,7 +205,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 294,
+          "id": 9,
           "start": 41,
           "end": 51,
           "blockOpenBrace": {
@@ -276,8 +276,8 @@
             "trailingTrivia": []
           }
         },
-        "parentElement": 296,
-        "symbol": 72
+        "parentElement": 11,
+        "symbol": 4
       }
     ],
     "eof": {
@@ -292,13 +292,13 @@
       "symbolTable": {
         "Enum:status": {
           "references": [],
-          "id": 70,
+          "id": 2,
           "symbolTable": {},
-          "declaration": 288
+          "declaration": 3
         }
       },
       "references": [],
-      "id": 68
+      "id": 0
     }
   },
   "errors": [
@@ -307,7 +307,7 @@
       "diagnostic": "This Enum has a duplicated name",
       "nodeOrToken": {
         "kind": "<infix-expression>",
-        "id": 293,
+        "id": 8,
         "start": 27,
         "end": 40,
         "op": {
@@ -320,12 +320,12 @@
         },
         "leftExpression": {
           "kind": "<primary-expression>",
-          "id": 290,
+          "id": 5,
           "start": 27,
           "end": 33,
           "expression": {
             "kind": "<variable>",
-            "id": 289,
+            "id": 4,
             "start": 27,
             "end": 33,
             "variable": {
@@ -340,12 +340,12 @@
         },
         "rightExpression": {
           "kind": "<primary-expression>",
-          "id": 292,
+          "id": 7,
           "start": 34,
           "end": 40,
           "expression": {
             "kind": "<variable>",
-            "id": 291,
+            "id": 6,
             "start": 34,
             "end": 40,
             "variable": {

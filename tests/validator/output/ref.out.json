@@ -1,13 +1,13 @@
 {
   "value": {
     "kind": "<program>",
-    "id": 342,
+    "id": 19,
     "start": 0,
     "end": 50,
     "body": [
       {
         "kind": "<element-declaration>",
-        "id": 341,
+        "id": 18,
         "start": 0,
         "end": 50,
         "type": {
@@ -29,12 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 324,
+          "id": 1,
           "start": 4,
           "end": 5,
           "expression": {
             "kind": "<variable>",
-            "id": 323,
+            "id": 0,
             "start": 4,
             "end": 5,
             "variable": {
@@ -66,12 +66,12 @@
         },
         "body": {
           "kind": "<function-application>",
-          "id": 340,
+          "id": 17,
           "start": 7,
           "end": 50,
           "callee": {
             "kind": "<infix-expression>",
-            "id": 335,
+            "id": 12,
             "start": 7,
             "end": 30,
             "op": {
@@ -93,7 +93,7 @@
             },
             "leftExpression": {
               "kind": "<infix-expression>",
-              "id": 329,
+              "id": 6,
               "start": 7,
               "end": 15,
               "op": {
@@ -106,12 +106,12 @@
               },
               "leftExpression": {
                 "kind": "<primary-expression>",
-                "id": 326,
+                "id": 3,
                 "start": 7,
                 "end": 12,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 325,
+                  "id": 2,
                   "start": 7,
                   "end": 12,
                   "variable": {
@@ -126,12 +126,12 @@
               },
               "rightExpression": {
                 "kind": "<primary-expression>",
-                "id": 328,
+                "id": 5,
                 "start": 13,
                 "end": 15,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 327,
+                  "id": 4,
                   "start": 13,
                   "end": 15,
                   "variable": {
@@ -156,7 +156,7 @@
             },
             "rightExpression": {
               "kind": "<infix-expression>",
-              "id": 334,
+              "id": 11,
               "start": 18,
               "end": 30,
               "op": {
@@ -169,12 +169,12 @@
               },
               "leftExpression": {
                 "kind": "<primary-expression>",
-                "id": 331,
+                "id": 8,
                 "start": 18,
                 "end": 26,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 330,
+                  "id": 7,
                   "start": 18,
                   "end": 26,
                   "variable": {
@@ -189,12 +189,12 @@
               },
               "rightExpression": {
                 "kind": "<primary-expression>",
-                "id": 333,
+                "id": 10,
                 "start": 27,
                 "end": 30,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 332,
+                  "id": 9,
                   "start": 27,
                   "end": 30,
                   "variable": {
@@ -221,7 +221,7 @@
           "args": [
             {
               "kind": "<list-expression>",
-              "id": 339,
+              "id": 16,
               "start": 31,
               "end": 50,
               "listOpenBracket": {
@@ -235,10 +235,10 @@
               "elementList": [
                 {
                   "kind": "<attribute>",
-                  "id": 338,
+                  "id": 15,
                   "name": {
                     "kind": "<identifer-stream>",
-                    "id": 336,
+                    "id": 13,
                     "identifiers": [
                       {
                         "kind": "<identifier>",
@@ -254,7 +254,7 @@
                   },
                   "value": {
                     "kind": "<identifer-stream>",
-                    "id": 337,
+                    "id": 14,
                     "identifiers": [
                       {
                         "kind": "<identifier>",
@@ -318,7 +318,7 @@
             }
           ]
         },
-        "parentElement": 342
+        "parentElement": 19
       }
     ],
     "eof": {
@@ -332,7 +332,7 @@
     "symbol": {
       "symbolTable": {},
       "references": [],
-      "id": 76
+      "id": 0
     }
   },
   "errors": [
@@ -341,10 +341,10 @@
       "diagnostic": "Invalid value for this setting",
       "nodeOrToken": {
         "kind": "<attribute>",
-        "id": 338,
+        "id": 15,
         "name": {
           "kind": "<identifer-stream>",
-          "id": 336,
+          "id": 13,
           "identifiers": [
             {
               "kind": "<identifier>",
@@ -360,7 +360,7 @@
         },
         "value": {
           "kind": "<identifer-stream>",
-          "id": 337,
+          "id": 14,
           "identifiers": [
             {
               "kind": "<identifier>",
@@ -410,6 +410,142 @@
         },
         "start": 32,
         "end": 49
+      },
+      "name": "CompileError"
+    },
+    {
+      "code": 4000,
+      "diagnostic": "Can not find Table 'Users'",
+      "nodeOrToken": {
+        "kind": "<infix-expression>",
+        "id": 6,
+        "start": 7,
+        "end": 15,
+        "op": {
+          "kind": "<op>",
+          "offset": 12,
+          "value": ".",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        "leftExpression": {
+          "kind": "<primary-expression>",
+          "id": 3,
+          "start": 7,
+          "end": 12,
+          "expression": {
+            "kind": "<variable>",
+            "id": 2,
+            "start": 7,
+            "end": 12,
+            "variable": {
+              "kind": "<identifier>",
+              "offset": 7,
+              "value": "Users",
+              "length": 5,
+              "leadingTrivia": [],
+              "trailingTrivia": []
+            }
+          }
+        },
+        "rightExpression": {
+          "kind": "<primary-expression>",
+          "id": 5,
+          "start": 13,
+          "end": 15,
+          "expression": {
+            "kind": "<variable>",
+            "id": 4,
+            "start": 13,
+            "end": 15,
+            "variable": {
+              "kind": "<identifier>",
+              "offset": 13,
+              "value": "id",
+              "length": 2,
+              "leadingTrivia": [],
+              "trailingTrivia": [
+                {
+                  "kind": "<space>",
+                  "offset": 15,
+                  "value": " ",
+                  "length": 1,
+                  "leadingTrivia": [],
+                  "trailingTrivia": []
+                }
+              ]
+            }
+          }
+        }
+      },
+      "name": "CompileError"
+    },
+    {
+      "code": 4000,
+      "diagnostic": "Can not find Table 'Products'",
+      "nodeOrToken": {
+        "kind": "<infix-expression>",
+        "id": 11,
+        "start": 18,
+        "end": 30,
+        "op": {
+          "kind": "<op>",
+          "offset": 26,
+          "value": ".",
+          "length": 1,
+          "leadingTrivia": [],
+          "trailingTrivia": []
+        },
+        "leftExpression": {
+          "kind": "<primary-expression>",
+          "id": 8,
+          "start": 18,
+          "end": 26,
+          "expression": {
+            "kind": "<variable>",
+            "id": 7,
+            "start": 18,
+            "end": 26,
+            "variable": {
+              "kind": "<identifier>",
+              "offset": 18,
+              "value": "Products",
+              "length": 8,
+              "leadingTrivia": [],
+              "trailingTrivia": []
+            }
+          }
+        },
+        "rightExpression": {
+          "kind": "<primary-expression>",
+          "id": 10,
+          "start": 27,
+          "end": 30,
+          "expression": {
+            "kind": "<variable>",
+            "id": 9,
+            "start": 27,
+            "end": 30,
+            "variable": {
+              "kind": "<identifier>",
+              "offset": 27,
+              "value": "uid",
+              "length": 3,
+              "leadingTrivia": [],
+              "trailingTrivia": [
+                {
+                  "kind": "<space>",
+                  "offset": 30,
+                  "value": " ",
+                  "length": 1,
+                  "leadingTrivia": [],
+                  "trailingTrivia": []
+                }
+              ]
+            }
+          }
+        }
       },
       "name": "CompileError"
     }

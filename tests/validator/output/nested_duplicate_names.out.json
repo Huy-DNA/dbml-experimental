@@ -1,13 +1,13 @@
 {
   "value": {
     "kind": "<program>",
-    "id": 284,
+    "id": 25,
     "start": 0,
     "end": 98,
     "body": [
       {
         "kind": "<element-declaration>",
-        "id": 283,
+        "id": 24,
         "start": 0,
         "end": 98,
         "type": {
@@ -29,12 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 260,
+          "id": 1,
           "start": 8,
           "end": 9,
           "expression": {
             "kind": "<variable>",
-            "id": 259,
+            "id": 0,
             "start": 8,
             "end": 9,
             "variable": {
@@ -58,7 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 282,
+          "id": 23,
           "start": 10,
           "end": 98,
           "blockOpenBrace": {
@@ -81,7 +81,7 @@
           "body": [
             {
               "kind": "<element-declaration>",
-              "id": 266,
+              "id": 7,
               "start": 17,
               "end": 35,
               "type": {
@@ -136,12 +136,12 @@
               },
               "name": {
                 "kind": "<primary-expression>",
-                "id": 264,
+                "id": 5,
                 "start": 23,
                 "end": 24,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 263,
+                  "id": 4,
                   "start": 23,
                   "end": 24,
                   "variable": {
@@ -165,7 +165,7 @@
               },
               "body": {
                 "kind": "<block-expression>",
-                "id": 265,
+                "id": 6,
                 "start": 25,
                 "end": 35,
                 "blockOpenBrace": {
@@ -245,12 +245,12 @@
                   ]
                 }
               },
-              "parentElement": 283,
-              "symbol": 63
+              "parentElement": 24,
+              "symbol": 2
             },
             {
               "kind": "<element-declaration>",
-              "id": 273,
+              "id": 14,
               "start": 43,
               "end": 61,
               "type": {
@@ -313,12 +313,12 @@
               },
               "name": {
                 "kind": "<primary-expression>",
-                "id": 271,
+                "id": 12,
                 "start": 49,
                 "end": 50,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 270,
+                  "id": 11,
                   "start": 49,
                   "end": 50,
                   "variable": {
@@ -342,7 +342,7 @@
               },
               "body": {
                 "kind": "<block-expression>",
-                "id": 272,
+                "id": 13,
                 "start": 51,
                 "end": 61,
                 "blockOpenBrace": {
@@ -422,12 +422,12 @@
                   ]
                 }
               },
-              "parentElement": 283,
-              "symbol": 65
+              "parentElement": 24,
+              "symbol": 4
             },
             {
               "kind": "<element-declaration>",
-              "id": 280,
+              "id": 21,
               "start": 69,
               "end": 95,
               "type": {
@@ -490,12 +490,12 @@
               },
               "name": {
                 "kind": "<primary-expression>",
-                "id": 278,
+                "id": 19,
                 "start": 75,
                 "end": 76,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 277,
+                  "id": 18,
                   "start": 75,
                   "end": 76,
                   "variable": {
@@ -519,7 +519,7 @@
               },
               "body": {
                 "kind": "<block-expression>",
-                "id": 279,
+                "id": 20,
                 "start": 77,
                 "end": 95,
                 "blockOpenBrace": {
@@ -663,8 +663,8 @@
                   ]
                 }
               },
-              "parentElement": 283,
-              "symbol": 67
+              "parentElement": 24,
+              "symbol": 6
             }
           ],
           "blockCloseBrace": {
@@ -676,7 +676,7 @@
             "trailingTrivia": []
           }
         },
-        "parentElement": 284
+        "parentElement": 25
       }
     ],
     "eof": {
@@ -691,19 +691,19 @@
       "symbolTable": {
         "Table:A": {
           "references": [],
-          "id": 63,
+          "id": 2,
           "symbolTable": {},
-          "declaration": 266
+          "declaration": 7
         },
         "Table:B": {
           "references": [],
-          "id": 67,
+          "id": 6,
           "symbolTable": {},
-          "declaration": 280
+          "declaration": 21
         }
       },
       "references": [],
-      "id": 61
+      "id": 0
     }
   },
   "errors": [
@@ -712,12 +712,12 @@
       "diagnostic": "This Table has a duplicated name",
       "nodeOrToken": {
         "kind": "<primary-expression>",
-        "id": 271,
+        "id": 12,
         "start": 49,
         "end": 50,
         "expression": {
           "kind": "<variable>",
-          "id": 270,
+          "id": 11,
           "start": 49,
           "end": 50,
           "variable": {

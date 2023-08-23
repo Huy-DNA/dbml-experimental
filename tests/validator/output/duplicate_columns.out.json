@@ -1,13 +1,13 @@
 {
   "value": {
     "kind": "<program>",
-    "id": 180,
+    "id": 19,
     "start": 0,
     "end": 64,
     "body": [
       {
         "kind": "<element-declaration>",
-        "id": 179,
+        "id": 18,
         "start": 0,
         "end": 64,
         "type": {
@@ -29,12 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 162,
+          "id": 1,
           "start": 6,
           "end": 11,
           "expression": {
             "kind": "<variable>",
-            "id": 161,
+            "id": 0,
             "start": 6,
             "end": 11,
             "variable": {
@@ -58,7 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 178,
+          "id": 17,
           "start": 12,
           "end": 64,
           "blockOpenBrace": {
@@ -81,17 +81,17 @@
           "body": [
             {
               "kind": "<function-application>",
-              "id": 167,
+              "id": 6,
               "start": 19,
               "end": 29,
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 164,
+                "id": 3,
                 "start": 19,
                 "end": 21,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 163,
+                  "id": 2,
                   "start": 19,
                   "end": 21,
                   "variable": {
@@ -149,12 +149,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
-                  "id": 166,
+                  "id": 5,
                   "start": 22,
                   "end": 29,
                   "expression": {
                     "kind": "<variable>",
-                    "id": 165,
+                    "id": 4,
                     "start": 22,
                     "end": 29,
                     "variable": {
@@ -180,17 +180,17 @@
             },
             {
               "kind": "<function-application>",
-              "id": 172,
+              "id": 11,
               "start": 35,
               "end": 45,
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 169,
+                "id": 8,
                 "start": 35,
                 "end": 37,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 168,
+                  "id": 7,
                   "start": 35,
                   "end": 37,
                   "variable": {
@@ -248,12 +248,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
-                  "id": 171,
+                  "id": 10,
                   "start": 38,
                   "end": 45,
                   "expression": {
                     "kind": "<variable>",
-                    "id": 170,
+                    "id": 9,
                     "start": 38,
                     "end": 45,
                     "variable": {
@@ -279,17 +279,17 @@
             },
             {
               "kind": "<function-application>",
-              "id": 177,
+              "id": 16,
               "start": 51,
               "end": 61,
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 174,
+                "id": 13,
                 "start": 51,
                 "end": 53,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 173,
+                  "id": 12,
                   "start": 51,
                   "end": 53,
                   "variable": {
@@ -347,12 +347,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
-                  "id": 176,
+                  "id": 15,
                   "start": 54,
                   "end": 61,
                   "expression": {
                     "kind": "<variable>",
-                    "id": 175,
+                    "id": 14,
                     "start": 54,
                     "end": 61,
                     "variable": {
@@ -386,8 +386,8 @@
             "trailingTrivia": []
           }
         },
-        "parentElement": 180,
-        "symbol": 32
+        "parentElement": 19,
+        "symbol": 2
       }
     ],
     "eof": {
@@ -402,19 +402,19 @@
       "symbolTable": {
         "Table:Users": {
           "references": [],
-          "id": 32,
+          "id": 2,
           "symbolTable": {
             "Column:id": {
               "references": [],
-              "id": 33,
-              "declaration": 167
+              "id": 3,
+              "declaration": 6
             }
           },
-          "declaration": 179
+          "declaration": 18
         }
       },
       "references": [],
-      "id": 30
+      "id": 0
     }
   },
   "errors": [
@@ -423,12 +423,12 @@
       "diagnostic": "Table subfield's name is duplicated",
       "nodeOrToken": {
         "kind": "<primary-expression>",
-        "id": 169,
+        "id": 8,
         "start": 35,
         "end": 37,
         "expression": {
           "kind": "<variable>",
-          "id": 168,
+          "id": 7,
           "start": 35,
           "end": 37,
           "variable": {
@@ -490,12 +490,12 @@
       "diagnostic": "Table subfield's name is duplicated",
       "nodeOrToken": {
         "kind": "<primary-expression>",
-        "id": 174,
+        "id": 13,
         "start": 51,
         "end": 53,
         "expression": {
           "kind": "<variable>",
-          "id": 173,
+          "id": 12,
           "start": 51,
           "end": 53,
           "variable": {

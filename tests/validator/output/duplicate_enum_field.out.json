@@ -1,13 +1,13 @@
 {
   "value": {
     "kind": "<program>",
-    "id": 191,
+    "id": 10,
     "start": 0,
     "end": 49,
     "body": [
       {
         "kind": "<element-declaration>",
-        "id": 190,
+        "id": 9,
         "start": 0,
         "end": 49,
         "type": {
@@ -29,12 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 182,
+          "id": 1,
           "start": 5,
           "end": 11,
           "expression": {
             "kind": "<variable>",
-            "id": 181,
+            "id": 0,
             "start": 5,
             "end": 11,
             "variable": {
@@ -58,7 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 189,
+          "id": 8,
           "start": 12,
           "end": 49,
           "blockOpenBrace": {
@@ -81,12 +81,12 @@
           "body": [
             {
               "kind": "<primary-expression>",
-              "id": 184,
+              "id": 3,
               "start": 19,
               "end": 24,
               "expression": {
                 "kind": "<variable>",
-                "id": 183,
+                "id": 2,
                 "start": 19,
                 "end": 24,
                 "variable": {
@@ -143,12 +143,12 @@
             },
             {
               "kind": "<primary-expression>",
-              "id": 186,
+              "id": 5,
               "start": 30,
               "end": 35,
               "expression": {
                 "kind": "<variable>",
-                "id": 185,
+                "id": 4,
                 "start": 30,
                 "end": 35,
                 "variable": {
@@ -205,12 +205,12 @@
             },
             {
               "kind": "<primary-expression>",
-              "id": 188,
+              "id": 7,
               "start": 41,
               "end": 46,
               "expression": {
                 "kind": "<variable>",
-                "id": 187,
+                "id": 6,
                 "start": 41,
                 "end": 46,
                 "variable": {
@@ -275,8 +275,8 @@
             "trailingTrivia": []
           }
         },
-        "parentElement": 191,
-        "symbol": 36
+        "parentElement": 10,
+        "symbol": 2
       }
     ],
     "eof": {
@@ -291,19 +291,19 @@
       "symbolTable": {
         "Enum:status": {
           "references": [],
-          "id": 36,
+          "id": 2,
           "symbolTable": {
             "Enum field:churn": {
               "references": [],
-              "id": 37,
-              "declaration": 192
+              "id": 3,
+              "declaration": 11
             }
           },
-          "declaration": 190
+          "declaration": 9
         }
       },
       "references": [],
-      "id": 34
+      "id": 0
     }
   },
   "errors": [
@@ -312,12 +312,12 @@
       "diagnostic": "Enum subfield's name is duplicated",
       "nodeOrToken": {
         "kind": "<primary-expression>",
-        "id": 186,
+        "id": 5,
         "start": 30,
         "end": 35,
         "expression": {
           "kind": "<variable>",
-          "id": 185,
+          "id": 4,
           "start": 30,
           "end": 35,
           "variable": {
@@ -379,12 +379,12 @@
       "diagnostic": "Enum subfield's name is duplicated",
       "nodeOrToken": {
         "kind": "<primary-expression>",
-        "id": 188,
+        "id": 7,
         "start": 41,
         "end": 46,
         "expression": {
           "kind": "<variable>",
-          "id": 187,
+          "id": 6,
           "start": 41,
           "end": 46,
           "variable": {

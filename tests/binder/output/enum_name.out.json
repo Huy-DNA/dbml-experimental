@@ -1,13 +1,13 @@
 {
   "value": {
     "kind": "<program>",
-    "id": 99,
+    "id": 90,
     "start": 0,
     "end": 324,
     "body": [
       {
         "kind": "<element-declaration>",
-        "id": 71,
+        "id": 62,
         "start": 0,
         "end": 193,
         "type": {
@@ -29,12 +29,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 10,
+          "id": 1,
           "start": 6,
           "end": 11,
           "expression": {
             "kind": "<variable>",
-            "id": 9,
+            "id": 0,
             "start": 6,
             "end": 11,
             "variable": {
@@ -58,7 +58,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 70,
+          "id": 61,
           "start": 12,
           "end": 193,
           "blockOpenBrace": {
@@ -81,17 +81,17 @@
           "body": [
             {
               "kind": "<function-application>",
-              "id": 15,
+              "id": 6,
               "start": 19,
               "end": 29,
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 12,
+                "id": 3,
                 "start": 19,
                 "end": 21,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 11,
+                  "id": 2,
                   "start": 19,
                   "end": 21,
                   "variable": {
@@ -149,12 +149,12 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
-                  "id": 14,
+                  "id": 5,
                   "start": 22,
                   "end": 29,
                   "expression": {
                     "kind": "<variable>",
-                    "id": 13,
+                    "id": 4,
                     "start": 22,
                     "end": 29,
                     "variable": {
@@ -180,17 +180,17 @@
             },
             {
               "kind": "<function-application>",
-              "id": 34,
+              "id": 25,
               "start": 35,
               "end": 79,
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 17,
+                "id": 8,
                 "start": 35,
                 "end": 42,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 16,
+                  "id": 7,
                   "start": 35,
                   "end": 42,
                   "variable": {
@@ -248,7 +248,7 @@
               "args": [
                 {
                   "kind": "<infix-expression>",
-                  "id": 22,
+                  "id": 13,
                   "start": 43,
                   "end": 52,
                   "op": {
@@ -261,12 +261,12 @@
                   },
                   "leftExpression": {
                     "kind": "<primary-expression>",
-                    "id": 19,
+                    "id": 10,
                     "start": 43,
                     "end": 45,
                     "expression": {
                       "kind": "<variable>",
-                      "id": 18,
+                      "id": 9,
                       "start": 43,
                       "end": 45,
                       "variable": {
@@ -281,12 +281,12 @@
                   },
                   "rightExpression": {
                     "kind": "<primary-expression>",
-                    "id": 21,
+                    "id": 12,
                     "start": 46,
                     "end": 52,
                     "expression": {
                       "kind": "<variable>",
-                      "id": 20,
+                      "id": 11,
                       "start": 46,
                       "end": 52,
                       "variable": {
@@ -308,11 +308,11 @@
                       }
                     }
                   },
-                  "referee": 15
+                  "referee": 10
                 },
                 {
                   "kind": "<list-expression>",
-                  "id": 33,
+                  "id": 24,
                   "start": 53,
                   "end": 79,
                   "listOpenBracket": {
@@ -326,10 +326,10 @@
                   "elementList": [
                     {
                       "kind": "<attribute>",
-                      "id": 32,
+                      "id": 23,
                       "name": {
                         "kind": "<identifer-stream>",
-                        "id": 23,
+                        "id": 14,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
@@ -345,7 +345,7 @@
                       },
                       "value": {
                         "kind": "<infix-expression>",
-                        "id": 31,
+                        "id": 22,
                         "start": 63,
                         "end": 78,
                         "op": {
@@ -358,7 +358,7 @@
                         },
                         "leftExpression": {
                           "kind": "<infix-expression>",
-                          "id": 28,
+                          "id": 19,
                           "start": 63,
                           "end": 72,
                           "op": {
@@ -371,12 +371,12 @@
                           },
                           "leftExpression": {
                             "kind": "<primary-expression>",
-                            "id": 25,
+                            "id": 16,
                             "start": 63,
                             "end": 65,
                             "expression": {
                               "kind": "<variable>",
-                              "id": 24,
+                              "id": 15,
                               "start": 63,
                               "end": 65,
                               "variable": {
@@ -391,12 +391,12 @@
                           },
                           "rightExpression": {
                             "kind": "<primary-expression>",
-                            "id": 27,
+                            "id": 18,
                             "start": 66,
                             "end": 72,
                             "expression": {
                               "kind": "<variable>",
-                              "id": 26,
+                              "id": 17,
                               "start": 66,
                               "end": 72,
                               "variable": {
@@ -412,12 +412,12 @@
                         },
                         "rightExpression": {
                           "kind": "<primary-expression>",
-                          "id": 30,
+                          "id": 21,
                           "start": 73,
                           "end": 78,
                           "expression": {
                             "kind": "<variable>",
-                            "id": 29,
+                            "id": 20,
                             "start": 73,
                             "end": 78,
                             "variable": {
@@ -430,7 +430,7 @@
                             }
                           }
                         },
-                        "referee": 16
+                        "referee": 11
                       },
                       "colon": {
                         "kind": "<colon>",
@@ -476,17 +476,17 @@
             },
             {
               "kind": "<function-application>",
-              "id": 53,
+              "id": 44,
               "start": 85,
               "end": 138,
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 36,
+                "id": 27,
                 "start": 85,
                 "end": 92,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 35,
+                  "id": 26,
                   "start": 85,
                   "end": 92,
                   "variable": {
@@ -544,7 +544,7 @@
               "args": [
                 {
                   "kind": "<infix-expression>",
-                  "id": 41,
+                  "id": 32,
                   "start": 93,
                   "end": 106,
                   "op": {
@@ -557,12 +557,12 @@
                   },
                   "leftExpression": {
                     "kind": "<primary-expression>",
-                    "id": 38,
+                    "id": 29,
                     "start": 93,
                     "end": 99,
                     "expression": {
                       "kind": "<variable>",
-                      "id": 37,
+                      "id": 28,
                       "start": 93,
                       "end": 99,
                       "variable": {
@@ -577,12 +577,12 @@
                   },
                   "rightExpression": {
                     "kind": "<primary-expression>",
-                    "id": 40,
+                    "id": 31,
                     "start": 100,
                     "end": 106,
                     "expression": {
                       "kind": "<variable>",
-                      "id": 39,
+                      "id": 30,
                       "start": 100,
                       "end": 106,
                       "variable": {
@@ -604,11 +604,11 @@
                       }
                     }
                   },
-                  "referee": 21
+                  "referee": 16
                 },
                 {
                   "kind": "<list-expression>",
-                  "id": 52,
+                  "id": 43,
                   "start": 107,
                   "end": 138,
                   "listOpenBracket": {
@@ -622,10 +622,10 @@
                   "elementList": [
                     {
                       "kind": "<attribute>",
-                      "id": 51,
+                      "id": 42,
                       "name": {
                         "kind": "<identifer-stream>",
-                        "id": 42,
+                        "id": 33,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
@@ -641,7 +641,7 @@
                       },
                       "value": {
                         "kind": "<infix-expression>",
-                        "id": 50,
+                        "id": 41,
                         "start": 117,
                         "end": 137,
                         "op": {
@@ -654,7 +654,7 @@
                         },
                         "leftExpression": {
                           "kind": "<infix-expression>",
-                          "id": 47,
+                          "id": 38,
                           "start": 117,
                           "end": 130,
                           "op": {
@@ -667,12 +667,12 @@
                           },
                           "leftExpression": {
                             "kind": "<primary-expression>",
-                            "id": 44,
+                            "id": 35,
                             "start": 117,
                             "end": 123,
                             "expression": {
                               "kind": "<variable>",
-                              "id": 43,
+                              "id": 34,
                               "start": 117,
                               "end": 123,
                               "variable": {
@@ -687,12 +687,12 @@
                           },
                           "rightExpression": {
                             "kind": "<primary-expression>",
-                            "id": 46,
+                            "id": 37,
                             "start": 124,
                             "end": 130,
                             "expression": {
                               "kind": "<variable>",
-                              "id": 45,
+                              "id": 36,
                               "start": 124,
                               "end": 130,
                               "variable": {
@@ -708,12 +708,12 @@
                         },
                         "rightExpression": {
                           "kind": "<primary-expression>",
-                          "id": 49,
+                          "id": 40,
                           "start": 131,
                           "end": 137,
                           "expression": {
                             "kind": "<variable>",
-                            "id": 48,
+                            "id": 39,
                             "start": 131,
                             "end": 137,
                             "variable": {
@@ -771,17 +771,17 @@
             },
             {
               "kind": "<function-application>",
-              "id": 61,
+              "id": 52,
               "start": 144,
               "end": 166,
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 55,
+                "id": 46,
                 "start": 144,
                 "end": 151,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 54,
+                  "id": 45,
                   "start": 144,
                   "end": 151,
                   "variable": {
@@ -839,7 +839,7 @@
               "args": [
                 {
                   "kind": "<infix-expression>",
-                  "id": 60,
+                  "id": 51,
                   "start": 152,
                   "end": 166,
                   "op": {
@@ -852,12 +852,12 @@
                   },
                   "leftExpression": {
                     "kind": "<primary-expression>",
-                    "id": 57,
+                    "id": 48,
                     "start": 152,
                     "end": 158,
                     "expression": {
                       "kind": "<variable>",
-                      "id": 56,
+                      "id": 47,
                       "start": 152,
                       "end": 158,
                       "variable": {
@@ -872,12 +872,12 @@
                   },
                   "rightExpression": {
                     "kind": "<primary-expression>",
-                    "id": 59,
+                    "id": 50,
                     "start": 159,
                     "end": 166,
                     "expression": {
                       "kind": "<variable>",
-                      "id": 58,
+                      "id": 49,
                       "start": 159,
                       "end": 166,
                       "variable": {
@@ -904,17 +904,17 @@
             },
             {
               "kind": "<function-application>",
-              "id": 69,
+              "id": 60,
               "start": 172,
               "end": 190,
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 63,
+                "id": 54,
                 "start": 172,
                 "end": 179,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 62,
+                  "id": 53,
                   "start": 172,
                   "end": 179,
                   "variable": {
@@ -972,7 +972,7 @@
               "args": [
                 {
                   "kind": "<infix-expression>",
-                  "id": 68,
+                  "id": 59,
                   "start": 180,
                   "end": 190,
                   "op": {
@@ -985,12 +985,12 @@
                   },
                   "leftExpression": {
                     "kind": "<primary-expression>",
-                    "id": 65,
+                    "id": 56,
                     "start": 180,
                     "end": 182,
                     "expression": {
                       "kind": "<variable>",
-                      "id": 64,
+                      "id": 55,
                       "start": 180,
                       "end": 182,
                       "variable": {
@@ -1005,12 +1005,12 @@
                   },
                   "rightExpression": {
                     "kind": "<primary-expression>",
-                    "id": 67,
+                    "id": 58,
                     "start": 183,
                     "end": 190,
                     "expression": {
                       "kind": "<variable>",
-                      "id": 66,
+                      "id": 57,
                       "start": 183,
                       "end": 190,
                       "variable": {
@@ -1054,12 +1054,12 @@
             ]
           }
         },
-        "parentElement": 99,
-        "symbol": 7
+        "parentElement": 90,
+        "symbol": 2
       },
       {
         "kind": "<element-declaration>",
-        "id": 86,
+        "id": 77,
         "start": 197,
         "end": 260,
         "type": {
@@ -1090,7 +1090,7 @@
         },
         "name": {
           "kind": "<infix-expression>",
-          "id": 76,
+          "id": 67,
           "start": 202,
           "end": 211,
           "op": {
@@ -1103,12 +1103,12 @@
           },
           "leftExpression": {
             "kind": "<primary-expression>",
-            "id": 73,
+            "id": 64,
             "start": 202,
             "end": 204,
             "expression": {
               "kind": "<variable>",
-              "id": 72,
+              "id": 63,
               "start": 202,
               "end": 204,
               "variable": {
@@ -1123,12 +1123,12 @@
           },
           "rightExpression": {
             "kind": "<primary-expression>",
-            "id": 75,
+            "id": 66,
             "start": 205,
             "end": 211,
             "expression": {
               "kind": "<variable>",
-              "id": 74,
+              "id": 65,
               "start": 205,
               "end": 211,
               "variable": {
@@ -1153,7 +1153,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 85,
+          "id": 76,
           "start": 212,
           "end": 260,
           "blockOpenBrace": {
@@ -1176,12 +1176,12 @@
           "body": [
             {
               "kind": "<primary-expression>",
-              "id": 78,
+              "id": 69,
               "start": 219,
               "end": 224,
               "expression": {
                 "kind": "<variable>",
-                "id": 77,
+                "id": 68,
                 "start": 219,
                 "end": 224,
                 "variable": {
@@ -1238,12 +1238,12 @@
             },
             {
               "kind": "<primary-expression>",
-              "id": 80,
+              "id": 71,
               "start": 230,
               "end": 233,
               "expression": {
                 "kind": "<variable>",
-                "id": 79,
+                "id": 70,
                 "start": 230,
                 "end": 233,
                 "variable": {
@@ -1300,12 +1300,12 @@
             },
             {
               "kind": "<primary-expression>",
-              "id": 82,
+              "id": 73,
               "start": 239,
               "end": 245,
               "expression": {
                 "kind": "<variable>",
-                "id": 81,
+                "id": 72,
                 "start": 239,
                 "end": 245,
                 "variable": {
@@ -1362,12 +1362,12 @@
             },
             {
               "kind": "<primary-expression>",
-              "id": 84,
+              "id": 75,
               "start": 251,
               "end": 257,
               "expression": {
                 "kind": "<variable>",
-                "id": 83,
+                "id": 74,
                 "start": 251,
                 "end": 257,
                 "variable": {
@@ -1441,12 +1441,12 @@
             ]
           }
         },
-        "parentElement": 99,
-        "symbol": 15
+        "parentElement": 90,
+        "symbol": 10
       },
       {
         "kind": "<element-declaration>",
-        "id": 98,
+        "id": 89,
         "start": 264,
         "end": 324,
         "type": {
@@ -1477,12 +1477,12 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 88,
+          "id": 79,
           "start": 269,
           "end": 275,
           "expression": {
             "kind": "<variable>",
-            "id": 87,
+            "id": 78,
             "start": 269,
             "end": 275,
             "variable": {
@@ -1506,7 +1506,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 97,
+          "id": 88,
           "start": 276,
           "end": 324,
           "blockOpenBrace": {
@@ -1529,12 +1529,12 @@
           "body": [
             {
               "kind": "<primary-expression>",
-              "id": 90,
+              "id": 81,
               "start": 283,
               "end": 288,
               "expression": {
                 "kind": "<variable>",
-                "id": 89,
+                "id": 80,
                 "start": 283,
                 "end": 288,
                 "variable": {
@@ -1591,12 +1591,12 @@
             },
             {
               "kind": "<primary-expression>",
-              "id": 92,
+              "id": 83,
               "start": 294,
               "end": 297,
               "expression": {
                 "kind": "<variable>",
-                "id": 91,
+                "id": 82,
                 "start": 294,
                 "end": 297,
                 "variable": {
@@ -1653,12 +1653,12 @@
             },
             {
               "kind": "<primary-expression>",
-              "id": 94,
+              "id": 85,
               "start": 303,
               "end": 309,
               "expression": {
                 "kind": "<variable>",
-                "id": 93,
+                "id": 84,
                 "start": 303,
                 "end": 309,
                 "variable": {
@@ -1715,12 +1715,12 @@
             },
             {
               "kind": "<primary-expression>",
-              "id": 96,
+              "id": 87,
               "start": 315,
               "end": 321,
               "expression": {
                 "kind": "<variable>",
-                "id": 95,
+                "id": 86,
                 "start": 315,
                 "end": 321,
                 "variable": {
@@ -1785,8 +1785,8 @@
             "trailingTrivia": []
           }
         },
-        "parentElement": 99,
-        "symbol": 21
+        "parentElement": 90,
+        "symbol": 16
       }
     ],
     "eof": {
@@ -1801,45 +1801,45 @@
       "symbolTable": {
         "Table:Users": {
           "references": [],
-          "id": 7,
+          "id": 2,
           "symbolTable": {
             "Column:id": {
               "references": [],
-              "id": 8,
-              "declaration": 15
+              "id": 3,
+              "declaration": 6
             },
             "Column:status1": {
               "references": [],
-              "id": 9,
-              "declaration": 34
+              "id": 4,
+              "declaration": 25
             },
             "Column:status2": {
               "references": [],
-              "id": 10,
-              "declaration": 53
+              "id": 5,
+              "declaration": 44
             },
             "Column:status3": {
               "references": [],
-              "id": 11,
-              "declaration": 61
+              "id": 6,
+              "declaration": 52
             },
             "Column:status4": {
               "references": [],
-              "id": 12,
-              "declaration": 69
+              "id": 7,
+              "declaration": 60
             }
           },
-          "declaration": 71
+          "declaration": 62
         },
         "Schema:v2": {
           "references": [],
-          "id": 14,
+          "id": 9,
           "symbolTable": {
             "Enum:status": {
               "references": [
                 {
                   "kind": "<infix-expression>",
-                  "id": 22,
+                  "id": 13,
                   "start": 43,
                   "end": 52,
                   "op": {
@@ -1852,12 +1852,12 @@
                   },
                   "leftExpression": {
                     "kind": "<primary-expression>",
-                    "id": 19,
+                    "id": 10,
                     "start": 43,
                     "end": 45,
                     "expression": {
                       "kind": "<variable>",
-                      "id": 18,
+                      "id": 9,
                       "start": 43,
                       "end": 45,
                       "variable": {
@@ -1872,12 +1872,12 @@
                   },
                   "rightExpression": {
                     "kind": "<primary-expression>",
-                    "id": 21,
+                    "id": 12,
                     "start": 46,
                     "end": 52,
                     "expression": {
                       "kind": "<variable>",
-                      "id": 20,
+                      "id": 11,
                       "start": 46,
                       "end": 52,
                       "variable": {
@@ -1899,16 +1899,16 @@
                       }
                     }
                   },
-                  "referee": 15
+                  "referee": 10
                 }
               ],
-              "id": 15,
+              "id": 10,
               "symbolTable": {
                 "Enum field:churn": {
                   "references": [
                     {
                       "kind": "<infix-expression>",
-                      "id": 31,
+                      "id": 22,
                       "start": 63,
                       "end": 78,
                       "op": {
@@ -1921,7 +1921,7 @@
                       },
                       "leftExpression": {
                         "kind": "<infix-expression>",
-                        "id": 28,
+                        "id": 19,
                         "start": 63,
                         "end": 72,
                         "op": {
@@ -1934,12 +1934,12 @@
                         },
                         "leftExpression": {
                           "kind": "<primary-expression>",
-                          "id": 25,
+                          "id": 16,
                           "start": 63,
                           "end": 65,
                           "expression": {
                             "kind": "<variable>",
-                            "id": 24,
+                            "id": 15,
                             "start": 63,
                             "end": 65,
                             "variable": {
@@ -1954,12 +1954,12 @@
                         },
                         "rightExpression": {
                           "kind": "<primary-expression>",
-                          "id": 27,
+                          "id": 18,
                           "start": 66,
                           "end": 72,
                           "expression": {
                             "kind": "<variable>",
-                            "id": 26,
+                            "id": 17,
                             "start": 66,
                             "end": 72,
                             "variable": {
@@ -1975,12 +1975,12 @@
                       },
                       "rightExpression": {
                         "kind": "<primary-expression>",
-                        "id": 30,
+                        "id": 21,
                         "start": 73,
                         "end": 78,
                         "expression": {
                           "kind": "<variable>",
-                          "id": 29,
+                          "id": 20,
                           "start": 73,
                           "end": 78,
                           "variable": {
@@ -1993,29 +1993,29 @@
                           }
                         }
                       },
-                      "referee": 16
+                      "referee": 11
                     }
                   ],
-                  "id": 16,
-                  "declaration": 100
+                  "id": 11,
+                  "declaration": 91
                 },
                 "Enum field:new": {
                   "references": [],
-                  "id": 17,
-                  "declaration": 101
+                  "id": 12,
+                  "declaration": 92
                 },
                 "Enum field:active": {
                   "references": [],
-                  "id": 18,
-                  "declaration": 102
+                  "id": 13,
+                  "declaration": 93
                 },
                 "Enum field:tenant": {
                   "references": [],
-                  "id": 19,
-                  "declaration": 103
+                  "id": 14,
+                  "declaration": 94
                 }
               },
-              "declaration": 86
+              "declaration": 77
             }
           }
         },
@@ -2023,7 +2023,7 @@
           "references": [
             {
               "kind": "<infix-expression>",
-              "id": 41,
+              "id": 32,
               "start": 93,
               "end": 106,
               "op": {
@@ -2036,12 +2036,12 @@
               },
               "leftExpression": {
                 "kind": "<primary-expression>",
-                "id": 38,
+                "id": 29,
                 "start": 93,
                 "end": 99,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 37,
+                  "id": 28,
                   "start": 93,
                   "end": 99,
                   "variable": {
@@ -2056,12 +2056,12 @@
               },
               "rightExpression": {
                 "kind": "<primary-expression>",
-                "id": 40,
+                "id": 31,
                 "start": 100,
                 "end": 106,
                 "expression": {
                   "kind": "<variable>",
-                  "id": 39,
+                  "id": 30,
                   "start": 100,
                   "end": 106,
                   "variable": {
@@ -2083,37 +2083,37 @@
                   }
                 }
               },
-              "referee": 21
+              "referee": 16
             }
           ],
-          "id": 21,
+          "id": 16,
           "symbolTable": {
             "Enum field:churn": {
               "references": [],
-              "id": 22,
-              "declaration": 104
+              "id": 17,
+              "declaration": 95
             },
             "Enum field:new": {
               "references": [],
-              "id": 23,
-              "declaration": 105
+              "id": 18,
+              "declaration": 96
             },
             "Enum field:active": {
               "references": [],
-              "id": 24,
-              "declaration": 106
+              "id": 19,
+              "declaration": 97
             },
             "Enum field:tenant": {
               "references": [],
-              "id": 25,
-              "declaration": 107
+              "id": 20,
+              "declaration": 98
             }
           },
-          "declaration": 98
+          "declaration": 89
         }
       },
       "references": [],
-      "id": 5
+      "id": 0
     }
   },
   "errors": [
@@ -2122,7 +2122,7 @@
       "diagnostic": "Enum 'status' does not have Enum field 'churnn'",
       "nodeOrToken": {
         "kind": "<infix-expression>",
-        "id": 50,
+        "id": 41,
         "start": 117,
         "end": 137,
         "op": {
@@ -2135,7 +2135,7 @@
         },
         "leftExpression": {
           "kind": "<infix-expression>",
-          "id": 47,
+          "id": 38,
           "start": 117,
           "end": 130,
           "op": {
@@ -2148,12 +2148,12 @@
           },
           "leftExpression": {
             "kind": "<primary-expression>",
-            "id": 44,
+            "id": 35,
             "start": 117,
             "end": 123,
             "expression": {
               "kind": "<variable>",
-              "id": 43,
+              "id": 34,
               "start": 117,
               "end": 123,
               "variable": {
@@ -2168,12 +2168,12 @@
           },
           "rightExpression": {
             "kind": "<primary-expression>",
-            "id": 46,
+            "id": 37,
             "start": 124,
             "end": 130,
             "expression": {
               "kind": "<variable>",
-              "id": 45,
+              "id": 36,
               "start": 124,
               "end": 130,
               "variable": {
@@ -2189,12 +2189,12 @@
         },
         "rightExpression": {
           "kind": "<primary-expression>",
-          "id": 49,
+          "id": 40,
           "start": 131,
           "end": 137,
           "expression": {
             "kind": "<variable>",
-            "id": 48,
+            "id": 39,
             "start": 131,
             "end": 137,
             "variable": {
@@ -2215,7 +2215,7 @@
       "diagnostic": "Schema 'public' does not have Enum 'statuss'",
       "nodeOrToken": {
         "kind": "<infix-expression>",
-        "id": 60,
+        "id": 51,
         "start": 152,
         "end": 166,
         "op": {
@@ -2228,12 +2228,12 @@
         },
         "leftExpression": {
           "kind": "<primary-expression>",
-          "id": 57,
+          "id": 48,
           "start": 152,
           "end": 158,
           "expression": {
             "kind": "<variable>",
-            "id": 56,
+            "id": 47,
             "start": 152,
             "end": 158,
             "variable": {
@@ -2248,12 +2248,12 @@
         },
         "rightExpression": {
           "kind": "<primary-expression>",
-          "id": 59,
+          "id": 50,
           "start": 159,
           "end": 166,
           "expression": {
             "kind": "<variable>",
-            "id": 58,
+            "id": 49,
             "start": 159,
             "end": 166,
             "variable": {
@@ -2283,7 +2283,7 @@
       "diagnostic": "Schema 'v2' does not have Enum 'statuss'",
       "nodeOrToken": {
         "kind": "<infix-expression>",
-        "id": 68,
+        "id": 59,
         "start": 180,
         "end": 190,
         "op": {
@@ -2296,12 +2296,12 @@
         },
         "leftExpression": {
           "kind": "<primary-expression>",
-          "id": 65,
+          "id": 56,
           "start": 180,
           "end": 182,
           "expression": {
             "kind": "<variable>",
-            "id": 64,
+            "id": 55,
             "start": 180,
             "end": 182,
             "variable": {
@@ -2316,12 +2316,12 @@
         },
         "rightExpression": {
           "kind": "<primary-expression>",
-          "id": 67,
+          "id": 58,
           "start": 183,
           "end": 190,
           "expression": {
             "kind": "<variable>",
-            "id": 66,
+            "id": 57,
             "start": 183,
             "end": 190,
             "variable": {
