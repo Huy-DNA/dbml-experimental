@@ -9,9 +9,11 @@ import { CompileError, CompileErrorCode } from '../../../errors';
 import {
   CallExpressionNode,
   ElementDeclarationNode,
+  LiteralNode,
   PrefixExpressionNode,
   PrimaryExpressionNode,
   SyntaxNode,
+  VariableNode,
 } from '../../../parser/nodes';
 import {
   isAccessExpression,
@@ -22,6 +24,7 @@ import { destructureComplexVariable } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
+  isExpressionANumber,
  isUnaryRelationship, isValidColor, isValidDefaultValue, isVoid,
 } from '../utils';
 import {
@@ -152,7 +155,10 @@ function isValidColumnType(type: SyntaxNode): boolean {
     return false;
   }
 
-  while (type instanceof CallExpressionNode) {
+  if (type instanceof CallExpressionNode) {
+    if (!type.argumentList.elementList.every(isExpressionANumber)) {
+      return false;
+    }
     // eslint-disable-next-line no-param-reassign
     type = type.callee;
   }

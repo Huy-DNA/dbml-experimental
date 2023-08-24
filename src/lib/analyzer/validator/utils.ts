@@ -168,6 +168,18 @@ export function isValidDefaultValue(value?: SyntaxNode): boolean {
   return variables !== undefined && variables.length > 0;
 }
 
+export function isExpressionANumber(
+  value?: SyntaxNode,
+): value is PrimaryExpressionNode & {
+  expression: LiteralNode & { literal: { kind: SyntaxTokenKind.NUMERIC_LITERAL } };
+} {
+  return (
+    value instanceof PrimaryExpressionNode &&
+    value.expression instanceof LiteralNode &&
+    value.expression.literal.kind === SyntaxTokenKind.NUMERIC_LITERAL
+  );
+}
+
 export function isUnaryRelationship(value?: SyntaxNode): boolean {
   if (!(value instanceof PrefixExpressionNode)) {
     return false;
