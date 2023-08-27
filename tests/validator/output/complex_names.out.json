@@ -740,7 +740,8 @@
                       }
                     ],
                     "start": 41,
-                    "end": 51
+                    "end": 51,
+                    "symbol": 4
                   },
                   {
                     "kind": "<function-application>",
@@ -1508,7 +1509,8 @@
                       }
                     ],
                     "start": 61,
-                    "end": 102
+                    "end": 102,
+                    "symbol": 5
                   }
                 ],
                 "blockCloseBrace": {
@@ -2186,7 +2188,8 @@
                       "end": 146
                     },
                     "start": 143,
-                    "end": 146
+                    "end": 146,
+                    "symbol": 9
                   },
                   {
                     "kind": "<primary-expression>",
@@ -2400,7 +2403,8 @@
                       "end": 161
                     },
                     "start": 156,
-                    "end": 161
+                    "end": 161,
+                    "symbol": 10
                   },
                   {
                     "kind": "<primary-expression>",
@@ -2614,7 +2618,8 @@
                       "end": 177
                     },
                     "start": 171,
-                    "end": 177
+                    "end": 177,
+                    "symbol": 11
                   },
                   {
                     "kind": "<primary-expression>",
@@ -2828,7 +2833,8 @@
                       "end": 193
                     },
                     "start": 187,
-                    "end": 193
+                    "end": 193,
+                    "symbol": 12
                   }
                 ],
                 "blockCloseBrace": {
@@ -3407,22 +3413,22 @@
                     }
                   ],
                   "id": 9,
-                  "declaration": 55
+                  "declaration": 42
                 },
                 "Enum field:churn": {
                   "references": [],
                   "id": 10,
-                  "declaration": 56
+                  "declaration": 44
                 },
                 "Enum field:active": {
                   "references": [],
                   "id": 11,
-                  "declaration": 57
+                  "declaration": 46
                 },
                 "Enum field:tenant": {
                   "references": [],
                   "id": 12,
-                  "declaration": 58
+                  "declaration": 48
                 }
               },
               "declaration": 50

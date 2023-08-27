@@ -410,7 +410,8 @@
                 }
               ],
               "start": 19,
-              "end": 29
+              "end": 29,
+              "symbol": 3
             },
             {
               "kind": "<function-application>",
@@ -1106,7 +1107,8 @@
                 }
               ],
               "start": 35,
-              "end": 79
+              "end": 79,
+              "symbol": 4
             },
             {
               "kind": "<function-application>",
@@ -1801,7 +1803,8 @@
                 }
               ],
               "start": 85,
-              "end": 138
+              "end": 138,
+              "symbol": 5
             },
             {
               "kind": "<function-application>",
@@ -2114,7 +2117,8 @@
                 }
               ],
               "start": 144,
-              "end": 166
+              "end": 166,
+              "symbol": 6
             },
             {
               "kind": "<function-application>",
@@ -2427,7 +2431,8 @@
                 }
               ],
               "start": 172,
-              "end": 190
+              "end": 190,
+              "symbol": 7
             }
           ],
           "blockCloseBrace": {
@@ -2888,7 +2893,8 @@
                 "end": 224
               },
               "start": 219,
-              "end": 224
+              "end": 224,
+              "symbol": 11
             },
             {
               "kind": "<primary-expression>",
@@ -3030,7 +3036,8 @@
                 "end": 233
               },
               "start": 230,
-              "end": 233
+              "end": 233,
+              "symbol": 12
             },
             {
               "kind": "<primary-expression>",
@@ -3172,7 +3179,8 @@
                 "end": 245
               },
               "start": 239,
-              "end": 245
+              "end": 245,
+              "symbol": 13
             },
             {
               "kind": "<primary-expression>",
@@ -3314,7 +3322,8 @@
                 "end": 257
               },
               "start": 251,
-              "end": 257
+              "end": 257,
+              "symbol": 14
             }
           ],
           "blockCloseBrace": {
@@ -3691,7 +3700,8 @@
                 "end": 288
               },
               "start": 283,
-              "end": 288
+              "end": 288,
+              "symbol": 17
             },
             {
               "kind": "<primary-expression>",
@@ -3833,7 +3843,8 @@
                 "end": 297
               },
               "start": 294,
-              "end": 297
+              "end": 297,
+              "symbol": 18
             },
             {
               "kind": "<primary-expression>",
@@ -3975,7 +3986,8 @@
                 "end": 309
               },
               "start": 303,
-              "end": 309
+              "end": 309,
+              "symbol": 19
             },
             {
               "kind": "<primary-expression>",
@@ -4117,7 +4129,8 @@
                 "end": 321
               },
               "start": 315,
-              "end": 321
+              "end": 321,
+              "symbol": 20
             }
           ],
           "blockCloseBrace": {
@@ -4587,22 +4600,22 @@
                     }
                   ],
                   "id": 11,
-                  "declaration": 91
+                  "declaration": 69
                 },
                 "Enum field:new": {
                   "references": [],
                   "id": 12,
-                  "declaration": 92
+                  "declaration": 71
                 },
                 "Enum field:active": {
                   "references": [],
                   "id": 13,
-                  "declaration": 93
+                  "declaration": 73
                 },
                 "Enum field:tenant": {
                   "references": [],
                   "id": 14,
-                  "declaration": 94
+                  "declaration": 75
                 }
               },
               "declaration": 77
@@ -4771,22 +4784,22 @@
             "Enum field:churn": {
               "references": [],
               "id": 17,
-              "declaration": 95
+              "declaration": 81
             },
             "Enum field:new": {
               "references": [],
               "id": 18,
-              "declaration": 96
+              "declaration": 83
             },
             "Enum field:active": {
               "references": [],
               "id": 19,
-              "declaration": 97
+              "declaration": 85
             },
             "Enum field:tenant": {
               "references": [],
               "id": 20,
-              "declaration": 98
+              "declaration": 87
             }
           },
           "declaration": 89

@@ -374,7 +374,8 @@
                 }
               ],
               "start": 20,
-              "end": 30
+              "end": 30,
+              "symbol": 3
             },
             {
               "kind": "<function-application>",
@@ -567,7 +568,8 @@
                 }
               ],
               "start": 34,
-              "end": 49
+              "end": 49,
+              "symbol": 4
             },
             {
               "kind": "<function-application>",
@@ -760,7 +762,8 @@
                 }
               ],
               "start": 53,
-              "end": 70
+              "end": 70,
+              "symbol": 5
             },
             {
               "kind": "<function-application>",
@@ -953,7 +956,8 @@
                 }
               ],
               "start": 74,
-              "end": 94
+              "end": 94,
+              "symbol": 6
             },
             {
               "kind": "<element-declaration>",

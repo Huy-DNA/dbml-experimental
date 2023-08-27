@@ -1,7 +1,7 @@
 {
   "value": {
     "kind": "<program>",
-    "id": 39,
+    "id": 20,
     "startPos": {
       "offset": 0,
       "line": 0,
@@ -15,7 +15,7 @@
     "body": [
       {
         "kind": "<element-declaration>",
-        "id": 20,
+        "id": 1,
         "startPos": {
           "offset": 0,
           "line": 0,
@@ -65,7 +65,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 19,
+          "id": 0,
           "startPos": {
             "offset": 6,
             "line": 0,
@@ -178,7 +178,7 @@
       },
       {
         "kind": "<element-declaration>",
-        "id": 24,
+        "id": 5,
         "startPos": {
           "offset": 16,
           "line": 4,
@@ -247,7 +247,7 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 22,
+          "id": 3,
           "startPos": {
             "offset": 27,
             "line": 4,
@@ -260,7 +260,7 @@
           },
           "expression": {
             "kind": "<variable>",
-            "id": 21,
+            "id": 2,
             "startPos": {
               "offset": 27,
               "line": 4,
@@ -316,7 +316,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 23,
+          "id": 4,
           "startPos": {
             "offset": 33,
             "line": 4,
@@ -429,7 +429,7 @@
       },
       {
         "kind": "<element-declaration>",
-        "id": 26,
+        "id": 7,
         "startPos": {
           "offset": 43,
           "line": 8,
@@ -498,7 +498,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 25,
+          "id": 6,
           "startPos": {
             "offset": 47,
             "line": 8,
@@ -611,7 +611,7 @@
       },
       {
         "kind": "<element-declaration>",
-        "id": 29,
+        "id": 10,
         "startPos": {
           "offset": 57,
           "line": 12,
@@ -698,7 +698,7 @@
         },
         "body": {
           "kind": "<primary-expression>",
-          "id": 28,
+          "id": 9,
           "startPos": {
             "offset": 63,
             "line": 12,
@@ -711,7 +711,7 @@
           },
           "expression": {
             "kind": "<literal>",
-            "id": 27,
+            "id": 8,
             "startPos": {
               "offset": 63,
               "line": 12,
@@ -770,7 +770,7 @@
       },
       {
         "kind": "<element-declaration>",
-        "id": 32,
+        "id": 13,
         "startPos": {
           "offset": 83,
           "line": 14,
@@ -857,7 +857,7 @@
         },
         "body": {
           "kind": "<primary-expression>",
-          "id": 31,
+          "id": 12,
           "startPos": {
             "offset": 89,
             "line": 14,
@@ -870,7 +870,7 @@
           },
           "expression": {
             "kind": "<literal>",
-            "id": 30,
+            "id": 11,
             "startPos": {
               "offset": 89,
               "line": 14,
@@ -929,7 +929,7 @@
       },
       {
         "kind": "<element-declaration>",
-        "id": 38,
+        "id": 19,
         "startPos": {
           "offset": 121,
           "line": 17,
@@ -998,7 +998,7 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 34,
+          "id": 15,
           "startPos": {
             "offset": 127,
             "line": 17,
@@ -1011,7 +1011,7 @@
           },
           "expression": {
             "kind": "<variable>",
-            "id": 33,
+            "id": 14,
             "startPos": {
               "offset": 127,
               "line": 17,
@@ -1104,7 +1104,7 @@
         },
         "alias": {
           "kind": "<primary-expression>",
-          "id": 36,
+          "id": 17,
           "startPos": {
             "offset": 136,
             "line": 17,
@@ -1117,7 +1117,7 @@
           },
           "expression": {
             "kind": "<variable>",
-            "id": 35,
+            "id": 16,
             "startPos": {
               "offset": 136,
               "line": 17,
@@ -1173,7 +1173,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 37,
+          "id": 18,
           "startPos": {
             "offset": 138,
             "line": 17,

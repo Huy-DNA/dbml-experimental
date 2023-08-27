@@ -323,7 +323,8 @@
                 "end": 24
               },
               "start": 19,
-              "end": 24
+              "end": 24,
+              "symbol": 3
             },
             {
               "kind": "<primary-expression>",
@@ -666,7 +667,7 @@
             "Enum field:churn": {
               "references": [],
               "id": 3,
-              "declaration": 11
+              "declaration": 3
             }
           },
           "declaration": 9

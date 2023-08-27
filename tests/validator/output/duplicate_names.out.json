@@ -410,7 +410,8 @@
                 }
               ],
               "start": 19,
-              "end": 29
+              "end": 29,
+              "symbol": 3
             }
           ],
           "blockCloseBrace": {
@@ -995,7 +996,8 @@
                 }
               ],
               "start": 55,
-              "end": 69
+              "end": 69,
+              "symbol": 6
             }
           ],
           "blockCloseBrace": {

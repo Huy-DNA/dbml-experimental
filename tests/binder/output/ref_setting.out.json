@@ -356,7 +356,8 @@
                 }
               ],
               "start": 16,
-              "end": 26
+              "end": 26,
+              "symbol": 3
             },
             {
               "kind": "<function-application>",
@@ -1052,7 +1053,8 @@
                 }
               ],
               "start": 32,
-              "end": 73
+              "end": 73,
+              "symbol": 4
             },
             {
               "kind": "<function-application>",
@@ -1618,7 +1620,8 @@
                 }
               ],
               "start": 85,
-              "end": 112
+              "end": 112,
+              "symbol": 5
             }
           ],
           "blockCloseBrace": {
@@ -2025,7 +2028,8 @@
                 "end": 143
               },
               "start": 138,
-              "end": 143
+              "end": 143,
+              "symbol": 9
             },
             {
               "kind": "<function-application>",
@@ -2398,7 +2402,8 @@
                 }
               ],
               "start": 149,
-              "end": 185
+              "end": 185,
+              "symbol": 10
             }
           ],
           "blockCloseBrace": {
@@ -2638,7 +2643,7 @@
                 "Enum field:churn": {
                   "references": [],
                   "id": 9,
-                  "declaration": 57
+                  "declaration": 45
                 },
                 "Enum field:new": {
                   "references": [

@@ -1,7 +1,7 @@
 {
   "value": {
     "kind": "<program>",
-    "id": 298,
+    "id": 35,
     "startPos": {
       "offset": 0,
       "line": 0,
@@ -15,7 +15,7 @@
     "body": [
       {
         "kind": "<element-declaration>",
-        "id": 297,
+        "id": 34,
         "startPos": {
           "offset": 0,
           "line": 0,
@@ -65,7 +65,7 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 264,
+          "id": 1,
           "startPos": {
             "offset": 5,
             "line": 0,
@@ -78,7 +78,7 @@
           },
           "expression": {
             "kind": "<variable>",
-            "id": 263,
+            "id": 0,
             "startPos": {
               "offset": 5,
               "line": 0,
@@ -134,7 +134,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 296,
+          "id": 33,
           "startPos": {
             "offset": 30,
             "line": 0,
@@ -185,7 +185,7 @@
           "body": [
             {
               "kind": "<element-declaration>",
-              "id": 287,
+              "id": 24,
               "startPos": {
                 "offset": 37,
                 "line": 1,
@@ -308,7 +308,7 @@
               },
               "attributeList": {
                 "kind": "<list-expression>",
-                "id": 271,
+                "id": 8,
                 "startPos": {
                   "offset": 45,
                   "line": 1,
@@ -340,10 +340,10 @@
                 "elementList": [
                   {
                     "kind": "<attribute>",
-                    "id": 270,
+                    "id": 7,
                     "name": {
                       "kind": "<identifer-stream>",
-                      "id": 267,
+                      "id": 4,
                       "identifiers": [
                         {
                           "kind": "<identifier>",
@@ -379,7 +379,7 @@
                     },
                     "value": {
                       "kind": "<primary-expression>",
-                      "id": 269,
+                      "id": 6,
                       "startPos": {
                         "offset": 52,
                         "line": 1,
@@ -392,7 +392,7 @@
                       },
                       "expression": {
                         "kind": "<literal>",
-                        "id": 268,
+                        "id": 5,
                         "startPos": {
                           "offset": 52,
                           "line": 1,
@@ -521,7 +521,7 @@
               },
               "body": {
                 "kind": "<block-expression>",
-                "id": 286,
+                "id": 23,
                 "startPos": {
                   "offset": 80,
                   "line": 1,
@@ -572,7 +572,7 @@
                 "body": [
                   {
                     "kind": "<function-application>",
-                    "id": 279,
+                    "id": 16,
                     "startPos": {
                       "offset": 91,
                       "line": 2,
@@ -585,7 +585,7 @@
                     },
                     "callee": {
                       "kind": "<tuple-expression>",
-                      "id": 275,
+                      "id": 12,
                       "startPos": {
                         "offset": 91,
                         "line": 2,
@@ -762,7 +762,7 @@
                       "elementList": [
                         {
                           "kind": "<function-expression>",
-                          "id": 272,
+                          "id": 9,
                           "startPos": {
                             "offset": 92,
                             "line": 2,
@@ -796,7 +796,7 @@
                         },
                         {
                           "kind": "<primary-expression>",
-                          "id": 274,
+                          "id": 11,
                           "startPos": {
                             "offset": 102,
                             "line": 2,
@@ -809,7 +809,7 @@
                           },
                           "expression": {
                             "kind": "<variable>",
-                            "id": 273,
+                            "id": 10,
                             "startPos": {
                               "offset": 102,
                               "line": 2,
@@ -927,7 +927,7 @@
                     "args": [
                       {
                         "kind": "<list-expression>",
-                        "id": 278,
+                        "id": 15,
                         "startPos": {
                           "offset": 106,
                           "line": 2,
@@ -959,10 +959,10 @@
                         "elementList": [
                           {
                             "kind": "<attribute>",
-                            "id": 277,
+                            "id": 14,
                             "name": {
                               "kind": "<identifer-stream>",
-                              "id": 276,
+                              "id": 13,
                               "identifiers": [
                                 {
                                   "kind": "<identifier>",
@@ -1094,7 +1094,7 @@
                   },
                   {
                     "kind": "<function-application>",
-                    "id": 285,
+                    "id": 22,
                     "startPos": {
                       "offset": 129,
                       "line": 3,
@@ -1107,7 +1107,7 @@
                     },
                     "callee": {
                       "kind": "<primary-expression>",
-                      "id": 281,
+                      "id": 18,
                       "startPos": {
                         "offset": 129,
                         "line": 3,
@@ -1120,7 +1120,7 @@
                       },
                       "expression": {
                         "kind": "<variable>",
-                        "id": 280,
+                        "id": 17,
                         "startPos": {
                           "offset": 129,
                           "line": 3,
@@ -1322,7 +1322,7 @@
                     "args": [
                       {
                         "kind": "<list-expression>",
-                        "id": 284,
+                        "id": 21,
                         "startPos": {
                           "offset": 134,
                           "line": 3,
@@ -1354,10 +1354,10 @@
                         "elementList": [
                           {
                             "kind": "<attribute>",
-                            "id": 283,
+                            "id": 20,
                             "name": {
                               "kind": "<identifer-stream>",
-                              "id": 282,
+                              "id": 19,
                               "identifiers": [
                                 {
                                   "kind": "<identifier>",
@@ -1569,7 +1569,7 @@
             },
             {
               "kind": "<element-declaration>",
-              "id": 294,
+              "id": 31,
               "startPos": {
                 "offset": 157,
                 "line": 6,
@@ -1710,7 +1710,7 @@
               },
               "body": {
                 "kind": "<block-expression>",
-                "id": 293,
+                "id": 30,
                 "startPos": {
                   "offset": 162,
                   "line": 6,
@@ -1761,7 +1761,7 @@
                 "body": [
                   {
                     "kind": "<primary-expression>",
-                    "id": 292,
+                    "id": 29,
                     "startPos": {
                       "offset": 173,
                       "line": 7,
@@ -1774,7 +1774,7 @@
                     },
                     "expression": {
                       "kind": "<literal>",
-                      "id": 291,
+                      "id": 28,
                       "startPos": {
                         "offset": 173,
                         "line": 7,

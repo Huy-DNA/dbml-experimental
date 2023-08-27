@@ -1,3 +1,4 @@
+import SymbolFactory from 'lib/analyzer/symbol/factory';
 import { UnresolvedName } from '../../types';
 import {
   ElementKind,
@@ -9,11 +10,9 @@ import { CompileError, CompileErrorCode } from '../../../errors';
 import {
   CallExpressionNode,
   ElementDeclarationNode,
-  LiteralNode,
   PrefixExpressionNode,
   PrimaryExpressionNode,
   SyntaxNode,
-  VariableNode,
 } from '../../../parser/nodes';
 import {
   isAccessExpression,
@@ -25,7 +24,10 @@ import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
   isExpressionANumber,
- isUnaryRelationship, isValidColor, isValidDefaultValue, isVoid,
+  isUnaryRelationship,
+  isValidColor,
+  isValidDefaultValue,
+  isVoid,
 } from '../utils';
 import {
   registerNameConfig,
@@ -107,6 +109,7 @@ export default class TableValidator extends ElementValidator {
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
+    symbolFactory: SymbolFactory,
   ) {
     super(
       declarationNode,
@@ -116,6 +119,7 @@ export default class TableValidator extends ElementValidator {
       errors,
       kindsGloballyFound,
       kindsLocallyFound,
+      symbolFactory,
     );
   }
 }

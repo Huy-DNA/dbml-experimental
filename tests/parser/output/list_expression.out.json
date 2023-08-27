@@ -1,7 +1,7 @@
 {
   "value": {
     "kind": "<program>",
-    "id": 262,
+    "id": 24,
     "startPos": {
       "offset": 0,
       "line": 0,
@@ -15,7 +15,7 @@
     "body": [
       {
         "kind": "<element-declaration>",
-        "id": 261,
+        "id": 23,
         "startPos": {
           "offset": 0,
           "line": 0,
@@ -65,7 +65,7 @@
         },
         "name": {
           "kind": "<primary-expression>",
-          "id": 239,
+          "id": 1,
           "startPos": {
             "offset": 5,
             "line": 0,
@@ -78,7 +78,7 @@
           },
           "expression": {
             "kind": "<variable>",
-            "id": 238,
+            "id": 0,
             "startPos": {
               "offset": 5,
               "line": 0,
@@ -134,7 +134,7 @@
         },
         "body": {
           "kind": "<block-expression>",
-          "id": 260,
+          "id": 22,
           "startPos": {
             "offset": 20,
             "line": 0,
@@ -185,7 +185,7 @@
           "body": [
             {
               "kind": "<function-application>",
-              "id": 259,
+              "id": 21,
               "startPos": {
                 "offset": 27,
                 "line": 1,
@@ -198,7 +198,7 @@
               },
               "callee": {
                 "kind": "<primary-expression>",
-                "id": 241,
+                "id": 3,
                 "startPos": {
                   "offset": 27,
                   "line": 1,
@@ -211,7 +211,7 @@
                 },
                 "expression": {
                   "kind": "<variable>",
-                  "id": 240,
+                  "id": 2,
                   "startPos": {
                     "offset": 27,
                     "line": 1,
@@ -341,7 +341,7 @@
               "args": [
                 {
                   "kind": "<primary-expression>",
-                  "id": 243,
+                  "id": 5,
                   "startPos": {
                     "offset": 30,
                     "line": 1,
@@ -354,7 +354,7 @@
                   },
                   "expression": {
                     "kind": "<variable>",
-                    "id": 242,
+                    "id": 4,
                     "startPos": {
                       "offset": 30,
                       "line": 1,
@@ -410,7 +410,7 @@
                 },
                 {
                   "kind": "<list-expression>",
-                  "id": 258,
+                  "id": 20,
                   "startPos": {
                     "offset": 38,
                     "line": 1,
@@ -442,10 +442,10 @@
                   "elementList": [
                     {
                       "kind": "<attribute>",
-                      "id": 245,
+                      "id": 7,
                       "name": {
                         "kind": "<identifer-stream>",
-                        "id": 244,
+                        "id": 6,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
@@ -494,10 +494,10 @@
                     },
                     {
                       "kind": "<attribute>",
-                      "id": 249,
+                      "id": 11,
                       "name": {
                         "kind": "<identifer-stream>",
-                        "id": 246,
+                        "id": 8,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
@@ -533,7 +533,7 @@
                       },
                       "value": {
                         "kind": "<primary-expression>",
-                        "id": 248,
+                        "id": 10,
                         "startPos": {
                           "offset": 49,
                           "line": 1,
@@ -546,7 +546,7 @@
                         },
                         "expression": {
                           "kind": "<literal>",
-                          "id": 247,
+                          "id": 9,
                           "startPos": {
                             "offset": 49,
                             "line": 1,
@@ -633,10 +633,10 @@
                     },
                     {
                       "kind": "<attribute>",
-                      "id": 253,
+                      "id": 15,
                       "name": {
                         "kind": "<identifer-stream>",
-                        "id": 250,
+                        "id": 12,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
@@ -961,7 +961,7 @@
                       },
                       "value": {
                         "kind": "<primary-expression>",
-                        "id": 252,
+                        "id": 14,
                         "startPos": {
                           "offset": 80,
                           "line": 2,
@@ -974,7 +974,7 @@
                         },
                         "expression": {
                           "kind": "<literal>",
-                          "id": 251,
+                          "id": 13,
                           "startPos": {
                             "offset": 80,
                             "line": 2,
@@ -1061,10 +1061,10 @@
                     },
                     {
                       "kind": "<attribute>",
-                      "id": 255,
+                      "id": 17,
                       "name": {
                         "kind": "<identifer-stream>",
-                        "id": 254,
+                        "id": 16,
                         "identifiers": [
                           {
                             "kind": "<identifier>",
