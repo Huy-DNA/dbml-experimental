@@ -102,7 +102,7 @@ export default class TableValidator extends ElementValidator {
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_COLUMN,
-    invalidArgNumberErrorMessage: 'A Table\'s column must have a name and a type',
+    invalidArgNumberErrorMessage: "A Table's column must have a name and a type",
     settingList: columnSettingList(),
     shouldRegister: true,
     duplicateErrorCode: CompileErrorCode.DUPLICATE_COLUMN_NAME,

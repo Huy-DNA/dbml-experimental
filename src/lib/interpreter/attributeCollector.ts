@@ -1,3 +1,5 @@
+/* A utility module to ease the attribute processing in the main `interpreter` module */
+
 import {
   AttributeNode,
   IdentiferStreamNode,
