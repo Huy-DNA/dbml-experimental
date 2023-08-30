@@ -39,7 +39,7 @@
           "name": "referrer_id",
           "type": {
             "schemaName": null,
-            "type_name": "integer(null)",
+            "type_name": "integer",
             "args": null
           },
           "token": {
@@ -102,7 +102,7 @@
           "name": "id",
           "type": {
             "schemaName": null,
-            "type_name": "integer(null)",
+            "type_name": "integer",
             "args": null
           },
           "token": {

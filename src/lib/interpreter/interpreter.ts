@@ -82,7 +82,14 @@ export default class Interpreter {
           break;
         case 'project':
           this.db.project = this.project(element);
+          if (this.db.project) {
+            this.db.tables.push(...this.db.project.tables);
+            this.db.enums.push(...this.db.project.enums);
+            this.db.tableGroups.push(...this.db.project.tableGroups);
+          }
           break;
+        default:
+          throw new Error("Unreachable - unknown element type");
       }
     });
 
@@ -207,7 +214,7 @@ export default class Interpreter {
       name,
       type: {
         schemaName: typeSchemaName,
-        type_name: `${typeName}(${typeArgs})`,
+        type_name: `${typeName}${typeArgs === null ? '' : `(${typeArgs})`}`,
         args: typeArgs,
       },
       token: extractTokenForInterpreter(field),

@@ -1,0 +1,607 @@
+{
+  "schemas": [],
+  "tables": [
+    {
+      "name": "Users",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "id",
+          "type": {
+            "schemaName": null,
+            "type_name": "integer",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 40,
+              "line": 3,
+              "column": 9
+            },
+            "end": {
+              "offset": 82,
+              "line": 3,
+              "column": 51
+            }
+          },
+          "pk": true,
+          "unique": true,
+          "not_null": true,
+          "inline_refs": []
+        },
+        {
+          "name": "name",
+          "type": {
+            "schemaName": null,
+            "type_name": "char(255)",
+            "args": "255"
+          },
+          "token": {
+            "start": {
+              "offset": 92,
+              "line": 4,
+              "column": 9
+            },
+            "end": {
+              "offset": 117,
+              "line": 4,
+              "column": 34
+            }
+          },
+          "not_null": true,
+          "inline_refs": []
+        },
+        {
+          "name": "age",
+          "type": {
+            "schemaName": null,
+            "type_name": "integer",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 127,
+              "line": 5,
+              "column": 9
+            },
+            "end": {
+              "offset": 158,
+              "line": 5,
+              "column": 40
+            }
+          },
+          "dbdefault": {
+            "type": "number",
+            "value": 18
+          },
+          "not_null": false,
+          "inline_refs": []
+        },
+        {
+          "name": "status",
+          "type": {
+            "schemaName": "public",
+            "type_name": "status",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 168,
+              "line": 6,
+              "column": 9
+            },
+            "end": {
+              "offset": 188,
+              "line": 6,
+              "column": 29
+            }
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "country_id",
+          "type": {
+            "schemaName": null,
+            "type_name": "integer",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 198,
+              "line": 7,
+              "column": 9
+            },
+            "end": {
+              "offset": 236,
+              "line": 7,
+              "column": 47
+            }
+          },
+          "inline_refs": [
+            {
+              "schemaName": null,
+              "fieldNames": [
+                "id"
+              ],
+              "tableName": "Country",
+              "relation": ">",
+              "token": {
+                "start": {
+                  "offset": 223,
+                  "line": 7,
+                  "column": 34
+                },
+                "end": {
+                  "offset": 235,
+                  "line": 7,
+                  "column": 46
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "indexes": [],
+      "token": {
+        "start": {
+          "offset": 17,
+          "line": 2,
+          "column": 5
+        },
+        "end": {
+          "offset": 243,
+          "line": 8,
+          "column": 6
+        }
+      }
+    },
+    {
+      "name": "Country",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "id",
+          "type": {
+            "schemaName": null,
+            "type_name": "integer",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 349,
+              "line": 18,
+              "column": 5
+            },
+            "end": {
+              "offset": 359,
+              "line": 18,
+              "column": 15
+            }
+          },
+          "inline_refs": []
+        }
+      ],
+      "indexes": [],
+      "token": {
+        "start": {
+          "offset": 328,
+          "line": 17,
+          "column": 1
+        },
+        "end": {
+          "offset": 362,
+          "line": 19,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "refs": [
+    {
+      "schemaName": null,
+      "name": null,
+      "endpoints": [
+        {
+          "schemaName": null,
+          "tableName": "Users",
+          "fieldNames": [
+            "country_id"
+          ],
+          "relation": "*",
+          "token": {
+            "start": {
+              "offset": 198,
+              "line": 7,
+              "column": 9
+            },
+            "end": {
+              "offset": 236,
+              "line": 7,
+              "column": 47
+            }
+          }
+        },
+        {
+          "schemaName": null,
+          "tableName": "Country",
+          "fieldNames": [
+            "id"
+          ],
+          "relation": "1",
+          "token": {
+            "start": {
+              "offset": 223,
+              "line": 7,
+              "column": 34
+            },
+            "end": {
+              "offset": 235,
+              "line": 7,
+              "column": 46
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "schemaName": null,
+      "name": "Job",
+      "values": [
+        {
+          "name": "programmer",
+          "token": {
+            "start": {
+              "offset": 271,
+              "line": 11,
+              "column": 9
+            },
+            "end": {
+              "offset": 281,
+              "line": 11,
+              "column": 19
+            }
+          }
+        },
+        {
+          "name": "docter",
+          "token": {
+            "start": {
+              "offset": 291,
+              "line": 12,
+              "column": 9
+            },
+            "end": {
+              "offset": 297,
+              "line": 12,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "teacher",
+          "token": {
+            "start": {
+              "offset": 307,
+              "line": 13,
+              "column": 9
+            },
+            "end": {
+              "offset": 314,
+              "line": 13,
+              "column": 16
+            }
+          }
+        }
+      ],
+      "token": {
+        "start": {
+          "offset": 251,
+          "line": 10,
+          "column": 5
+        },
+        "end": {
+          "offset": 321,
+          "line": 14,
+          "column": 6
+        }
+      }
+    },
+    {
+      "schemaName": null,
+      "name": "status",
+      "values": [
+        {
+          "name": "new",
+          "token": {
+            "start": {
+              "offset": 385,
+              "line": 22,
+              "column": 5
+            },
+            "end": {
+              "offset": 388,
+              "line": 22,
+              "column": 8
+            }
+          }
+        },
+        {
+          "name": "churn",
+          "token": {
+            "start": {
+              "offset": 394,
+              "line": 23,
+              "column": 5
+            },
+            "end": {
+              "offset": 399,
+              "line": 23,
+              "column": 10
+            }
+          }
+        },
+        {
+          "name": "active",
+          "token": {
+            "start": {
+              "offset": 405,
+              "line": 24,
+              "column": 5
+            },
+            "end": {
+              "offset": 411,
+              "line": 24,
+              "column": 11
+            }
+          }
+        }
+      ],
+      "token": {
+        "start": {
+          "offset": 366,
+          "line": 21,
+          "column": 1
+        },
+        "end": {
+          "offset": 414,
+          "line": 25,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "tableGroups": [],
+  "aliases": [],
+  "project": {
+    "name": "P",
+    "tables": [
+      {
+        "name": "Users",
+        "schemaName": null,
+        "alias": null,
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "schemaName": null,
+              "type_name": "integer",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 40,
+                "line": 3,
+                "column": 9
+              },
+              "end": {
+                "offset": 82,
+                "line": 3,
+                "column": 51
+              }
+            },
+            "pk": true,
+            "unique": true,
+            "not_null": true,
+            "inline_refs": []
+          },
+          {
+            "name": "name",
+            "type": {
+              "schemaName": null,
+              "type_name": "char(255)",
+              "args": "255"
+            },
+            "token": {
+              "start": {
+                "offset": 92,
+                "line": 4,
+                "column": 9
+              },
+              "end": {
+                "offset": 117,
+                "line": 4,
+                "column": 34
+              }
+            },
+            "not_null": true,
+            "inline_refs": []
+          },
+          {
+            "name": "age",
+            "type": {
+              "schemaName": null,
+              "type_name": "integer",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 127,
+                "line": 5,
+                "column": 9
+              },
+              "end": {
+                "offset": 158,
+                "line": 5,
+                "column": 40
+              }
+            },
+            "dbdefault": {
+              "type": "number",
+              "value": 18
+            },
+            "not_null": false,
+            "inline_refs": []
+          },
+          {
+            "name": "status",
+            "type": {
+              "schemaName": "public",
+              "type_name": "status",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 168,
+                "line": 6,
+                "column": 9
+              },
+              "end": {
+                "offset": 188,
+                "line": 6,
+                "column": 29
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "country_id",
+            "type": {
+              "schemaName": null,
+              "type_name": "integer",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 198,
+                "line": 7,
+                "column": 9
+              },
+              "end": {
+                "offset": 236,
+                "line": 7,
+                "column": 47
+              }
+            },
+            "inline_refs": [
+              {
+                "schemaName": null,
+                "fieldNames": [
+                  "id"
+                ],
+                "tableName": "Country",
+                "relation": ">",
+                "token": {
+                  "start": {
+                    "offset": 223,
+                    "line": 7,
+                    "column": 34
+                  },
+                  "end": {
+                    "offset": 235,
+                    "line": 7,
+                    "column": 46
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "indexes": [],
+        "token": {
+          "start": {
+            "offset": 17,
+            "line": 2,
+            "column": 5
+          },
+          "end": {
+            "offset": 243,
+            "line": 8,
+            "column": 6
+          }
+        }
+      }
+    ],
+    "refs": [],
+    "enums": [
+      {
+        "schemaName": null,
+        "name": "Job",
+        "values": [
+          {
+            "name": "programmer",
+            "token": {
+              "start": {
+                "offset": 271,
+                "line": 11,
+                "column": 9
+              },
+              "end": {
+                "offset": 281,
+                "line": 11,
+                "column": 19
+              }
+            }
+          },
+          {
+            "name": "docter",
+            "token": {
+              "start": {
+                "offset": 291,
+                "line": 12,
+                "column": 9
+              },
+              "end": {
+                "offset": 297,
+                "line": 12,
+                "column": 15
+              }
+            }
+          },
+          {
+            "name": "teacher",
+            "token": {
+              "start": {
+                "offset": 307,
+                "line": 13,
+                "column": 9
+              },
+              "end": {
+                "offset": 314,
+                "line": 13,
+                "column": 16
+              }
+            }
+          }
+        ],
+        "token": {
+          "start": {
+            "offset": 251,
+            "line": 10,
+            "column": 5
+          },
+          "end": {
+            "offset": 321,
+            "line": 14,
+            "column": 6
+          }
+        }
+      }
+    ],
+    "tableGroups": [],
+    "note": null
+  }
+}
