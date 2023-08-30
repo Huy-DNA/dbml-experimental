@@ -2,7 +2,7 @@ import { ColumnSymbol } from '../analyzer/symbol/symbols';
 import { destructureComplexVariable } from '../analyzer/utils';
 import { CompileError, CompileErrorCode } from '../errors';
 import { SyntaxNode } from '../parser/nodes';
-import { RelationCardinality } from './types';
+import { RelationCardinality, TokenPosition } from './types';
 
 export function isCircular(
   firstColumnSymbol: ColumnSymbol,
@@ -77,4 +77,11 @@ export function processRelOperand(
     tableName: tableName || (ownerTableName as string),
     schemaName: tableName ? schemaName || null : ownerSchemaName,
   };
+}
+
+export function extractTokenForInterpreter(node: SyntaxNode): TokenPosition {
+  return {
+    start: { offset: node.startPos.offset, line: node.startPos.line + 1, column: node.startPos.column + 1 },
+    end: { offset: node.endPos.offset, line: node.endPos.line + 1, column: node.endPos.column + 1},
+  }
 }

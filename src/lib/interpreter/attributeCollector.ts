@@ -11,7 +11,7 @@ import { isExpressionANumber } from '../analyzer/validator/utils';
 import { isExpressionAQuotedString } from '../utils';
 import { InlineRef } from './types';
 import { ColumnSymbol } from '../analyzer/symbol/symbols';
-import { processRelOperand } from './utils';
+import { extractTokenForInterpreter, processRelOperand } from './utils';
 
 export class AttributeMap {
   private map: Map<string, [AttributeNode]> = new Map();
@@ -155,10 +155,7 @@ export default class AttributeCollector {
           tableName,
           fieldNames: [columnName],
           relation,
-          token: {
-            start: ref.startPos,
-            end: ref.endPos,
-          },
+          token: extractTokenForInterpreter(ref),
           referee: (ref as PrefixExpressionNode).expression.referee as ColumnSymbol,
           node: ref,
         });

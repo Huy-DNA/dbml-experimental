@@ -37,6 +37,7 @@ import { collectAttribute } from './attributeCollector';
 import { ColumnSymbol } from '../analyzer/symbol/symbols';
 import {
   convertRelationOpToCardinalities,
+  extractTokenForInterpreter,
   isCircular,
   isSameEndpoint,
   processRelOperand,
@@ -134,18 +135,12 @@ export default class Interpreter {
       alias,
       fields,
       indexes,
-      token: {
-        start: element.startPos,
-        end: element.endPos,
-      },
+      token: extractTokenForInterpreter(element),
       headerColor,
       note: note ?
         {
             value: note,
-            token: {
-              start: noteToken!.startPos,
-              end: noteToken!.endPos,
-            },
+            token: extractTokenForInterpreter(noteToken!),
           } :
         undefined,
     };
@@ -215,10 +210,7 @@ export default class Interpreter {
         type_name: `${typeName}(${typeArgs})`,
         args: typeArgs,
       },
-      token: {
-        start: field.startPos,
-        end: field.endPos,
-      },
+      token: extractTokenForInterpreter(field),
       pk,
       dbdefault,
       increment,
@@ -244,10 +236,7 @@ export default class Interpreter {
           tableName,
           fieldNames: [extractVarNameFromPrimaryVariable(columnNode.callee as any)],
           relation: left,
-          token: {
-            start: columnNode.startPos,
-            end: columnNode.endPos,
-          },
+          token: extractTokenForInterpreter(columnNode),
         },
         {
           schemaName: inlRef.schemaName,
@@ -346,20 +335,14 @@ export default class Interpreter {
       tableName: left.tableName,
       fieldNames: [left.columnName],
       relation: leftCardinality,
-      token: {
-        start: rel.leftExpression.startPos,
-        end: rel.leftExpression.endPos,
-      },
+      token: extractTokenForInterpreter(rel.leftExpression),
     };
     const rightEndpoint: RefEndpoint = {
       schemaName: right.schemaName,
       tableName: right.tableName,
       fieldNames: [right.columnName],
       relation: rightCardinality,
-      token: {
-        start: rel.rightExpression.startPos,
-        end: rel.rightExpression.endPos,
-      },
+      token: extractTokenForInterpreter(rel.rightExpression),
     };
     let del: string | undefined;
     let update: string | undefined;
@@ -390,10 +373,7 @@ export default class Interpreter {
       schemaName,
       name,
       values,
-      token: {
-        start: element.startPos,
-        end: element.endPos,
-      },
+      token: extractTokenForInterpreter(element)
     };
   }
 
@@ -407,10 +387,7 @@ export default class Interpreter {
 
     return {
       name: extractVarNameFromPrimaryVariable(args[0] as any),
-      token: {
-        start: field.startPos,
-        end: field.endPos,
-      },
+      token: extractTokenForInterpreter(field),
       note,
     };
   }
@@ -477,10 +454,7 @@ export default class Interpreter {
       schemaName,
       name,
       tables,
-      token: {
-        start: element.startPos,
-        end: element.endPos,
-      },
+      token: extractTokenForInterpreter(element),
     };
   }
 
@@ -505,10 +479,7 @@ export default class Interpreter {
 
     return {
       value: content!,
-      token: {
-        start: element.startPos,
-        end: element.endPos,
-      },
+      token: extractTokenForInterpreter(element),
     };
   }
 
@@ -555,10 +526,7 @@ export default class Interpreter {
           type: 'column',
         })),
       ],
-      token: {
-        start: field.startPos,
-        end: field.endPos,
-      },
+      token: extractTokenForInterpreter(field),
       pk,
       unique,
       name,
