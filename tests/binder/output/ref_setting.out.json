@@ -1521,7 +1521,8 @@
                             "end": 111
                           },
                           "start": 109,
-                          "end": 111
+                          "end": 111,
+                          "referee": 3
                         },
                         "start": 108,
                         "end": 111
@@ -2460,7 +2461,59 @@
           "id": 2,
           "symbolTable": {
             "Column:id": {
-              "references": [],
+              "references": [
+                {
+                  "kind": "<primary-expression>",
+                  "id": 32,
+                  "startPos": {
+                    "offset": 109,
+                    "line": 4,
+                    "column": 28
+                  },
+                  "endPos": {
+                    "offset": 111,
+                    "line": 4,
+                    "column": 30
+                  },
+                  "expression": {
+                    "kind": "<variable>",
+                    "id": 31,
+                    "startPos": {
+                      "offset": 109,
+                      "line": 4,
+                      "column": 28
+                    },
+                    "endPos": {
+                      "offset": 111,
+                      "line": 4,
+                      "column": 30
+                    },
+                    "variable": {
+                      "kind": "<identifier>",
+                      "startPos": {
+                        "offset": 109,
+                        "line": 4,
+                        "column": 28
+                      },
+                      "endPos": {
+                        "offset": 111,
+                        "line": 4,
+                        "column": 30
+                      },
+                      "value": "id",
+                      "leadingTrivia": [],
+                      "trailingTrivia": [],
+                      "start": 109,
+                      "end": 111
+                    },
+                    "start": 109,
+                    "end": 111
+                  },
+                  "start": 109,
+                  "end": 111,
+                  "referee": 3
+                }
+              ],
               "id": 3,
               "declaration": 6
             },
