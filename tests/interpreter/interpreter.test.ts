@@ -12,7 +12,7 @@ describe('#interpreter', () => {
     const compiler = new Compiler();
     let output;
     try {
-      output = JSON.stringify(compiler.emitJSONFromDBML(program), null, 2);
+      output = JSON.stringify(compiler.emitRawDbFromDBML(program).normalize(), null, 2);
     } catch (e) {
       output = e;
     }

@@ -6,12 +6,13 @@ import Lexer from './lib/lexer/lexer';
 import Parser from './lib/parser/parser';
 import Analyzer from './lib/analyzer/analyzer';
 import Interpreter from './lib/interpreter/interpreter';
+import Database from './lib/model_structure/database';
 
 export default class Compiler {
   private nodeIdGenerator = new SyntaxNodeIdGenerator();
   private symbolIdGenerator = new NodeSymbolIdGenerator();
 
-  emitJSONFromDBML(source: string): any {
+  emitRawDbFromDBML(source: string): Database {
     const parseRes = this.parseFromSource(source);
     const parseErrors = parseRes.getErrors();
     if (parseErrors.length > 0) {
@@ -26,7 +27,7 @@ export default class Compiler {
       throw interpretErrors;
     }
 
-    return interpretRes.getValue();
+    return new Database(interpretRes.getValue());
   }
 
   parseFromSource(source: string): Report<ProgramNode, CompileError> {
