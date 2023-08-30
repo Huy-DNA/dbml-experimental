@@ -26,6 +26,7 @@ node_modules/
 
 # build
 dist/
+build/
 tmp/
 
 out/
