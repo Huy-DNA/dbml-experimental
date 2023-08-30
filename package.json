@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-cjs": "rm -rf dist/cjs && tsc -p tsconfig.cjs.json",
-    "build-esm": "rm -rf dist/esm && tsc -p tsconfig.esm.json",
+    "build-cjs": "tsc -p tsconfig.cjs.json",
+    "build-esm": "tsc -p tsconfig.esm.json",
     "dev": "tsc --watch -p tsconfig.json",
     "test": "vitest",
     "coverage": "vitest run --coverage",
