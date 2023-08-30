@@ -1,5 +1,7 @@
 dist
 scripts
+src/lib/model_structure
+build
 dangerfiles
 *.*.ts
 *.*.js
