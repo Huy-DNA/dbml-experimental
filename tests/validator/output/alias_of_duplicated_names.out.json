@@ -1179,7 +1179,7 @@
   "errors": [
     {
       "code": 3003,
-      "diagnostic": "This Table has a duplicated name",
+      "diagnostic": "Table \"Users\" has been defined",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 7,
@@ -1255,7 +1255,7 @@
     },
     {
       "code": 3003,
-      "diagnostic": "This Table has a duplicated name",
+      "diagnostic": "Table \"U1\" has been defined",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 15,

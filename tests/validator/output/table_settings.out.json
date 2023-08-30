@@ -5682,7 +5682,7 @@
     },
     {
       "code": 3017,
-      "diagnostic": "There must be 2 non-setting terms",
+      "diagnostic": "A Table's column must have a name and a type",
       "nodeOrToken": {
         "kind": "<function-application>",
         "id": 29,

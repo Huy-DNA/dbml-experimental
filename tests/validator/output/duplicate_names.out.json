@@ -2237,7 +2237,7 @@
   "errors": [
     {
       "code": 3003,
-      "diagnostic": "This Table has a duplicated name",
+      "diagnostic": "Table \"Users\" has been defined",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 10,
@@ -2313,7 +2313,7 @@
     },
     {
       "code": 3003,
-      "diagnostic": "This TableGroup has a duplicated name",
+      "diagnostic": "TableGroup \"Users\" has been defined",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 27,
@@ -2389,7 +2389,7 @@
     },
     {
       "code": 3003,
-      "diagnostic": "This Enum has a duplicated name",
+      "diagnostic": "Enum \"Users\" has been defined",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 35,

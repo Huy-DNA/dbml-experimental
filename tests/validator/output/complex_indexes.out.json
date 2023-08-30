@@ -4194,8 +4194,8 @@
   },
   "errors": [
     {
-      "code": 3042,
-      "diagnostic": "There must be 1 non-setting terms",
+      "code": 3043,
+      "diagnostic": "An Indexes field must be a function expression, a column name or a tuple of such",
       "nodeOrToken": {
         "kind": "<function-application>",
         "id": 43,

@@ -674,7 +674,7 @@
   "errors": [
     {
       "code": 3003,
-      "diagnostic": "This Enum has a duplicated name",
+      "diagnostic": "Enum \"status\" has been defined",
       "nodeOrToken": {
         "kind": "<infix-expression>",
         "id": 8,

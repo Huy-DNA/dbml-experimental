@@ -680,7 +680,7 @@
   "errors": [
     {
       "code": 3027,
-      "diagnostic": "Enum subfield's name is duplicated",
+      "diagnostic": "Enum field \"churn\" has been defined",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 5,
@@ -829,7 +829,7 @@
     },
     {
       "code": 3027,
-      "diagnostic": "Enum subfield's name is duplicated",
+      "diagnostic": "Enum field \"churn\" has been defined",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 7,

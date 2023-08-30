@@ -941,7 +941,7 @@
   "errors": [
     {
       "code": 3021,
-      "diagnostic": "Table subfield's name is duplicated",
+      "diagnostic": "Table column \"id\" has been defined",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 8,
@@ -1090,7 +1090,7 @@
     },
     {
       "code": 3021,
-      "diagnostic": "Table subfield's name is duplicated",
+      "diagnostic": "Table column \"id\" has been defined",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 13,

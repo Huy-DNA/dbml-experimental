@@ -1234,7 +1234,7 @@
   "errors": [
     {
       "code": 3002,
-      "diagnostic": "Enum must have a name",
+      "diagnostic": "A(n) Enum must have a name",
       "nodeOrToken": {
         "kind": "<identifier>",
         "startPos": {
@@ -1297,7 +1297,7 @@
     },
     {
       "code": 3027,
-      "diagnostic": "Enum subfield's name is duplicated",
+      "diagnostic": "Enum field \"1\" has been defined",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 10,
@@ -1446,7 +1446,7 @@
     },
     {
       "code": 3025,
-      "diagnostic": "Invalid field value",
+      "diagnostic": "This field must be a simple variable",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 12,

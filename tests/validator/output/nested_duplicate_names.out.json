@@ -1569,7 +1569,7 @@
   "errors": [
     {
       "code": 3003,
-      "diagnostic": "This Table has a duplicated name",
+      "diagnostic": "Table \"A\" has been defined",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 12,
