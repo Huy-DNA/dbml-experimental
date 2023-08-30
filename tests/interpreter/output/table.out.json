@@ -242,6 +242,15 @@
       }
     }
   ],
-  "aliases": [],
+  "aliases": [
+    {
+      "name": "B",
+      "kind": "Table",
+      "value": {
+        "tableName": "A",
+        "schemaName": "v2"
+      }
+    }
+  ],
   "project": {}
 }

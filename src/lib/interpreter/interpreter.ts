@@ -89,7 +89,7 @@ export default class Interpreter {
           }
           break;
         default:
-          throw new Error("Unreachable - unknown element type");
+          throw new Error('Unreachable - unknown element type');
       }
     });
 
@@ -103,6 +103,16 @@ export default class Interpreter {
     }
     const { name, schemaName } = maybeName.unwrap();
     const alias = element.alias ? extractVarNameFromPrimaryVariable(element.alias as any) : null;
+    if (alias) {
+      this.db.aliases.push({
+        name: alias,
+        kind: 'Table',
+        value: {
+          tableName: name,
+          schemaName,
+        },
+      });
+    }
 
     const collector = collectAttribute(element.attributeList, this.errors);
     const headerColor = collector.extractHeaderColor();
@@ -380,7 +390,7 @@ export default class Interpreter {
       schemaName,
       name,
       values,
-      token: extractTokenForInterpreter(element)
+      token: extractTokenForInterpreter(element),
     };
   }
 

@@ -81,7 +81,11 @@ export function processRelOperand(
 
 export function extractTokenForInterpreter(node: SyntaxNode): TokenPosition {
   return {
-    start: { offset: node.startPos.offset, line: node.startPos.line + 1, column: node.startPos.column + 1 },
-    end: { offset: node.endPos.offset, line: node.endPos.line + 1, column: node.endPos.column + 1},
-  }
+    start: {
+      offset: node.startPos.offset,
+      line: node.startPos.line + 1,
+      column: node.startPos.column + 1,
+    },
+    end: { offset: node.endPos.offset, line: node.endPos.line + 1, column: node.endPos.column + 1 },
+  };
 }

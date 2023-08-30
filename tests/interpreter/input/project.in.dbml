@@ -1,5 +1,5 @@
 Project P {
-    Table Users {
+    Table Users as U {
         id integer [primary key, unique, not null]
         name char(255) [not null]
         age integer [null, default: 18]
