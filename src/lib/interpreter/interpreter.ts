@@ -489,7 +489,9 @@ export default class Interpreter {
     };
   }
 
-  private note(element: ElementDeclarationNode): { value: string; token: TokenPosition } | undefined {
+  private note(
+    element: ElementDeclarationNode,
+  ): { value: string; token: TokenPosition } | undefined {
     const content =
       element.body instanceof BlockExpressionNode ?
         extractQuotedStringToken((element.body as BlockExpressionNode).body[0]) :
@@ -553,7 +555,9 @@ export default class Interpreter {
     };
   }
 
-  private extractElementName(nameNode: SyntaxNode): Option<{ schemaName: string | null; name: string }> {
+  private extractElementName(
+    nameNode: SyntaxNode,
+  ): Option<{ schemaName: string | null; name: string }> {
     const fragments = destructureComplexVariable(nameNode).unwrap();
     const name = fragments.pop()!;
     const schemaName = fragments.pop();
