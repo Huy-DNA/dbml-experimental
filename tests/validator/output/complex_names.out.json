@@ -10,7 +10,7 @@
     "endPos": {
       "offset": 203,
       "line": 12,
-      "column": 0
+      "column": 1
     },
     "body": [
       {
@@ -24,7 +24,7 @@
         "endPos": {
           "offset": 203,
           "line": 12,
-          "column": 0
+          "column": 1
         },
         "type": {
           "kind": "<identifier>",
@@ -36,7 +36,7 @@
           "endPos": {
             "offset": 7,
             "line": 0,
-            "column": 0
+            "column": 7
           },
           "value": "Project",
           "leadingTrivia": [],
@@ -46,12 +46,12 @@
               "startPos": {
                 "offset": 7,
                 "line": 0,
-                "column": 0
+                "column": 7
               },
               "endPos": {
                 "offset": 8,
                 "line": 0,
-                "column": 0
+                "column": 8
               },
               "value": " ",
               "leadingTrivia": [],
@@ -69,24 +69,24 @@
           "startPos": {
             "offset": 8,
             "line": 0,
-            "column": 0
+            "column": 8
           },
           "endPos": {
             "offset": 203,
             "line": 12,
-            "column": 0
+            "column": 1
           },
           "blockOpenBrace": {
             "kind": "<lbrace>",
             "startPos": {
               "offset": 8,
               "line": 0,
-              "column": 0
+              "column": 8
             },
             "endPos": {
               "offset": 9,
               "line": 0,
-              "column": 0
+              "column": 9
             },
             "value": "{",
             "leadingTrivia": [],
@@ -96,7 +96,7 @@
                 "startPos": {
                   "offset": 10,
                   "line": 0,
-                  "column": 0
+                  "column": 10
                 },
                 "endPos": {
                   "offset": 11,
@@ -120,24 +120,24 @@
               "startPos": {
                 "offset": 15,
                 "line": 1,
-                "column": 0
+                "column": 4
               },
               "endPos": {
                 "offset": 109,
                 "line": 4,
-                "column": 0
+                "column": 5
               },
               "type": {
                 "kind": "<identifier>",
                 "startPos": {
                   "offset": 15,
                   "line": 1,
-                  "column": 0
+                  "column": 4
                 },
                 "endPos": {
                   "offset": 20,
                   "line": 1,
-                  "column": 0
+                  "column": 9
                 },
                 "value": "Table",
                 "leadingTrivia": [
@@ -151,7 +151,7 @@
                     "endPos": {
                       "offset": 12,
                       "line": 1,
-                      "column": 0
+                      "column": 1
                     },
                     "value": " ",
                     "leadingTrivia": [],
@@ -164,12 +164,12 @@
                     "startPos": {
                       "offset": 12,
                       "line": 1,
-                      "column": 0
+                      "column": 1
                     },
                     "endPos": {
                       "offset": 13,
                       "line": 1,
-                      "column": 0
+                      "column": 2
                     },
                     "value": " ",
                     "leadingTrivia": [],
@@ -182,12 +182,12 @@
                     "startPos": {
                       "offset": 13,
                       "line": 1,
-                      "column": 0
+                      "column": 2
                     },
                     "endPos": {
                       "offset": 14,
                       "line": 1,
-                      "column": 0
+                      "column": 3
                     },
                     "value": " ",
                     "leadingTrivia": [],
@@ -200,12 +200,12 @@
                     "startPos": {
                       "offset": 14,
                       "line": 1,
-                      "column": 0
+                      "column": 3
                     },
                     "endPos": {
                       "offset": 15,
                       "line": 1,
-                      "column": 0
+                      "column": 4
                     },
                     "value": " ",
                     "leadingTrivia": [],
@@ -220,12 +220,12 @@
                     "startPos": {
                       "offset": 20,
                       "line": 1,
-                      "column": 0
+                      "column": 9
                     },
                     "endPos": {
                       "offset": 21,
                       "line": 1,
-                      "column": 0
+                      "column": 10
                     },
                     "value": " ",
                     "leadingTrivia": [],
@@ -243,24 +243,24 @@
                 "startPos": {
                   "offset": 21,
                   "line": 1,
-                  "column": 0
+                  "column": 10
                 },
                 "endPos": {
                   "offset": 29,
                   "line": 1,
-                  "column": 0
+                  "column": 18
                 },
                 "op": {
                   "kind": "<op>",
                   "startPos": {
                     "offset": 23,
                     "line": 1,
-                    "column": 0
+                    "column": 12
                   },
                   "endPos": {
                     "offset": 24,
                     "line": 1,
-                    "column": 0
+                    "column": 13
                   },
                   "value": ".",
                   "leadingTrivia": [],
@@ -274,12 +274,12 @@
                   "startPos": {
                     "offset": 21,
                     "line": 1,
-                    "column": 0
+                    "column": 10
                   },
                   "endPos": {
                     "offset": 23,
                     "line": 1,
-                    "column": 0
+                    "column": 12
                   },
                   "expression": {
                     "kind": "<variable>",
@@ -287,24 +287,24 @@
                     "startPos": {
                       "offset": 21,
                       "line": 1,
-                      "column": 0
+                      "column": 10
                     },
                     "endPos": {
                       "offset": 23,
                       "line": 1,
-                      "column": 0
+                      "column": 12
                     },
                     "variable": {
                       "kind": "<identifier>",
                       "startPos": {
                         "offset": 21,
                         "line": 1,
-                        "column": 0
+                        "column": 10
                       },
                       "endPos": {
                         "offset": 23,
                         "line": 1,
-                        "column": 0
+                        "column": 12
                       },
                       "value": "v1",
                       "leadingTrivia": [],
@@ -324,12 +324,12 @@
                   "startPos": {
                     "offset": 24,
                     "line": 1,
-                    "column": 0
+                    "column": 13
                   },
                   "endPos": {
                     "offset": 29,
                     "line": 1,
-                    "column": 0
+                    "column": 18
                   },
                   "expression": {
                     "kind": "<variable>",
@@ -337,24 +337,24 @@
                     "startPos": {
                       "offset": 24,
                       "line": 1,
-                      "column": 0
+                      "column": 13
                     },
                     "endPos": {
                       "offset": 29,
                       "line": 1,
-                      "column": 0
+                      "column": 18
                     },
                     "variable": {
                       "kind": "<identifier>",
                       "startPos": {
                         "offset": 24,
                         "line": 1,
-                        "column": 0
+                        "column": 13
                       },
                       "endPos": {
                         "offset": 29,
                         "line": 1,
-                        "column": 0
+                        "column": 18
                       },
                       "value": "Users",
                       "leadingTrivia": [],
@@ -364,12 +364,12 @@
                           "startPos": {
                             "offset": 29,
                             "line": 1,
-                            "column": 0
+                            "column": 18
                           },
                           "endPos": {
                             "offset": 30,
                             "line": 1,
-                            "column": 0
+                            "column": 19
                           },
                           "value": " ",
                           "leadingTrivia": [],
@@ -396,24 +396,24 @@
                 "startPos": {
                   "offset": 30,
                   "line": 1,
-                  "column": 0
+                  "column": 19
                 },
                 "endPos": {
                   "offset": 109,
                   "line": 4,
-                  "column": 0
+                  "column": 5
                 },
                 "blockOpenBrace": {
                   "kind": "<lbrace>",
                   "startPos": {
                     "offset": 30,
                     "line": 1,
-                    "column": 0
+                    "column": 19
                   },
                   "endPos": {
                     "offset": 31,
                     "line": 1,
-                    "column": 0
+                    "column": 20
                   },
                   "value": "{",
                   "leadingTrivia": [],
@@ -423,7 +423,7 @@
                       "startPos": {
                         "offset": 32,
                         "line": 1,
-                        "column": 0
+                        "column": 21
                       },
                       "endPos": {
                         "offset": 33,
@@ -447,12 +447,12 @@
                     "startPos": {
                       "offset": 41,
                       "line": 2,
-                      "column": 0
+                      "column": 8
                     },
                     "endPos": {
                       "offset": 51,
                       "line": 2,
-                      "column": 0
+                      "column": 18
                     },
                     "callee": {
                       "kind": "<primary-expression>",
@@ -460,12 +460,12 @@
                       "startPos": {
                         "offset": 41,
                         "line": 2,
-                        "column": 0
+                        "column": 8
                       },
                       "endPos": {
                         "offset": 43,
                         "line": 2,
-                        "column": 0
+                        "column": 10
                       },
                       "expression": {
                         "kind": "<variable>",
@@ -473,24 +473,24 @@
                         "startPos": {
                           "offset": 41,
                           "line": 2,
-                          "column": 0
+                          "column": 8
                         },
                         "endPos": {
                           "offset": 43,
                           "line": 2,
-                          "column": 0
+                          "column": 10
                         },
                         "variable": {
                           "kind": "<identifier>",
                           "startPos": {
                             "offset": 41,
                             "line": 2,
-                            "column": 0
+                            "column": 8
                           },
                           "endPos": {
                             "offset": 43,
                             "line": 2,
-                            "column": 0
+                            "column": 10
                           },
                           "value": "id",
                           "leadingTrivia": [
@@ -504,7 +504,7 @@
                               "endPos": {
                                 "offset": 34,
                                 "line": 2,
-                                "column": 0
+                                "column": 1
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -517,12 +517,12 @@
                               "startPos": {
                                 "offset": 34,
                                 "line": 2,
-                                "column": 0
+                                "column": 1
                               },
                               "endPos": {
                                 "offset": 35,
                                 "line": 2,
-                                "column": 0
+                                "column": 2
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -535,12 +535,12 @@
                               "startPos": {
                                 "offset": 35,
                                 "line": 2,
-                                "column": 0
+                                "column": 2
                               },
                               "endPos": {
                                 "offset": 36,
                                 "line": 2,
-                                "column": 0
+                                "column": 3
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -553,12 +553,12 @@
                               "startPos": {
                                 "offset": 36,
                                 "line": 2,
-                                "column": 0
+                                "column": 3
                               },
                               "endPos": {
                                 "offset": 37,
                                 "line": 2,
-                                "column": 0
+                                "column": 4
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -571,12 +571,12 @@
                               "startPos": {
                                 "offset": 37,
                                 "line": 2,
-                                "column": 0
+                                "column": 4
                               },
                               "endPos": {
                                 "offset": 38,
                                 "line": 2,
-                                "column": 0
+                                "column": 5
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -589,12 +589,12 @@
                               "startPos": {
                                 "offset": 38,
                                 "line": 2,
-                                "column": 0
+                                "column": 5
                               },
                               "endPos": {
                                 "offset": 39,
                                 "line": 2,
-                                "column": 0
+                                "column": 6
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -607,12 +607,12 @@
                               "startPos": {
                                 "offset": 39,
                                 "line": 2,
-                                "column": 0
+                                "column": 6
                               },
                               "endPos": {
                                 "offset": 40,
                                 "line": 2,
-                                "column": 0
+                                "column": 7
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -625,12 +625,12 @@
                               "startPos": {
                                 "offset": 40,
                                 "line": 2,
-                                "column": 0
+                                "column": 7
                               },
                               "endPos": {
                                 "offset": 41,
                                 "line": 2,
-                                "column": 0
+                                "column": 8
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -645,12 +645,12 @@
                               "startPos": {
                                 "offset": 43,
                                 "line": 2,
-                                "column": 0
+                                "column": 10
                               },
                               "endPos": {
                                 "offset": 44,
                                 "line": 2,
-                                "column": 0
+                                "column": 11
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -675,12 +675,12 @@
                         "startPos": {
                           "offset": 44,
                           "line": 2,
-                          "column": 0
+                          "column": 11
                         },
                         "endPos": {
                           "offset": 51,
                           "line": 2,
-                          "column": 0
+                          "column": 18
                         },
                         "expression": {
                           "kind": "<variable>",
@@ -688,24 +688,24 @@
                           "startPos": {
                             "offset": 44,
                             "line": 2,
-                            "column": 0
+                            "column": 11
                           },
                           "endPos": {
                             "offset": 51,
                             "line": 2,
-                            "column": 0
+                            "column": 18
                           },
                           "variable": {
                             "kind": "<identifier>",
                             "startPos": {
                               "offset": 44,
                               "line": 2,
-                              "column": 0
+                              "column": 11
                             },
                             "endPos": {
                               "offset": 51,
                               "line": 2,
-                              "column": 0
+                              "column": 18
                             },
                             "value": "integer",
                             "leadingTrivia": [],
@@ -715,7 +715,7 @@
                                 "startPos": {
                                   "offset": 52,
                                   "line": 2,
-                                  "column": 0
+                                  "column": 19
                                 },
                                 "endPos": {
                                   "offset": 53,
@@ -749,12 +749,12 @@
                     "startPos": {
                       "offset": 61,
                       "line": 3,
-                      "column": 0
+                      "column": 8
                     },
                     "endPos": {
                       "offset": 102,
                       "line": 3,
-                      "column": 0
+                      "column": 49
                     },
                     "callee": {
                       "kind": "<primary-expression>",
@@ -762,12 +762,12 @@
                       "startPos": {
                         "offset": 61,
                         "line": 3,
-                        "column": 0
+                        "column": 8
                       },
                       "endPos": {
                         "offset": 67,
                         "line": 3,
-                        "column": 0
+                        "column": 14
                       },
                       "expression": {
                         "kind": "<variable>",
@@ -775,24 +775,24 @@
                         "startPos": {
                           "offset": 61,
                           "line": 3,
-                          "column": 0
+                          "column": 8
                         },
                         "endPos": {
                           "offset": 67,
                           "line": 3,
-                          "column": 0
+                          "column": 14
                         },
                         "variable": {
                           "kind": "<identifier>",
                           "startPos": {
                             "offset": 61,
                             "line": 3,
-                            "column": 0
+                            "column": 8
                           },
                           "endPos": {
                             "offset": 67,
                             "line": 3,
-                            "column": 0
+                            "column": 14
                           },
                           "value": "status",
                           "leadingTrivia": [
@@ -806,7 +806,7 @@
                               "endPos": {
                                 "offset": 54,
                                 "line": 3,
-                                "column": 0
+                                "column": 1
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -819,12 +819,12 @@
                               "startPos": {
                                 "offset": 54,
                                 "line": 3,
-                                "column": 0
+                                "column": 1
                               },
                               "endPos": {
                                 "offset": 55,
                                 "line": 3,
-                                "column": 0
+                                "column": 2
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -837,12 +837,12 @@
                               "startPos": {
                                 "offset": 55,
                                 "line": 3,
-                                "column": 0
+                                "column": 2
                               },
                               "endPos": {
                                 "offset": 56,
                                 "line": 3,
-                                "column": 0
+                                "column": 3
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -855,12 +855,12 @@
                               "startPos": {
                                 "offset": 56,
                                 "line": 3,
-                                "column": 0
+                                "column": 3
                               },
                               "endPos": {
                                 "offset": 57,
                                 "line": 3,
-                                "column": 0
+                                "column": 4
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -873,12 +873,12 @@
                               "startPos": {
                                 "offset": 57,
                                 "line": 3,
-                                "column": 0
+                                "column": 4
                               },
                               "endPos": {
                                 "offset": 58,
                                 "line": 3,
-                                "column": 0
+                                "column": 5
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -891,12 +891,12 @@
                               "startPos": {
                                 "offset": 58,
                                 "line": 3,
-                                "column": 0
+                                "column": 5
                               },
                               "endPos": {
                                 "offset": 59,
                                 "line": 3,
-                                "column": 0
+                                "column": 6
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -909,12 +909,12 @@
                               "startPos": {
                                 "offset": 59,
                                 "line": 3,
-                                "column": 0
+                                "column": 6
                               },
                               "endPos": {
                                 "offset": 60,
                                 "line": 3,
-                                "column": 0
+                                "column": 7
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -927,12 +927,12 @@
                               "startPos": {
                                 "offset": 60,
                                 "line": 3,
-                                "column": 0
+                                "column": 7
                               },
                               "endPos": {
                                 "offset": 61,
                                 "line": 3,
-                                "column": 0
+                                "column": 8
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -947,12 +947,12 @@
                               "startPos": {
                                 "offset": 67,
                                 "line": 3,
-                                "column": 0
+                                "column": 14
                               },
                               "endPos": {
                                 "offset": 68,
                                 "line": 3,
-                                "column": 0
+                                "column": 15
                               },
                               "value": " ",
                               "leadingTrivia": [],
@@ -977,24 +977,24 @@
                         "startPos": {
                           "offset": 68,
                           "line": 3,
-                          "column": 0
+                          "column": 15
                         },
                         "endPos": {
                           "offset": 77,
                           "line": 3,
-                          "column": 0
+                          "column": 24
                         },
                         "op": {
                           "kind": "<op>",
                           "startPos": {
                             "offset": 70,
                             "line": 3,
-                            "column": 0
+                            "column": 17
                           },
                           "endPos": {
                             "offset": 71,
                             "line": 3,
-                            "column": 0
+                            "column": 18
                           },
                           "value": ".",
                           "leadingTrivia": [],
@@ -1008,12 +1008,12 @@
                           "startPos": {
                             "offset": 68,
                             "line": 3,
-                            "column": 0
+                            "column": 15
                           },
                           "endPos": {
                             "offset": 70,
                             "line": 3,
-                            "column": 0
+                            "column": 17
                           },
                           "expression": {
                             "kind": "<variable>",
@@ -1021,24 +1021,24 @@
                             "startPos": {
                               "offset": 68,
                               "line": 3,
-                              "column": 0
+                              "column": 15
                             },
                             "endPos": {
                               "offset": 70,
                               "line": 3,
-                              "column": 0
+                              "column": 17
                             },
                             "variable": {
                               "kind": "<identifier>",
                               "startPos": {
                                 "offset": 68,
                                 "line": 3,
-                                "column": 0
+                                "column": 15
                               },
                               "endPos": {
                                 "offset": 70,
                                 "line": 3,
-                                "column": 0
+                                "column": 17
                               },
                               "value": "v2",
                               "leadingTrivia": [],
@@ -1058,12 +1058,12 @@
                           "startPos": {
                             "offset": 71,
                             "line": 3,
-                            "column": 0
+                            "column": 18
                           },
                           "endPos": {
                             "offset": 77,
                             "line": 3,
-                            "column": 0
+                            "column": 24
                           },
                           "expression": {
                             "kind": "<variable>",
@@ -1071,24 +1071,24 @@
                             "startPos": {
                               "offset": 71,
                               "line": 3,
-                              "column": 0
+                              "column": 18
                             },
                             "endPos": {
                               "offset": 77,
                               "line": 3,
-                              "column": 0
+                              "column": 24
                             },
                             "variable": {
                               "kind": "<identifier>",
                               "startPos": {
                                 "offset": 71,
                                 "line": 3,
-                                "column": 0
+                                "column": 18
                               },
                               "endPos": {
                                 "offset": 77,
                                 "line": 3,
-                                "column": 0
+                                "column": 24
                               },
                               "value": "Status",
                               "leadingTrivia": [],
@@ -1098,12 +1098,12 @@
                                   "startPos": {
                                     "offset": 77,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 24
                                   },
                                   "endPos": {
                                     "offset": 78,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 25
                                   },
                                   "value": " ",
                                   "leadingTrivia": [],
@@ -1131,24 +1131,24 @@
                         "startPos": {
                           "offset": 78,
                           "line": 3,
-                          "column": 0
+                          "column": 25
                         },
                         "endPos": {
                           "offset": 102,
                           "line": 3,
-                          "column": 0
+                          "column": 49
                         },
                         "listOpenBracket": {
                           "kind": "<lbracket>",
                           "startPos": {
                             "offset": 78,
                             "line": 3,
-                            "column": 0
+                            "column": 25
                           },
                           "endPos": {
                             "offset": 79,
                             "line": 3,
-                            "column": 0
+                            "column": 26
                           },
                           "value": "[",
                           "leadingTrivia": [],
@@ -1169,12 +1169,12 @@
                                   "startPos": {
                                     "offset": 79,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 26
                                   },
                                   "endPos": {
                                     "offset": 86,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 33
                                   },
                                   "value": "default",
                                   "leadingTrivia": [],
@@ -1186,12 +1186,12 @@
                               "startPos": {
                                 "offset": 79,
                                 "line": 3,
-                                "column": 0
+                                "column": 26
                               },
                               "endPos": {
                                 "offset": 86,
                                 "line": 3,
-                                "column": 0
+                                "column": 33
                               },
                               "start": 79,
                               "end": 86
@@ -1202,24 +1202,24 @@
                               "startPos": {
                                 "offset": 88,
                                 "line": 3,
-                                "column": 0
+                                "column": 35
                               },
                               "endPos": {
                                 "offset": 101,
                                 "line": 3,
-                                "column": 0
+                                "column": 48
                               },
                               "op": {
                                 "kind": "<op>",
                                 "startPos": {
                                   "offset": 97,
                                   "line": 3,
-                                  "column": 0
+                                  "column": 44
                                 },
                                 "endPos": {
                                   "offset": 98,
                                   "line": 3,
-                                  "column": 0
+                                  "column": 45
                                 },
                                 "value": ".",
                                 "leadingTrivia": [],
@@ -1233,24 +1233,24 @@
                                 "startPos": {
                                   "offset": 88,
                                   "line": 3,
-                                  "column": 0
+                                  "column": 35
                                 },
                                 "endPos": {
                                   "offset": 97,
                                   "line": 3,
-                                  "column": 0
+                                  "column": 44
                                 },
                                 "op": {
                                   "kind": "<op>",
                                   "startPos": {
                                     "offset": 90,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 37
                                   },
                                   "endPos": {
                                     "offset": 91,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 38
                                   },
                                   "value": ".",
                                   "leadingTrivia": [],
@@ -1264,12 +1264,12 @@
                                   "startPos": {
                                     "offset": 88,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 35
                                   },
                                   "endPos": {
                                     "offset": 90,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 37
                                   },
                                   "expression": {
                                     "kind": "<variable>",
@@ -1277,24 +1277,24 @@
                                     "startPos": {
                                       "offset": 88,
                                       "line": 3,
-                                      "column": 0
+                                      "column": 35
                                     },
                                     "endPos": {
                                       "offset": 90,
                                       "line": 3,
-                                      "column": 0
+                                      "column": 37
                                     },
                                     "variable": {
                                       "kind": "<identifier>",
                                       "startPos": {
                                         "offset": 88,
                                         "line": 3,
-                                        "column": 0
+                                        "column": 35
                                       },
                                       "endPos": {
                                         "offset": 90,
                                         "line": 3,
-                                        "column": 0
+                                        "column": 37
                                       },
                                       "value": "v2",
                                       "leadingTrivia": [],
@@ -1314,12 +1314,12 @@
                                   "startPos": {
                                     "offset": 91,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 38
                                   },
                                   "endPos": {
                                     "offset": 97,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 44
                                   },
                                   "expression": {
                                     "kind": "<variable>",
@@ -1327,24 +1327,24 @@
                                     "startPos": {
                                       "offset": 91,
                                       "line": 3,
-                                      "column": 0
+                                      "column": 38
                                     },
                                     "endPos": {
                                       "offset": 97,
                                       "line": 3,
-                                      "column": 0
+                                      "column": 44
                                     },
                                     "variable": {
                                       "kind": "<identifier>",
                                       "startPos": {
                                         "offset": 91,
                                         "line": 3,
-                                        "column": 0
+                                        "column": 38
                                       },
                                       "endPos": {
                                         "offset": 97,
                                         "line": 3,
-                                        "column": 0
+                                        "column": 44
                                       },
                                       "value": "Status",
                                       "leadingTrivia": [],
@@ -1367,12 +1367,12 @@
                                 "startPos": {
                                   "offset": 98,
                                   "line": 3,
-                                  "column": 0
+                                  "column": 45
                                 },
                                 "endPos": {
                                   "offset": 101,
                                   "line": 3,
-                                  "column": 0
+                                  "column": 48
                                 },
                                 "expression": {
                                   "kind": "<variable>",
@@ -1380,24 +1380,24 @@
                                   "startPos": {
                                     "offset": 98,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 45
                                   },
                                   "endPos": {
                                     "offset": 101,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 48
                                   },
                                   "variable": {
                                     "kind": "<identifier>",
                                     "startPos": {
                                       "offset": 98,
                                       "line": 3,
-                                      "column": 0
+                                      "column": 45
                                     },
                                     "endPos": {
                                       "offset": 101,
                                       "line": 3,
-                                      "column": 0
+                                      "column": 48
                                     },
                                     "value": "new",
                                     "leadingTrivia": [],
@@ -1420,12 +1420,12 @@
                               "startPos": {
                                 "offset": 86,
                                 "line": 3,
-                                "column": 0
+                                "column": 33
                               },
                               "endPos": {
                                 "offset": 87,
                                 "line": 3,
-                                "column": 0
+                                "column": 34
                               },
                               "value": ":",
                               "leadingTrivia": [],
@@ -1435,12 +1435,12 @@
                                   "startPos": {
                                     "offset": 87,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 34
                                   },
                                   "endPos": {
                                     "offset": 88,
                                     "line": 3,
-                                    "column": 0
+                                    "column": 35
                                   },
                                   "value": " ",
                                   "leadingTrivia": [],
@@ -1455,12 +1455,12 @@
                             "startPos": {
                               "offset": 79,
                               "line": 3,
-                              "column": 0
+                              "column": 26
                             },
                             "endPos": {
                               "offset": 101,
                               "line": 3,
-                              "column": 0
+                              "column": 48
                             },
                             "start": 79,
                             "end": 101
@@ -1472,12 +1472,12 @@
                           "startPos": {
                             "offset": 101,
                             "line": 3,
-                            "column": 0
+                            "column": 48
                           },
                           "endPos": {
                             "offset": 102,
                             "line": 3,
-                            "column": 0
+                            "column": 49
                           },
                           "value": "]",
                           "leadingTrivia": [],
@@ -1487,7 +1487,7 @@
                               "startPos": {
                                 "offset": 103,
                                 "line": 3,
-                                "column": 0
+                                "column": 50
                               },
                               "endPos": {
                                 "offset": 104,
@@ -1518,12 +1518,12 @@
                   "startPos": {
                     "offset": 108,
                     "line": 4,
-                    "column": 0
+                    "column": 4
                   },
                   "endPos": {
                     "offset": 109,
                     "line": 4,
-                    "column": 0
+                    "column": 5
                   },
                   "value": "}",
                   "leadingTrivia": [
@@ -1537,7 +1537,7 @@
                       "endPos": {
                         "offset": 105,
                         "line": 4,
-                        "column": 0
+                        "column": 1
                       },
                       "value": " ",
                       "leadingTrivia": [],
@@ -1550,12 +1550,12 @@
                       "startPos": {
                         "offset": 105,
                         "line": 4,
-                        "column": 0
+                        "column": 1
                       },
                       "endPos": {
                         "offset": 106,
                         "line": 4,
-                        "column": 0
+                        "column": 2
                       },
                       "value": " ",
                       "leadingTrivia": [],
@@ -1568,12 +1568,12 @@
                       "startPos": {
                         "offset": 106,
                         "line": 4,
-                        "column": 0
+                        "column": 2
                       },
                       "endPos": {
                         "offset": 107,
                         "line": 4,
-                        "column": 0
+                        "column": 3
                       },
                       "value": " ",
                       "leadingTrivia": [],
@@ -1586,12 +1586,12 @@
                       "startPos": {
                         "offset": 107,
                         "line": 4,
-                        "column": 0
+                        "column": 3
                       },
                       "endPos": {
                         "offset": 108,
                         "line": 4,
-                        "column": 0
+                        "column": 4
                       },
                       "value": " ",
                       "leadingTrivia": [],
@@ -1606,7 +1606,7 @@
                       "startPos": {
                         "offset": 110,
                         "line": 4,
-                        "column": 0
+                        "column": 6
                       },
                       "endPos": {
                         "offset": 111,
@@ -1637,24 +1637,24 @@
               "startPos": {
                 "offset": 117,
                 "line": 6,
-                "column": 0
+                "column": 4
               },
               "endPos": {
                 "offset": 200,
                 "line": 11,
-                "column": 0
+                "column": 5
               },
               "type": {
                 "kind": "<identifier>",
                 "startPos": {
                   "offset": 117,
                   "line": 6,
-                  "column": 0
+                  "column": 4
                 },
                 "endPos": {
                   "offset": 121,
                   "line": 6,
-                  "column": 0
+                  "column": 8
                 },
                 "value": "Enum",
                 "leadingTrivia": [
@@ -1663,7 +1663,7 @@
                     "startPos": {
                       "offset": 112,
                       "line": 5,
-                      "column": 0
+                      "column": 1
                     },
                     "endPos": {
                       "offset": 113,
@@ -1686,7 +1686,7 @@
                     "endPos": {
                       "offset": 114,
                       "line": 6,
-                      "column": 0
+                      "column": 1
                     },
                     "value": " ",
                     "leadingTrivia": [],
@@ -1699,12 +1699,12 @@
                     "startPos": {
                       "offset": 114,
                       "line": 6,
-                      "column": 0
+                      "column": 1
                     },
                     "endPos": {
                       "offset": 115,
                       "line": 6,
-                      "column": 0
+                      "column": 2
                     },
                     "value": " ",
                     "leadingTrivia": [],
@@ -1717,12 +1717,12 @@
                     "startPos": {
                       "offset": 115,
                       "line": 6,
-                      "column": 0
+                      "column": 2
                     },
                     "endPos": {
                       "offset": 116,
                       "line": 6,
-                      "column": 0
+                      "column": 3
                     },
                     "value": " ",
                     "leadingTrivia": [],
@@ -1735,12 +1735,12 @@
                     "startPos": {
                       "offset": 116,
                       "line": 6,
-                      "column": 0
+                      "column": 3
                     },
                     "endPos": {
                       "offset": 117,
                       "line": 6,
-                      "column": 0
+                      "column": 4
                     },
                     "value": " ",
                     "leadingTrivia": [],
@@ -1755,12 +1755,12 @@
                     "startPos": {
                       "offset": 121,
                       "line": 6,
-                      "column": 0
+                      "column": 8
                     },
                     "endPos": {
                       "offset": 122,
                       "line": 6,
-                      "column": 0
+                      "column": 9
                     },
                     "value": " ",
                     "leadingTrivia": [],
@@ -1778,24 +1778,24 @@
                 "startPos": {
                   "offset": 122,
                   "line": 6,
-                  "column": 0
+                  "column": 9
                 },
                 "endPos": {
                   "offset": 131,
                   "line": 6,
-                  "column": 0
+                  "column": 18
                 },
                 "op": {
                   "kind": "<op>",
                   "startPos": {
                     "offset": 124,
                     "line": 6,
-                    "column": 0
+                    "column": 11
                   },
                   "endPos": {
                     "offset": 125,
                     "line": 6,
-                    "column": 0
+                    "column": 12
                   },
                   "value": ".",
                   "leadingTrivia": [],
@@ -1809,12 +1809,12 @@
                   "startPos": {
                     "offset": 122,
                     "line": 6,
-                    "column": 0
+                    "column": 9
                   },
                   "endPos": {
                     "offset": 124,
                     "line": 6,
-                    "column": 0
+                    "column": 11
                   },
                   "expression": {
                     "kind": "<variable>",
@@ -1822,24 +1822,24 @@
                     "startPos": {
                       "offset": 122,
                       "line": 6,
-                      "column": 0
+                      "column": 9
                     },
                     "endPos": {
                       "offset": 124,
                       "line": 6,
-                      "column": 0
+                      "column": 11
                     },
                     "variable": {
                       "kind": "<identifier>",
                       "startPos": {
                         "offset": 122,
                         "line": 6,
-                        "column": 0
+                        "column": 9
                       },
                       "endPos": {
                         "offset": 124,
                         "line": 6,
-                        "column": 0
+                        "column": 11
                       },
                       "value": "v2",
                       "leadingTrivia": [],
@@ -1859,12 +1859,12 @@
                   "startPos": {
                     "offset": 125,
                     "line": 6,
-                    "column": 0
+                    "column": 12
                   },
                   "endPos": {
                     "offset": 131,
                     "line": 6,
-                    "column": 0
+                    "column": 18
                   },
                   "expression": {
                     "kind": "<variable>",
@@ -1872,24 +1872,24 @@
                     "startPos": {
                       "offset": 125,
                       "line": 6,
-                      "column": 0
+                      "column": 12
                     },
                     "endPos": {
                       "offset": 131,
                       "line": 6,
-                      "column": 0
+                      "column": 18
                     },
                     "variable": {
                       "kind": "<identifier>",
                       "startPos": {
                         "offset": 125,
                         "line": 6,
-                        "column": 0
+                        "column": 12
                       },
                       "endPos": {
                         "offset": 131,
                         "line": 6,
-                        "column": 0
+                        "column": 18
                       },
                       "value": "Status",
                       "leadingTrivia": [],
@@ -1899,12 +1899,12 @@
                           "startPos": {
                             "offset": 131,
                             "line": 6,
-                            "column": 0
+                            "column": 18
                           },
                           "endPos": {
                             "offset": 132,
                             "line": 6,
-                            "column": 0
+                            "column": 19
                           },
                           "value": " ",
                           "leadingTrivia": [],
@@ -1931,24 +1931,24 @@
                 "startPos": {
                   "offset": 132,
                   "line": 6,
-                  "column": 0
+                  "column": 19
                 },
                 "endPos": {
                   "offset": 200,
                   "line": 11,
-                  "column": 0
+                  "column": 5
                 },
                 "blockOpenBrace": {
                   "kind": "<lbrace>",
                   "startPos": {
                     "offset": 132,
                     "line": 6,
-                    "column": 0
+                    "column": 19
                   },
                   "endPos": {
                     "offset": 133,
                     "line": 6,
-                    "column": 0
+                    "column": 20
                   },
                   "value": "{",
                   "leadingTrivia": [],
@@ -1958,7 +1958,7 @@
                       "startPos": {
                         "offset": 134,
                         "line": 6,
-                        "column": 0
+                        "column": 21
                       },
                       "endPos": {
                         "offset": 135,
@@ -1982,12 +1982,12 @@
                     "startPos": {
                       "offset": 143,
                       "line": 7,
-                      "column": 0
+                      "column": 8
                     },
                     "endPos": {
                       "offset": 146,
                       "line": 7,
-                      "column": 0
+                      "column": 11
                     },
                     "expression": {
                       "kind": "<variable>",
@@ -1995,24 +1995,24 @@
                       "startPos": {
                         "offset": 143,
                         "line": 7,
-                        "column": 0
+                        "column": 8
                       },
                       "endPos": {
                         "offset": 146,
                         "line": 7,
-                        "column": 0
+                        "column": 11
                       },
                       "variable": {
                         "kind": "<identifier>",
                         "startPos": {
                           "offset": 143,
                           "line": 7,
-                          "column": 0
+                          "column": 8
                         },
                         "endPos": {
                           "offset": 146,
                           "line": 7,
-                          "column": 0
+                          "column": 11
                         },
                         "value": "new",
                         "leadingTrivia": [
@@ -2026,7 +2026,7 @@
                             "endPos": {
                               "offset": 136,
                               "line": 7,
-                              "column": 0
+                              "column": 1
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2039,12 +2039,12 @@
                             "startPos": {
                               "offset": 136,
                               "line": 7,
-                              "column": 0
+                              "column": 1
                             },
                             "endPos": {
                               "offset": 137,
                               "line": 7,
-                              "column": 0
+                              "column": 2
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2057,12 +2057,12 @@
                             "startPos": {
                               "offset": 137,
                               "line": 7,
-                              "column": 0
+                              "column": 2
                             },
                             "endPos": {
                               "offset": 138,
                               "line": 7,
-                              "column": 0
+                              "column": 3
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2075,12 +2075,12 @@
                             "startPos": {
                               "offset": 138,
                               "line": 7,
-                              "column": 0
+                              "column": 3
                             },
                             "endPos": {
                               "offset": 139,
                               "line": 7,
-                              "column": 0
+                              "column": 4
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2093,12 +2093,12 @@
                             "startPos": {
                               "offset": 139,
                               "line": 7,
-                              "column": 0
+                              "column": 4
                             },
                             "endPos": {
                               "offset": 140,
                               "line": 7,
-                              "column": 0
+                              "column": 5
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2111,12 +2111,12 @@
                             "startPos": {
                               "offset": 140,
                               "line": 7,
-                              "column": 0
+                              "column": 5
                             },
                             "endPos": {
                               "offset": 141,
                               "line": 7,
-                              "column": 0
+                              "column": 6
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2129,12 +2129,12 @@
                             "startPos": {
                               "offset": 141,
                               "line": 7,
-                              "column": 0
+                              "column": 6
                             },
                             "endPos": {
                               "offset": 142,
                               "line": 7,
-                              "column": 0
+                              "column": 7
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2147,12 +2147,12 @@
                             "startPos": {
                               "offset": 142,
                               "line": 7,
-                              "column": 0
+                              "column": 7
                             },
                             "endPos": {
                               "offset": 143,
                               "line": 7,
-                              "column": 0
+                              "column": 8
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2167,7 +2167,7 @@
                             "startPos": {
                               "offset": 147,
                               "line": 7,
-                              "column": 0
+                              "column": 12
                             },
                             "endPos": {
                               "offset": 148,
@@ -2197,12 +2197,12 @@
                     "startPos": {
                       "offset": 156,
                       "line": 8,
-                      "column": 0
+                      "column": 8
                     },
                     "endPos": {
                       "offset": 161,
                       "line": 8,
-                      "column": 0
+                      "column": 13
                     },
                     "expression": {
                       "kind": "<variable>",
@@ -2210,24 +2210,24 @@
                       "startPos": {
                         "offset": 156,
                         "line": 8,
-                        "column": 0
+                        "column": 8
                       },
                       "endPos": {
                         "offset": 161,
                         "line": 8,
-                        "column": 0
+                        "column": 13
                       },
                       "variable": {
                         "kind": "<identifier>",
                         "startPos": {
                           "offset": 156,
                           "line": 8,
-                          "column": 0
+                          "column": 8
                         },
                         "endPos": {
                           "offset": 161,
                           "line": 8,
-                          "column": 0
+                          "column": 13
                         },
                         "value": "churn",
                         "leadingTrivia": [
@@ -2241,7 +2241,7 @@
                             "endPos": {
                               "offset": 149,
                               "line": 8,
-                              "column": 0
+                              "column": 1
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2254,12 +2254,12 @@
                             "startPos": {
                               "offset": 149,
                               "line": 8,
-                              "column": 0
+                              "column": 1
                             },
                             "endPos": {
                               "offset": 150,
                               "line": 8,
-                              "column": 0
+                              "column": 2
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2272,12 +2272,12 @@
                             "startPos": {
                               "offset": 150,
                               "line": 8,
-                              "column": 0
+                              "column": 2
                             },
                             "endPos": {
                               "offset": 151,
                               "line": 8,
-                              "column": 0
+                              "column": 3
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2290,12 +2290,12 @@
                             "startPos": {
                               "offset": 151,
                               "line": 8,
-                              "column": 0
+                              "column": 3
                             },
                             "endPos": {
                               "offset": 152,
                               "line": 8,
-                              "column": 0
+                              "column": 4
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2308,12 +2308,12 @@
                             "startPos": {
                               "offset": 152,
                               "line": 8,
-                              "column": 0
+                              "column": 4
                             },
                             "endPos": {
                               "offset": 153,
                               "line": 8,
-                              "column": 0
+                              "column": 5
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2326,12 +2326,12 @@
                             "startPos": {
                               "offset": 153,
                               "line": 8,
-                              "column": 0
+                              "column": 5
                             },
                             "endPos": {
                               "offset": 154,
                               "line": 8,
-                              "column": 0
+                              "column": 6
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2344,12 +2344,12 @@
                             "startPos": {
                               "offset": 154,
                               "line": 8,
-                              "column": 0
+                              "column": 6
                             },
                             "endPos": {
                               "offset": 155,
                               "line": 8,
-                              "column": 0
+                              "column": 7
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2362,12 +2362,12 @@
                             "startPos": {
                               "offset": 155,
                               "line": 8,
-                              "column": 0
+                              "column": 7
                             },
                             "endPos": {
                               "offset": 156,
                               "line": 8,
-                              "column": 0
+                              "column": 8
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2382,7 +2382,7 @@
                             "startPos": {
                               "offset": 162,
                               "line": 8,
-                              "column": 0
+                              "column": 14
                             },
                             "endPos": {
                               "offset": 163,
@@ -2412,12 +2412,12 @@
                     "startPos": {
                       "offset": 171,
                       "line": 9,
-                      "column": 0
+                      "column": 8
                     },
                     "endPos": {
                       "offset": 177,
                       "line": 9,
-                      "column": 0
+                      "column": 14
                     },
                     "expression": {
                       "kind": "<variable>",
@@ -2425,24 +2425,24 @@
                       "startPos": {
                         "offset": 171,
                         "line": 9,
-                        "column": 0
+                        "column": 8
                       },
                       "endPos": {
                         "offset": 177,
                         "line": 9,
-                        "column": 0
+                        "column": 14
                       },
                       "variable": {
                         "kind": "<identifier>",
                         "startPos": {
                           "offset": 171,
                           "line": 9,
-                          "column": 0
+                          "column": 8
                         },
                         "endPos": {
                           "offset": 177,
                           "line": 9,
-                          "column": 0
+                          "column": 14
                         },
                         "value": "active",
                         "leadingTrivia": [
@@ -2456,7 +2456,7 @@
                             "endPos": {
                               "offset": 164,
                               "line": 9,
-                              "column": 0
+                              "column": 1
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2469,12 +2469,12 @@
                             "startPos": {
                               "offset": 164,
                               "line": 9,
-                              "column": 0
+                              "column": 1
                             },
                             "endPos": {
                               "offset": 165,
                               "line": 9,
-                              "column": 0
+                              "column": 2
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2487,12 +2487,12 @@
                             "startPos": {
                               "offset": 165,
                               "line": 9,
-                              "column": 0
+                              "column": 2
                             },
                             "endPos": {
                               "offset": 166,
                               "line": 9,
-                              "column": 0
+                              "column": 3
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2505,12 +2505,12 @@
                             "startPos": {
                               "offset": 166,
                               "line": 9,
-                              "column": 0
+                              "column": 3
                             },
                             "endPos": {
                               "offset": 167,
                               "line": 9,
-                              "column": 0
+                              "column": 4
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2523,12 +2523,12 @@
                             "startPos": {
                               "offset": 167,
                               "line": 9,
-                              "column": 0
+                              "column": 4
                             },
                             "endPos": {
                               "offset": 168,
                               "line": 9,
-                              "column": 0
+                              "column": 5
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2541,12 +2541,12 @@
                             "startPos": {
                               "offset": 168,
                               "line": 9,
-                              "column": 0
+                              "column": 5
                             },
                             "endPos": {
                               "offset": 169,
                               "line": 9,
-                              "column": 0
+                              "column": 6
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2559,12 +2559,12 @@
                             "startPos": {
                               "offset": 169,
                               "line": 9,
-                              "column": 0
+                              "column": 6
                             },
                             "endPos": {
                               "offset": 170,
                               "line": 9,
-                              "column": 0
+                              "column": 7
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2577,12 +2577,12 @@
                             "startPos": {
                               "offset": 170,
                               "line": 9,
-                              "column": 0
+                              "column": 7
                             },
                             "endPos": {
                               "offset": 171,
                               "line": 9,
-                              "column": 0
+                              "column": 8
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2597,7 +2597,7 @@
                             "startPos": {
                               "offset": 178,
                               "line": 9,
-                              "column": 0
+                              "column": 15
                             },
                             "endPos": {
                               "offset": 179,
@@ -2627,12 +2627,12 @@
                     "startPos": {
                       "offset": 187,
                       "line": 10,
-                      "column": 0
+                      "column": 8
                     },
                     "endPos": {
                       "offset": 193,
                       "line": 10,
-                      "column": 0
+                      "column": 14
                     },
                     "expression": {
                       "kind": "<variable>",
@@ -2640,24 +2640,24 @@
                       "startPos": {
                         "offset": 187,
                         "line": 10,
-                        "column": 0
+                        "column": 8
                       },
                       "endPos": {
                         "offset": 193,
                         "line": 10,
-                        "column": 0
+                        "column": 14
                       },
                       "variable": {
                         "kind": "<identifier>",
                         "startPos": {
                           "offset": 187,
                           "line": 10,
-                          "column": 0
+                          "column": 8
                         },
                         "endPos": {
                           "offset": 193,
                           "line": 10,
-                          "column": 0
+                          "column": 14
                         },
                         "value": "tenant",
                         "leadingTrivia": [
@@ -2671,7 +2671,7 @@
                             "endPos": {
                               "offset": 180,
                               "line": 10,
-                              "column": 0
+                              "column": 1
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2684,12 +2684,12 @@
                             "startPos": {
                               "offset": 180,
                               "line": 10,
-                              "column": 0
+                              "column": 1
                             },
                             "endPos": {
                               "offset": 181,
                               "line": 10,
-                              "column": 0
+                              "column": 2
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2702,12 +2702,12 @@
                             "startPos": {
                               "offset": 181,
                               "line": 10,
-                              "column": 0
+                              "column": 2
                             },
                             "endPos": {
                               "offset": 182,
                               "line": 10,
-                              "column": 0
+                              "column": 3
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2720,12 +2720,12 @@
                             "startPos": {
                               "offset": 182,
                               "line": 10,
-                              "column": 0
+                              "column": 3
                             },
                             "endPos": {
                               "offset": 183,
                               "line": 10,
-                              "column": 0
+                              "column": 4
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2738,12 +2738,12 @@
                             "startPos": {
                               "offset": 183,
                               "line": 10,
-                              "column": 0
+                              "column": 4
                             },
                             "endPos": {
                               "offset": 184,
                               "line": 10,
-                              "column": 0
+                              "column": 5
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2756,12 +2756,12 @@
                             "startPos": {
                               "offset": 184,
                               "line": 10,
-                              "column": 0
+                              "column": 5
                             },
                             "endPos": {
                               "offset": 185,
                               "line": 10,
-                              "column": 0
+                              "column": 6
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2774,12 +2774,12 @@
                             "startPos": {
                               "offset": 185,
                               "line": 10,
-                              "column": 0
+                              "column": 6
                             },
                             "endPos": {
                               "offset": 186,
                               "line": 10,
-                              "column": 0
+                              "column": 7
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2792,12 +2792,12 @@
                             "startPos": {
                               "offset": 186,
                               "line": 10,
-                              "column": 0
+                              "column": 7
                             },
                             "endPos": {
                               "offset": 187,
                               "line": 10,
-                              "column": 0
+                              "column": 8
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -2812,7 +2812,7 @@
                             "startPos": {
                               "offset": 194,
                               "line": 10,
-                              "column": 0
+                              "column": 15
                             },
                             "endPos": {
                               "offset": 195,
@@ -2842,12 +2842,12 @@
                   "startPos": {
                     "offset": 199,
                     "line": 11,
-                    "column": 0
+                    "column": 4
                   },
                   "endPos": {
                     "offset": 200,
                     "line": 11,
-                    "column": 0
+                    "column": 5
                   },
                   "value": "}",
                   "leadingTrivia": [
@@ -2861,7 +2861,7 @@
                       "endPos": {
                         "offset": 196,
                         "line": 11,
-                        "column": 0
+                        "column": 1
                       },
                       "value": " ",
                       "leadingTrivia": [],
@@ -2874,12 +2874,12 @@
                       "startPos": {
                         "offset": 196,
                         "line": 11,
-                        "column": 0
+                        "column": 1
                       },
                       "endPos": {
                         "offset": 197,
                         "line": 11,
-                        "column": 0
+                        "column": 2
                       },
                       "value": " ",
                       "leadingTrivia": [],
@@ -2892,12 +2892,12 @@
                       "startPos": {
                         "offset": 197,
                         "line": 11,
-                        "column": 0
+                        "column": 2
                       },
                       "endPos": {
                         "offset": 198,
                         "line": 11,
-                        "column": 0
+                        "column": 3
                       },
                       "value": " ",
                       "leadingTrivia": [],
@@ -2910,12 +2910,12 @@
                       "startPos": {
                         "offset": 198,
                         "line": 11,
-                        "column": 0
+                        "column": 3
                       },
                       "endPos": {
                         "offset": 199,
                         "line": 11,
-                        "column": 0
+                        "column": 4
                       },
                       "value": " ",
                       "leadingTrivia": [],
@@ -2930,7 +2930,7 @@
                       "startPos": {
                         "offset": 201,
                         "line": 11,
-                        "column": 0
+                        "column": 6
                       },
                       "endPos": {
                         "offset": 202,
@@ -2966,7 +2966,7 @@
             "endPos": {
               "offset": 203,
               "line": 12,
-              "column": 0
+              "column": 1
             },
             "value": "}",
             "leadingTrivia": [],
@@ -2987,12 +2987,12 @@
       "startPos": {
         "offset": 203,
         "line": 12,
-        "column": 0
+        "column": 1
       },
       "endPos": {
         "offset": 203,
         "line": 12,
-        "column": 0
+        "column": 1
       },
       "value": "",
       "leadingTrivia": [],
@@ -3039,24 +3039,24 @@
                   "startPos": {
                     "offset": 68,
                     "line": 3,
-                    "column": 0
+                    "column": 15
                   },
                   "endPos": {
                     "offset": 77,
                     "line": 3,
-                    "column": 0
+                    "column": 24
                   },
                   "op": {
                     "kind": "<op>",
                     "startPos": {
                       "offset": 70,
                       "line": 3,
-                      "column": 0
+                      "column": 17
                     },
                     "endPos": {
                       "offset": 71,
                       "line": 3,
-                      "column": 0
+                      "column": 18
                     },
                     "value": ".",
                     "leadingTrivia": [],
@@ -3070,12 +3070,12 @@
                     "startPos": {
                       "offset": 68,
                       "line": 3,
-                      "column": 0
+                      "column": 15
                     },
                     "endPos": {
                       "offset": 70,
                       "line": 3,
-                      "column": 0
+                      "column": 17
                     },
                     "expression": {
                       "kind": "<variable>",
@@ -3083,24 +3083,24 @@
                       "startPos": {
                         "offset": 68,
                         "line": 3,
-                        "column": 0
+                        "column": 15
                       },
                       "endPos": {
                         "offset": 70,
                         "line": 3,
-                        "column": 0
+                        "column": 17
                       },
                       "variable": {
                         "kind": "<identifier>",
                         "startPos": {
                           "offset": 68,
                           "line": 3,
-                          "column": 0
+                          "column": 15
                         },
                         "endPos": {
                           "offset": 70,
                           "line": 3,
-                          "column": 0
+                          "column": 17
                         },
                         "value": "v2",
                         "leadingTrivia": [],
@@ -3120,12 +3120,12 @@
                     "startPos": {
                       "offset": 71,
                       "line": 3,
-                      "column": 0
+                      "column": 18
                     },
                     "endPos": {
                       "offset": 77,
                       "line": 3,
-                      "column": 0
+                      "column": 24
                     },
                     "expression": {
                       "kind": "<variable>",
@@ -3133,24 +3133,24 @@
                       "startPos": {
                         "offset": 71,
                         "line": 3,
-                        "column": 0
+                        "column": 18
                       },
                       "endPos": {
                         "offset": 77,
                         "line": 3,
-                        "column": 0
+                        "column": 24
                       },
                       "variable": {
                         "kind": "<identifier>",
                         "startPos": {
                           "offset": 71,
                           "line": 3,
-                          "column": 0
+                          "column": 18
                         },
                         "endPos": {
                           "offset": 77,
                           "line": 3,
-                          "column": 0
+                          "column": 24
                         },
                         "value": "Status",
                         "leadingTrivia": [],
@@ -3160,12 +3160,12 @@
                             "startPos": {
                               "offset": 77,
                               "line": 3,
-                              "column": 0
+                              "column": 24
                             },
                             "endPos": {
                               "offset": 78,
                               "line": 3,
-                              "column": 0
+                              "column": 25
                             },
                             "value": " ",
                             "leadingTrivia": [],
@@ -3198,24 +3198,24 @@
                       "startPos": {
                         "offset": 88,
                         "line": 3,
-                        "column": 0
+                        "column": 35
                       },
                       "endPos": {
                         "offset": 101,
                         "line": 3,
-                        "column": 0
+                        "column": 48
                       },
                       "op": {
                         "kind": "<op>",
                         "startPos": {
                           "offset": 97,
                           "line": 3,
-                          "column": 0
+                          "column": 44
                         },
                         "endPos": {
                           "offset": 98,
                           "line": 3,
-                          "column": 0
+                          "column": 45
                         },
                         "value": ".",
                         "leadingTrivia": [],
@@ -3229,24 +3229,24 @@
                         "startPos": {
                           "offset": 88,
                           "line": 3,
-                          "column": 0
+                          "column": 35
                         },
                         "endPos": {
                           "offset": 97,
                           "line": 3,
-                          "column": 0
+                          "column": 44
                         },
                         "op": {
                           "kind": "<op>",
                           "startPos": {
                             "offset": 90,
                             "line": 3,
-                            "column": 0
+                            "column": 37
                           },
                           "endPos": {
                             "offset": 91,
                             "line": 3,
-                            "column": 0
+                            "column": 38
                           },
                           "value": ".",
                           "leadingTrivia": [],
@@ -3260,12 +3260,12 @@
                           "startPos": {
                             "offset": 88,
                             "line": 3,
-                            "column": 0
+                            "column": 35
                           },
                           "endPos": {
                             "offset": 90,
                             "line": 3,
-                            "column": 0
+                            "column": 37
                           },
                           "expression": {
                             "kind": "<variable>",
@@ -3273,24 +3273,24 @@
                             "startPos": {
                               "offset": 88,
                               "line": 3,
-                              "column": 0
+                              "column": 35
                             },
                             "endPos": {
                               "offset": 90,
                               "line": 3,
-                              "column": 0
+                              "column": 37
                             },
                             "variable": {
                               "kind": "<identifier>",
                               "startPos": {
                                 "offset": 88,
                                 "line": 3,
-                                "column": 0
+                                "column": 35
                               },
                               "endPos": {
                                 "offset": 90,
                                 "line": 3,
-                                "column": 0
+                                "column": 37
                               },
                               "value": "v2",
                               "leadingTrivia": [],
@@ -3310,12 +3310,12 @@
                           "startPos": {
                             "offset": 91,
                             "line": 3,
-                            "column": 0
+                            "column": 38
                           },
                           "endPos": {
                             "offset": 97,
                             "line": 3,
-                            "column": 0
+                            "column": 44
                           },
                           "expression": {
                             "kind": "<variable>",
@@ -3323,24 +3323,24 @@
                             "startPos": {
                               "offset": 91,
                               "line": 3,
-                              "column": 0
+                              "column": 38
                             },
                             "endPos": {
                               "offset": 97,
                               "line": 3,
-                              "column": 0
+                              "column": 44
                             },
                             "variable": {
                               "kind": "<identifier>",
                               "startPos": {
                                 "offset": 91,
                                 "line": 3,
-                                "column": 0
+                                "column": 38
                               },
                               "endPos": {
                                 "offset": 97,
                                 "line": 3,
-                                "column": 0
+                                "column": 44
                               },
                               "value": "Status",
                               "leadingTrivia": [],
@@ -3363,12 +3363,12 @@
                         "startPos": {
                           "offset": 98,
                           "line": 3,
-                          "column": 0
+                          "column": 45
                         },
                         "endPos": {
                           "offset": 101,
                           "line": 3,
-                          "column": 0
+                          "column": 48
                         },
                         "expression": {
                           "kind": "<variable>",
@@ -3376,24 +3376,24 @@
                           "startPos": {
                             "offset": 98,
                             "line": 3,
-                            "column": 0
+                            "column": 45
                           },
                           "endPos": {
                             "offset": 101,
                             "line": 3,
-                            "column": 0
+                            "column": 48
                           },
                           "variable": {
                             "kind": "<identifier>",
                             "startPos": {
                               "offset": 98,
                               "line": 3,
-                              "column": 0
+                              "column": 45
                             },
                             "endPos": {
                               "offset": 101,
                               "line": 3,
-                              "column": 0
+                              "column": 48
                             },
                             "value": "new",
                             "leadingTrivia": [],

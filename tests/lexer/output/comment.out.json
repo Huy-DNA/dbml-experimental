@@ -5,12 +5,12 @@
       "startPos": {
         "offset": 150,
         "line": 17,
-        "column": 0
+        "column": 11
       },
       "endPos": {
         "offset": 150,
         "line": 17,
-        "column": 0
+        "column": 11
       },
       "value": "",
       "leadingTrivia": [
@@ -37,7 +37,7 @@
           "startPos": {
             "offset": 35,
             "line": 1,
-            "column": 0
+            "column": 1
           },
           "endPos": {
             "offset": 36,
@@ -60,7 +60,7 @@
           "endPos": {
             "offset": 80,
             "line": 9,
-            "column": 0
+            "column": 2
           },
           "value": " This \r\nis\r\na\r\nmulti\r\n-\r\nline\r\ncomment\r\n",
           "leadingTrivia": [],
@@ -73,7 +73,7 @@
           "startPos": {
             "offset": 81,
             "line": 9,
-            "column": 0
+            "column": 3
           },
           "endPos": {
             "offset": 82,
@@ -91,7 +91,7 @@
           "startPos": {
             "offset": 83,
             "line": 10,
-            "column": 0
+            "column": 1
           },
           "endPos": {
             "offset": 84,
@@ -222,7 +222,7 @@
           "endPos": {
             "offset": 150,
             "line": 17,
-            "column": 0
+            "column": 11
           },
           "value": " comments",
           "leadingTrivia": [],

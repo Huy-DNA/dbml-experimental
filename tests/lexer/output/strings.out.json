@@ -10,7 +10,7 @@
       "endPos": {
         "offset": 25,
         "line": 0,
-        "column": 0
+        "column": 25
       },
       "value": "This is a quoted string",
       "leadingTrivia": [],
@@ -20,7 +20,7 @@
           "startPos": {
             "offset": 26,
             "line": 0,
-            "column": 0
+            "column": 26
           },
           "endPos": {
             "offset": 27,
@@ -47,7 +47,7 @@
       "endPos": {
         "offset": 73,
         "line": 2,
-        "column": 0
+        "column": 44
       },
       "value": "This is a quoted string \nwith a newline\n",
       "leadingTrivia": [
@@ -56,7 +56,7 @@
           "startPos": {
             "offset": 28,
             "line": 1,
-            "column": 0
+            "column": 1
           },
           "endPos": {
             "offset": 29,
@@ -76,7 +76,7 @@
           "startPos": {
             "offset": 74,
             "line": 2,
-            "column": 0
+            "column": 45
           },
           "endPos": {
             "offset": 75,
@@ -103,7 +103,7 @@
       "endPos": {
         "offset": 103,
         "line": 4,
-        "column": 0
+        "column": 26
       },
       "value": "This is a string literal",
       "leadingTrivia": [
@@ -112,7 +112,7 @@
           "startPos": {
             "offset": 76,
             "line": 3,
-            "column": 0
+            "column": 1
           },
           "endPos": {
             "offset": 77,
@@ -132,7 +132,7 @@
           "startPos": {
             "offset": 104,
             "line": 4,
-            "column": 0
+            "column": 27
           },
           "endPos": {
             "offset": 105,
@@ -159,7 +159,7 @@
       "endPos": {
         "offset": 152,
         "line": 6,
-        "column": 0
+        "column": 45
       },
       "value": "This is a string literal \nwith a newline\n",
       "leadingTrivia": [
@@ -168,7 +168,7 @@
           "startPos": {
             "offset": 106,
             "line": 5,
-            "column": 0
+            "column": 1
           },
           "endPos": {
             "offset": 107,
@@ -188,7 +188,7 @@
           "startPos": {
             "offset": 153,
             "line": 6,
-            "column": 0
+            "column": 46
           },
           "endPos": {
             "offset": 154,
@@ -215,7 +215,7 @@
       "endPos": {
         "offset": 267,
         "line": 13,
-        "column": 0
+        "column": 3
       },
       "value": "This is a multiline string\r\n",
       "leadingTrivia": [
@@ -224,7 +224,7 @@
           "startPos": {
             "offset": 155,
             "line": 7,
-            "column": 0
+            "column": 1
           },
           "endPos": {
             "offset": 156,
@@ -247,7 +247,7 @@
           "endPos": {
             "offset": 191,
             "line": 8,
-            "column": 0
+            "column": 35
           },
           "value": "\"This is an unclosed quoted string\r",
           "leadingTrivia": [],
@@ -260,7 +260,7 @@
           "startPos": {
             "offset": 191,
             "line": 8,
-            "column": 0
+            "column": 35
           },
           "endPos": {
             "offset": 192,
@@ -278,7 +278,7 @@
           "startPos": {
             "offset": 193,
             "line": 9,
-            "column": 0
+            "column": 1
           },
           "endPos": {
             "offset": 194,
@@ -301,7 +301,7 @@
           "endPos": {
             "offset": 230,
             "line": 10,
-            "column": 0
+            "column": 36
           },
           "value": "'This is an unclosed string literal\r",
           "leadingTrivia": [],
@@ -314,7 +314,7 @@
           "startPos": {
             "offset": 230,
             "line": 10,
-            "column": 0
+            "column": 36
           },
           "endPos": {
             "offset": 231,
@@ -332,7 +332,7 @@
           "startPos": {
             "offset": 232,
             "line": 11,
-            "column": 0
+            "column": 1
           },
           "endPos": {
             "offset": 233,
@@ -352,7 +352,7 @@
           "startPos": {
             "offset": 268,
             "line": 13,
-            "column": 0
+            "column": 4
           },
           "endPos": {
             "offset": 269,
@@ -388,7 +388,7 @@
           "startPos": {
             "offset": 270,
             "line": 14,
-            "column": 0
+            "column": 1
           },
           "endPos": {
             "offset": 271,
@@ -439,7 +439,7 @@
         "endPos": {
           "offset": 191,
           "line": 8,
-          "column": 0
+          "column": 35
         },
         "value": "\"This is an unclosed quoted string\r",
         "leadingTrivia": [],
@@ -464,7 +464,7 @@
         "endPos": {
           "offset": 230,
           "line": 10,
-          "column": 0
+          "column": 36
         },
         "value": "'This is an unclosed string literal\r",
         "leadingTrivia": [],
