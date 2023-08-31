@@ -1,3 +1,223 @@
 [
-  [CompileError: Only one note content can be defined],
+  {
+    "code": 3040,
+    "diagnostic": "Only one note content can be defined",
+    "nodeOrToken": {
+      "kind": "<primary-expression>",
+      "id": 57,
+      "startPos": {
+        "offset": 212,
+        "line": 5,
+        "column": 8
+      },
+      "endPos": {
+        "offset": 221,
+        "line": 5,
+        "column": 17
+      },
+      "expression": {
+        "kind": "<literal>",
+        "id": 56,
+        "startPos": {
+          "offset": 212,
+          "line": 5,
+          "column": 8
+        },
+        "endPos": {
+          "offset": 221,
+          "line": 5,
+          "column": 17
+        },
+        "literal": {
+          "kind": "<string>",
+          "startPos": {
+            "offset": 212,
+            "line": 5,
+            "column": 8
+          },
+          "endPos": {
+            "offset": 221,
+            "line": 5,
+            "column": 17
+          },
+          "value": "123",
+          "leadingTrivia": [
+            {
+              "kind": "<space>",
+              "startPos": {
+                "offset": 204,
+                "line": 5,
+                "column": 0
+              },
+              "endPos": {
+                "offset": 205,
+                "line": 5,
+                "column": 1
+              },
+              "value": " ",
+              "leadingTrivia": [],
+              "trailingTrivia": [],
+              "start": 204,
+              "end": 205
+            },
+            {
+              "kind": "<space>",
+              "startPos": {
+                "offset": 205,
+                "line": 5,
+                "column": 1
+              },
+              "endPos": {
+                "offset": 206,
+                "line": 5,
+                "column": 2
+              },
+              "value": " ",
+              "leadingTrivia": [],
+              "trailingTrivia": [],
+              "start": 205,
+              "end": 206
+            },
+            {
+              "kind": "<space>",
+              "startPos": {
+                "offset": 206,
+                "line": 5,
+                "column": 2
+              },
+              "endPos": {
+                "offset": 207,
+                "line": 5,
+                "column": 3
+              },
+              "value": " ",
+              "leadingTrivia": [],
+              "trailingTrivia": [],
+              "start": 206,
+              "end": 207
+            },
+            {
+              "kind": "<space>",
+              "startPos": {
+                "offset": 207,
+                "line": 5,
+                "column": 3
+              },
+              "endPos": {
+                "offset": 208,
+                "line": 5,
+                "column": 4
+              },
+              "value": " ",
+              "leadingTrivia": [],
+              "trailingTrivia": [],
+              "start": 207,
+              "end": 208
+            },
+            {
+              "kind": "<space>",
+              "startPos": {
+                "offset": 208,
+                "line": 5,
+                "column": 4
+              },
+              "endPos": {
+                "offset": 209,
+                "line": 5,
+                "column": 5
+              },
+              "value": " ",
+              "leadingTrivia": [],
+              "trailingTrivia": [],
+              "start": 208,
+              "end": 209
+            },
+            {
+              "kind": "<space>",
+              "startPos": {
+                "offset": 209,
+                "line": 5,
+                "column": 5
+              },
+              "endPos": {
+                "offset": 210,
+                "line": 5,
+                "column": 6
+              },
+              "value": " ",
+              "leadingTrivia": [],
+              "trailingTrivia": [],
+              "start": 209,
+              "end": 210
+            },
+            {
+              "kind": "<space>",
+              "startPos": {
+                "offset": 210,
+                "line": 5,
+                "column": 6
+              },
+              "endPos": {
+                "offset": 211,
+                "line": 5,
+                "column": 7
+              },
+              "value": " ",
+              "leadingTrivia": [],
+              "trailingTrivia": [],
+              "start": 210,
+              "end": 211
+            },
+            {
+              "kind": "<space>",
+              "startPos": {
+                "offset": 211,
+                "line": 5,
+                "column": 7
+              },
+              "endPos": {
+                "offset": 212,
+                "line": 5,
+                "column": 8
+              },
+              "value": " ",
+              "leadingTrivia": [],
+              "trailingTrivia": [],
+              "start": 211,
+              "end": 212
+            }
+          ],
+          "trailingTrivia": [
+            {
+              "kind": "<newline>",
+              "startPos": {
+                "offset": 222,
+                "line": 5,
+                "column": 18
+              },
+              "endPos": {
+                "offset": 223,
+                "line": 6,
+                "column": 0
+              },
+              "value": "\n",
+              "leadingTrivia": [],
+              "trailingTrivia": [],
+              "start": 222,
+              "end": 223
+            }
+          ],
+          "start": 212,
+          "end": 221
+        },
+        "start": 212,
+        "end": 221
+      },
+      "start": 212,
+      "end": 221
+    },
+    "start": 212,
+    "end": 221,
+    "name": "CompileError"
+  }
 ]

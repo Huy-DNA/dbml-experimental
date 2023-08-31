@@ -207,7 +207,10 @@ export default class Interpreter {
       dbdefault = collector.extractDefault();
       inlineRefs = collector.extractRef(tableName, schemaName);
       inlineRefs.forEach((ref) => {
-        if (!this.logIfCircularRefError(field.callee, field.symbol as ColumnSymbol, ref.referee)) {
+        if (!this.logIfSameEndpoint(ref.node, field.symbol as ColumnSymbol, ref.referee)) {
+          return;
+        }
+        if (!this.logIfCircularRefError(ref.node, field.symbol as ColumnSymbol, ref.referee)) {
           return;
         }
         _inlineRefs.push({

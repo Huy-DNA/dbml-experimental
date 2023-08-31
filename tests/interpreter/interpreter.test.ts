@@ -14,7 +14,7 @@ describe('#interpreter', () => {
     try {
       output = JSON.stringify(compiler.emitRawDbFromDBML(program).normalize(), null, 2);
     } catch (e) {
-      output = e;
+      output = JSON.stringify(e, (key, value) => ['symbol', 'references', 'referee'].includes(key) ? undefined : value, 2);
     }
 
     it('should equal snapshot', () =>
