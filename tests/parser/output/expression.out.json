@@ -9731,7 +9731,7 @@
   "errors": [
     {
       "code": 1008,
-      "diagnostic": "Unexpected prefix '**' in an expression",
+      "diagnostic": "Unexpected '**' in an expression",
       "nodeOrToken": {
         "kind": "<invalid>",
         "startPos": {
