@@ -127,10 +127,14 @@
               "end": 19
             },
             "start": 5,
-            "end": 19
+            "end": 19,
+            "fullStart": 5,
+            "fullEnd": 20
           },
           "start": 5,
-          "end": 19
+          "end": 19,
+          "fullStart": 5,
+          "fullEnd": 20
         },
         "body": {
           "kind": "<block-expression>",
@@ -713,13 +717,19 @@
                       "end": 51
                     },
                     "start": 50,
-                    "end": 51
+                    "end": 51,
+                    "fullStart": 50,
+                    "fullEnd": 51
                   },
                   "start": 50,
-                  "end": 51
+                  "end": 51,
+                  "fullStart": 50,
+                  "fullEnd": 51
                 },
                 "start": 49,
-                "end": 51
+                "end": 51,
+                "fullStart": 45,
+                "fullEnd": 51
               },
               "argumentList": {
                 "kind": "<tuple-expression>",
@@ -792,10 +802,14 @@
                   "end": 53
                 },
                 "start": 51,
-                "end": 53
+                "end": 53,
+                "fullStart": 51,
+                "fullEnd": 55
               },
               "start": 49,
-              "end": 53
+              "end": 53,
+              "fullStart": 45,
+              "fullEnd": 55
             },
             {
               "kind": "<call-expression>",
@@ -959,10 +973,14 @@
                       "end": 60
                     },
                     "start": 59,
-                    "end": 60
+                    "end": 60,
+                    "fullStart": 55,
+                    "fullEnd": 60
                   },
                   "start": 59,
-                  "end": 60
+                  "end": 60,
+                  "fullStart": 55,
+                  "fullEnd": 60
                 },
                 "rightExpression": {
                   "kind": "<primary-expression>",
@@ -1009,13 +1027,19 @@
                       "end": 62
                     },
                     "start": 61,
-                    "end": 62
+                    "end": 62,
+                    "fullStart": 61,
+                    "fullEnd": 62
                   },
                   "start": 61,
-                  "end": 62
+                  "end": 62,
+                  "fullStart": 61,
+                  "fullEnd": 62
                 },
                 "start": 59,
-                "end": 62
+                "end": 62,
+                "fullStart": 55,
+                "fullEnd": 62
               },
               "argumentList": {
                 "kind": "<tuple-expression>",
@@ -1088,10 +1112,14 @@
                   "end": 64
                 },
                 "start": 62,
-                "end": 64
+                "end": 64,
+                "fullStart": 62,
+                "fullEnd": 66
               },
               "start": 59,
-              "end": 64
+              "end": 64,
+              "fullStart": 55,
+              "fullEnd": 66
             }
           ],
           "blockCloseBrace": {
@@ -1113,10 +1141,14 @@
             "end": 67
           },
           "start": 20,
-          "end": 67
+          "end": 67,
+          "fullStart": 20,
+          "fullEnd": 67
         },
         "start": 0,
-        "end": 67
+        "end": 67,
+        "fullStart": 0,
+        "fullEnd": 67
       }
     ],
     "eof": {
@@ -1138,7 +1170,9 @@
       "end": 67
     },
     "start": 0,
-    "end": 67
+    "end": 67,
+    "fullStart": 0,
+    "fullEnd": 67
   },
   "errors": [
     {

@@ -127,10 +127,14 @@
               "end": 11
             },
             "start": 6,
-            "end": 11
+            "end": 11,
+            "fullStart": 6,
+            "fullEnd": 12
           },
           "start": 6,
-          "end": 11
+          "end": 11,
+          "fullStart": 6,
+          "fullEnd": 12
         },
         "body": {
           "kind": "<block-expression>",
@@ -333,10 +337,14 @@
                     "end": 21
                   },
                   "start": 19,
-                  "end": 21
+                  "end": 21,
+                  "fullStart": 15,
+                  "fullEnd": 22
                 },
                 "start": 19,
-                "end": 21
+                "end": 21,
+                "fullStart": 15,
+                "fullEnd": 22
               },
               "args": [
                 {
@@ -403,14 +411,20 @@
                       "end": 29
                     },
                     "start": 22,
-                    "end": 29
+                    "end": 29,
+                    "fullStart": 22,
+                    "fullEnd": 31
                   },
                   "start": 22,
-                  "end": 29
+                  "end": 29,
+                  "fullStart": 22,
+                  "fullEnd": 31
                 }
               ],
               "start": 19,
               "end": 29,
+              "fullStart": 15,
+              "fullEnd": 31,
               "symbol": 3
             },
             {
@@ -563,10 +577,14 @@
                     "end": 37
                   },
                   "start": 35,
-                  "end": 37
+                  "end": 37,
+                  "fullStart": 31,
+                  "fullEnd": 38
                 },
                 "start": 35,
-                "end": 37
+                "end": 37,
+                "fullStart": 31,
+                "fullEnd": 38
               },
               "args": [
                 {
@@ -633,14 +651,20 @@
                       "end": 45
                     },
                     "start": 38,
-                    "end": 45
+                    "end": 45,
+                    "fullStart": 38,
+                    "fullEnd": 47
                   },
                   "start": 38,
-                  "end": 45
+                  "end": 45,
+                  "fullStart": 38,
+                  "fullEnd": 47
                 }
               ],
               "start": 35,
-              "end": 45
+              "end": 45,
+              "fullStart": 31,
+              "fullEnd": 47
             },
             {
               "kind": "<function-application>",
@@ -792,10 +816,14 @@
                     "end": 53
                   },
                   "start": 51,
-                  "end": 53
+                  "end": 53,
+                  "fullStart": 47,
+                  "fullEnd": 54
                 },
                 "start": 51,
-                "end": 53
+                "end": 53,
+                "fullStart": 47,
+                "fullEnd": 54
               },
               "args": [
                 {
@@ -862,14 +890,20 @@
                       "end": 61
                     },
                     "start": 54,
-                    "end": 61
+                    "end": 61,
+                    "fullStart": 54,
+                    "fullEnd": 63
                   },
                   "start": 54,
-                  "end": 61
+                  "end": 61,
+                  "fullStart": 54,
+                  "fullEnd": 63
                 }
               ],
               "start": 51,
-              "end": 61
+              "end": 61,
+              "fullStart": 47,
+              "fullEnd": 63
             }
           ],
           "blockCloseBrace": {
@@ -891,10 +925,14 @@
             "end": 64
           },
           "start": 12,
-          "end": 64
+          "end": 64,
+          "fullStart": 12,
+          "fullEnd": 64
         },
         "start": 0,
         "end": 64,
+        "fullStart": 0,
+        "fullEnd": 64,
         "parentElement": 19,
         "symbol": 2
       }
@@ -919,6 +957,8 @@
     },
     "start": 0,
     "end": 64,
+    "fullStart": 0,
+    "fullEnd": 64,
     "symbol": {
       "symbolTable": {
         "Table:Users": {
@@ -1079,10 +1119,14 @@
             "end": 37
           },
           "start": 35,
-          "end": 37
+          "end": 37,
+          "fullStart": 31,
+          "fullEnd": 38
         },
         "start": 35,
-        "end": 37
+        "end": 37,
+        "fullStart": 31,
+        "fullEnd": 38
       },
       "start": 35,
       "end": 37,
@@ -1228,10 +1272,14 @@
             "end": 53
           },
           "start": 51,
-          "end": 53
+          "end": 53,
+          "fullStart": 47,
+          "fullEnd": 54
         },
         "start": 51,
-        "end": 53
+        "end": 53,
+        "fullStart": 47,
+        "fullEnd": 54
       },
       "start": 51,
       "end": 53,

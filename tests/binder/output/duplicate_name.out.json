@@ -127,10 +127,14 @@
               "end": 8
             },
             "start": 6,
-            "end": 8
+            "end": 8,
+            "fullStart": 6,
+            "fullEnd": 9
           },
           "start": 6,
-          "end": 8
+          "end": 8,
+          "fullStart": 6,
+          "fullEnd": 9
         },
         "body": {
           "kind": "<block-expression>",
@@ -240,10 +244,14 @@
             "end": 15
           },
           "start": 9,
-          "end": 15
+          "end": 15,
+          "fullStart": 9,
+          "fullEnd": 17
         },
         "start": 0,
         "end": 15,
+        "fullStart": 0,
+        "fullEnd": 17,
         "parentElement": 8,
         "symbol": 2
       },
@@ -380,10 +388,14 @@
               "end": 27
             },
             "start": 25,
-            "end": 27
+            "end": 27,
+            "fullStart": 25,
+            "fullEnd": 28
           },
           "start": 25,
-          "end": 27
+          "end": 27,
+          "fullStart": 25,
+          "fullEnd": 28
         },
         "body": {
           "kind": "<block-expression>",
@@ -546,10 +558,14 @@
             "end": 38
           },
           "start": 28,
-          "end": 38
+          "end": 38,
+          "fullStart": 28,
+          "fullEnd": 38
         },
         "start": 19,
         "end": 38,
+        "fullStart": 18,
+        "fullEnd": 38,
         "parentElement": 8,
         "symbol": 4
       }
@@ -574,6 +590,8 @@
     },
     "start": 0,
     "end": 38,
+    "fullStart": 0,
+    "fullEnd": 38,
     "symbol": {
       "symbolTable": {
         "Table:AB": {
@@ -655,10 +673,14 @@
             "end": 27
           },
           "start": 25,
-          "end": 27
+          "end": 27,
+          "fullStart": 25,
+          "fullEnd": 28
         },
         "start": 25,
-        "end": 27
+        "end": 27,
+        "fullStart": 25,
+        "fullEnd": 28
       },
       "start": 25,
       "end": 27,

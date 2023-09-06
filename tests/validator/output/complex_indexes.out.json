@@ -127,10 +127,14 @@
               "end": 14
             },
             "start": 6,
-            "end": 14
+            "end": 14,
+            "fullStart": 6,
+            "fullEnd": 15
           },
           "start": 6,
-          "end": 14
+          "end": 14,
+          "fullStart": 6,
+          "fullEnd": 15
         },
         "body": {
           "kind": "<block-expression>",
@@ -297,10 +301,14 @@
                     "end": 22
                   },
                   "start": 20,
-                  "end": 22
+                  "end": 22,
+                  "fullStart": 18,
+                  "fullEnd": 23
                 },
                 "start": 20,
-                "end": 22
+                "end": 22,
+                "fullStart": 18,
+                "fullEnd": 23
               },
               "args": [
                 {
@@ -367,14 +375,20 @@
                       "end": 30
                     },
                     "start": 23,
-                    "end": 30
+                    "end": 30,
+                    "fullStart": 23,
+                    "fullEnd": 32
                   },
                   "start": 23,
-                  "end": 30
+                  "end": 30,
+                  "fullStart": 23,
+                  "fullEnd": 32
                 }
               ],
               "start": 20,
               "end": 30,
+              "fullStart": 18,
+              "fullEnd": 32,
               "symbol": 3
             },
             {
@@ -491,10 +505,14 @@
                     "end": 41
                   },
                   "start": 34,
-                  "end": 41
+                  "end": 41,
+                  "fullStart": 32,
+                  "fullEnd": 42
                 },
                 "start": 34,
-                "end": 41
+                "end": 41,
+                "fullStart": 32,
+                "fullEnd": 42
               },
               "args": [
                 {
@@ -561,14 +579,20 @@
                       "end": 49
                     },
                     "start": 42,
-                    "end": 49
+                    "end": 49,
+                    "fullStart": 42,
+                    "fullEnd": 51
                   },
                   "start": 42,
-                  "end": 49
+                  "end": 49,
+                  "fullStart": 42,
+                  "fullEnd": 51
                 }
               ],
               "start": 34,
               "end": 49,
+              "fullStart": 32,
+              "fullEnd": 51,
               "symbol": 4
             },
             {
@@ -685,10 +709,14 @@
                     "end": 65
                   },
                   "start": 53,
-                  "end": 65
+                  "end": 65,
+                  "fullStart": 51,
+                  "fullEnd": 66
                 },
                 "start": 53,
-                "end": 65
+                "end": 65,
+                "fullStart": 51,
+                "fullEnd": 66
               },
               "args": [
                 {
@@ -755,14 +783,20 @@
                       "end": 70
                     },
                     "start": 66,
-                    "end": 70
+                    "end": 70,
+                    "fullStart": 66,
+                    "fullEnd": 72
                   },
                   "start": 66,
-                  "end": 70
+                  "end": 70,
+                  "fullStart": 66,
+                  "fullEnd": 72
                 }
               ],
               "start": 53,
               "end": 70,
+              "fullStart": 51,
+              "fullEnd": 72,
               "symbol": 5
             },
             {
@@ -879,10 +913,14 @@
                     "end": 84
                   },
                   "start": 74,
-                  "end": 84
+                  "end": 84,
+                  "fullStart": 72,
+                  "fullEnd": 85
                 },
                 "start": 74,
-                "end": 84
+                "end": 84,
+                "fullStart": 72,
+                "fullEnd": 85
               },
               "args": [
                 {
@@ -949,14 +987,20 @@
                       "end": 94
                     },
                     "start": 85,
-                    "end": 94
+                    "end": 94,
+                    "fullStart": 85,
+                    "fullEnd": 96
                   },
                   "start": 85,
-                  "end": 94
+                  "end": 94,
+                  "fullStart": 85,
+                  "fullEnd": 96
                 }
               ],
               "start": 74,
               "end": 94,
+              "fullStart": 72,
+              "fullEnd": 96,
               "symbol": 6
             },
             {
@@ -1314,10 +1358,14 @@
                               "end": 120
                             },
                             "start": 118,
-                            "end": 120
+                            "end": 120,
+                            "fullStart": 118,
+                            "fullEnd": 120
                           },
                           "start": 118,
-                          "end": 120
+                          "end": 120,
+                          "fullStart": 118,
+                          "fullEnd": 120
                         },
                         {
                           "kind": "<primary-expression>",
@@ -1364,10 +1412,14 @@
                               "end": 129
                             },
                             "start": 122,
-                            "end": 129
+                            "end": 129,
+                            "fullStart": 122,
+                            "fullEnd": 129
                           },
                           "start": 122,
-                          "end": 129
+                          "end": 129,
+                          "fullStart": 122,
+                          "fullEnd": 129
                         }
                       ],
                       "commaList": [
@@ -1447,7 +1499,9 @@
                         "end": 130
                       },
                       "start": 117,
-                      "end": 130
+                      "end": 130,
+                      "fullStart": 111,
+                      "fullEnd": 131
                     },
                     "args": [
                       {
@@ -1519,7 +1573,9 @@
                                 "column": 23
                               },
                               "start": 132,
-                              "end": 134
+                              "end": 134,
+                              "fullStart": 132,
+                              "fullEnd": 134
                             },
                             "startPos": {
                               "offset": 132,
@@ -1532,7 +1588,9 @@
                               "column": 23
                             },
                             "start": 132,
-                            "end": 134
+                            "end": 134,
+                            "fullStart": 132,
+                            "fullEnd": 134
                           }
                         ],
                         "commaList": [],
@@ -1700,7 +1758,9 @@
                           "end": 135
                         },
                         "start": 131,
-                        "end": 135
+                        "end": 135,
+                        "fullStart": 131,
+                        "fullEnd": 168
                       },
                       {
                         "kind": "<primary-expression>",
@@ -1766,10 +1826,14 @@
                             "end": 178
                           },
                           "start": 168,
-                          "end": 178
+                          "end": 178,
+                          "fullStart": 168,
+                          "fullEnd": 179
                         },
                         "start": 168,
-                        "end": 178
+                        "end": 178,
+                        "fullStart": 168,
+                        "fullEnd": 179
                       },
                       {
                         "kind": "<list-expression>",
@@ -1840,7 +1904,9 @@
                                 "column": 22
                               },
                               "start": 180,
-                              "end": 184
+                              "end": 184,
+                              "fullStart": 180,
+                              "fullEnd": 184
                             },
                             "value": {
                               "kind": "<primary-expression>",
@@ -1887,10 +1953,14 @@
                                   "end": 204
                                 },
                                 "start": 186,
-                                "end": 204
+                                "end": 204,
+                                "fullStart": 186,
+                                "fullEnd": 204
                               },
                               "start": 186,
-                              "end": 204
+                              "end": 204,
+                              "fullStart": 186,
+                              "fullEnd": 204
                             },
                             "colon": {
                               "kind": "<colon>",
@@ -1940,7 +2010,9 @@
                               "column": 42
                             },
                             "start": 180,
-                            "end": 204
+                            "end": 204,
+                            "fullStart": 180,
+                            "fullEnd": 204
                           },
                           {
                             "kind": "<attribute>",
@@ -1979,7 +2051,9 @@
                                 "column": 48
                               },
                               "start": 206,
-                              "end": 210
+                              "end": 210,
+                              "fullStart": 206,
+                              "fullEnd": 210
                             },
                             "value": {
                               "kind": "<primary-expression>",
@@ -2026,10 +2100,14 @@
                                   "end": 218
                                 },
                                 "start": 212,
-                                "end": 218
+                                "end": 218,
+                                "fullStart": 212,
+                                "fullEnd": 218
                               },
                               "start": 212,
-                              "end": 218
+                              "end": 218,
+                              "fullStart": 212,
+                              "fullEnd": 218
                             },
                             "colon": {
                               "kind": "<colon>",
@@ -2079,7 +2157,9 @@
                               "column": 56
                             },
                             "start": 206,
-                            "end": 218
+                            "end": 218,
+                            "fullStart": 206,
+                            "fullEnd": 218
                           }
                         ],
                         "commaList": [
@@ -2159,11 +2239,15 @@
                           "end": 219
                         },
                         "start": 179,
-                        "end": 219
+                        "end": 219,
+                        "fullStart": 179,
+                        "fullEnd": 221
                       }
                     ],
                     "start": 117,
-                    "end": 219
+                    "end": 219,
+                    "fullStart": 111,
+                    "fullEnd": 221
                   },
                   {
                     "kind": "<primary-expression>",
@@ -2338,10 +2422,14 @@
                         "end": 239
                       },
                       "start": 227,
-                      "end": 239
+                      "end": 239,
+                      "fullStart": 221,
+                      "fullEnd": 241
                     },
                     "start": 227,
                     "end": 239,
+                    "fullStart": 221,
+                    "fullEnd": 241,
                     "referee": 5
                   },
                   {
@@ -2543,10 +2631,14 @@
                               "end": 255
                             },
                             "start": 248,
-                            "end": 255
+                            "end": 255,
+                            "fullStart": 248,
+                            "fullEnd": 255
                           },
                           "start": 248,
-                          "end": 255
+                          "end": 255,
+                          "fullStart": 248,
+                          "fullEnd": 255
                         },
                         {
                           "kind": "<primary-expression>",
@@ -2593,10 +2685,14 @@
                               "end": 269
                             },
                             "start": 257,
-                            "end": 269
+                            "end": 269,
+                            "fullStart": 257,
+                            "fullEnd": 269
                           },
                           "start": 257,
-                          "end": 269
+                          "end": 269,
+                          "fullStart": 257,
+                          "fullEnd": 269
                         }
                       ],
                       "commaList": [
@@ -2677,6 +2773,8 @@
                       },
                       "start": 247,
                       "end": 270,
+                      "fullStart": 241,
+                      "fullEnd": 271,
                       "referee": 5
                     },
                     "args": [
@@ -2749,7 +2847,9 @@
                                 "column": 37
                               },
                               "start": 272,
-                              "end": 278
+                              "end": 278,
+                              "fullStart": 272,
+                              "fullEnd": 278
                             },
                             "startPos": {
                               "offset": 272,
@@ -2762,7 +2862,9 @@
                               "column": 37
                             },
                             "start": 272,
-                            "end": 278
+                            "end": 278,
+                            "fullStart": 272,
+                            "fullEnd": 278
                           }
                         ],
                         "commaList": [],
@@ -2804,11 +2906,15 @@
                           "end": 279
                         },
                         "start": 271,
-                        "end": 279
+                        "end": 279,
+                        "fullStart": 271,
+                        "fullEnd": 281
                       }
                     ],
                     "start": 247,
-                    "end": 279
+                    "end": 279,
+                    "fullStart": 241,
+                    "fullEnd": 281
                   },
                   {
                     "kind": "<function-application>",
@@ -2996,10 +3102,14 @@
                           "end": 299
                         },
                         "start": 287,
-                        "end": 299
+                        "end": 299,
+                        "fullStart": 281,
+                        "fullEnd": 300
                       },
                       "start": 287,
                       "end": 299,
+                      "fullStart": 281,
+                      "fullEnd": 300,
                       "referee": 5
                     },
                     "args": [
@@ -3072,7 +3182,9 @@
                                 "column": 24
                               },
                               "start": 301,
-                              "end": 305
+                              "end": 305,
+                              "fullStart": 301,
+                              "fullEnd": 305
                             },
                             "value": {
                               "kind": "<primary-expression>",
@@ -3119,10 +3231,14 @@
                                   "end": 311
                                 },
                                 "start": 307,
-                                "end": 311
+                                "end": 311,
+                                "fullStart": 307,
+                                "fullEnd": 311
                               },
                               "start": 307,
-                              "end": 311
+                              "end": 311,
+                              "fullStart": 307,
+                              "fullEnd": 311
                             },
                             "colon": {
                               "kind": "<colon>",
@@ -3172,7 +3288,9 @@
                               "column": 30
                             },
                             "start": 301,
-                            "end": 311
+                            "end": 311,
+                            "fullStart": 301,
+                            "fullEnd": 311
                           }
                         ],
                         "commaList": [],
@@ -3214,11 +3332,15 @@
                           "end": 312
                         },
                         "start": 300,
-                        "end": 312
+                        "end": 312,
+                        "fullStart": 300,
+                        "fullEnd": 314
                       }
                     ],
                     "start": 287,
-                    "end": 312
+                    "end": 312,
+                    "fullStart": 281,
+                    "fullEnd": 314
                   },
                   {
                     "kind": "<group-expression>",
@@ -3393,7 +3515,9 @@
                           "end": 327
                         },
                         "start": 321,
-                        "end": 327
+                        "end": 327,
+                        "fullStart": 321,
+                        "fullEnd": 327
                       }
                     ],
                     "commaList": [],
@@ -3435,7 +3559,9 @@
                       "end": 328
                     },
                     "start": 320,
-                    "end": 328
+                    "end": 328,
+                    "fullStart": 314,
+                    "fullEnd": 330
                   },
                   {
                     "kind": "<tuple-expression>",
@@ -3610,7 +3736,9 @@
                           "end": 343
                         },
                         "start": 337,
-                        "end": 343
+                        "end": 343,
+                        "fullStart": 337,
+                        "fullEnd": 343
                       },
                       {
                         "kind": "<function-expression>",
@@ -3644,7 +3772,9 @@
                           "end": 355
                         },
                         "start": 344,
-                        "end": 355
+                        "end": 355,
+                        "fullStart": 344,
+                        "fullEnd": 355
                       }
                     ],
                     "commaList": [
@@ -3705,7 +3835,9 @@
                       "end": 356
                     },
                     "start": 336,
-                    "end": 356
+                    "end": 356,
+                    "fullStart": 330,
+                    "fullEnd": 358
                   },
                   {
                     "kind": "<tuple-expression>",
@@ -3880,7 +4012,9 @@
                           "end": 371
                         },
                         "start": 365,
-                        "end": 371
+                        "end": 371,
+                        "fullStart": 365,
+                        "fullEnd": 371
                       },
                       {
                         "kind": "<primary-expression>",
@@ -3927,10 +4061,14 @@
                             "end": 374
                           },
                           "start": 372,
-                          "end": 374
+                          "end": 374,
+                          "fullStart": 372,
+                          "fullEnd": 374
                         },
                         "start": 372,
-                        "end": 374
+                        "end": 374,
+                        "fullStart": 372,
+                        "fullEnd": 374
                       }
                     ],
                     "commaList": [
@@ -3992,6 +4130,8 @@
                     },
                     "start": 364,
                     "end": 375,
+                    "fullStart": 358,
+                    "fullEnd": 377,
                     "referee": 3
                   }
                 ],
@@ -4070,10 +4210,14 @@
                   "end": 380
                 },
                 "start": 108,
-                "end": 380
+                "end": 380,
+                "fullStart": 108,
+                "fullEnd": 382
               },
               "start": 100,
               "end": 380,
+              "fullStart": 97,
+              "fullEnd": 382,
               "parentElement": 76
             }
           ],
@@ -4115,10 +4259,14 @@
             "end": 383
           },
           "start": 15,
-          "end": 383
+          "end": 383,
+          "fullStart": 15,
+          "fullEnd": 385
         },
         "start": 0,
         "end": 383,
+        "fullStart": 0,
+        "fullEnd": 385,
         "parentElement": 77,
         "symbol": 2
       }
@@ -4162,6 +4310,8 @@
     },
     "start": 0,
     "end": 402,
+    "fullStart": 0,
+    "fullEnd": 402,
     "symbol": {
       "symbolTable": {
         "Table:bookings": {
@@ -4343,7 +4493,9 @@
                         "end": 371
                       },
                       "start": 365,
-                      "end": 371
+                      "end": 371,
+                      "fullStart": 365,
+                      "fullEnd": 371
                     },
                     {
                       "kind": "<primary-expression>",
@@ -4390,10 +4542,14 @@
                           "end": 374
                         },
                         "start": 372,
-                        "end": 374
+                        "end": 374,
+                        "fullStart": 372,
+                        "fullEnd": 374
                       },
                       "start": 372,
-                      "end": 374
+                      "end": 374,
+                      "fullStart": 372,
+                      "fullEnd": 374
                     }
                   ],
                   "commaList": [
@@ -4455,6 +4611,8 @@
                   },
                   "start": 364,
                   "end": 375,
+                  "fullStart": 358,
+                  "fullEnd": 377,
                   "referee": 3
                 }
               ],
@@ -4649,10 +4807,14 @@
                           "end": 255
                         },
                         "start": 248,
-                        "end": 255
+                        "end": 255,
+                        "fullStart": 248,
+                        "fullEnd": 255
                       },
                       "start": 248,
-                      "end": 255
+                      "end": 255,
+                      "fullStart": 248,
+                      "fullEnd": 255
                     },
                     {
                       "kind": "<primary-expression>",
@@ -4699,10 +4861,14 @@
                           "end": 269
                         },
                         "start": 257,
-                        "end": 269
+                        "end": 269,
+                        "fullStart": 257,
+                        "fullEnd": 269
                       },
                       "start": 257,
-                      "end": 269
+                      "end": 269,
+                      "fullStart": 257,
+                      "fullEnd": 269
                     }
                   ],
                   "commaList": [
@@ -4783,6 +4949,8 @@
                   },
                   "start": 247,
                   "end": 270,
+                  "fullStart": 241,
+                  "fullEnd": 271,
                   "referee": 5
                 }
               ],
@@ -4964,10 +5132,14 @@
                       "end": 239
                     },
                     "start": 227,
-                    "end": 239
+                    "end": 239,
+                    "fullStart": 221,
+                    "fullEnd": 241
                   },
                   "start": 227,
                   "end": 239,
+                  "fullStart": 221,
+                  "fullEnd": 241,
                   "referee": 5
                 },
                 {
@@ -5156,10 +5328,14 @@
                           "end": 255
                         },
                         "start": 248,
-                        "end": 255
+                        "end": 255,
+                        "fullStart": 248,
+                        "fullEnd": 255
                       },
                       "start": 248,
-                      "end": 255
+                      "end": 255,
+                      "fullStart": 248,
+                      "fullEnd": 255
                     },
                     {
                       "kind": "<primary-expression>",
@@ -5206,10 +5382,14 @@
                           "end": 269
                         },
                         "start": 257,
-                        "end": 269
+                        "end": 269,
+                        "fullStart": 257,
+                        "fullEnd": 269
                       },
                       "start": 257,
-                      "end": 269
+                      "end": 269,
+                      "fullStart": 257,
+                      "fullEnd": 269
                     }
                   ],
                   "commaList": [
@@ -5290,6 +5470,8 @@
                   },
                   "start": 247,
                   "end": 270,
+                  "fullStart": 241,
+                  "fullEnd": 271,
                   "referee": 5
                 },
                 {
@@ -5465,10 +5647,14 @@
                       "end": 299
                     },
                     "start": 287,
-                    "end": 299
+                    "end": 299,
+                    "fullStart": 281,
+                    "fullEnd": 300
                   },
                   "start": 287,
                   "end": 299,
+                  "fullStart": 281,
+                  "fullEnd": 300,
                   "referee": 5
                 }
               ],
@@ -5691,10 +5877,14 @@
                   "end": 120
                 },
                 "start": 118,
-                "end": 120
+                "end": 120,
+                "fullStart": 118,
+                "fullEnd": 120
               },
               "start": 118,
-              "end": 120
+              "end": 120,
+              "fullStart": 118,
+              "fullEnd": 120
             },
             {
               "kind": "<primary-expression>",
@@ -5741,10 +5931,14 @@
                   "end": 129
                 },
                 "start": 122,
-                "end": 129
+                "end": 129,
+                "fullStart": 122,
+                "fullEnd": 129
               },
               "start": 122,
-              "end": 129
+              "end": 129,
+              "fullStart": 122,
+              "fullEnd": 129
             }
           ],
           "commaList": [
@@ -5824,7 +6018,9 @@
             "end": 130
           },
           "start": 117,
-          "end": 130
+          "end": 130,
+          "fullStart": 111,
+          "fullEnd": 131
         },
         "args": [
           {
@@ -5896,7 +6092,9 @@
                     "column": 23
                   },
                   "start": 132,
-                  "end": 134
+                  "end": 134,
+                  "fullStart": 132,
+                  "fullEnd": 134
                 },
                 "startPos": {
                   "offset": 132,
@@ -5909,7 +6107,9 @@
                   "column": 23
                 },
                 "start": 132,
-                "end": 134
+                "end": 134,
+                "fullStart": 132,
+                "fullEnd": 134
               }
             ],
             "commaList": [],
@@ -6077,7 +6277,9 @@
               "end": 135
             },
             "start": 131,
-            "end": 135
+            "end": 135,
+            "fullStart": 131,
+            "fullEnd": 168
           },
           {
             "kind": "<primary-expression>",
@@ -6143,10 +6345,14 @@
                 "end": 178
               },
               "start": 168,
-              "end": 178
+              "end": 178,
+              "fullStart": 168,
+              "fullEnd": 179
             },
             "start": 168,
-            "end": 178
+            "end": 178,
+            "fullStart": 168,
+            "fullEnd": 179
           },
           {
             "kind": "<list-expression>",
@@ -6217,7 +6423,9 @@
                     "column": 22
                   },
                   "start": 180,
-                  "end": 184
+                  "end": 184,
+                  "fullStart": 180,
+                  "fullEnd": 184
                 },
                 "value": {
                   "kind": "<primary-expression>",
@@ -6264,10 +6472,14 @@
                       "end": 204
                     },
                     "start": 186,
-                    "end": 204
+                    "end": 204,
+                    "fullStart": 186,
+                    "fullEnd": 204
                   },
                   "start": 186,
-                  "end": 204
+                  "end": 204,
+                  "fullStart": 186,
+                  "fullEnd": 204
                 },
                 "colon": {
                   "kind": "<colon>",
@@ -6317,7 +6529,9 @@
                   "column": 42
                 },
                 "start": 180,
-                "end": 204
+                "end": 204,
+                "fullStart": 180,
+                "fullEnd": 204
               },
               {
                 "kind": "<attribute>",
@@ -6356,7 +6570,9 @@
                     "column": 48
                   },
                   "start": 206,
-                  "end": 210
+                  "end": 210,
+                  "fullStart": 206,
+                  "fullEnd": 210
                 },
                 "value": {
                   "kind": "<primary-expression>",
@@ -6403,10 +6619,14 @@
                       "end": 218
                     },
                     "start": 212,
-                    "end": 218
+                    "end": 218,
+                    "fullStart": 212,
+                    "fullEnd": 218
                   },
                   "start": 212,
-                  "end": 218
+                  "end": 218,
+                  "fullStart": 212,
+                  "fullEnd": 218
                 },
                 "colon": {
                   "kind": "<colon>",
@@ -6456,7 +6676,9 @@
                   "column": 56
                 },
                 "start": 206,
-                "end": 218
+                "end": 218,
+                "fullStart": 206,
+                "fullEnd": 218
               }
             ],
             "commaList": [
@@ -6536,11 +6758,15 @@
               "end": 219
             },
             "start": 179,
-            "end": 219
+            "end": 219,
+            "fullStart": 179,
+            "fullEnd": 221
           }
         ],
         "start": 117,
-        "end": 219
+        "end": 219,
+        "fullStart": 111,
+        "fullEnd": 221
       },
       "start": 117,
       "end": 219,

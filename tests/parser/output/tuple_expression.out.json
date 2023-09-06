@@ -127,10 +127,14 @@
               "end": 20
             },
             "start": 5,
-            "end": 20
+            "end": 20,
+            "fullStart": 5,
+            "fullEnd": 21
           },
           "start": 5,
-          "end": 20
+          "end": 20,
+          "fullStart": 5,
+          "fullEnd": 21
         },
         "body": {
           "kind": "<block-expression>",
@@ -327,7 +331,9 @@
                 "end": 30
               },
               "start": 28,
-              "end": 30
+              "end": 30,
+              "fullStart": 24,
+              "fullEnd": 32
             },
             {
               "kind": "<tuple-expression>",
@@ -583,7 +589,9 @@
                 "end": 46
               },
               "start": 36,
-              "end": 46
+              "end": 46,
+              "fullStart": 32,
+              "fullEnd": 48
             },
             {
               "kind": "<tuple-expression>",
@@ -753,10 +761,14 @@
                       "end": 56
                     },
                     "start": 55,
-                    "end": 56
+                    "end": 56,
+                    "fullStart": 55,
+                    "fullEnd": 56
                   },
                   "start": 55,
-                  "end": 56
+                  "end": 56,
+                  "fullStart": 55,
+                  "fullEnd": 56
                 },
                 {
                   "kind": "<primary-expression>",
@@ -876,10 +888,14 @@
                       "end": 65
                     },
                     "start": 64,
-                    "end": 65
+                    "end": 65,
+                    "fullStart": 60,
+                    "fullEnd": 65
                   },
                   "start": 64,
-                  "end": 65
+                  "end": 65,
+                  "fullStart": 60,
+                  "fullEnd": 65
                 },
                 {
                   "kind": "<primary-expression>",
@@ -1018,10 +1034,14 @@
                       "end": 73
                     },
                     "start": 72,
-                    "end": 73
+                    "end": 73,
+                    "fullStart": 68,
+                    "fullEnd": 73
                   },
                   "start": 72,
-                  "end": 73
+                  "end": 73,
+                  "fullStart": 68,
+                  "fullEnd": 73
                 }
               ],
               "commaList": [
@@ -1174,7 +1194,9 @@
                 "end": 75
               },
               "start": 54,
-              "end": 75
+              "end": 75,
+              "fullStart": 49,
+              "fullEnd": 77
             },
             {
               "kind": "<tuple-expression>",
@@ -1413,10 +1435,14 @@
                         "end": 85
                       },
                       "start": 84,
-                      "end": 85
+                      "end": 85,
+                      "fullStart": 84,
+                      "fullEnd": 86
                     },
                     "start": 84,
-                    "end": 85
+                    "end": 85,
+                    "fullStart": 84,
+                    "fullEnd": 86
                   },
                   "rightExpression": {
                     "kind": "<primary-expression>",
@@ -1463,13 +1489,19 @@
                         "end": 89
                       },
                       "start": 88,
-                      "end": 89
+                      "end": 89,
+                      "fullStart": 88,
+                      "fullEnd": 89
                     },
                     "start": 88,
-                    "end": 89
+                    "end": 89,
+                    "fullStart": 88,
+                    "fullEnd": 89
                   },
                   "start": 84,
-                  "end": 89
+                  "end": 89,
+                  "fullStart": 84,
+                  "fullEnd": 89
                 },
                 {
                   "kind": "<infix-expression>",
@@ -1585,10 +1617,14 @@
                         "end": 92
                       },
                       "start": 91,
-                      "end": 92
+                      "end": 92,
+                      "fullStart": 91,
+                      "fullEnd": 93
                     },
                     "start": 91,
-                    "end": 92
+                    "end": 92,
+                    "fullStart": 91,
+                    "fullEnd": 93
                   },
                   "rightExpression": {
                     "kind": "<primary-expression>",
@@ -1635,13 +1671,19 @@
                         "end": 96
                       },
                       "start": 95,
-                      "end": 96
+                      "end": 96,
+                      "fullStart": 95,
+                      "fullEnd": 96
                     },
                     "start": 95,
-                    "end": 96
+                    "end": 96,
+                    "fullStart": 95,
+                    "fullEnd": 96
                   },
                   "start": 91,
-                  "end": 96
+                  "end": 96,
+                  "fullStart": 91,
+                  "fullEnd": 96
                 },
                 {
                   "kind": "<infix-expression>",
@@ -1757,10 +1799,14 @@
                         "end": 99
                       },
                       "start": 98,
-                      "end": 99
+                      "end": 99,
+                      "fullStart": 98,
+                      "fullEnd": 100
                     },
                     "start": 98,
-                    "end": 99
+                    "end": 99,
+                    "fullStart": 98,
+                    "fullEnd": 100
                   },
                   "rightExpression": {
                     "kind": "<primary-expression>",
@@ -1807,13 +1853,19 @@
                         "end": 103
                       },
                       "start": 102,
-                      "end": 103
+                      "end": 103,
+                      "fullStart": 102,
+                      "fullEnd": 103
                     },
                     "start": 102,
-                    "end": 103
+                    "end": 103,
+                    "fullStart": 102,
+                    "fullEnd": 103
                   },
                   "start": 98,
-                  "end": 103
+                  "end": 103,
+                  "fullStart": 98,
+                  "fullEnd": 103
                 },
                 {
                   "kind": "<infix-expression>",
@@ -1929,10 +1981,14 @@
                         "end": 106
                       },
                       "start": 105,
-                      "end": 106
+                      "end": 106,
+                      "fullStart": 105,
+                      "fullEnd": 107
                     },
                     "start": 105,
-                    "end": 106
+                    "end": 106,
+                    "fullStart": 105,
+                    "fullEnd": 107
                   },
                   "rightExpression": {
                     "kind": "<primary-expression>",
@@ -1979,13 +2035,19 @@
                         "end": 111
                       },
                       "start": 110,
-                      "end": 111
+                      "end": 111,
+                      "fullStart": 110,
+                      "fullEnd": 111
                     },
                     "start": 110,
-                    "end": 111
+                    "end": 111,
+                    "fullStart": 110,
+                    "fullEnd": 111
                   },
                   "start": 105,
-                  "end": 111
+                  "end": 111,
+                  "fullStart": 105,
+                  "fullEnd": 111
                 },
                 {
                   "kind": "<infix-expression>",
@@ -2101,10 +2163,14 @@
                         "end": 114
                       },
                       "start": 113,
-                      "end": 114
+                      "end": 114,
+                      "fullStart": 113,
+                      "fullEnd": 115
                     },
                     "start": 113,
-                    "end": 114
+                    "end": 114,
+                    "fullStart": 113,
+                    "fullEnd": 115
                   },
                   "rightExpression": {
                     "kind": "<primary-expression>",
@@ -2224,13 +2290,19 @@
                         "end": 124
                       },
                       "start": 123,
-                      "end": 124
+                      "end": 124,
+                      "fullStart": 119,
+                      "fullEnd": 124
                     },
                     "start": 123,
-                    "end": 124
+                    "end": 124,
+                    "fullStart": 119,
+                    "fullEnd": 124
                   },
                   "start": 113,
-                  "end": 124
+                  "end": 124,
+                  "fullStart": 113,
+                  "fullEnd": 124
                 },
                 {
                   "kind": "<infix-expression>",
@@ -2346,10 +2418,14 @@
                         "end": 127
                       },
                       "start": 126,
-                      "end": 127
+                      "end": 127,
+                      "fullStart": 126,
+                      "fullEnd": 128
                     },
                     "start": 126,
-                    "end": 127
+                    "end": 127,
+                    "fullStart": 126,
+                    "fullEnd": 128
                   },
                   "rightExpression": {
                     "kind": "<primary-expression>",
@@ -2469,13 +2545,19 @@
                         "end": 138
                       },
                       "start": 136,
-                      "end": 138
+                      "end": 138,
+                      "fullStart": 132,
+                      "fullEnd": 138
                     },
                     "start": 136,
-                    "end": 138
+                    "end": 138,
+                    "fullStart": 132,
+                    "fullEnd": 138
                   },
                   "start": 126,
-                  "end": 138
+                  "end": 138,
+                  "fullStart": 126,
+                  "fullEnd": 138
                 }
               ],
               "commaList": [
@@ -2703,7 +2785,9 @@
                 "end": 139
               },
               "start": 83,
-              "end": 139
+              "end": 139,
+              "fullStart": 78,
+              "fullEnd": 141
             }
           ],
           "blockCloseBrace": {
@@ -2725,10 +2809,14 @@
             "end": 142
           },
           "start": 21,
-          "end": 142
+          "end": 142,
+          "fullStart": 21,
+          "fullEnd": 142
         },
         "start": 0,
-        "end": 142
+        "end": 142,
+        "fullStart": 0,
+        "fullEnd": 142
       }
     ],
     "eof": {
@@ -2750,7 +2838,9 @@
       "end": 142
     },
     "start": 0,
-    "end": 142
+    "end": 142,
+    "fullStart": 0,
+    "fullEnd": 142
   },
   "errors": [
     {

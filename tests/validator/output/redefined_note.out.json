@@ -127,10 +127,14 @@
               "end": 7
             },
             "start": 6,
-            "end": 7
+            "end": 7,
+            "fullStart": 6,
+            "fullEnd": 8
           },
           "start": 6,
-          "end": 7
+          "end": 7,
+          "fullStart": 6,
+          "fullEnd": 8
         },
         "body": {
           "kind": "<block-expression>",
@@ -388,13 +392,19 @@
                     "end": 49
                   },
                   "start": 21,
-                  "end": 49
+                  "end": 49,
+                  "fullStart": 21,
+                  "fullEnd": 51
                 },
                 "start": 21,
-                "end": 49
+                "end": 49,
+                "fullStart": 21,
+                "fullEnd": 51
               },
               "start": 15,
               "end": 49,
+              "fullStart": 11,
+              "fullEnd": 51,
               "parentElement": 13
             },
             {
@@ -780,10 +790,14 @@
                         "end": 99
                       },
                       "start": 71,
-                      "end": 99
+                      "end": 99,
+                      "fullStart": 63,
+                      "fullEnd": 101
                     },
                     "start": 71,
-                    "end": 99
+                    "end": 99,
+                    "fullStart": 63,
+                    "fullEnd": 101
                   }
                 ],
                 "blockCloseBrace": {
@@ -897,10 +911,14 @@
                   "end": 106
                 },
                 "start": 60,
-                "end": 106
+                "end": 106,
+                "fullStart": 60,
+                "fullEnd": 108
               },
               "start": 55,
               "end": 106,
+              "fullStart": 51,
+              "fullEnd": 108,
               "parentElement": 13
             }
           ],
@@ -942,10 +960,14 @@
             "end": 109
           },
           "start": 8,
-          "end": 109
+          "end": 109,
+          "fullStart": 8,
+          "fullEnd": 111
         },
         "start": 0,
         "end": 109,
+        "fullStart": 0,
+        "fullEnd": 111,
         "parentElement": 22,
         "symbol": 2
       },
@@ -1206,10 +1228,14 @@
                   "end": 148
                 },
                 "start": 125,
-                "end": 148
+                "end": 148,
+                "fullStart": 121,
+                "fullEnd": 150
               },
               "start": 125,
-              "end": 148
+              "end": 148,
+              "fullStart": 121,
+              "fullEnd": 150
             }
           ],
           "blockCloseBrace": {
@@ -1250,10 +1276,14 @@
             "end": 151
           },
           "start": 118,
-          "end": 151
+          "end": 151,
+          "fullStart": 118,
+          "fullEnd": 153
         },
         "start": 113,
         "end": 151,
+        "fullStart": 112,
+        "fullEnd": 153,
         "parentElement": 22
       },
       {
@@ -1401,17 +1431,25 @@
                 "end": 202
               },
               "start": 161,
-              "end": 202
+              "end": 202,
+              "fullStart": 161,
+              "fullEnd": 202
             },
             "start": 161,
-            "end": 202
+            "end": 202,
+            "fullStart": 161,
+            "fullEnd": 202
           },
           "args": [],
           "start": 161,
-          "end": 202
+          "end": 202,
+          "fullStart": 161,
+          "fullEnd": 202
         },
         "start": 155,
         "end": 202,
+        "fullStart": 154,
+        "fullEnd": 202,
         "parentElement": 22
       }
     ],
@@ -1435,6 +1473,8 @@
     },
     "start": 0,
     "end": 202,
+    "fullStart": 0,
+    "fullEnd": 202,
     "symbol": {
       "symbolTable": {
         "Table:A": {

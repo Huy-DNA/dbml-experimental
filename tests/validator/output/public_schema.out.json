@@ -127,10 +127,14 @@
               "end": 11
             },
             "start": 5,
-            "end": 11
+            "end": 11,
+            "fullStart": 5,
+            "fullEnd": 12
           },
           "start": 5,
-          "end": 11
+          "end": 11,
+          "fullStart": 5,
+          "fullEnd": 12
         },
         "body": {
           "kind": "<block-expression>",
@@ -240,10 +244,14 @@
             "end": 18
           },
           "start": 12,
-          "end": 18
+          "end": 18,
+          "fullStart": 12,
+          "fullEnd": 20
         },
         "start": 0,
         "end": 18,
+        "fullStart": 0,
+        "fullEnd": 20,
         "parentElement": 11,
         "symbol": 2
       },
@@ -392,10 +400,14 @@
                 "end": 33
               },
               "start": 27,
-              "end": 33
+              "end": 33,
+              "fullStart": 27,
+              "fullEnd": 33
             },
             "start": 27,
-            "end": 33
+            "end": 33,
+            "fullStart": 27,
+            "fullEnd": 33
           },
           "rightExpression": {
             "kind": "<primary-expression>",
@@ -461,13 +473,19 @@
                 "end": 40
               },
               "start": 34,
-              "end": 40
+              "end": 40,
+              "fullStart": 34,
+              "fullEnd": 41
             },
             "start": 34,
-            "end": 40
+            "end": 40,
+            "fullStart": 34,
+            "fullEnd": 41
           },
           "start": 27,
-          "end": 40
+          "end": 40,
+          "fullStart": 27,
+          "fullEnd": 41
         },
         "body": {
           "kind": "<block-expression>",
@@ -630,10 +648,14 @@
             "end": 51
           },
           "start": 41,
-          "end": 51
+          "end": 51,
+          "fullStart": 41,
+          "fullEnd": 51
         },
         "start": 22,
         "end": 51,
+        "fullStart": 21,
+        "fullEnd": 51,
         "parentElement": 11,
         "symbol": 4
       }
@@ -658,6 +680,8 @@
     },
     "start": 0,
     "end": 51,
+    "fullStart": 0,
+    "fullEnd": 51,
     "symbol": {
       "symbolTable": {
         "Enum:status": {
@@ -751,10 +775,14 @@
               "end": 33
             },
             "start": 27,
-            "end": 33
+            "end": 33,
+            "fullStart": 27,
+            "fullEnd": 33
           },
           "start": 27,
-          "end": 33
+          "end": 33,
+          "fullStart": 27,
+          "fullEnd": 33
         },
         "rightExpression": {
           "kind": "<primary-expression>",
@@ -820,13 +848,19 @@
               "end": 40
             },
             "start": 34,
-            "end": 40
+            "end": 40,
+            "fullStart": 34,
+            "fullEnd": 41
           },
           "start": 34,
-          "end": 40
+          "end": 40,
+          "fullStart": 34,
+          "fullEnd": 41
         },
         "start": 27,
-        "end": 40
+        "end": 40,
+        "fullStart": 27,
+        "fullEnd": 41
       },
       "start": 27,
       "end": 40,

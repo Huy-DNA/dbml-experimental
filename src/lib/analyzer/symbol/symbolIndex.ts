@@ -25,7 +25,7 @@ export function createTableGroupSymbolIndex(key: string): NodeSymbolIndex {
   return `TableGroup:${key}`;
 }
 
-export function TableGroupFieldSymbolIndex(key: string): NodeSymbolIndex {
+export function createTableGroupFieldSymbolIndex(key: string): NodeSymbolIndex {
   return `Tablegroup field:${key}`;
 }
 

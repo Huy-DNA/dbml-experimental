@@ -171,10 +171,14 @@
             "end": 12
           },
           "start": 6,
-          "end": 12
+          "end": 12,
+          "fullStart": 6,
+          "fullEnd": 14
         },
         "start": 0,
-        "end": 12
+        "end": 12,
+        "fullStart": 0,
+        "fullEnd": 14
       },
       {
         "kind": "<element-declaration>",
@@ -309,10 +313,14 @@
               "end": 32
             },
             "start": 27,
-            "end": 32
+            "end": 32,
+            "fullStart": 27,
+            "fullEnd": 33
           },
           "start": 27,
-          "end": 32
+          "end": 32,
+          "fullStart": 27,
+          "fullEnd": 33
         },
         "body": {
           "kind": "<block-expression>",
@@ -422,10 +430,14 @@
             "end": 39
           },
           "start": 33,
-          "end": 39
+          "end": 39,
+          "fullStart": 33,
+          "fullEnd": 41
         },
         "start": 16,
-        "end": 39
+        "end": 39,
+        "fullStart": 15,
+        "fullEnd": 41
       },
       {
         "kind": "<element-declaration>",
@@ -604,10 +616,14 @@
             "end": 53
           },
           "start": 47,
-          "end": 53
+          "end": 53,
+          "fullStart": 47,
+          "fullEnd": 55
         },
         "start": 43,
-        "end": 53
+        "end": 53,
+        "fullStart": 42,
+        "fullEnd": 55
       },
       {
         "kind": "<element-declaration>",
@@ -760,13 +776,19 @@
               "end": 79
             },
             "start": 63,
-            "end": 79
+            "end": 79,
+            "fullStart": 63,
+            "fullEnd": 81
           },
           "start": 63,
-          "end": 79
+          "end": 79,
+          "fullStart": 63,
+          "fullEnd": 81
         },
         "start": 57,
-        "end": 79
+        "end": 79,
+        "fullStart": 56,
+        "fullEnd": 81
       },
       {
         "kind": "<element-declaration>",
@@ -919,13 +941,19 @@
               "end": 117
             },
             "start": 89,
-            "end": 117
+            "end": 117,
+            "fullStart": 89,
+            "fullEnd": 119
           },
           "start": 89,
-          "end": 117
+          "end": 117,
+          "fullStart": 89,
+          "fullEnd": 119
         },
         "start": 83,
-        "end": 117
+        "end": 117,
+        "fullStart": 82,
+        "fullEnd": 119
       },
       {
         "kind": "<element-declaration>",
@@ -1060,10 +1088,14 @@
               "end": 132
             },
             "start": 127,
-            "end": 132
+            "end": 132,
+            "fullStart": 127,
+            "fullEnd": 133
           },
           "start": 127,
-          "end": 132
+          "end": 132,
+          "fullStart": 127,
+          "fullEnd": 133
         },
         "as": {
           "kind": "<identifier>",
@@ -1166,10 +1198,14 @@
               "end": 137
             },
             "start": 136,
-            "end": 137
+            "end": 137,
+            "fullStart": 136,
+            "fullEnd": 138
           },
           "start": 136,
-          "end": 137
+          "end": 137,
+          "fullStart": 136,
+          "fullEnd": 138
         },
         "body": {
           "kind": "<block-expression>",
@@ -1332,10 +1368,14 @@
             "end": 148
           },
           "start": 138,
-          "end": 148
+          "end": 148,
+          "fullStart": 138,
+          "fullEnd": 148
         },
         "start": 121,
-        "end": 148
+        "end": 148,
+        "fullStart": 120,
+        "fullEnd": 148
       }
     ],
     "eof": {
@@ -1357,7 +1397,9 @@
       "end": 148
     },
     "start": 0,
-    "end": 148
+    "end": 148,
+    "fullStart": 0,
+    "fullEnd": 148
   },
   "errors": []
 }

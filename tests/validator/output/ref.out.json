@@ -108,10 +108,14 @@
               "end": 5
             },
             "start": 4,
-            "end": 5
+            "end": 5,
+            "fullStart": 4,
+            "fullEnd": 5
           },
           "start": 4,
-          "end": 5
+          "end": 5,
+          "fullStart": 4,
+          "fullEnd": 5
         },
         "bodyColon": {
           "kind": "<colon>",
@@ -289,10 +293,14 @@
                     "end": 12
                   },
                   "start": 7,
-                  "end": 12
+                  "end": 12,
+                  "fullStart": 7,
+                  "fullEnd": 12
                 },
                 "start": 7,
-                "end": 12
+                "end": 12,
+                "fullStart": 7,
+                "fullEnd": 12
               },
               "rightExpression": {
                 "kind": "<primary-expression>",
@@ -358,13 +366,19 @@
                     "end": 15
                   },
                   "start": 13,
-                  "end": 15
+                  "end": 15,
+                  "fullStart": 13,
+                  "fullEnd": 16
                 },
                 "start": 13,
-                "end": 15
+                "end": 15,
+                "fullStart": 13,
+                "fullEnd": 16
               },
               "start": 7,
-              "end": 15
+              "end": 15,
+              "fullStart": 7,
+              "fullEnd": 16
             },
             "rightExpression": {
               "kind": "<infix-expression>",
@@ -442,10 +456,14 @@
                     "end": 26
                   },
                   "start": 18,
-                  "end": 26
+                  "end": 26,
+                  "fullStart": 18,
+                  "fullEnd": 26
                 },
                 "start": 18,
-                "end": 26
+                "end": 26,
+                "fullStart": 18,
+                "fullEnd": 26
               },
               "rightExpression": {
                 "kind": "<primary-expression>",
@@ -511,16 +529,24 @@
                     "end": 30
                   },
                   "start": 27,
-                  "end": 30
+                  "end": 30,
+                  "fullStart": 27,
+                  "fullEnd": 31
                 },
                 "start": 27,
-                "end": 30
+                "end": 30,
+                "fullStart": 27,
+                "fullEnd": 31
               },
               "start": 18,
-              "end": 30
+              "end": 30,
+              "fullStart": 18,
+              "fullEnd": 31
             },
             "start": 7,
-            "end": 30
+            "end": 30,
+            "fullStart": 7,
+            "fullEnd": 31
           },
           "args": [
             {
@@ -592,7 +618,9 @@
                       "column": 38
                     },
                     "start": 32,
-                    "end": 38
+                    "end": 38,
+                    "fullStart": 32,
+                    "fullEnd": 38
                   },
                   "value": {
                     "kind": "<identifer-stream>",
@@ -665,7 +693,9 @@
                       "column": 49
                     },
                     "start": 40,
-                    "end": 49
+                    "end": 49,
+                    "fullStart": 40,
+                    "fullEnd": 49
                   },
                   "colon": {
                     "kind": "<colon>",
@@ -715,7 +745,9 @@
                     "column": 49
                   },
                   "start": 32,
-                  "end": 49
+                  "end": 49,
+                  "fullStart": 32,
+                  "fullEnd": 49
                 }
               ],
               "commaList": [],
@@ -738,14 +770,20 @@
                 "end": 50
               },
               "start": 31,
-              "end": 50
+              "end": 50,
+              "fullStart": 31,
+              "fullEnd": 50
             }
           ],
           "start": 7,
-          "end": 50
+          "end": 50,
+          "fullStart": 7,
+          "fullEnd": 50
         },
         "start": 0,
         "end": 50,
+        "fullStart": 0,
+        "fullEnd": 50,
         "parentElement": 19
       }
     ],
@@ -769,6 +807,8 @@
     },
     "start": 0,
     "end": 50,
+    "fullStart": 0,
+    "fullEnd": 50,
     "symbol": {
       "symbolTable": {},
       "id": 0,
@@ -855,10 +895,14 @@
               "end": 12
             },
             "start": 7,
-            "end": 12
+            "end": 12,
+            "fullStart": 7,
+            "fullEnd": 12
           },
           "start": 7,
-          "end": 12
+          "end": 12,
+          "fullStart": 7,
+          "fullEnd": 12
         },
         "rightExpression": {
           "kind": "<primary-expression>",
@@ -924,13 +968,19 @@
               "end": 15
             },
             "start": 13,
-            "end": 15
+            "end": 15,
+            "fullStart": 13,
+            "fullEnd": 16
           },
           "start": 13,
-          "end": 15
+          "end": 15,
+          "fullStart": 13,
+          "fullEnd": 16
         },
         "start": 7,
-        "end": 15
+        "end": 15,
+        "fullStart": 7,
+        "fullEnd": 16
       },
       "start": 7,
       "end": 15,
@@ -1015,10 +1065,14 @@
               "end": 26
             },
             "start": 18,
-            "end": 26
+            "end": 26,
+            "fullStart": 18,
+            "fullEnd": 26
           },
           "start": 18,
-          "end": 26
+          "end": 26,
+          "fullStart": 18,
+          "fullEnd": 26
         },
         "rightExpression": {
           "kind": "<primary-expression>",
@@ -1084,13 +1138,19 @@
               "end": 30
             },
             "start": 27,
-            "end": 30
+            "end": 30,
+            "fullStart": 27,
+            "fullEnd": 31
           },
           "start": 27,
-          "end": 30
+          "end": 30,
+          "fullStart": 27,
+          "fullEnd": 31
         },
         "start": 18,
-        "end": 30
+        "end": 30,
+        "fullStart": 18,
+        "fullEnd": 31
       },
       "start": 18,
       "end": 30,

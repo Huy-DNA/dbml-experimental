@@ -97,13 +97,19 @@
             "end": 64
           },
           "start": 62,
-          "end": 64
+          "end": 64,
+          "fullStart": 62,
+          "fullEnd": 64
         },
         "start": 62,
-        "end": 64
+        "end": 64,
+        "fullStart": 62,
+        "fullEnd": 64
       },
       "start": 60,
-      "end": 64
+      "end": 64,
+      "fullStart": 60,
+      "fullEnd": 64
     },
     "start": 60,
     "end": 64,
@@ -371,10 +377,14 @@
             "end": 165
           },
           "start": 155,
-          "end": 165
+          "end": 165,
+          "fullStart": 147,
+          "fullEnd": 166
         },
         "start": 155,
-        "end": 165
+        "end": 165,
+        "fullStart": 147,
+        "fullEnd": 166
       },
       "rightExpression": {
         "kind": "<infix-expression>",
@@ -452,10 +462,14 @@
               "end": 175
             },
             "start": 168,
-            "end": 175
+            "end": 175,
+            "fullStart": 168,
+            "fullEnd": 175
           },
           "start": 168,
-          "end": 175
+          "end": 175,
+          "fullStart": 168,
+          "fullEnd": 175
         },
         "rightExpression": {
           "kind": "<primary-expression>",
@@ -521,16 +535,24 @@
               "end": 178
             },
             "start": 176,
-            "end": 178
+            "end": 178,
+            "fullStart": 176,
+            "fullEnd": 180
           },
           "start": 176,
-          "end": 178
+          "end": 178,
+          "fullStart": 176,
+          "fullEnd": 180
         },
         "start": 168,
-        "end": 178
+        "end": 178,
+        "fullStart": 168,
+        "fullEnd": 180
       },
       "start": 155,
-      "end": 178
+      "end": 178,
+      "fullStart": 147,
+      "fullEnd": 180
     },
     "start": 155,
     "end": 178,
@@ -798,10 +820,14 @@
             "end": 190
           },
           "start": 188,
-          "end": 190
+          "end": 190,
+          "fullStart": 180,
+          "fullEnd": 191
         },
         "start": 188,
-        "end": 190
+        "end": 190,
+        "fullStart": 180,
+        "fullEnd": 191
       },
       "rightExpression": {
         "kind": "<primary-expression>",
@@ -867,13 +893,19 @@
             "end": 195
           },
           "start": 193,
-          "end": 195
+          "end": 195,
+          "fullStart": 193,
+          "fullEnd": 197
         },
         "start": 193,
-        "end": 195
+        "end": 195,
+        "fullStart": 193,
+        "fullEnd": 197
       },
       "start": 188,
-      "end": 195
+      "end": 195,
+      "fullStart": 180,
+      "fullEnd": 197
     },
     "start": 188,
     "end": 195,
@@ -1008,10 +1040,14 @@
               "end": 279
             },
             "start": 272,
-            "end": 279
+            "end": 279,
+            "fullStart": 272,
+            "fullEnd": 279
           },
           "start": 272,
-          "end": 279
+          "end": 279,
+          "fullStart": 272,
+          "fullEnd": 279
         },
         "rightExpression": {
           "kind": "<primary-expression>",
@@ -1058,16 +1094,24 @@
               "end": 282
             },
             "start": 280,
-            "end": 282
+            "end": 282,
+            "fullStart": 280,
+            "fullEnd": 282
           },
           "start": 280,
-          "end": 282
+          "end": 282,
+          "fullStart": 280,
+          "fullEnd": 282
         },
         "start": 272,
-        "end": 282
+        "end": 282,
+        "fullStart": 272,
+        "fullEnd": 282
       },
       "start": 270,
-      "end": 282
+      "end": 282,
+      "fullStart": 270,
+      "fullEnd": 282
     },
     "start": 270,
     "end": 282,
@@ -1335,10 +1379,14 @@
             "end": 308
           },
           "start": 306,
-          "end": 308
+          "end": 308,
+          "fullStart": 298,
+          "fullEnd": 309
         },
         "start": 306,
-        "end": 308
+        "end": 308,
+        "fullStart": 298,
+        "fullEnd": 309
       },
       "rightExpression": {
         "kind": "<infix-expression>",
@@ -1416,10 +1464,14 @@
               "end": 316
             },
             "start": 311,
-            "end": 316
+            "end": 316,
+            "fullStart": 311,
+            "fullEnd": 316
           },
           "start": 311,
-          "end": 316
+          "end": 316,
+          "fullStart": 311,
+          "fullEnd": 316
         },
         "rightExpression": {
           "kind": "<primary-expression>",
@@ -1485,16 +1537,24 @@
               "end": 327
             },
             "start": 317,
-            "end": 327
+            "end": 327,
+            "fullStart": 317,
+            "fullEnd": 329
           },
           "start": 317,
-          "end": 327
+          "end": 327,
+          "fullStart": 317,
+          "fullEnd": 329
         },
         "start": 311,
-        "end": 327
+        "end": 327,
+        "fullStart": 311,
+        "fullEnd": 329
       },
       "start": 306,
-      "end": 327
+      "end": 327,
+      "fullStart": 298,
+      "fullEnd": 329
     },
     "start": 306,
     "end": 327,
@@ -1702,10 +1762,14 @@
               "end": 357
             },
             "start": 352,
-            "end": 357
+            "end": 357,
+            "fullStart": 348,
+            "fullEnd": 357
           },
           "start": 352,
-          "end": 357
+          "end": 357,
+          "fullStart": 348,
+          "fullEnd": 357
         },
         "rightExpression": {
           "kind": "<primary-expression>",
@@ -1771,13 +1835,19 @@
               "end": 368
             },
             "start": 358,
-            "end": 368
+            "end": 368,
+            "fullStart": 358,
+            "fullEnd": 369
           },
           "start": 358,
-          "end": 368
+          "end": 368,
+          "fullStart": 358,
+          "fullEnd": 369
         },
         "start": 352,
-        "end": 368
+        "end": 368,
+        "fullStart": 348,
+        "fullEnd": 369
       },
       "rightExpression": {
         "kind": "<infix-expression>",
@@ -1855,10 +1925,14 @@
               "end": 378
             },
             "start": 371,
-            "end": 378
+            "end": 378,
+            "fullStart": 371,
+            "fullEnd": 378
           },
           "start": 371,
-          "end": 378
+          "end": 378,
+          "fullStart": 371,
+          "fullEnd": 378
         },
         "rightExpression": {
           "kind": "<primary-expression>",
@@ -1924,16 +1998,24 @@
               "end": 381
             },
             "start": 379,
-            "end": 381
+            "end": 381,
+            "fullStart": 379,
+            "fullEnd": 383
           },
           "start": 379,
-          "end": 381
+          "end": 381,
+          "fullStart": 379,
+          "fullEnd": 383
         },
         "start": 371,
-        "end": 381
+        "end": 381,
+        "fullStart": 371,
+        "fullEnd": 383
       },
       "start": 352,
-      "end": 381
+      "end": 381,
+      "fullStart": 348,
+      "fullEnd": 383
     },
     "start": 352,
     "end": 381,
