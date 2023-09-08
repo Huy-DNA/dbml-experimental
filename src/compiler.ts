@@ -45,7 +45,8 @@ const enum Query {
   ScopeKindOfSymbol,
   Containers,
   Context,
-  /* Not correspond to a query - all meaning queries should be place above this */
+  Scope,
+  /* Not correspond to a query - all meaningful queries should be place above this */
   TOTAL_QUERY_COUNT,
 }
 
@@ -199,9 +200,7 @@ export default class Compiler {
   membersOfSymbol = this.createQuery(
     Query.MembersOfSymbol,
     (ownerSymbol: NodeSymbol): NodeSymbol[] =>
-      (ownerSymbol.symbolTable ?
-        [...ownerSymbol.symbolTable.entries()].flatMap(([_, s]) => s) :
-        []),
+      (ownerSymbol.symbolTable ? [...ownerSymbol.symbolTable.entries()].flatMap(([_, s]) => s) : []),
   );
 
   membersOfName = this.createQuery(Query.MembersOfName, (nameStack: string[]): NodeSymbol[] =>
@@ -210,60 +209,66 @@ export default class Compiler {
   nameOfSymbol = this.createQuery(Query.NameOfSymbol, findNameForSymbol);
 
   // Return information about the enclosing scope at the point of `offset`
-  scope(offset: number): Option<{ kind: ScopeKind; symbolTable?: SymbolTable }> {
-    const res = this.containers(offset);
-    if (!res.isOk()) {
-      return new None();
-    }
-    const { containerStack } = res.unwrap();
-    while (true) {
-      const container = containerStack.pop();
-      if (!container) {
+  scope = this.createQuery(
+    Query.Scope,
+    (offset: number): Option<{ kind: ScopeKind; symbolTable?: SymbolTable }> => {
+      const res = this.containers(offset);
+      if (!res.isOk()) {
         return new None();
       }
-      if (container.symbol && container.symbol.declaration instanceof ElementDeclarationNode) {
-        return new Some({
-          kind: this.scopeKindOfSymbol(container.symbol).unwrap(),
-          symbolTable: container.symbol.symbolTable,
-        });
+      const { containerStack } = res.unwrap();
+      while (true) {
+        const container = containerStack.pop();
+        if (!container) {
+          return new None();
+        }
+        if (container.symbol && container.symbol.declaration instanceof ElementDeclarationNode) {
+          return new Some({
+            kind: this.scopeKindOfSymbol(container.symbol).unwrap(),
+            symbolTable: container.symbol.symbolTable,
+          });
+        }
       }
-    }
-  }
+    },
+  );
 
   // Return the kind of the scope associated with a symbol
-  private scopeKindOfSymbol(symbol: NodeSymbol): Option<ScopeKind> {
-    if (symbol instanceof TableSymbol) {
-      return new Some(ScopeKind.TABLE);
-    }
-    if (symbol instanceof TableGroupSymbol) {
-      return new Some(ScopeKind.TABLEGROUP);
-    }
-    if (symbol instanceof EnumSymbol) {
-      return new Some(ScopeKind.ENUM);
-    }
-    if (symbol.declaration instanceof ElementDeclarationNode) {
-      switch (symbol.declaration.type.value.toLowerCase()) {
-        case 'indexes':
-          return new Some(ScopeKind.INDEXES);
-        case 'note':
-          return new Some(ScopeKind.NOTE);
-        case 'ref':
-          return new Some(ScopeKind.REF);
-        default:
-          break;
+  scopeKindOfSymbol = this.createQuery(
+    Query.ScopeKindOfSymbol,
+    (symbol: NodeSymbol): Option<ScopeKind> => {
+      if (symbol instanceof TableSymbol) {
+        return new Some(ScopeKind.TABLE);
       }
-    }
-    if (symbol === this.parse().getValue().symbol) {
-      return new Some(ScopeKind.TOPLEVEL);
-    }
-    if (symbol instanceof SchemaSymbol) {
-      return new Some(ScopeKind.SCHEMA);
-    }
+      if (symbol instanceof TableGroupSymbol) {
+        return new Some(ScopeKind.TABLEGROUP);
+      }
+      if (symbol instanceof EnumSymbol) {
+        return new Some(ScopeKind.ENUM);
+      }
+      if (symbol.declaration instanceof ElementDeclarationNode) {
+        switch (symbol.declaration.type.value.toLowerCase()) {
+          case 'indexes':
+            return new Some(ScopeKind.INDEXES);
+          case 'note':
+            return new Some(ScopeKind.NOTE);
+          case 'ref':
+            return new Some(ScopeKind.REF);
+          default:
+            break;
+        }
+      }
+      if (symbol === this.parse().getValue().symbol) {
+        return new Some(ScopeKind.TOPLEVEL);
+      }
+      if (symbol instanceof SchemaSymbol) {
+        return new Some(ScopeKind.SCHEMA);
+      }
 
-    return new None();
-  }
+      return new None();
+    },
+  );
 
-  context(offset: number): Option<ContextInfo> {
+  context = this.createQuery(Query.Context, (offset: number): Option<ContextInfo> => {
     const res = this.containers(offset);
     if (!res.isOk()) {
       return new None();
@@ -345,7 +350,7 @@ export default class Compiler {
         },
       },
     });
-  }
+  });
 }
 
 export enum ScopeKind {
