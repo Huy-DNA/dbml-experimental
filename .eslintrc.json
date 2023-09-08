@@ -45,6 +45,8 @@
     "@typescript-eslint/no-dupe-class-members": "error",
     "implicit-arrow-linebreak": "off",
     "array-callback-return": "off",
-    "lines-between-class-members": "off"
+    "lines-between-class-members": "off",
+    "no-redeclare": "off",
+    "@typescript-eslint/no-redeclare": "error"
   }
 }

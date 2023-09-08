@@ -10,9 +10,10 @@ describe('#interpreter', () => {
   testNames.forEach((testName) => {
     const program = readFileSync(path.resolve(__dirname, `./input/${testName}.in.dbml`), 'utf-8');
     const compiler = new Compiler();
+    compiler.setSource(program);
     let output;
     try {
-      output = JSON.stringify(compiler.emitRawDbFromDBML(program).normalize(), null, 2);
+      output = JSON.stringify(compiler.emitRawDbFromDBML().normalize(), null, 2);
     } catch (e) {
       output = JSON.stringify(
         e,

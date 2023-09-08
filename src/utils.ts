@@ -1,0 +1,159 @@
+import { SyntaxToken } from './lib/lexer/tokens';
+import {
+  AttributeNode,
+  BlockExpressionNode,
+  CallExpressionNode,
+  ElementDeclarationNode,
+  FunctionApplicationNode,
+  FunctionExpressionNode,
+  GroupExpressionNode,
+  IdentiferStreamNode,
+  InfixExpressionNode,
+  ListExpressionNode,
+  LiteralNode,
+  PostfixExpressionNode,
+  PrefixExpressionNode,
+  PrimaryExpressionNode,
+  ProgramNode,
+  SyntaxNode,
+  TupleExpressionNode,
+  VariableNode,
+} from './lib/parser/nodes';
+import { NodeSymbol } from './lib/analyzer/symbol/symbols';
+import {
+ alternateLists, gatherIntoList, getTokenFullEnd, getTokenFullStart,
+} from './lib/utils';
+import { None, Option } from './lib/option';
+import { extractVariableFromExpression } from './lib/analyzer/utils';
+
+export function getMemberChain(node: SyntaxNode): Readonly<(SyntaxNode | SyntaxToken)[]> {
+  if (node instanceof ProgramNode) {
+    return node.body;
+  }
+
+  if (node instanceof ElementDeclarationNode) {
+    return gatherIntoList(
+      node.type,
+      node.name,
+      node.as,
+      node.alias,
+      node.attributeList,
+      node.bodyColon,
+      node.body,
+    );
+  }
+
+  if (node instanceof AttributeNode) {
+    return gatherIntoList(node.name, node.colon, node.value);
+  }
+
+  if (node instanceof IdentiferStreamNode) {
+    return node.identifiers;
+  }
+
+  if (node instanceof LiteralNode) {
+    return [node.literal];
+  }
+
+  if (node instanceof VariableNode) {
+    return [node.variable];
+  }
+
+  if (node instanceof PrefixExpressionNode) {
+    return [node.op, node.expression];
+  }
+
+  if (node instanceof InfixExpressionNode) {
+    return [node.leftExpression, node.op, node.rightExpression];
+  }
+
+  if (node instanceof PostfixExpressionNode) {
+    return [node.expression, node.op];
+  }
+
+  if (node instanceof FunctionExpressionNode) {
+    return [node.value];
+  }
+
+  if (node instanceof FunctionApplicationNode) {
+    return [node.callee, ...node.args];
+  }
+
+  if (node instanceof BlockExpressionNode) {
+    return [node.blockOpenBrace, ...node.body, node.blockCloseBrace];
+  }
+
+  if (node instanceof ListExpressionNode) {
+    return [
+      node.listOpenBracket,
+      ...alternateLists(node.elementList, node.commaList),
+      node.listCloseBracket,
+    ];
+  }
+
+  if (node instanceof TupleExpressionNode) {
+    return [
+      node.tupleOpenParen,
+      ...alternateLists(node.elementList, node.commaList),
+      node.tupleCloseParen,
+    ];
+  }
+
+  if (node instanceof CallExpressionNode) {
+    return [node.callee, node.argumentList];
+  }
+
+  if (node instanceof PrimaryExpressionNode) {
+    return [node.expression];
+  }
+
+  if (node instanceof GroupExpressionNode) {
+    throw new Error('This case is already handled by TupleExpressionNode');
+  }
+
+  throw new Error('Unreachable - no other possible cases');
+}
+
+export function findNameForSymbol(symbol: NodeSymbol): Option<string> {
+  const { declaration } = symbol;
+  if (!declaration) {
+    return new None();
+  }
+  if (declaration instanceof ElementDeclarationNode) {
+    return declaration.name ?
+      extractVariableFromExpression(declaration.alias || declaration.name) :
+      new None();
+  }
+  if (declaration instanceof FunctionApplicationNode) {
+    return extractVariableFromExpression(declaration.callee);
+  }
+  if (declaration instanceof PrimaryExpressionNode) {
+    return extractVariableFromExpression(declaration);
+  }
+
+  return new None();
+}
+
+export function isOffsetWithin(offset: number, nodeOrToken: SyntaxNode | SyntaxToken): boolean {
+  if (nodeOrToken instanceof SyntaxToken) {
+    return offset >= getTokenFullStart(nodeOrToken) && offset < getTokenFullEnd(nodeOrToken);
+  }
+
+  return offset >= nodeOrToken.fullStart && offset < nodeOrToken.fullEnd;
+}
+
+export function returnIfIsOffsetWithin(offset: number, node?: SyntaxNode): SyntaxNode | undefined;
+export function returnIfIsOffsetWithin(
+  offset: number,
+  token?: SyntaxToken,
+): SyntaxToken | undefined;
+export function returnIfIsOffsetWithin(
+  offset: number,
+  nodeOrToken?: SyntaxNode | SyntaxToken,
+): SyntaxNode | SyntaxToken | undefined {
+  if (!nodeOrToken) {
+    return undefined;
+  }
+
+  return isOffsetWithin(offset, nodeOrToken) ? nodeOrToken : undefined;
+}
