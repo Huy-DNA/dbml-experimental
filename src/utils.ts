@@ -134,7 +134,10 @@ export function findNameForSymbol(symbol: NodeSymbol): Option<string> {
   return new None();
 }
 
-export function isOffsetWithin(offset: number, nodeOrToken: SyntaxNode | SyntaxToken): boolean {
+export function isOffsetWithinFullSpan(
+  offset: number,
+  nodeOrToken: SyntaxNode | SyntaxToken,
+): boolean {
   if (nodeOrToken instanceof SyntaxToken) {
     return offset >= getTokenFullStart(nodeOrToken) && offset < getTokenFullEnd(nodeOrToken);
   }
@@ -142,12 +145,19 @@ export function isOffsetWithin(offset: number, nodeOrToken: SyntaxNode | SyntaxT
   return offset >= nodeOrToken.fullStart && offset < nodeOrToken.fullEnd;
 }
 
-export function returnIfIsOffsetWithin(offset: number, node?: SyntaxNode): SyntaxNode | undefined;
-export function returnIfIsOffsetWithin(
+export function isOffsetWithinSpan(offset: number, nodeOrToken: SyntaxNode | SyntaxToken): boolean {
+  return offset >= nodeOrToken.start && offset < nodeOrToken.end;
+}
+
+export function returnIfIsOffsetWithinFullSpan(
+  offset: number,
+  node?: SyntaxNode,
+): SyntaxNode | undefined;
+export function returnIfIsOffsetWithinFullSpan(
   offset: number,
   token?: SyntaxToken,
 ): SyntaxToken | undefined;
-export function returnIfIsOffsetWithin(
+export function returnIfIsOffsetWithinFullSpan(
   offset: number,
   nodeOrToken?: SyntaxNode | SyntaxToken,
 ): SyntaxNode | SyntaxToken | undefined {
@@ -155,5 +165,5 @@ export function returnIfIsOffsetWithin(
     return undefined;
   }
 
-  return isOffsetWithin(offset, nodeOrToken) ? nodeOrToken : undefined;
+  return isOffsetWithinFullSpan(offset, nodeOrToken) ? nodeOrToken : undefined;
 }

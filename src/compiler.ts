@@ -15,23 +15,20 @@ import {
   SyntaxNode,
   SyntaxNodeIdGenerator,
 } from './lib/parser/nodes';
-import {
-  EnumSymbol,
-  NodeSymbol,
-  NodeSymbolIdGenerator,
-  SchemaSymbol,
-  TableGroupSymbol,
-  TableSymbol,
-} from './lib/analyzer/symbol/symbols';
+import { NodeSymbol, NodeSymbolIdGenerator } from './lib/analyzer/symbol/symbols';
 import Report from './lib/report';
 import Lexer from './lib/lexer/lexer';
 import Parser from './lib/parser/parser';
 import Analyzer from './lib/analyzer/analyzer';
 import Interpreter from './lib/interpreter/interpreter';
 import Database from './lib/model_structure/database';
-import { SyntaxToken } from './lib/lexer/tokens';
+import { SyntaxToken, SyntaxTokenKind, isTriviaToken } from './lib/lexer/tokens';
 import {
- findNameForSymbol, getMemberChain, isOffsetWithin, returnIfIsOffsetWithin,
+  findNameForSymbol,
+  getMemberChain,
+  isOffsetWithinFullSpan,
+  isOffsetWithinSpan,
+  returnIfIsOffsetWithinFullSpan,
 } from './utils';
 import { None, Option, Some } from './lib/option';
 
@@ -42,7 +39,7 @@ const enum Query {
   NameOfSymbol,
   MembersOfName,
   MembersOfSymbol,
-  ScopeKindOfSymbol,
+  ScopeKindOfNode,
   Containers,
   Context,
   Scope,
@@ -101,6 +98,8 @@ export default class Compiler {
     this.symbolIdGenerator.reset();
   }
 
+  // Warning: calling this function mutates the cached `parse` query result
+  // However, it should not matter in most cases
   emitRawDbFromDBML = this.createQuery(Query.EmitRawDb, (): Database => {
     const parseRes = this.parse();
     const parseErrors = parseRes.getErrors();
@@ -140,10 +139,24 @@ export default class Compiler {
   // that contains `offset`
   containers = this.createQuery(
     Query.Containers,
-    (offset: number): Option<{ containerStack: SyntaxNode[]; token: SyntaxToken }> => {
-      const res: { containerStack: SyntaxNode[]; token?: SyntaxToken } = {
+    (
+      offset: number,
+    ): Option<{
+      containerStack: SyntaxNode[];
+      token: SyntaxToken;
+      isLeadingInvalidToken: boolean;
+      isTrailingInvalidToken: boolean;
+    }> => {
+      const res: {
+        containerStack: SyntaxNode[];
+        token?: SyntaxToken;
+        isLeadingInvalidToken: boolean;
+        isTrailingInvalidToken: boolean;
+      } = {
         containerStack: [],
         token: undefined,
+        isLeadingInvalidToken: false,
+        isTrailingInvalidToken: false,
       };
       this.findInNode(this.parse().getValue(), offset, res);
 
@@ -155,22 +168,52 @@ export default class Compiler {
   private findInNode(
     node: SyntaxNode,
     offset: number,
-    res: { containerStack: SyntaxNode[]; token?: SyntaxToken },
+    res: {
+      containerStack: SyntaxNode[];
+      token?: SyntaxToken;
+      isLeadingInvalidToken: boolean;
+      isTrailingInvalidToken: boolean;
+    },
   ) {
+    res.containerStack.push(node);
     const members = getMemberChain(node);
-    const foundMember = members.find((m) => isOffsetWithin(offset, m));
+    const foundMember = members.find((m) => isOffsetWithinFullSpan(offset, m));
 
     if (!foundMember) {
       return;
     }
 
     if (foundMember instanceof SyntaxToken) {
-      res.token = foundMember;
+      let foundToken = foundMember;
+      while (foundToken && !isOffsetWithinSpan(offset, foundToken)) {
+        if (offset < foundToken.start) {
+          foundToken = (foundMember as SyntaxToken).leadingTrivia.find((token) =>
+            isOffsetWithinFullSpan(offset, token))!;
+        } else {
+          foundToken = (foundMember as SyntaxToken).trailingTrivia.find((token) =>
+            isOffsetWithinFullSpan(offset, token))!;
+        }
+      }
+      res.token = foundToken;
+      res.isLeadingInvalidToken =
+        foundToken.kind === SyntaxTokenKind.INVALID && offset < foundMember.start;
+      res.isTrailingInvalidToken =
+        foundToken.kind === SyntaxTokenKind.INVALID && offset >= foundMember.end;
+
+      if (isTriviaToken(foundToken)) {
+        while (
+          res.containerStack.length !== 0 &&
+          !isOffsetWithinSpan(offset, last(res.containerStack)!)
+        ) {
+          // In this case, the trivia token was added to the node only because it was invalid
+          // and it happens to be at right before or after the node
+          // so we shouldn't consider the node to be its container
+          res.containerStack.pop();
+        }
+      }
 
       return;
     }
-
-    res.containerStack.push(foundMember);
 
     if (!(foundMember instanceof SyntaxToken)) {
       this.findInNode(foundMember, offset, res);
@@ -216,52 +259,51 @@ export default class Compiler {
       if (!res.isOk()) {
         return new None();
       }
-      const { containerStack } = res.unwrap();
+      const containerStack = [...res.unwrap().containerStack];
+
       while (true) {
         const container = containerStack.pop();
         if (!container) {
           return new None();
         }
-        if (container.symbol && container.symbol.declaration instanceof ElementDeclarationNode) {
-          return new Some({
-            kind: this.scopeKindOfSymbol(container.symbol).unwrap(),
-            symbolTable: container.symbol.symbolTable,
-          });
+        if (container instanceof ElementDeclarationNode || container instanceof ProgramNode) {
+          const scopeKind = this.scopeKindOfNode(container).unwrap_or(undefined);
+
+          if (scopeKind !== undefined) {
+            return new Some({
+              kind: scopeKind,
+              symbolTable: container.symbol?.symbolTable,
+            });
+          }
         }
       }
     },
   );
 
   // Return the kind of the scope associated with a symbol
-  scopeKindOfSymbol = this.createQuery(
-    Query.ScopeKindOfSymbol,
-    (symbol: NodeSymbol): Option<ScopeKind> => {
-      if (symbol instanceof TableSymbol) {
-        return new Some(ScopeKind.TABLE);
-      }
-      if (symbol instanceof TableGroupSymbol) {
-        return new Some(ScopeKind.TABLEGROUP);
-      }
-      if (symbol instanceof EnumSymbol) {
-        return new Some(ScopeKind.ENUM);
-      }
-      if (symbol.declaration instanceof ElementDeclarationNode) {
-        switch (symbol.declaration.type.value.toLowerCase()) {
-          case 'indexes':
-            return new Some(ScopeKind.INDEXES);
-          case 'note':
-            return new Some(ScopeKind.NOTE);
-          case 'ref':
-            return new Some(ScopeKind.REF);
-          default:
-            break;
-        }
-      }
-      if (symbol === this.parse().getValue().symbol) {
+  scopeKindOfNode = this.createQuery(
+    Query.ScopeKindOfNode,
+    (node: ElementDeclarationNode | ProgramNode): Option<ScopeKind> => {
+      if (node instanceof ProgramNode) {
         return new Some(ScopeKind.TOPLEVEL);
       }
-      if (symbol instanceof SchemaSymbol) {
-        return new Some(ScopeKind.SCHEMA);
+      switch (node.type.value.toLowerCase()) {
+        case 'table':
+          return new Some(ScopeKind.TABLE);
+        case 'tablegroup':
+          return new Some(ScopeKind.TABLEGROUP);
+        case 'enum':
+          return new Some(ScopeKind.ENUM);
+        case 'indexes':
+          return new Some(ScopeKind.INDEXES);
+        case 'note':
+          return new Some(ScopeKind.NOTE);
+        case 'ref':
+          return new Some(ScopeKind.REF);
+        case 'project':
+          return new Some(ScopeKind.PROJECT);
+        default:
+          break;
       }
 
       return new None();
@@ -273,7 +315,7 @@ export default class Compiler {
     if (!res.isOk()) {
       return new None();
     }
-    const { containerStack } = res.unwrap();
+    const containerStack = [...res.unwrap().containerStack];
 
     let firstParent: ElementDeclarationNode | undefined;
     let firstSubfield:
@@ -320,27 +362,27 @@ export default class Compiler {
     return new Some({
       scope: this.scope(offset).unwrap_or(undefined),
       element: firstParent && {
-        type: returnIfIsOffsetWithin(offset, firstParent.type),
-        name: returnIfIsOffsetWithin(offset, firstParent.name),
-        as: returnIfIsOffsetWithin(offset, firstParent.as),
-        alias: returnIfIsOffsetWithin(offset, firstParent.alias),
-        settingList: returnIfIsOffsetWithin(offset, firstParent.attributeList) && {
+        type: returnIfIsOffsetWithinFullSpan(offset, firstParent.type),
+        name: returnIfIsOffsetWithinFullSpan(offset, firstParent.name),
+        as: returnIfIsOffsetWithinFullSpan(offset, firstParent.as),
+        alias: returnIfIsOffsetWithinFullSpan(offset, firstParent.alias),
+        settingList: returnIfIsOffsetWithinFullSpan(offset, firstParent.attributeList) && {
           node: firstParent.attributeList!,
           attribute: maybeAttribute,
-          name: returnIfIsOffsetWithin(offset, maybeAttributeName),
-          value: returnIfIsOffsetWithin(offset, maybeAttributeValue),
+          name: returnIfIsOffsetWithinFullSpan(offset, maybeAttributeName),
+          value: returnIfIsOffsetWithinFullSpan(offset, maybeAttributeValue),
         },
-        body: returnIfIsOffsetWithin(offset, firstParent.body),
+        body: returnIfIsOffsetWithinFullSpan(offset, firstParent.body),
       },
       subfield: firstSubfield && {
         node: firstSubfield,
         callee:
           firstSubfield instanceof FunctionApplicationNode ?
-            returnIfIsOffsetWithin(offset, firstSubfield.callee) :
+            returnIfIsOffsetWithinFullSpan(offset, firstSubfield.callee) :
             firstSubfield,
         arg:
           firstSubfield instanceof FunctionApplicationNode ?
-            firstSubfield.args.find((arg) => isOffsetWithin(offset, arg)) :
+            firstSubfield.args.find((arg) => isOffsetWithinFullSpan(offset, arg)) :
             undefined,
         settingList: maybeSettingList && {
           node: maybeSettingList,
@@ -360,7 +402,7 @@ export enum ScopeKind {
   INDEXES,
   NOTE,
   REF,
-  SCHEMA,
+  PROJECT,
   TOPLEVEL,
 }
 

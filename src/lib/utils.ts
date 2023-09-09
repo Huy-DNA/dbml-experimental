@@ -78,7 +78,7 @@ export function isExpressionAnIdentifierNode(value?: unknown): value is PrimaryE
   );
 }
 
-export function last<T>(array: T[]): T | undefined {
+export function last<T>(array: readonly T[]): T | undefined {
   if (array.length === 0) {
     return undefined;
   }
