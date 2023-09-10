@@ -1,4 +1,4 @@
-import { NodeSymbolIndex } from 'lib/analyzer/symbol/symbolIndex';
+import { NodeSymbolIndex, SymbolKind, destructureIndex } from './lib/analyzer/symbol/symbolIndex';
 import { generatePossibleIndexes } from './lib/analyzer/symbol/utils';
 import SymbolTable from './lib/analyzer/symbol/symbolTable';
 import { last } from './lib/utils';
@@ -251,15 +251,18 @@ export default class Compiler {
 
   membersOfSymbol = this.createQuery(
     Query.MembersOfSymbol,
-    (ownerSymbol: NodeSymbol): { symbol: NodeSymbol; index: NodeSymbolIndex }[] =>
+    (ownerSymbol: NodeSymbol): { symbol: NodeSymbol; kind: SymbolKind; name: string }[] =>
       (ownerSymbol.symbolTable ?
-        [...ownerSymbol.symbolTable.entries()].map(([index, symbol]) => ({ index, symbol })) :
+        [...ownerSymbol.symbolTable.entries()].map(([index, symbol]) => ({
+            ...destructureIndex(index).unwrap(),
+            symbol,
+          })) :
         []),
   );
 
   membersOfName = this.createQuery(
     Query.MembersOfName,
-    (nameStack: string[]): { symbol: NodeSymbol; index: NodeSymbolIndex }[] =>
+    (nameStack: string[]): { symbol: NodeSymbol; kind: SymbolKind; name: string }[] =>
       this.symbolsOfName(nameStack).flatMap(({ symbol }) => this.membersOfSymbol(symbol)),
   );
 

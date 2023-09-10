@@ -44,10 +44,10 @@ export function destructureIndex(id: NodeSymbolIndex): Option<{ name: string; ki
   const [kind, name] = id.split(':');
 
   return Object.values(SymbolKind).includes(kind as SymbolKind) ?
-    (new Some({
+    new Some({
         name,
         kind: kind as SymbolKind,
-      })) :
+      }) :
     new None();
 }
 
