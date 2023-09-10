@@ -35,7 +35,7 @@ import { None, Option, Some } from './lib/option';
 const enum Query {
   Parse,
   Lex,
-  NonTrivialTokenBefore,
+  NonTrivialBeforeOrContainingToken,
   EmitRawDb,
   SymbolsOfName,
   NameOfSymbol,
@@ -125,8 +125,9 @@ export default class Compiler {
     (): Report<Readonly<SyntaxToken[]>, CompileError> => new Lexer(this.source).lex(),
   );
 
-  nonTrivialTokenBefore = this.createQuery(
-    Query.NonTrivialTokenBefore,
+  // Find the last non-trivial token that contains or right before the offset
+  nonTrivialBeforeOrContainingToken = this.createQuery(
+    Query.NonTrivialBeforeOrContainingToken,
     (offset: number): Option<SyntaxToken> => {
       let lastFoundToken: SyntaxToken | undefined;
       // eslint-disable-next-line no-restricted-syntax
@@ -134,6 +135,10 @@ export default class Compiler {
         if (token.start <= offset) {
           lastFoundToken = token;
         } else {
+          lastFoundToken =
+            token.leadingInvalid.reverse().find((t) => t.start <= offset) ||
+            lastFoundToken?.trailingInvalid.reverse().find((t) => t.start <= offset) ||
+            lastFoundToken;
           break;
         }
       }
