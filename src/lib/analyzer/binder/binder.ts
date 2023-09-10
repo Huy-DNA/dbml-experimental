@@ -34,8 +34,8 @@ export default class Binder {
     const [accessId, ...remainingIds] = ids;
     const accessSymbol = findSymbol(accessId, ownerElement);
     if (accessSymbol === undefined) {
-      const { type, name } = destructureIndex(accessId);
-      this.logError(referrer, `Can not find ${type} '${name}'`);
+      const { kind, name } = destructureIndex(accessId).unwrap();
+      this.logError(referrer, `Can not find ${kind} '${name}'`);
 
       return;
     }
@@ -50,15 +50,15 @@ export default class Binder {
 
     const elementId = remainingIds.pop()!;
 
-    let { type: prevType, name: prevName } = destructureIndex(accessId);
+    let { kind: prevKind, name: prevName } = destructureIndex(accessId).unwrap();
     let prevScope = accessSymbol.symbolTable!;
     // eslint-disable-next-line no-restricted-syntax
     for (const qualifierId of remainingIds) {
-      const { type: curType, name: curName } = destructureIndex(qualifierId);
+      const { kind: curKind, name: curName } = destructureIndex(qualifierId).unwrap();
       const curSymbol = prevScope.get(qualifierId);
 
       if (!curSymbol) {
-        this.logError(referrer, `${prevType} '${prevName}' does not have ${curType} '${curName}'`);
+        this.logError(referrer, `${prevKind} '${prevName}' does not have ${curKind} '${curName}'`);
 
         return;
       }
@@ -67,14 +67,14 @@ export default class Binder {
         throw new Error('Unreachable - a symbol accessed by a qualifier must have a symbol table');
       }
 
-      prevType = curType;
+      prevKind = curKind;
       prevName = curName;
       prevScope = curSymbol.symbolTable;
     }
 
     if (!prevScope.has(elementId)) {
-      const { type, name } = destructureIndex(elementId);
-      this.logError(referrer, `${prevType} '${prevName}' does not have ${type} '${name}'`);
+      const { kind: type, name } = destructureIndex(elementId).unwrap();
+      this.logError(referrer, `${prevKind} '${prevName}' does not have ${type} '${name}'`);
 
       return;
     }
