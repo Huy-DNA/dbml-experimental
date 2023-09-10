@@ -29,7 +29,9 @@ export function createTableGroupFieldSymbolIndex(key: string): NodeSymbolIndex {
   return `Tablegroup field:${key}`;
 }
 
-export function destructureIndex(id: NodeSymbolIndex): { name: string; type: string } {
+export type SymbolKind = string;
+
+export function destructureIndex(id: NodeSymbolIndex): { name: string; type: SymbolKind } {
   const [type, name] = id.split(':');
 
   return {

@@ -1,3 +1,4 @@
+import { NodeSymbolIndex } from 'lib/analyzer/symbol/symbolIndex';
 import { generatePossibleIndexes } from './lib/analyzer/symbol/utils';
 import SymbolTable from './lib/analyzer/symbol/symbolTable';
 import { last } from './lib/utils';
@@ -34,6 +35,7 @@ import { None, Option, Some } from './lib/option';
 
 const enum Query {
   Parse,
+  Lex,
   EmitRawDb,
   SymbolsOfName,
   NameOfSymbol,
@@ -118,22 +120,26 @@ export default class Compiler {
     return new Database(interpretRes.getValue());
   });
 
-  parse = this.createQuery(Query.Parse, (): Report<Readonly<ProgramNode>, CompileError> => {
-    const lexer = new Lexer(this.source);
+  lex = this.createQuery(
+    Query.Lex,
+    (): Report<Readonly<SyntaxToken[]>, CompileError> => new Lexer(this.source).lex(),
+  );
 
-    return lexer
-      .lex()
-      .chain((tokens) => {
-        const parser = new Parser(tokens, this.nodeIdGenerator);
+  parse = this.createQuery(
+    Query.Parse,
+    (): Report<Readonly<ProgramNode>, CompileError> =>
+      this.lex()
+        .chain((tokens) => {
+          const parser = new Parser(tokens as SyntaxToken[], this.nodeIdGenerator);
 
-        return parser.parse();
-      })
-      .chain((ast) => {
-        const analyzer = new Analyzer(ast, this.symbolIdGenerator);
+          return parser.parse();
+        })
+        .chain((ast) => {
+          const analyzer = new Analyzer(ast, this.symbolIdGenerator);
 
-        return analyzer.analyze();
-      });
-  });
+          return analyzer.analyze();
+        }),
+  );
 
   // Find the stack of nodes/tokens, with the latter being nested inside the former
   // that contains `offset`
@@ -221,33 +227,41 @@ export default class Compiler {
   }
 
   // Return all possible symbols corresponding to a stack of name
-  symbolsOfName = this.createQuery(Query.SymbolsOfName, (nameStack: string[]): NodeSymbol[] => {
-    const { symbolTable } = this.parse().getValue().symbol!;
-    let currentPossibleSymbolTables: SymbolTable[] = [symbolTable!];
-    let currentPossibleSymbols: NodeSymbol[] = [];
-    // eslint-disable-next-line no-restricted-syntax
-    for (const name of nameStack) {
-      currentPossibleSymbols = currentPossibleSymbolTables.flatMap((st) =>
-        generatePossibleIndexes(name).flatMap((index) => {
-          const symbol = st.get(index);
+  symbolsOfName = this.createQuery(
+    Query.SymbolsOfName,
+    (nameStack: string[]): { symbol: NodeSymbol; index: NodeSymbolIndex }[] => {
+      const { symbolTable } = this.parse().getValue().symbol!;
+      let currentPossibleSymbolTables: SymbolTable[] = [symbolTable!];
+      let currentPossibleSymbols: { symbol: NodeSymbol; index: NodeSymbolIndex }[] = [];
+      // eslint-disable-next-line no-restricted-syntax
+      for (const name of nameStack) {
+        currentPossibleSymbols = currentPossibleSymbolTables.flatMap((st) =>
+          generatePossibleIndexes(name).flatMap((index) => {
+            const symbol = st.get(index);
 
-          return !symbol ? [] : [symbol];
-        }));
-      currentPossibleSymbolTables = currentPossibleSymbols.flatMap((symbol) =>
-        (symbol.symbolTable ? [symbol.symbolTable] : []));
-    }
+            return !symbol ? [] : { index, symbol };
+          }));
+        currentPossibleSymbolTables = currentPossibleSymbols.flatMap((e) =>
+          (e.symbol.symbolTable ? e.symbol.symbolTable : []));
+      }
 
-    return currentPossibleSymbols;
-  });
+      return currentPossibleSymbols;
+    },
+  );
 
   membersOfSymbol = this.createQuery(
     Query.MembersOfSymbol,
-    (ownerSymbol: NodeSymbol): NodeSymbol[] =>
-      (ownerSymbol.symbolTable ? [...ownerSymbol.symbolTable.entries()].flatMap(([_, s]) => s) : []),
+    (ownerSymbol: NodeSymbol): { symbol: NodeSymbol; index: NodeSymbolIndex }[] =>
+      (ownerSymbol.symbolTable ?
+        [...ownerSymbol.symbolTable.entries()].map(([index, symbol]) => ({ index, symbol })) :
+        []),
   );
 
-  membersOfName = this.createQuery(Query.MembersOfName, (nameStack: string[]): NodeSymbol[] =>
-    this.symbolsOfName(nameStack).flatMap(this.membersOfSymbol));
+  membersOfName = this.createQuery(
+    Query.MembersOfName,
+    (nameStack: string[]): { symbol: NodeSymbol; index: NodeSymbolIndex }[] =>
+      this.symbolsOfName(nameStack).flatMap(({ symbol }) => this.membersOfSymbol(symbol)),
+  );
 
   nameOfSymbol = this.createQuery(Query.NameOfSymbol, findNameForSymbol);
 

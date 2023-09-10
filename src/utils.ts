@@ -28,7 +28,7 @@ import { extractVariableFromExpression } from './lib/analyzer/utils';
 
 export function getMemberChain(node: SyntaxNode): Readonly<(SyntaxNode | SyntaxToken)[]> {
   if (node instanceof ProgramNode) {
-    return node.body;
+    return [...node.body, node.eof];
   }
 
   if (node instanceof ElementDeclarationNode) {
