@@ -1,5 +1,4 @@
 import { serialize } from '../../src';
-import { Compiler } from '../../src';
 import fs, { readFileSync } from 'fs';
 import path from 'path';
 import { describe, expect, it } from 'vitest';
@@ -18,15 +17,11 @@ describe('#validator', () => {
     const program = readFileSync(path.resolve(__dirname, `./input/${testName}.in.dbml`), 'utf-8');
     const symbolIdGenerator = new NodeSymbolIdGenerator();
     const nodeIdGenerator = new SyntaxNodeIdGenerator();
-    const report = new Lexer(program)
-      .lex()
-      .chain((tokens) => {
-        return new Parser(tokens, nodeIdGenerator).parse();
-      })
-      .chain((ast) => {
-        return new Validator(ast, new SymbolFactory(symbolIdGenerator)).validate();
-      })
-      .map(({ program }) => program);
+    const report = new Lexer(program).lex().chain((tokens) => {
+      return new Parser(tokens, nodeIdGenerator).parse();
+    }).chain((ast) => {
+      return new Validator(ast, new SymbolFactory(symbolIdGenerator)).validate();
+    }).map(({ program }) => program);
     const output = serialize(report, true);
 
     it('should equal snapshot', () =>

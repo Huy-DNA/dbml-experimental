@@ -1,5 +1,7 @@
 import { getMemberChain } from './lib/parser/utils';
 import { hasTrailingNewLines } from './lib/lexer/utils';
+import { getMemberChain } from './lib/parser/utils';
+import { hasTrailingNewLines } from './lib/lexer/utils';
 import { SymbolKind, destructureIndex } from './lib/analyzer/symbol/symbolIndex';
 import { generatePossibleIndexes } from './lib/analyzer/symbol/utils';
 import SymbolTable from './lib/analyzer/symbol/symbolTable';
@@ -247,52 +249,9 @@ export default class Compiler {
           .chain(({ ast, tokens }) => {
             const analyzer = new Analyzer(ast, this.symbolIdGenerator);
 
-            return analyzer.analyze().map(() => ({ ast, tokens }));
-          });
-
-        return parseRes.getErrors().length > 0 ?
-          parseRes :
-          parseRes.chain(({ ast, tokens }) => {
-              const interpreter = new Interpreter(ast);
-
-              return interpreter
-                .interpret()
-                .map((interpretRes) => ({ rawDb: new Database(interpretRes), ast, tokens }));
-            });
-      },
-    ),
-
-    tokens: this.createQuery(
-      Query.Parse_Tokens,
-      (): readonly SyntaxToken[] => this.parse._().getValue().tokens,
-    ),
-
-    ast: this.createQuery(
-      Query.Parse_Ast,
-      (): Readonly<ProgramNode> => this.parse._().getValue().ast,
-    ),
-
-    errors: this.createQuery(
-      Query.Parse_Errors,
-      (): Readonly<readonly CompileError[]> => this.parse._().getErrors(),
-    ),
-
-    report: this.createQuery(
-      Query.Parse_Report,
-      (): Readonly<Report<ProgramNode, CompileError>> =>
-        new Report(this.parse.ast(), this.parse.errors() as any),
-    ),
-
-    rawDb: this.createQuery(
-      Query.Parse_RawDb,
-      (): Readonly<Database> | undefined => this.parse._().getValue().rawDb,
-    ),
-
-    publicSymbolTable: this.createQuery(
-      Query.Parse_PublicSymbolTable,
-      (): Readonly<SymbolTable> => this.parse.ast().symbol!.symbolTable!,
-    ),
-  };
+          return analyzer.analyze();
+        }),
+  );
 
   // Find the stack of nodes/tokens, with the latter being nested inside the former
   // that contains `offset`
