@@ -5,6 +5,7 @@ import {
  SyntaxToken, SyntaxTokenKind, isOp, isTriviaToken,
 } from './tokens';
 import { Position } from '../types';
+import { isInvalidToken } from '../parser/utils';
 
 export default class Lexer {
   private start: Position = {
@@ -98,6 +99,7 @@ export default class Lexer {
     this.scanTokens();
     this.tokens.push(SyntaxToken.create(SyntaxTokenKind.EOF, this.start, this.current, '', false));
     this.gatherTrivia();
+    this.gatherInvalid();
 
     return new Report(this.tokens, this.errors);
   }
@@ -231,6 +233,27 @@ export default class Lexer {
     }
 
     this.tokens = newTokenList;
+  }
+
+  gatherInvalid() {
+    let i;
+
+    const leadingInvalidList: SyntaxToken[] = [];
+    for (i = 0; i < this.tokens.length && isInvalidToken(this.tokens[i]); i += 1) {
+      leadingInvalidList.push(this.tokens[i]);
+    }
+
+    let prevValidToken = this.tokens[i];
+    prevValidToken.leadingInvalid = [...leadingInvalidList, ...prevValidToken.leadingTrivia];
+
+    for (i += 1; i < this.tokens.length; i += 1) {
+      const token = this.tokens[i];
+      if (token.isInvalid) {
+        prevValidToken.trailingInvalid.push(token);
+      } else {
+        prevValidToken = token;
+      }
+    }
   }
 
   // Consuming characters until the `stopSequence` is encountered

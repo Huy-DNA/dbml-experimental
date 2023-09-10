@@ -1,4 +1,4 @@
-import { NodeSymbolIndex, SymbolKind, destructureIndex } from './lib/analyzer/symbol/symbolIndex';
+import { SymbolKind, destructureIndex } from './lib/analyzer/symbol/symbolIndex';
 import { generatePossibleIndexes } from './lib/analyzer/symbol/utils';
 import SymbolTable from './lib/analyzer/symbol/symbolTable';
 import { last } from './lib/utils';
@@ -23,7 +23,7 @@ import Parser from './lib/parser/parser';
 import Analyzer from './lib/analyzer/analyzer';
 import Interpreter from './lib/interpreter/interpreter';
 import Database from './lib/model_structure/database';
-import { SyntaxToken, SyntaxTokenKind, isTriviaToken } from './lib/lexer/tokens';
+import { SyntaxToken, isTriviaToken } from './lib/lexer/tokens';
 import {
   getMemberChain,
   isOffsetWithinFullSpan,
@@ -35,6 +35,7 @@ import { None, Option, Some } from './lib/option';
 const enum Query {
   Parse,
   Lex,
+  NonTrivialTokenBefore,
   EmitRawDb,
   SymbolsOfName,
   NameOfSymbol,
@@ -122,6 +123,23 @@ export default class Compiler {
   lex = this.createQuery(
     Query.Lex,
     (): Report<Readonly<SyntaxToken[]>, CompileError> => new Lexer(this.source).lex(),
+  );
+
+  nonTrivialTokenBefore = this.createQuery(
+    Query.NonTrivialTokenBefore,
+    (offset: number): Option<SyntaxToken> => {
+      let lastFoundToken: SyntaxToken | undefined;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const token of this.lex().getValue()) {
+        if (token.start <= offset) {
+          lastFoundToken = token;
+        } else {
+          break;
+        }
+      }
+
+      return lastFoundToken ? new Some(lastFoundToken) : new None();
+    },
   );
 
   parse = this.createQuery(

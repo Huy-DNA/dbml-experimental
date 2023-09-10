@@ -33,10 +33,6 @@ export enum SyntaxTokenKind {
 }
 
 export function isTriviaToken(token: SyntaxToken): boolean {
-  if (token.isInvalid) {
-    return true;
-  }
-
   switch (token.kind) {
     case SyntaxTokenKind.NEWLINE:
     case SyntaxTokenKind.SPACE:
@@ -86,6 +82,10 @@ export class SyntaxToken {
 
   trailingTrivia: SyntaxToken[];
 
+  leadingInvalid: SyntaxToken[];
+
+  trailingInvalid: SyntaxToken[];
+
   startPos: Readonly<Position>;
 
   start: Readonly<number>;
@@ -109,6 +109,8 @@ export class SyntaxToken {
     this.value = value;
     this.leadingTrivia = [];
     this.trailingTrivia = [];
+    this.leadingInvalid = [];
+    this.trailingInvalid = [];
     this.isInvalid = isInvalid;
 
     this.start = startPos.offset;

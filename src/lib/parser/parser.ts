@@ -145,12 +145,12 @@ export default class Parser {
     }
 
     let prevValidToken = this.tokens[i];
-    prevValidToken.leadingTrivia = [...leadingInvalidList, ...prevValidToken.leadingTrivia];
+    prevValidToken.leadingInvalid = [...leadingInvalidList, ...prevValidToken.leadingTrivia];
 
     for (i += 1; i < this.tokens.length; i += 1) {
       const token = this.tokens[i];
       if (token.isInvalid) {
-        prevValidToken.trailingTrivia.push(token);
+        prevValidToken.trailingInvalid.push(token);
       } else {
         prevValidToken = token;
       }

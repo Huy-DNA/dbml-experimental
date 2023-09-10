@@ -56,11 +56,15 @@
               "value": " ",
               "leadingTrivia": [],
               "trailingTrivia": [],
+              "leadingInvalid": [],
+              "trailingInvalid": [],
               "isInvalid": false,
               "start": 4,
               "end": 5
             }
           ],
+          "leadingInvalid": [],
+          "trailingInvalid": [],
           "isInvalid": false,
           "start": 0,
           "end": 4
@@ -121,11 +125,15 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "leadingInvalid": [],
+                  "trailingInvalid": [],
                   "isInvalid": false,
                   "start": 19,
                   "end": 20
                 }
               ],
+              "leadingInvalid": [],
+              "trailingInvalid": [],
               "isInvalid": false,
               "start": 5,
               "end": 19
@@ -183,11 +191,15 @@
                 "value": "\n",
                 "leadingTrivia": [],
                 "trailingTrivia": [],
+                "leadingInvalid": [],
+                "trailingInvalid": [],
                 "isInvalid": false,
                 "start": 22,
                 "end": 23
               }
             ],
+            "leadingInvalid": [],
+            "trailingInvalid": [],
             "isInvalid": false,
             "start": 20,
             "end": 21
@@ -261,6 +273,8 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 23,
                         "end": 24
@@ -280,6 +294,8 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 24,
                         "end": 25
@@ -299,6 +315,8 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 25,
                         "end": 26
@@ -318,6 +336,8 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 26,
                         "end": 27
@@ -339,11 +359,15 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 29,
                         "end": 30
                       }
                     ],
+                    "leadingInvalid": [],
+                    "trailingInvalid": [],
                     "isInvalid": false,
                     "start": 27,
                     "end": 29
@@ -415,11 +439,15 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "leadingInvalid": [],
+                          "trailingInvalid": [],
                           "isInvalid": false,
                           "start": 37,
                           "end": 38
                         }
                       ],
+                      "leadingInvalid": [],
+                      "trailingInvalid": [],
                       "isInvalid": false,
                       "start": 30,
                       "end": 37
@@ -462,6 +490,8 @@
                     "value": "[",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "leadingInvalid": [],
+                    "trailingInvalid": [],
                     "isInvalid": false,
                     "start": 38,
                     "end": 39
@@ -489,6 +519,8 @@
                             "value": "one",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 39,
                             "end": 42
@@ -546,6 +578,8 @@
                             "value": "two",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 44,
                             "end": 47
@@ -607,6 +641,8 @@
                             "value": "two",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 49,
                             "end": 54
@@ -651,11 +687,15 @@
                             "value": " ",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 48,
                             "end": 49
                           }
                         ],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 47,
                         "end": 48
@@ -711,6 +751,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 57,
                                 "end": 58
@@ -730,6 +772,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 58,
                                 "end": 59
@@ -749,6 +793,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 59,
                                 "end": 60
@@ -768,6 +814,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 60,
                                 "end": 61
@@ -787,6 +835,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 61,
                                 "end": 62
@@ -806,6 +856,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 62,
                                 "end": 63
@@ -825,6 +877,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 63,
                                 "end": 64
@@ -844,6 +898,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 64,
                                 "end": 65
@@ -863,6 +919,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 65,
                                 "end": 66
@@ -882,6 +940,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 66,
                                 "end": 67
@@ -901,6 +961,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 67,
                                 "end": 68
@@ -920,6 +982,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 68,
                                 "end": 69
@@ -939,6 +1003,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 69,
                                 "end": 70
@@ -958,6 +1024,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 70,
                                 "end": 71
@@ -977,6 +1045,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 71,
                                 "end": 72
@@ -996,12 +1066,16 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 72,
                                 "end": 73
                               }
                             ],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 73,
                             "end": 78
@@ -1063,6 +1137,8 @@
                             "value": "three",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 80,
                             "end": 87
@@ -1107,11 +1183,15 @@
                             "value": " ",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 79,
                             "end": 80
                           }
                         ],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 78,
                         "end": 79
@@ -1168,6 +1248,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 96,
                                 "end": 97
@@ -1187,11 +1269,15 @@
                                 "value": "\n",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 98,
                                 "end": 99
                               }
                             ],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 89,
                             "end": 96
@@ -1225,6 +1311,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 99,
                                 "end": 100
@@ -1244,6 +1332,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 100,
                                 "end": 101
@@ -1263,6 +1353,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 101,
                                 "end": 102
@@ -1282,6 +1374,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 102,
                                 "end": 103
@@ -1301,6 +1395,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 103,
                                 "end": 104
@@ -1320,6 +1416,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 104,
                                 "end": 105
@@ -1339,6 +1437,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 105,
                                 "end": 106
@@ -1358,6 +1458,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 106,
                                 "end": 107
@@ -1377,6 +1479,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 107,
                                 "end": 108
@@ -1396,6 +1500,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 108,
                                 "end": 109
@@ -1415,6 +1521,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 109,
                                 "end": 110
@@ -1434,6 +1542,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 110,
                                 "end": 111
@@ -1453,6 +1563,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 111,
                                 "end": 112
@@ -1472,6 +1584,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 112,
                                 "end": 113
@@ -1491,6 +1605,8 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 113,
                                 "end": 114
@@ -1510,12 +1626,16 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 114,
                                 "end": 115
                               }
                             ],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 115,
                             "end": 118
@@ -1573,6 +1693,8 @@
                             "value": "",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": null,
                             "end": null
@@ -1649,11 +1771,15 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 141,
                                 "end": 142
                               }
                             ],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 122,
                             "end": 141
@@ -1698,11 +1824,15 @@
                             "value": " ",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 121,
                             "end": 122
                           }
                         ],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 120,
                         "end": 121
@@ -1754,11 +1884,15 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "leadingInvalid": [],
+                          "trailingInvalid": [],
                           "isInvalid": false,
                           "start": 43,
                           "end": 44
                         }
                       ],
+                      "leadingInvalid": [],
+                      "trailingInvalid": [],
                       "isInvalid": false,
                       "start": 42,
                       "end": 43
@@ -1793,11 +1927,15 @@
                           "value": "\n",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "leadingInvalid": [],
+                          "trailingInvalid": [],
                           "isInvalid": false,
                           "start": 56,
                           "end": 57
                         }
                       ],
+                      "leadingInvalid": [],
+                      "trailingInvalid": [],
                       "isInvalid": false,
                       "start": 54,
                       "end": 55
@@ -1832,11 +1970,15 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "leadingInvalid": [],
+                          "trailingInvalid": [],
                           "isInvalid": false,
                           "start": 88,
                           "end": 89
                         }
                       ],
+                      "leadingInvalid": [],
+                      "trailingInvalid": [],
                       "isInvalid": false,
                       "start": 87,
                       "end": 88
@@ -1871,11 +2013,15 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "leadingInvalid": [],
+                          "trailingInvalid": [],
                           "isInvalid": false,
                           "start": 119,
                           "end": 120
                         }
                       ],
+                      "leadingInvalid": [],
+                      "trailingInvalid": [],
                       "isInvalid": false,
                       "start": 118,
                       "end": 119
@@ -1911,11 +2057,15 @@
                         "value": "\n",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 144,
                         "end": 145
                       }
                     ],
+                    "leadingInvalid": [],
+                    "trailingInvalid": [],
                     "isInvalid": false,
                     "start": 142,
                     "end": 143
@@ -1999,6 +2149,8 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 145,
                         "end": 146
@@ -2018,6 +2170,8 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 146,
                         "end": 147
@@ -2037,6 +2191,8 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 147,
                         "end": 148
@@ -2056,6 +2212,8 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 148,
                         "end": 149
@@ -2077,11 +2235,15 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 152,
                         "end": 153
                       }
                     ],
+                    "leadingInvalid": [],
+                    "trailingInvalid": [],
                     "isInvalid": false,
                     "start": 149,
                     "end": 152
@@ -2153,11 +2315,15 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "leadingInvalid": [],
+                          "trailingInvalid": [],
                           "isInvalid": false,
                           "start": 171,
                           "end": 172
                         }
                       ],
+                      "leadingInvalid": [],
+                      "trailingInvalid": [],
                       "isInvalid": false,
                       "start": 153,
                       "end": 171
@@ -2200,6 +2366,8 @@
                     "value": "[",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "leadingInvalid": [],
+                    "trailingInvalid": [],
                     "isInvalid": false,
                     "start": 172,
                     "end": 173
@@ -2227,6 +2395,8 @@
                             "value": "ref",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 173,
                             "end": 176
@@ -2277,10 +2447,15 @@
                             "value": " ",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": false,
                             "start": 177,
                             "end": 178
-                          },
+                          }
+                        ],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [
                           {
                             "kind": "<identifier>",
                             "startPos": {
@@ -2296,6 +2471,8 @@
                             "value": "empty",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": true,
                             "start": 178,
                             "end": 183
@@ -2330,11 +2507,15 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "leadingInvalid": [],
+                                "trailingInvalid": [],
                                 "isInvalid": false,
                                 "start": 184,
                                 "end": 185
                               }
                             ],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
                             "isInvalid": true,
                             "start": 183,
                             "end": 184
@@ -2391,11 +2572,15 @@
                         "value": "\n",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "leadingInvalid": [],
+                        "trailingInvalid": [],
                         "isInvalid": false,
                         "start": 187,
                         "end": 188
                       }
                     ],
+                    "leadingInvalid": [],
+                    "trailingInvalid": [],
                     "isInvalid": false,
                     "start": 185,
                     "end": 186
@@ -2427,6 +2612,8 @@
             "value": "}",
             "leadingTrivia": [],
             "trailingTrivia": [],
+            "leadingInvalid": [],
+            "trailingInvalid": [],
             "isInvalid": false,
             "start": 188,
             "end": 189
@@ -2457,6 +2644,8 @@
       "value": "",
       "leadingTrivia": [],
       "trailingTrivia": [],
+      "leadingInvalid": [],
+      "trailingInvalid": [],
       "isInvalid": false,
       "start": 189,
       "end": 189
@@ -2500,11 +2689,15 @@
             "value": " ",
             "leadingTrivia": [],
             "trailingTrivia": [],
+            "leadingInvalid": [],
+            "trailingInvalid": [],
             "isInvalid": false,
             "start": 121,
             "end": 122
           }
         ],
+        "leadingInvalid": [],
+        "trailingInvalid": [],
         "isInvalid": false,
         "start": 120,
         "end": 121
@@ -2546,11 +2739,15 @@
             "value": "\n",
             "leadingTrivia": [],
             "trailingTrivia": [],
+            "leadingInvalid": [],
+            "trailingInvalid": [],
             "isInvalid": false,
             "start": 187,
             "end": 188
           }
         ],
+        "leadingInvalid": [],
+        "trailingInvalid": [],
         "isInvalid": false,
         "start": 185,
         "end": 186
