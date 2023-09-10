@@ -149,7 +149,7 @@ export default class Parser {
 
     for (i += 1; i < this.tokens.length; i += 1) {
       const token = this.tokens[i];
-      if (token.kind === SyntaxTokenKind.INVALID) {
+      if (token.isInvalid) {
         prevValidToken.trailingTrivia.push(token);
       } else {
         prevValidToken = token;

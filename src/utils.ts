@@ -19,12 +19,9 @@ import {
   TupleExpressionNode,
   VariableNode,
 } from './lib/parser/nodes';
-import { NodeSymbol } from './lib/analyzer/symbol/symbols';
 import {
  alternateLists, gatherIntoList, getTokenFullEnd, getTokenFullStart,
 } from './lib/utils';
-import { None, Option } from './lib/option';
-import { extractVariableFromExpression } from './lib/analyzer/utils';
 
 export function getMemberChain(node: SyntaxNode): Readonly<(SyntaxNode | SyntaxToken)[]> {
   if (node instanceof ProgramNode) {

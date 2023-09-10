@@ -127,7 +127,7 @@ function markInvalidToken(token: SyntaxToken) {
     return;
   }
   // eslint-disable-next-line no-param-reassign
-  token.kind = SyntaxTokenKind.INVALID;
+  token.isInvalid = true;
 }
 
 function markInvalidNode(node: SyntaxNode) {
@@ -191,7 +191,7 @@ function markInvalidNode(node: SyntaxNode) {
 }
 
 export function isInvalidToken(token?: SyntaxToken): boolean {
-  return token?.kind === SyntaxTokenKind.INVALID;
+  return !!token?.isInvalid;
 }
 
 export function createDummySyntaxToken(kind: SyntaxTokenKind): SyntaxToken {
@@ -208,5 +208,6 @@ export function createDummySyntaxToken(kind: SyntaxTokenKind): SyntaxToken {
       column: NaN,
     },
     '',
+    false,
   );
 }

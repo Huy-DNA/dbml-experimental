@@ -30,10 +30,12 @@
           "value": " ",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 8,
           "end": 9
         }
       ],
+      "isInvalid": false,
       "start": 0,
       "end": 8
     },
@@ -67,6 +69,7 @@
           "value": " ",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 13,
           "end": 14
         },
@@ -85,10 +88,12 @@
           "value": "\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 15,
           "end": 16
         }
       ],
+      "isInvalid": false,
       "start": 9,
       "end": 13
     },
@@ -121,11 +126,12 @@
           "value": "\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 17,
           "end": 18
         },
         {
-          "kind": "<invalid>",
+          "kind": "<function-expression>",
           "startPos": {
             "offset": 18,
             "line": 2,
@@ -139,6 +145,7 @@
           "value": "`\r",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": true,
           "start": 18,
           "end": 20
         },
@@ -157,6 +164,7 @@
           "value": "\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 20,
           "end": 21
         },
@@ -175,6 +183,7 @@
           "value": " ",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 21,
           "end": 22
         },
@@ -193,6 +202,7 @@
           "value": " ",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 22,
           "end": 23
         },
@@ -211,6 +221,7 @@
           "value": " ",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 23,
           "end": 24
         },
@@ -229,6 +240,7 @@
           "value": " ",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 24,
           "end": 25
         }
@@ -249,10 +261,12 @@
           "value": " ",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 27,
           "end": 28
         }
       ],
+      "isInvalid": false,
       "start": 25,
       "end": 27
     },
@@ -286,10 +300,12 @@
           "value": " ",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 29,
           "end": 30
         }
       ],
+      "isInvalid": false,
       "start": 28,
       "end": 29
     },
@@ -323,10 +339,12 @@
           "value": "\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 32,
           "end": 33
         }
       ],
+      "isInvalid": false,
       "start": 30,
       "end": 31
     },
@@ -345,7 +363,7 @@
       "value": "",
       "leadingTrivia": [
         {
-          "kind": "<invalid>",
+          "kind": "<function-expression>",
           "startPos": {
             "offset": 33,
             "line": 4,
@@ -359,11 +377,13 @@
           "value": "`",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": true,
           "start": 33,
           "end": 34
         }
       ],
       "trailingTrivia": [],
+      "isInvalid": false,
       "start": 34,
       "end": 34
     }
@@ -373,7 +393,7 @@
       "code": 1003,
       "diagnostic": "Invalid newline encountered while parsing",
       "nodeOrToken": {
-        "kind": "<invalid>",
+        "kind": "<function-expression>",
         "startPos": {
           "offset": 18,
           "line": 2,
@@ -387,6 +407,7 @@
         "value": "`\r",
         "leadingTrivia": [],
         "trailingTrivia": [],
+        "isInvalid": true,
         "start": 18,
         "end": 20
       },
@@ -398,7 +419,7 @@
       "code": 1002,
       "diagnostic": "EOF reached while parsing",
       "nodeOrToken": {
-        "kind": "<invalid>",
+        "kind": "<function-expression>",
         "startPos": {
           "offset": 33,
           "line": 4,
@@ -412,6 +433,7 @@
         "value": "`",
         "leadingTrivia": [],
         "trailingTrivia": [],
+        "isInvalid": true,
         "start": 33,
         "end": 34
       },

@@ -56,10 +56,12 @@
               "value": " ",
               "leadingTrivia": [],
               "trailingTrivia": [],
+              "isInvalid": false,
               "start": 5,
               "end": 6
             }
           ],
+          "isInvalid": false,
           "start": 0,
           "end": 5
         },
@@ -119,10 +121,12 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 11,
                   "end": 12
                 }
               ],
+              "isInvalid": false,
               "start": 6,
               "end": 11
             },
@@ -179,10 +183,12 @@
                 "value": "\n",
                 "leadingTrivia": [],
                 "trailingTrivia": [],
+                "isInvalid": false,
                 "start": 14,
                 "end": 15
               }
             ],
+            "isInvalid": false,
             "start": 12,
             "end": 13
           },
@@ -223,6 +229,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 15,
                         "end": 16
                       },
@@ -241,6 +248,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 16,
                         "end": 17
                       },
@@ -259,6 +267,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 17,
                         "end": 18
                       },
@@ -277,11 +286,13 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 18,
                         "end": 19
                       }
                     ],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 19,
                     "end": 30
                   }
@@ -342,6 +353,7 @@
                     "value": "#123",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 32,
                     "end": 36
                   },
@@ -385,10 +397,12 @@
                     "value": " ",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 31,
                     "end": 32
                   }
                 ],
+                "isInvalid": false,
                 "start": 30,
                 "end": 31
               },
@@ -443,6 +457,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 40,
                         "end": 41
                       },
@@ -461,6 +476,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 41,
                         "end": 42
                       },
@@ -479,6 +495,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 42,
                         "end": 43
                       },
@@ -497,11 +514,13 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 43,
                         "end": 44
                       }
                     ],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 44,
                     "end": 48
                   }
@@ -562,6 +581,7 @@
                     "value": "This is a note",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 50,
                     "end": 66
                   },
@@ -605,10 +625,12 @@
                     "value": " ",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 49,
                     "end": 50
                   }
                 ],
+                "isInvalid": false,
                 "start": 48,
                 "end": 49
               },
@@ -663,6 +685,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 69,
                         "end": 70
                       },
@@ -681,6 +704,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 70,
                         "end": 71
                       },
@@ -699,6 +723,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 71,
                         "end": 72
                       },
@@ -717,11 +742,13 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 72,
                         "end": 73
                       }
                     ],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 73,
                     "end": 77
                   }
@@ -797,10 +824,12 @@
                         "value": "\n",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 106,
                         "end": 107
                       }
                     ],
+                    "isInvalid": false,
                     "start": 79,
                     "end": 105
                   },
@@ -844,10 +873,12 @@
                     "value": " ",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 78,
                     "end": 79
                   }
                 ],
+                "isInvalid": false,
                 "start": 77,
                 "end": 78
               },
@@ -898,6 +929,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 37,
                   "end": 38
                 },
@@ -916,10 +948,12 @@
                   "value": "\n",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 39,
                   "end": 40
                 }
               ],
+              "isInvalid": false,
               "start": 36,
               "end": 37
             },
@@ -953,10 +987,12 @@
                   "value": "\n",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 68,
                   "end": 69
                 }
               ],
+              "isInvalid": false,
               "start": 66,
               "end": 67
             }
@@ -991,10 +1027,12 @@
                 "value": " ",
                 "leadingTrivia": [],
                 "trailingTrivia": [],
+                "isInvalid": false,
                 "start": 108,
                 "end": 109
               }
             ],
+            "isInvalid": false,
             "start": 107,
             "end": 108
           },
@@ -1046,10 +1084,12 @@
                 "value": "\n",
                 "leadingTrivia": [],
                 "trailingTrivia": [],
+                "isInvalid": false,
                 "start": 111,
                 "end": 112
               }
             ],
+            "isInvalid": false,
             "start": 109,
             "end": 110
           },
@@ -1122,6 +1162,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 112,
                         "end": 113
                       },
@@ -1140,6 +1181,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 113,
                         "end": 114
                       },
@@ -1158,6 +1200,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 114,
                         "end": 115
                       },
@@ -1176,6 +1219,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 115,
                         "end": 116
                       }
@@ -1196,10 +1240,12 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 118,
                         "end": 119
                       }
                     ],
+                    "isInvalid": false,
                     "start": 116,
                     "end": 118
                   },
@@ -1270,10 +1316,12 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "isInvalid": false,
                           "start": 126,
                           "end": 127
                         }
                       ],
+                      "isInvalid": false,
                       "start": 119,
                       "end": 126
                     },
@@ -1315,6 +1363,7 @@
                     "value": "[",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 127,
                     "end": 128
                   },
@@ -1356,10 +1405,12 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "isInvalid": false,
                                 "start": 135,
                                 "end": 136
                               }
                             ],
+                            "isInvalid": false,
                             "start": 128,
                             "end": 135
                           },
@@ -1378,6 +1429,7 @@
                             "value": "key",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 136,
                             "end": 139
                           }
@@ -1444,6 +1496,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 140,
                         "end": 141
                       },
@@ -1462,6 +1515,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 141,
                         "end": 142
                       },
@@ -1480,6 +1534,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 142,
                         "end": 143
                       },
@@ -1498,6 +1553,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 143,
                         "end": 144
                       },
@@ -1516,6 +1572,7 @@
                         "value": " pk\r",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 144,
                         "end": 151
                       },
@@ -1534,6 +1591,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 151,
                         "end": 152
                       },
@@ -1552,6 +1610,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 152,
                         "end": 153
                       },
@@ -1570,6 +1629,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 153,
                         "end": 154
                       },
@@ -1588,10 +1648,12 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 154,
                         "end": 155
                       }
                     ],
+                    "isInvalid": false,
                     "start": 139,
                     "end": 140
                   },
@@ -1656,10 +1718,12 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "isInvalid": false,
                           "start": 159,
                           "end": 160
                         }
                       ],
+                      "isInvalid": false,
                       "start": 155,
                       "end": 159
                     },
@@ -1729,10 +1793,12 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "isInvalid": false,
                           "start": 166,
                           "end": 167
                         }
                       ],
+                      "isInvalid": false,
                       "start": 160,
                       "end": 166
                     },
@@ -1774,6 +1840,7 @@
                     "value": "[",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 167,
                     "end": 168
                   },
@@ -1815,10 +1882,12 @@
                                 "value": " ",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "isInvalid": false,
                                 "start": 171,
                                 "end": 172
                               }
                             ],
+                            "isInvalid": false,
                             "start": 168,
                             "end": 171
                           },
@@ -1837,6 +1906,7 @@
                             "value": "null",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 172,
                             "end": 176
                           }
@@ -1903,6 +1973,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 177,
                         "end": 178
                       },
@@ -1921,6 +1992,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 178,
                         "end": 179
                       },
@@ -1939,6 +2011,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 179,
                         "end": 180
                       },
@@ -1957,6 +2030,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 180,
                         "end": 181
                       },
@@ -1975,6 +2049,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 181,
                         "end": 182
                       },
@@ -1993,6 +2068,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 182,
                         "end": 183
                       },
@@ -2011,6 +2087,7 @@
                         "value": " not null ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 183,
                         "end": 197
                       },
@@ -2029,10 +2106,12 @@
                         "value": "\n",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 198,
                         "end": 199
                       }
                     ],
+                    "isInvalid": false,
                     "start": 176,
                     "end": 177
                   },
@@ -2115,6 +2194,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 199,
                         "end": 200
                       },
@@ -2133,6 +2213,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 200,
                         "end": 201
                       },
@@ -2151,6 +2232,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 201,
                         "end": 202
                       },
@@ -2169,6 +2251,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 202,
                         "end": 203
                       }
@@ -2189,10 +2272,12 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 206,
                         "end": 207
                       }
                     ],
+                    "isInvalid": false,
                     "start": 203,
                     "end": 206
                   },
@@ -2263,10 +2348,12 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "isInvalid": false,
                           "start": 214,
                           "end": 215
                         }
                       ],
+                      "isInvalid": false,
                       "start": 207,
                       "end": 214
                     },
@@ -2308,6 +2395,7 @@
                     "value": "[",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 215,
                     "end": 216
                   },
@@ -2334,6 +2422,7 @@
                             "value": "default",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 216,
                             "end": 223
                           }
@@ -2394,6 +2483,7 @@
                             "value": "18",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 225,
                             "end": 227
                           },
@@ -2437,10 +2527,12 @@
                             "value": " ",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 224,
                             "end": 225
                           }
                         ],
+                        "isInvalid": false,
                         "start": 223,
                         "end": 224
                       },
@@ -2481,6 +2573,7 @@
                             "value": "note",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 229,
                             "end": 233
                           }
@@ -2541,6 +2634,7 @@
                             "value": "This is a note",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 235,
                             "end": 251
                           },
@@ -2584,10 +2678,12 @@
                             "value": " ",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 234,
                             "end": 235
                           }
                         ],
+                        "isInvalid": false,
                         "start": 233,
                         "end": 234
                       },
@@ -2628,6 +2724,7 @@
                             "value": "note",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 253,
                             "end": 257
                           }
@@ -2688,6 +2785,7 @@
                             "value": "This is another note",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 259,
                             "end": 281
                           },
@@ -2731,10 +2829,12 @@
                             "value": " ",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 258,
                             "end": 259
                           }
                         ],
+                        "isInvalid": false,
                         "start": 257,
                         "end": 258
                       },
@@ -2785,10 +2885,12 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "isInvalid": false,
                           "start": 228,
                           "end": 229
                         }
                       ],
+                      "isInvalid": false,
                       "start": 227,
                       "end": 228
                     },
@@ -2822,10 +2924,12 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "isInvalid": false,
                           "start": 252,
                           "end": 253
                         }
                       ],
+                      "isInvalid": false,
                       "start": 251,
                       "end": 252
                     }
@@ -2860,10 +2964,12 @@
                         "value": "\n",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 283,
                         "end": 284
                       }
                     ],
+                    "isInvalid": false,
                     "start": 281,
                     "end": 282
                   },
@@ -2947,6 +3053,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 284,
                         "end": 285
                       },
@@ -2965,6 +3072,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 285,
                         "end": 286
                       },
@@ -2983,6 +3091,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 286,
                         "end": 287
                       },
@@ -3001,6 +3110,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 287,
                         "end": 288
                       },
@@ -3019,6 +3129,7 @@
                         "value": " -----\r\n       ----- ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 288,
                         "end": 313
                       },
@@ -3037,6 +3148,7 @@
                         "value": "\n",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 314,
                         "end": 315
                       },
@@ -3055,6 +3167,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 315,
                         "end": 316
                       },
@@ -3073,6 +3186,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 316,
                         "end": 317
                       },
@@ -3091,6 +3205,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 317,
                         "end": 318
                       },
@@ -3109,6 +3224,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 318,
                         "end": 319
                       }
@@ -3129,10 +3245,12 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 325,
                         "end": 326
                       }
                     ],
+                    "isInvalid": false,
                     "start": 319,
                     "end": 325
                   },
@@ -3175,6 +3293,7 @@
                     "value": ".",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 328,
                     "end": 329
                   },
@@ -3219,6 +3338,7 @@
                         "value": "v2",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 326,
                         "end": 328
                       },
@@ -3288,10 +3408,12 @@
                             "value": " ",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 335,
                             "end": 336
                           }
                         ],
+                        "isInvalid": false,
                         "start": 329,
                         "end": 335
                       },
@@ -3339,6 +3461,7 @@
                     "value": "[",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 336,
                     "end": 337
                   },
@@ -3365,6 +3488,7 @@
                             "value": "default",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 337,
                             "end": 344
                           }
@@ -3412,6 +3536,7 @@
                           "value": ".",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "isInvalid": false,
                           "start": 355,
                           "end": 356
                         },
@@ -3443,6 +3568,7 @@
                             "value": ".",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 348,
                             "end": 349
                           },
@@ -3487,6 +3613,7 @@
                                 "value": "v2",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "isInvalid": false,
                                 "start": 346,
                                 "end": 348
                               },
@@ -3541,6 +3668,7 @@
                                 "value": "status",
                                 "leadingTrivia": [],
                                 "trailingTrivia": [],
+                                "isInvalid": false,
                                 "start": 349,
                                 "end": 355
                               },
@@ -3600,6 +3728,7 @@
                               "value": "new",
                               "leadingTrivia": [],
                               "trailingTrivia": [],
+                              "isInvalid": false,
                               "start": 356,
                               "end": 359
                             },
@@ -3649,10 +3778,12 @@
                             "value": " ",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 345,
                             "end": 346
                           }
                         ],
+                        "isInvalid": false,
                         "start": 344,
                         "end": 345
                       },
@@ -3703,10 +3834,12 @@
                         "value": "\n",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 361,
                         "end": 362
                       }
                     ],
+                    "isInvalid": false,
                     "start": 359,
                     "end": 360
                   },
@@ -3790,6 +3923,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 362,
                         "end": 363
                       },
@@ -3808,6 +3942,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 363,
                         "end": 364
                       },
@@ -3826,6 +3961,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 364,
                         "end": 365
                       },
@@ -3844,6 +3980,7 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 365,
                         "end": 366
                       }
@@ -3864,10 +4001,12 @@
                         "value": " ",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 369,
                         "end": 370
                       }
                     ],
+                    "isInvalid": false,
                     "start": 366,
                     "end": 369
                   },
@@ -3936,6 +4075,7 @@
                         "value": "char",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 370,
                         "end": 374
                       },
@@ -3977,6 +4117,7 @@
                       "value": "(",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 374,
                       "end": 375
                     },
@@ -4022,6 +4163,7 @@
                             "value": "255",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 375,
                             "end": 378
                           },
@@ -4067,10 +4209,12 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "isInvalid": false,
                           "start": 379,
                           "end": 380
                         }
                       ],
+                      "isInvalid": false,
                       "start": 378,
                       "end": 379
                     },
@@ -4112,6 +4256,7 @@
                     "value": "[",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 380,
                     "end": 381
                   },
@@ -4138,6 +4283,7 @@
                             "value": "null",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 381,
                             "end": 385
                           }
@@ -4204,10 +4350,12 @@
                         "value": "\n",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 387,
                         "end": 388
                       }
                     ],
+                    "isInvalid": false,
                     "start": 385,
                     "end": 386
                   },
@@ -4254,10 +4402,12 @@
                 "value": "\n",
                 "leadingTrivia": [],
                 "trailingTrivia": [],
+                "isInvalid": false,
                 "start": 390,
                 "end": 391
               }
             ],
+            "isInvalid": false,
             "start": 388,
             "end": 389
           },
@@ -4315,6 +4465,7 @@
               "value": "\n",
               "leadingTrivia": [],
               "trailingTrivia": [],
+              "isInvalid": false,
               "start": 392,
               "end": 393
             }
@@ -4335,10 +4486,12 @@
               "value": " ",
               "leadingTrivia": [],
               "trailingTrivia": [],
+              "isInvalid": false,
               "start": 397,
               "end": 398
             }
           ],
+          "isInvalid": false,
           "start": 393,
           "end": 397
         },
@@ -4370,6 +4523,7 @@
             "value": ".",
             "leadingTrivia": [],
             "trailingTrivia": [],
+            "isInvalid": false,
             "start": 400,
             "end": 401
           },
@@ -4414,6 +4568,7 @@
                 "value": "v2",
                 "leadingTrivia": [],
                 "trailingTrivia": [],
+                "isInvalid": false,
                 "start": 398,
                 "end": 400
               },
@@ -4483,10 +4638,12 @@
                     "value": " ",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 407,
                     "end": 408
                   }
                 ],
+                "isInvalid": false,
                 "start": 401,
                 "end": 407
               },
@@ -4548,10 +4705,12 @@
                 "value": "\n",
                 "leadingTrivia": [],
                 "trailingTrivia": [],
+                "isInvalid": false,
                 "start": 410,
                 "end": 411
               }
             ],
+            "isInvalid": false,
             "start": 408,
             "end": 409
           },
@@ -4611,6 +4770,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 411,
                       "end": 412
                     },
@@ -4629,6 +4789,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 412,
                       "end": 413
                     },
@@ -4647,6 +4808,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 413,
                       "end": 414
                     },
@@ -4665,6 +4827,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 414,
                       "end": 415
                     }
@@ -4685,10 +4848,12 @@
                       "value": "\n",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 421,
                       "end": 422
                     }
                   ],
+                  "isInvalid": false,
                   "start": 415,
                   "end": 420
                 },
@@ -4758,6 +4923,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 422,
                       "end": 423
                     },
@@ -4776,6 +4942,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 423,
                       "end": 424
                     },
@@ -4794,6 +4961,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 424,
                       "end": 425
                     },
@@ -4812,6 +4980,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 425,
                       "end": 426
                     }
@@ -4832,10 +5001,12 @@
                       "value": "\n",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 430,
                       "end": 431
                     }
                   ],
+                  "isInvalid": false,
                   "start": 426,
                   "end": 429
                 },
@@ -4905,6 +5076,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 431,
                       "end": 432
                     },
@@ -4923,6 +5095,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 432,
                       "end": 433
                     },
@@ -4941,6 +5114,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 433,
                       "end": 434
                     },
@@ -4959,6 +5133,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 434,
                       "end": 435
                     }
@@ -4979,10 +5154,12 @@
                       "value": "\n",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 442,
                       "end": 443
                     }
                   ],
+                  "isInvalid": false,
                   "start": 435,
                   "end": 441
                 },
@@ -5052,6 +5229,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 443,
                       "end": 444
                     },
@@ -5070,6 +5248,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 444,
                       "end": 445
                     },
@@ -5088,6 +5267,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 445,
                       "end": 446
                     },
@@ -5106,6 +5286,7 @@
                       "value": " ",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 446,
                       "end": 447
                     }
@@ -5126,10 +5307,12 @@
                       "value": "\n",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 454,
                       "end": 455
                     }
                   ],
+                  "isInvalid": false,
                   "start": 447,
                   "end": 453
                 },
@@ -5160,6 +5343,7 @@
             "value": "}",
             "leadingTrivia": [],
             "trailingTrivia": [],
+            "isInvalid": false,
             "start": 455,
             "end": 456
           },
@@ -5191,6 +5375,7 @@
       "value": "",
       "leadingTrivia": [],
       "trailingTrivia": [],
+      "isInvalid": false,
       "start": 456,
       "end": 456
     },
@@ -5256,6 +5441,7 @@
                     "value": ".",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 328,
                     "end": 329
                   },
@@ -5300,6 +5486,7 @@
                         "value": "v2",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 326,
                         "end": 328
                       },
@@ -5369,10 +5556,12 @@
                             "value": " ",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 335,
                             "end": 336
                           }
                         ],
+                        "isInvalid": false,
                         "start": 329,
                         "end": 335
                       },
@@ -5430,6 +5619,7 @@
                         "value": ".",
                         "leadingTrivia": [],
                         "trailingTrivia": [],
+                        "isInvalid": false,
                         "start": 355,
                         "end": 356
                       },
@@ -5461,6 +5651,7 @@
                           "value": ".",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "isInvalid": false,
                           "start": 348,
                           "end": 349
                         },
@@ -5505,6 +5696,7 @@
                               "value": "v2",
                               "leadingTrivia": [],
                               "trailingTrivia": [],
+                              "isInvalid": false,
                               "start": 346,
                               "end": 348
                             },
@@ -5559,6 +5751,7 @@
                               "value": "status",
                               "leadingTrivia": [],
                               "trailingTrivia": [],
+                              "isInvalid": false,
                               "start": 349,
                               "end": 355
                             },
@@ -5618,6 +5811,7 @@
                             "value": "new",
                             "leadingTrivia": [],
                             "trailingTrivia": [],
+                            "isInvalid": false,
                             "start": 356,
                             "end": 359
                           },
@@ -5701,6 +5895,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 69,
                   "end": 70
                 },
@@ -5719,6 +5914,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 70,
                   "end": 71
                 },
@@ -5737,6 +5933,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 71,
                   "end": 72
                 },
@@ -5755,11 +5952,13 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 72,
                   "end": 73
                 }
               ],
               "trailingTrivia": [],
+              "isInvalid": false,
               "start": 73,
               "end": 77
             }
@@ -5835,10 +6034,12 @@
                   "value": "\n",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 106,
                   "end": 107
                 }
               ],
+              "isInvalid": false,
               "start": 79,
               "end": 105
             },
@@ -5882,10 +6083,12 @@
               "value": " ",
               "leadingTrivia": [],
               "trailingTrivia": [],
+              "isInvalid": false,
               "start": 78,
               "end": 79
             }
           ],
+          "isInvalid": false,
           "start": 77,
           "end": 78
         },
@@ -5979,6 +6182,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 112,
                   "end": 113
                 },
@@ -5997,6 +6201,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 113,
                   "end": 114
                 },
@@ -6015,6 +6220,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 114,
                   "end": 115
                 },
@@ -6033,6 +6239,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 115,
                   "end": 116
                 }
@@ -6053,10 +6260,12 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 118,
                   "end": 119
                 }
               ],
+              "isInvalid": false,
               "start": 116,
               "end": 118
             },
@@ -6127,10 +6336,12 @@
                     "value": " ",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 126,
                     "end": 127
                   }
                 ],
+                "isInvalid": false,
                 "start": 119,
                 "end": 126
               },
@@ -6172,6 +6383,7 @@
               "value": "[",
               "leadingTrivia": [],
               "trailingTrivia": [],
+              "isInvalid": false,
               "start": 127,
               "end": 128
             },
@@ -6213,10 +6425,12 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "isInvalid": false,
                           "start": 135,
                           "end": 136
                         }
                       ],
+                      "isInvalid": false,
                       "start": 128,
                       "end": 135
                     },
@@ -6235,6 +6449,7 @@
                       "value": "key",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 136,
                       "end": 139
                     }
@@ -6301,6 +6516,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 140,
                   "end": 141
                 },
@@ -6319,6 +6535,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 141,
                   "end": 142
                 },
@@ -6337,6 +6554,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 142,
                   "end": 143
                 },
@@ -6355,6 +6573,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 143,
                   "end": 144
                 },
@@ -6373,6 +6592,7 @@
                   "value": " pk\r",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 144,
                   "end": 151
                 },
@@ -6391,6 +6611,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 151,
                   "end": 152
                 },
@@ -6409,6 +6630,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 152,
                   "end": 153
                 },
@@ -6427,6 +6649,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 153,
                   "end": 154
                 },
@@ -6445,10 +6668,12 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 154,
                   "end": 155
                 }
               ],
+              "isInvalid": false,
               "start": 139,
               "end": 140
             },
@@ -6513,10 +6738,12 @@
                     "value": " ",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 159,
                     "end": 160
                   }
                 ],
+                "isInvalid": false,
                 "start": 155,
                 "end": 159
               },
@@ -6586,10 +6813,12 @@
                     "value": " ",
                     "leadingTrivia": [],
                     "trailingTrivia": [],
+                    "isInvalid": false,
                     "start": 166,
                     "end": 167
                   }
                 ],
+                "isInvalid": false,
                 "start": 160,
                 "end": 166
               },
@@ -6631,6 +6860,7 @@
               "value": "[",
               "leadingTrivia": [],
               "trailingTrivia": [],
+              "isInvalid": false,
               "start": 167,
               "end": 168
             },
@@ -6672,10 +6902,12 @@
                           "value": " ",
                           "leadingTrivia": [],
                           "trailingTrivia": [],
+                          "isInvalid": false,
                           "start": 171,
                           "end": 172
                         }
                       ],
+                      "isInvalid": false,
                       "start": 168,
                       "end": 171
                     },
@@ -6694,6 +6926,7 @@
                       "value": "null",
                       "leadingTrivia": [],
                       "trailingTrivia": [],
+                      "isInvalid": false,
                       "start": 172,
                       "end": 176
                     }
@@ -6760,6 +6993,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 177,
                   "end": 178
                 },
@@ -6778,6 +7012,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 178,
                   "end": 179
                 },
@@ -6796,6 +7031,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 179,
                   "end": 180
                 },
@@ -6814,6 +7050,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 180,
                   "end": 181
                 },
@@ -6832,6 +7069,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 181,
                   "end": 182
                 },
@@ -6850,6 +7088,7 @@
                   "value": " ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 182,
                   "end": 183
                 },
@@ -6868,6 +7107,7 @@
                   "value": " not null ",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 183,
                   "end": 197
                 },
@@ -6886,10 +7126,12 @@
                   "value": "\n",
                   "leadingTrivia": [],
                   "trailingTrivia": [],
+                  "isInvalid": false,
                   "start": 198,
                   "end": 199
                 }
               ],
+              "isInvalid": false,
               "start": 176,
               "end": 177
             },
@@ -6933,6 +7175,7 @@
               "value": "note",
               "leadingTrivia": [],
               "trailingTrivia": [],
+              "isInvalid": false,
               "start": 253,
               "end": 257
             }
@@ -6993,6 +7236,7 @@
               "value": "This is another note",
               "leadingTrivia": [],
               "trailingTrivia": [],
+              "isInvalid": false,
               "start": 259,
               "end": 281
             },
@@ -7036,10 +7280,12 @@
               "value": " ",
               "leadingTrivia": [],
               "trailingTrivia": [],
+              "isInvalid": false,
               "start": 258,
               "end": 259
             }
           ],
+          "isInvalid": false,
           "start": 257,
           "end": 258
         },

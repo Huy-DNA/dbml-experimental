@@ -30,10 +30,12 @@
           "value": " ",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 5,
           "end": 6
         }
       ],
+      "isInvalid": false,
       "start": 0,
       "end": 5
     },
@@ -67,10 +69,12 @@
           "value": "\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 17,
           "end": 18
         }
       ],
+      "isInvalid": false,
       "start": 6,
       "end": 16
     },
@@ -104,10 +108,12 @@
           "value": "\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 21,
           "end": 22
         }
       ],
+      "isInvalid": false,
       "start": 18,
       "end": 20
     },
@@ -141,10 +147,12 @@
           "value": " ",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 29,
           "end": 30
         }
       ],
+      "isInvalid": false,
       "start": 22,
       "end": 29
     },
@@ -178,10 +186,12 @@
           "value": "\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 35,
           "end": 36
         }
       ],
+      "isInvalid": false,
       "start": 30,
       "end": 34
     },
@@ -215,10 +225,12 @@
           "value": "\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 40,
           "end": 41
         }
       ],
+      "isInvalid": false,
       "start": 36,
       "end": 39
     },
@@ -251,11 +263,12 @@
           "value": "\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 42,
           "end": 43
         },
         {
-          "kind": "<invalid>",
+          "kind": "<number>",
           "startPos": {
             "offset": 43,
             "line": 5,
@@ -269,6 +282,7 @@
           "value": "3a",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": true,
           "start": 43,
           "end": 45
         },
@@ -287,6 +301,7 @@
           "value": " ",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 45,
           "end": 46
         },
@@ -305,11 +320,13 @@
           "value": " invalid identifier",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 46,
           "end": 67
         }
       ],
       "trailingTrivia": [],
+      "isInvalid": false,
       "start": 67,
       "end": 67
     }
@@ -319,7 +336,7 @@
       "code": 1004,
       "diagnostic": "Invalid number",
       "nodeOrToken": {
-        "kind": "<invalid>",
+        "kind": "<number>",
         "startPos": {
           "offset": 43,
           "line": 5,
@@ -333,6 +350,7 @@
         "value": "3a",
         "leadingTrivia": [],
         "trailingTrivia": [],
+        "isInvalid": true,
         "start": 43,
         "end": 45
       },

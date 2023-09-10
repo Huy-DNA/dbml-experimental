@@ -200,10 +200,8 @@ export default class Compiler {
         }
       }
       res.token = foundToken;
-      res.isLeadingInvalidToken =
-        foundToken.kind === SyntaxTokenKind.INVALID && offset < foundMember.start;
-      res.isTrailingInvalidToken =
-        foundToken.kind === SyntaxTokenKind.INVALID && offset >= foundMember.end;
+      res.isLeadingInvalidToken = foundToken.isInvalid && offset < foundMember.start;
+      res.isTrailingInvalidToken = foundToken.isInvalid && offset >= foundMember.end;
 
       if (isTriviaToken(foundToken)) {
         while (

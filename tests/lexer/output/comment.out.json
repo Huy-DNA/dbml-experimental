@@ -29,6 +29,7 @@
           "value": " This is a single-line comment\r",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 0,
           "end": 34
         },
@@ -47,6 +48,7 @@
           "value": "\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 35,
           "end": 36
         },
@@ -65,6 +67,7 @@
           "value": " This \r\nis\r\na\r\nmulti\r\n-\r\nline\r\ncomment\r\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 36,
           "end": 80
         },
@@ -83,6 +86,7 @@
           "value": "\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 81,
           "end": 82
         },
@@ -101,6 +105,7 @@
           "value": "\n",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 83,
           "end": 84
         },
@@ -119,6 +124,7 @@
           "value": " This is\r",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 84,
           "end": 96
         },
@@ -137,6 +143,7 @@
           "value": " a\r",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 96,
           "end": 102
         },
@@ -155,6 +162,7 @@
           "value": " bunch\r",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 102,
           "end": 112
         },
@@ -173,6 +181,7 @@
           "value": " of\r",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 112,
           "end": 119
         },
@@ -191,6 +200,7 @@
           "value": " single\r",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 119,
           "end": 130
         },
@@ -209,6 +219,7 @@
           "value": " line\r",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 130,
           "end": 139
         },
@@ -227,11 +238,13 @@
           "value": " comments",
           "leadingTrivia": [],
           "trailingTrivia": [],
+          "isInvalid": false,
           "start": 139,
           "end": 150
         }
       ],
       "trailingTrivia": [],
+      "isInvalid": false,
       "start": 150,
       "end": 150
     }
