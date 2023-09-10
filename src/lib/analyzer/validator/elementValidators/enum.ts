@@ -8,7 +8,7 @@ import {
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode } from '../../../parser/nodes';
-import { isExpressionAVariableNode, isExpressionAQuotedString } from '../../../utils';
+import { isExpressionAVariableNode, isExpressionAQuotedString } from '../../../parser/utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {

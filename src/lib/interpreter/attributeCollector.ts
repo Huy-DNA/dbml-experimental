@@ -10,7 +10,7 @@ import {
 import { extractQuotedStringToken, extractStringFromIdentifierStream } from '../analyzer/utils';
 import { CompileError, CompileErrorCode } from '../errors';
 import { isExpressionANumber } from '../analyzer/validator/utils';
-import { isExpressionAQuotedString } from '../utils';
+import { isExpressionAQuotedString } from '../parser/utils';
 import { InlineRef } from './types';
 import { ColumnSymbol } from '../analyzer/symbol/symbols';
 import { extractTokenForInterpreter, processRelOperand } from './utils';

@@ -1,4 +1,3 @@
-import { isAccessExpression, isExpressionAVariableNode, isExpressionAQuotedString } from '../utils';
 import { None, Option, Some } from '../option';
 import {
   ElementDeclarationNode,
@@ -15,6 +14,11 @@ import {
 import { isRelationshipOp } from './validator/utils';
 import { NodeSymbolIndex, isPublicSchemaIndex } from './symbol/symbolIndex';
 import { NodeSymbol } from './symbol/symbols';
+import {
+  isAccessExpression,
+  isExpressionAQuotedString,
+  isExpressionAVariableNode,
+} from '../parser/utils';
 
 export function destructureMemberAccessExpression(node: SyntaxNode): Option<SyntaxNode[]> {
   if (node instanceof PrimaryExpressionNode || node instanceof TupleExpressionNode) {

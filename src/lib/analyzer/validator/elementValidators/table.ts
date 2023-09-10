@@ -14,11 +14,6 @@ import {
   PrimaryExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
-import {
-  isAccessExpression,
-  isExpressionAVariableNode,
-  isExpressionAQuotedString,
-} from '../../../utils';
 import { destructureComplexVariable } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
@@ -42,6 +37,11 @@ import {
   createSchemaSymbolIndex,
 } from '../../symbol/symbolIndex';
 import { registerRelationshipOperand, transformToReturnCompileErrors } from './utils';
+import {
+  isAccessExpression,
+  isExpressionAQuotedString,
+  isExpressionAVariableNode,
+} from '../../../parser/utils';
 
 export default class TableValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLE;

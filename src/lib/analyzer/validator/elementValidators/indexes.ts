@@ -14,7 +14,7 @@ import {
   SyntaxNode,
   VariableNode,
 } from '../../../parser/nodes';
-import { isExpressionAQuotedString } from '../../../utils';
+import { isExpressionAQuotedString } from '../../../parser/utils';
 import { destructureIndex } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';

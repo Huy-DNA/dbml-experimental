@@ -11,7 +11,7 @@ describe('#binder', () => {
     const program = readFileSync(path.resolve(__dirname, `./input/${testName}.in.dbml`), 'utf-8');
     const compiler = new Compiler();
     compiler.setSource(program);
-    const output = serialize(compiler.parse(), true);
+    const output = serialize(compiler.parse.report() as any, true);
     it('should equal snapshot', () =>
       expect(output).toMatchFileSnapshot(path.resolve(__dirname, `./output/${testName}.out.json`)));
   });

@@ -9,7 +9,7 @@ import {
   SyntaxNode,
   VariableNode,
 } from '../../parser/nodes';
-import { isAccessExpression, isHexChar } from '../../utils';
+import { isHexChar } from '../../utils';
 import { destructureComplexVariable, isBinaryRelationship } from '../utils';
 import CustomValidator from './elementValidators/custom';
 import EnumValidator from './elementValidators/enum';
@@ -23,6 +23,7 @@ import { createSchemaSymbolIndex } from '../symbol/symbolIndex';
 import { SchemaSymbol } from '../symbol/symbols';
 import SymbolTable from '../symbol/symbolTable';
 import SymbolFactory from '../symbol/factory';
+import { isAccessExpression } from '../../parser/utils';
 
 // Pick a validator suitable for `element`
 export function pickValidator(element: ElementDeclarationNode) {
