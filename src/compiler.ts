@@ -25,7 +25,6 @@ import Interpreter from './lib/interpreter/interpreter';
 import Database from './lib/model_structure/database';
 import { SyntaxToken, SyntaxTokenKind, isTriviaToken } from './lib/lexer/tokens';
 import {
-  findNameForSymbol,
   getMemberChain,
   isOffsetWithinFullSpan,
   isOffsetWithinSpan,
