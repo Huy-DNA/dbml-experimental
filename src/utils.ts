@@ -114,26 +114,6 @@ export function getMemberChain(node: SyntaxNode): Readonly<(SyntaxNode | SyntaxT
   throw new Error('Unreachable - no other possible cases');
 }
 
-export function findNameForSymbol(symbol: NodeSymbol): Option<string> {
-  const { declaration } = symbol;
-  if (!declaration) {
-    return new None();
-  }
-  if (declaration instanceof ElementDeclarationNode) {
-    return declaration.name ?
-      extractVariableFromExpression(declaration.alias || declaration.name) :
-      new None();
-  }
-  if (declaration instanceof FunctionApplicationNode) {
-    return extractVariableFromExpression(declaration.callee);
-  }
-  if (declaration instanceof PrimaryExpressionNode) {
-    return extractVariableFromExpression(declaration);
-  }
-
-  return new None();
-}
-
 export function isOffsetWithinFullSpan(
   offset: number,
   nodeOrToken: SyntaxNode | SyntaxToken,

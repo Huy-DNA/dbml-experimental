@@ -229,17 +229,18 @@ export default class Compiler {
   // Return all possible symbols corresponding to a stack of name
   symbolsOfName = this.createQuery(
     Query.SymbolsOfName,
-    (nameStack: string[]): { symbol: NodeSymbol; index: NodeSymbolIndex }[] => {
+    (nameStack: string[]): { symbol: NodeSymbol; kind: SymbolKind; name: string }[] => {
       const { symbolTable } = this.parse().getValue().symbol!;
       let currentPossibleSymbolTables: SymbolTable[] = [symbolTable!];
-      let currentPossibleSymbols: { symbol: NodeSymbol; index: NodeSymbolIndex }[] = [];
+      let currentPossibleSymbols: { symbol: NodeSymbol; kind: SymbolKind; name: string }[] = [];
       // eslint-disable-next-line no-restricted-syntax
       for (const name of nameStack) {
         currentPossibleSymbols = currentPossibleSymbolTables.flatMap((st) =>
           generatePossibleIndexes(name).flatMap((index) => {
             const symbol = st.get(index);
+            const res = destructureIndex(index).unwrap_or(undefined);
 
-            return !symbol ? [] : { index, symbol };
+            return !symbol || !res ? [] : { ...res, symbol };
           }));
         currentPossibleSymbolTables = currentPossibleSymbols.flatMap((e) =>
           (e.symbol.symbolTable ? e.symbol.symbolTable : []));
@@ -265,8 +266,6 @@ export default class Compiler {
     (nameStack: string[]): { symbol: NodeSymbol; kind: SymbolKind; name: string }[] =>
       this.symbolsOfName(nameStack).flatMap(({ symbol }) => this.membersOfSymbol(symbol)),
   );
-
-  nameOfSymbol = this.createQuery(Query.NameOfSymbol, findNameForSymbol);
 
   // Return information about the enclosing scope at the point of `offset`
   scope = this.createQuery(
