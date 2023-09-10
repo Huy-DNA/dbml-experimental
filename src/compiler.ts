@@ -1,7 +1,3 @@
-import { getMemberChain } from './lib/parser/utils';
-import { hasTrailingNewLines } from './lib/lexer/utils';
-import { getMemberChain } from './lib/parser/utils';
-import { hasTrailingNewLines } from './lib/lexer/utils';
 import { SymbolKind, destructureIndex } from './lib/analyzer/symbol/symbolIndex';
 import { generatePossibleIndexes } from './lib/analyzer/symbol/utils';
 import SymbolTable from './lib/analyzer/symbol/symbolTable';
@@ -34,6 +30,8 @@ import Interpreter from './lib/interpreter/interpreter';
 import Database from './lib/model_structure/database';
 import { SyntaxToken, isTriviaToken } from './lib/lexer/tokens';
 import { None, Option, Some } from './lib/option';
+import { hasTrailingNewLines } from './lib/lexer/utils';
+import { getMemberChain } from './lib/parser/utils';
 
 const enum Query {
   _Interpret,
@@ -41,7 +39,6 @@ const enum Query {
   Parse_Errors,
   Parse_RawDb,
   Parse_Tokens,
-  Parse_Report,
   Parse_PublicSymbolTable,
   Token_NonTrivial_BeforeOrContain,
   Token_NonTrivial_AfterOrContain,
@@ -236,7 +233,7 @@ export default class Compiler {
     _: this.createQuery(
       Query._Interpret,
       (): Report<
-        { ast: Readonly<ProgramNode>; tokens: Readonly<SyntaxToken[]>; rawDb?: Database },
+        Readonly<{ ast: ProgramNode; tokens: SyntaxToken[]; rawDb?: Database }>,
         CompileError
       > => {
         const parseRes = new Lexer(this.source)
@@ -249,9 +246,40 @@ export default class Compiler {
           .chain(({ ast, tokens }) => {
             const analyzer = new Analyzer(ast, this.symbolIdGenerator);
 
-          return analyzer.analyze();
-        }),
-  );
+            return analyzer.analyze().map(() => ({ ast, tokens }));
+          });
+        if (parseRes.getErrors().length > 0) {
+          return parseRes;
+        }
+
+        return parseRes.chain(({ ast, tokens }) => {
+          const interpreter = new Interpreter(ast);
+
+          return interpreter
+            .interpret()
+            .map((interpretedRes) => ({ ast, tokens, rawDb: new Database(interpretedRes) }));
+        });
+      },
+    ),
+    ast: this.createQuery(
+      Query.Parse_Ast,
+      (): Readonly<ProgramNode> => this.parse._().getValue().ast,
+    ),
+    errors: this.createQuery(Query.Parse_Errors, (): readonly Readonly<CompileError>[] =>
+      this.parse._().getErrors()),
+    tokens: this.createQuery(
+      Query.Parse_Tokens,
+      (): readonly Readonly<SyntaxToken>[] => this.parse._().getValue().tokens,
+    ),
+    rawDb: this.createQuery(
+      Query.Parse_RawDb,
+      (): Readonly<Database> | undefined => this.parse._().getValue().rawDb,
+    ),
+    publicSymbolTable: this.createQuery(
+      Query.Parse_PublicSymbolTable,
+      (): Readonly<SymbolTable> => this.parse._().getValue().ast.symbol!.symbolTable!,
+    ),
+  };
 
   // Find the stack of nodes/tokens, with the latter being nested inside the former
   // that contains `offset`
