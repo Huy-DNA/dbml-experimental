@@ -73,10 +73,7 @@ export default class Lexer {
       return false;
     }
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const _ of sequence) {
-      this.advance();
-    }
+    sequence.split('').forEach(() => this.advance());
 
     return true;
   }

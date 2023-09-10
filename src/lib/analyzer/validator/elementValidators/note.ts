@@ -3,7 +3,7 @@ import { UnresolvedName } from '../../types';
 import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode, SyntaxNode } from '../../../parser/nodes';
-import { isExpressionAQuotedString } from '../../../utils';
+import { isExpressionAQuotedString } from '../../../parser/utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {

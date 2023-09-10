@@ -1,7 +1,14 @@
+import { getMemberChain } from './lib/parser/utils';
+import { hasTrailingNewLines } from './lib/lexer/utils';
 import { SymbolKind, destructureIndex } from './lib/analyzer/symbol/symbolIndex';
 import { generatePossibleIndexes } from './lib/analyzer/symbol/utils';
 import SymbolTable from './lib/analyzer/symbol/symbolTable';
-import { last } from './lib/utils';
+import {
+  isOffsetWithinFullSpan,
+  isOffsetWithinSpan,
+  last,
+  returnIfIsOffsetWithinFullSpan,
+} from './lib/utils';
 import { CompileError } from './lib/errors';
 import {
   AttributeNode,
@@ -24,23 +31,23 @@ import Analyzer from './lib/analyzer/analyzer';
 import Interpreter from './lib/interpreter/interpreter';
 import Database from './lib/model_structure/database';
 import { SyntaxToken, isTriviaToken } from './lib/lexer/tokens';
-import {
-  getMemberChain,
-  isOffsetWithinFullSpan,
-  isOffsetWithinSpan,
-  returnIfIsOffsetWithinFullSpan,
-} from './utils';
 import { None, Option, Some } from './lib/option';
 
 const enum Query {
-  Parse,
-  Lex,
-  NonTrivialBeforeOrContainingToken,
-  EmitRawDb,
-  SymbolsOfName,
-  NameOfSymbol,
+  _Interpret,
+  Parse_Ast,
+  Parse_Errors,
+  Parse_RawDb,
+  Parse_Tokens,
+  Parse_Report,
+  Parse_PublicSymbolTable,
+  Token_NonTrivial_BeforeOrContain,
+  Token_NonTrivial_AfterOrContain,
+  Token_NonTrivial_FirstOfLine,
+  Token_FlatStream,
+  Symbol_OfName,
+  Symbol_Members,
   MembersOfName,
-  MembersOfSymbol,
   ScopeKindOfNode,
   Containers,
   Context,
@@ -50,6 +57,47 @@ const enum Query {
 }
 
 type Cache = Map<any, any> | any;
+
+export enum ScopeKind {
+  TABLE,
+  ENUM,
+  TABLEGROUP,
+  INDEXES,
+  NOTE,
+  REF,
+  PROJECT,
+  TOPLEVEL,
+}
+
+export type ContextInfo = Readonly<{
+  scope?: { kind: ScopeKind; symbolTable: SymbolTable | undefined };
+  element?: {
+    node: ElementDeclarationNode;
+    type?: SyntaxToken;
+    name?: SyntaxNode;
+    as?: SyntaxToken;
+    alias?: SyntaxNode;
+    settingList?: {
+      node: SyntaxNode;
+      attribute?: SyntaxNode;
+      name?: SyntaxNode;
+      value?: SyntaxNode;
+    };
+    body?: SyntaxNode;
+  };
+
+  subfield?: {
+    node: SyntaxNode;
+    callee?: SyntaxNode;
+    arg?: SyntaxNode;
+    settingList?: {
+      node: SyntaxNode;
+      attribute?: SyntaxNode;
+      name?: SyntaxNode;
+      value?: SyntaxNode;
+    };
+  };
+}>;
 
 export default class Compiler {
   private source = '';
@@ -100,68 +148,149 @@ export default class Compiler {
     this.symbolIdGenerator.reset();
   }
 
-  // Warning: calling this function mutates the cached `parse` query result
-  // However, it should not matter in most cases
-  emitRawDbFromDBML = this.createQuery(Query.EmitRawDb, (): Database => {
-    const parseRes = this.parse();
-    const parseErrors = parseRes.getErrors();
-    if (parseErrors.length > 0) {
-      throw parseErrors;
-    }
+  // A namespace for token-related queries
+  readonly token = {
+    stream: () => this.parse.tokens(),
+    // Invalid tokens (which are guarenteed to be non-trivials) are included in the stream
+    flatStream: this.createQuery(Query.Token_FlatStream, (): readonly SyntaxToken[] =>
+      this.token
+        .stream()
+        .flatMap((token) => [...token.leadingInvalid, token, ...token.trailingInvalid])),
+    // A namespace for non-trivial token-related queries
+    nonTrivial: {
+      // Return the index in the flatStream of the last token before/containing the offset
+      beforeOrContain: this.createQuery(
+        Query.Token_NonTrivial_BeforeOrContain,
+        (offset: number): Option<number> => {
+          const id = this.token.flatStream().findIndex((token) => token.start > offset) - 1;
 
-    const parseValue = parseRes.getValue();
-    const intepreter = new Interpreter(parseValue);
-    const interpretRes = intepreter.interpret();
-    const interpretErrors = interpretRes.getErrors();
-    if (interpretErrors.length > 0) {
-      throw interpretErrors;
-    }
+          return id >= 0 ? new Some(id) : new None();
+        },
+      ),
+      // Return the index in the flatStream of the first token after/containing the offset
+      afterOrContain: this.createQuery(
+        Query.Token_NonTrivial_AfterOrContain,
+        (offset: number): Option<number> => {
+          const id = this.token.nonTrivial.beforeOrContain(offset).unwrap_or(-1);
+          if (id === -1) {
+            return new Some(0);
+          }
+          if (isOffsetWithinSpan(offset, this.token.flatStream()[id])) {
+            return new Some(id);
+          }
 
-    return new Database(interpretRes.getValue());
-  });
+          return id === this.token.flatStream().length ? new None() : new Some(id + 1);
+        },
+      ),
+      // Return the index in the flatStream of the last token before the offset
+      lastBefore: this.createQuery(
+        Query.Token_NonTrivial_BeforeOrContain,
+        (offset: number): Option<number> => {
+          const id = this.token.nonTrivial.afterOrContain(offset).unwrap_or(-1);
 
-  lex = this.createQuery(
-    Query.Lex,
-    (): Report<Readonly<SyntaxToken[]>, CompileError> => new Lexer(this.source).lex(),
-  );
+          if (id === -1) {
+            const len = this.token.flatStream().length;
 
-  // Find the last non-trivial token that contains or right before the offset
-  nonTrivialBeforeOrContainingToken = this.createQuery(
-    Query.NonTrivialBeforeOrContainingToken,
-    (offset: number): Option<SyntaxToken> => {
-      let lastFoundToken: SyntaxToken | undefined;
-      // eslint-disable-next-line no-restricted-syntax
-      for (const token of this.lex().getValue()) {
-        if (token.start <= offset) {
-          lastFoundToken = token;
-        } else {
-          lastFoundToken =
-            token.leadingInvalid.reverse().find((t) => t.start <= offset) ||
-            lastFoundToken?.trailingInvalid.reverse().find((t) => t.start <= offset) ||
-            lastFoundToken;
-          break;
-        }
-      }
+            return len === 0 ? new None() : new Some(len - 1);
+          }
 
-      return lastFoundToken ? new Some(lastFoundToken) : new None();
+          return id === 0 ? new None() : new Some(id - 1);
+        },
+      ),
+      // Return the index in the flatStream of the first token after the offset
+      firstAfter: this.createQuery(
+        Query.Token_NonTrivial_AfterOrContain,
+        (offset: number): Option<number> => {
+          const id = this.token.nonTrivial.beforeOrContain(offset).unwrap_or(-1);
+          const len = this.token.flatStream().length;
+
+          if (id === -1) {
+            return len === 0 ? new None() : new Some(0);
+          }
+
+          return id === len - 1 ? new None() : new Some(id);
+        },
+      ),
+      beforeOrContainOnSameLine: this.createQuery(
+        Query.Token_NonTrivial_FirstOfLine,
+        (offset: number): Option<number> => {
+          const id = this.token.nonTrivial.beforeOrContain(offset).unwrap_or(-1);
+          if (id === -1) {
+            return new None();
+          }
+          const token = this.token.flatStream()[id];
+          if (hasTrailingNewLines(token)) {
+            return new None();
+          }
+
+          return new Some(id);
+        },
+      ),
     },
-  );
+  };
 
-  parse = this.createQuery(
-    Query.Parse,
-    (): Report<Readonly<ProgramNode>, CompileError> =>
-      this.lex()
-        .chain((tokens) => {
-          const parser = new Parser(tokens as SyntaxToken[], this.nodeIdGenerator);
+  // A namespace for parsing-related utility
+  readonly parse = {
+    _: this.createQuery(
+      Query._Interpret,
+      (): Report<
+        { ast: Readonly<ProgramNode>; tokens: Readonly<SyntaxToken[]>; rawDb?: Database },
+        CompileError
+      > => {
+        const parseRes = new Lexer(this.source)
+          .lex()
+          .chain((tokens) => {
+            const parser = new Parser(tokens as SyntaxToken[], this.nodeIdGenerator);
 
-          return parser.parse();
-        })
-        .chain((ast) => {
-          const analyzer = new Analyzer(ast, this.symbolIdGenerator);
+            return parser.parse().map((ast) => ({ ast, tokens }));
+          })
+          .chain(({ ast, tokens }) => {
+            const analyzer = new Analyzer(ast, this.symbolIdGenerator);
 
-          return analyzer.analyze();
-        }),
-  );
+            return analyzer.analyze().map(() => ({ ast, tokens }));
+          });
+
+        return parseRes.getErrors().length > 0 ?
+          parseRes :
+          parseRes.chain(({ ast, tokens }) => {
+              const interpreter = new Interpreter(ast);
+
+              return interpreter.interpret().map((interpretRes) => ({ rawDb: new Database(interpretRes), ast, tokens }));
+            });
+      },
+    ),
+
+    tokens: this.createQuery(
+      Query.Parse_Tokens,
+      (): readonly SyntaxToken[] => this.parse._().getValue().tokens,
+    ),
+
+    ast: this.createQuery(
+      Query.Parse_Ast,
+      (): Readonly<ProgramNode> => this.parse._().getValue().ast,
+    ),
+
+    errors: this.createQuery(
+      Query.Parse_Errors,
+      (): Readonly<readonly CompileError[]> => this.parse._().getErrors(),
+    ),
+
+    report: this.createQuery(
+      Query.Parse_Report,
+      (): Readonly<Report<ProgramNode, CompileError>> =>
+        new Report(this.parse.ast(), this.parse.errors() as any),
+    ),
+
+    rawDb: this.createQuery(
+      Query.Parse_RawDb,
+      (): Readonly<Database> | undefined => this.parse._().getValue().rawDb,
+    ),
+
+    publicSymbolTable: this.createQuery(
+      Query.Parse_PublicSymbolTable,
+      (): Readonly<SymbolTable> => this.parse.ast().symbol!.symbolTable!,
+    ),
+  };
 
   // Find the stack of nodes/tokens, with the latter being nested inside the former
   // that contains `offset`
@@ -169,12 +298,14 @@ export default class Compiler {
     Query.Containers,
     (
       offset: number,
-    ): Option<{
-      containerStack: SyntaxNode[];
-      token: SyntaxToken;
-      isLeadingInvalidToken: boolean;
-      isTrailingInvalidToken: boolean;
-    }> => {
+    ): Option<
+      Readonly<{
+        containerStack: SyntaxNode[];
+        token: Readonly<SyntaxToken>;
+        isLeadingInvalidToken: boolean;
+        isTrailingInvalidToken: boolean;
+      }>
+    > => {
       const res: {
         containerStack: SyntaxNode[];
         token?: SyntaxToken;
@@ -186,122 +317,76 @@ export default class Compiler {
         isLeadingInvalidToken: false,
         isTrailingInvalidToken: false,
       };
-      this.findInNode(this.parse().getValue(), offset, res);
+      containersDelegate(this.parse.ast(), offset, res);
 
       return res.token ? (new Some(res) as any) : new None();
     },
   );
 
-  /* Helper for `containers` */
-  private findInNode(
-    node: SyntaxNode,
-    offset: number,
-    res: {
-      containerStack: SyntaxNode[];
-      token?: SyntaxToken;
-      isLeadingInvalidToken: boolean;
-      isTrailingInvalidToken: boolean;
-    },
-  ) {
-    res.containerStack.push(node);
-    const members = getMemberChain(node);
-    const foundMember = members.find((m) => isOffsetWithinFullSpan(offset, m));
+  // A namespace for symbol-related queries
+  readonly symbol = {
+    ofName: this.createQuery(
+      Query.Symbol_OfName,
+      (
+        nameStack: string[],
+      ): readonly Readonly<{ symbol: NodeSymbol; kind: SymbolKind; name: string }>[] => {
+        const { symbolTable } = this.parse.ast().symbol!;
+        let currentPossibleSymbolTables: SymbolTable[] = [symbolTable!];
+        let currentPossibleSymbols: { symbol: NodeSymbol; kind: SymbolKind; name: string }[] = [];
+        // eslint-disable-next-line no-restricted-syntax
+        for (const name of nameStack) {
+          currentPossibleSymbols = currentPossibleSymbolTables.flatMap((st) =>
+            generatePossibleIndexes(name).flatMap((index) => {
+              const symbol = st.get(index);
+              const res = destructureIndex(index).unwrap_or(undefined);
 
-    if (!foundMember) {
-      return;
-    }
-
-    if (foundMember instanceof SyntaxToken) {
-      let foundToken = foundMember;
-      while (foundToken && !isOffsetWithinSpan(offset, foundToken)) {
-        if (offset < foundToken.start) {
-          foundToken = (foundMember as SyntaxToken).leadingTrivia.find((token) =>
-            isOffsetWithinFullSpan(offset, token))!;
-        } else {
-          foundToken = (foundMember as SyntaxToken).trailingTrivia.find((token) =>
-            isOffsetWithinFullSpan(offset, token))!;
+              return !symbol || !res ? [] : { ...res, symbol };
+            }));
+          currentPossibleSymbolTables = currentPossibleSymbols.flatMap((e) =>
+            (e.symbol.symbolTable ? e.symbol.symbolTable : []));
         }
-      }
-      res.token = foundToken;
-      res.isLeadingInvalidToken = foundToken.isInvalid && offset < foundMember.start;
-      res.isTrailingInvalidToken = foundToken.isInvalid && offset >= foundMember.end;
 
-      if (isTriviaToken(foundToken)) {
-        while (
-          res.containerStack.length !== 0 &&
-          !isOffsetWithinSpan(offset, last(res.containerStack)!)
-        ) {
-          // In this case, the trivia token was added to the node only because it was invalid
-          // and it happens to be at right before or after the node
-          // so we shouldn't consider the node to be its container
-          res.containerStack.pop();
-        }
-      }
-
-      return;
-    }
-
-    if (!(foundMember instanceof SyntaxToken)) {
-      this.findInNode(foundMember, offset, res);
-    }
-  }
+        return currentPossibleSymbols;
+      },
+    ),
+    members: this.createQuery(
+      Query.Symbol_Members,
+      (
+        ownerSymbol: NodeSymbol,
+      ): readonly Readonly<{ symbol: NodeSymbol; kind: SymbolKind; name: string }>[] =>
+        (ownerSymbol.symbolTable ?
+          [...ownerSymbol.symbolTable.entries()].map(([index, symbol]) => ({
+              ...destructureIndex(index).unwrap(),
+              symbol,
+            })) :
+          []),
+    ),
+  };
 
   // Return all possible symbols corresponding to a stack of name
-  symbolsOfName = this.createQuery(
-    Query.SymbolsOfName,
-    (nameStack: string[]): { symbol: NodeSymbol; kind: SymbolKind; name: string }[] => {
-      const { symbolTable } = this.parse().getValue().symbol!;
-      let currentPossibleSymbolTables: SymbolTable[] = [symbolTable!];
-      let currentPossibleSymbols: { symbol: NodeSymbol; kind: SymbolKind; name: string }[] = [];
-      // eslint-disable-next-line no-restricted-syntax
-      for (const name of nameStack) {
-        currentPossibleSymbols = currentPossibleSymbolTables.flatMap((st) =>
-          generatePossibleIndexes(name).flatMap((index) => {
-            const symbol = st.get(index);
-            const res = destructureIndex(index).unwrap_or(undefined);
-
-            return !symbol || !res ? [] : { ...res, symbol };
-          }));
-        currentPossibleSymbolTables = currentPossibleSymbols.flatMap((e) =>
-          (e.symbol.symbolTable ? e.symbol.symbolTable : []));
-      }
-
-      return currentPossibleSymbols;
-    },
-  );
-
-  membersOfSymbol = this.createQuery(
-    Query.MembersOfSymbol,
-    (ownerSymbol: NodeSymbol): { symbol: NodeSymbol; kind: SymbolKind; name: string }[] =>
-      (ownerSymbol.symbolTable ?
-        [...ownerSymbol.symbolTable.entries()].map(([index, symbol]) => ({
-            ...destructureIndex(index).unwrap(),
-            symbol,
-          })) :
-        []),
-  );
-
   membersOfName = this.createQuery(
     Query.MembersOfName,
-    (nameStack: string[]): { symbol: NodeSymbol; kind: SymbolKind; name: string }[] =>
-      this.symbolsOfName(nameStack).flatMap(({ symbol }) => this.membersOfSymbol(symbol)),
+    (
+      nameStack: string[],
+    ): readonly Readonly<{ symbol: NodeSymbol; kind: SymbolKind; readonly name: string }>[] =>
+      this.symbol.ofName(nameStack).flatMap(({ symbol }) => this.symbol.members(symbol)),
   );
 
   // Return information about the enclosing scope at the point of `offset`
   scope = this.createQuery(
     Query.Scope,
-    (offset: number): Option<{ kind: ScopeKind; symbolTable?: SymbolTable }> => {
+    (
+      offset: number,
+    ): Option<Readonly<{ kind: ScopeKind; symbolTable: SymbolTable | undefined }>> => {
       const res = this.containers(offset);
       if (!res.isOk()) {
         return new None();
       }
       const containerStack = [...res.unwrap().containerStack];
 
-      while (true) {
-        const container = containerStack.pop();
-        if (!container) {
-          return new None();
-        }
+      while (last(containerStack)) {
+        const container = containerStack.pop()!;
+
         if (container instanceof ElementDeclarationNode || container instanceof ProgramNode) {
           const scopeKind = this.scopeKindOfNode(container).unwrap_or(undefined);
 
@@ -313,13 +398,15 @@ export default class Compiler {
           }
         }
       }
+
+      return new None();
     },
   );
 
   // Return the kind of the scope associated with a symbol
   scopeKindOfNode = this.createQuery(
     Query.ScopeKindOfNode,
-    (node: ElementDeclarationNode | ProgramNode): Option<ScopeKind> => {
+    (node: ElementDeclarationNode | ProgramNode): Option<Readonly<ScopeKind>> => {
       if (node instanceof ProgramNode) {
         return new Some(ScopeKind.TOPLEVEL);
       }
@@ -346,7 +433,7 @@ export default class Compiler {
     },
   );
 
-  context = this.createQuery(Query.Context, (offset: number): Option<ContextInfo> => {
+  context = this.createQuery(Query.Context, (offset: number): Option<Readonly<ContextInfo>> => {
     const res = this.containers(offset);
     if (!res.isOk()) {
       return new None();
@@ -398,6 +485,7 @@ export default class Compiler {
     return new Some({
       scope: this.scope(offset).unwrap_or(undefined),
       element: firstParent && {
+        node: firstParent,
         type: returnIfIsOffsetWithinFullSpan(offset, firstParent.type),
         name: returnIfIsOffsetWithinFullSpan(offset, firstParent.name),
         as: returnIfIsOffsetWithinFullSpan(offset, firstParent.as),
@@ -431,42 +519,56 @@ export default class Compiler {
   });
 }
 
-export enum ScopeKind {
-  TABLE,
-  ENUM,
-  TABLEGROUP,
-  INDEXES,
-  NOTE,
-  REF,
-  PROJECT,
-  TOPLEVEL,
+/* Helper for `containers` */
+function containersDelegate(
+  node: SyntaxNode,
+  offset: number,
+  res: {
+    containerStack: SyntaxNode[];
+    token?: SyntaxToken;
+    isLeadingInvalidToken: boolean;
+    isTrailingInvalidToken: boolean;
+  },
+) {
+  res.containerStack.push(node);
+  const members = getMemberChain(node);
+  const foundMember = members.find((m) => isOffsetWithinFullSpan(offset, m));
+
+  if (!foundMember) {
+    return;
+  }
+
+  if (foundMember instanceof SyntaxToken) {
+    let foundToken = foundMember;
+    while (foundToken && !isOffsetWithinSpan(offset, foundToken)) {
+      if (offset < foundToken.start) {
+        foundToken = (foundMember as SyntaxToken).leadingTrivia.find((token) =>
+          isOffsetWithinFullSpan(offset, token))!;
+      } else {
+        foundToken = (foundMember as SyntaxToken).trailingTrivia.find((token) =>
+          isOffsetWithinFullSpan(offset, token))!;
+      }
+    }
+    res.token = foundToken;
+    res.isLeadingInvalidToken = foundToken.isInvalid && offset < foundMember.start;
+    res.isTrailingInvalidToken = foundToken.isInvalid && offset >= foundMember.end;
+
+    if (isTriviaToken(foundToken)) {
+      while (
+        res.containerStack.length !== 0 &&
+        !isOffsetWithinSpan(offset, last(res.containerStack)!)
+      ) {
+        // In this case, the trivia token was added to the node only because it was invalid
+        // and it happens to be at right before or after the node
+        // so we shouldn't consider the node to be its container
+        res.containerStack.pop();
+      }
+    }
+
+    return;
+  }
+
+  if (!(foundMember instanceof SyntaxToken)) {
+    containersDelegate(foundMember, offset, res);
+  }
 }
-
-export type ContextInfo = {
-  scope?: { kind: ScopeKind; symbolTable?: SymbolTable };
-  element?: {
-    type?: SyntaxToken;
-    name?: SyntaxNode;
-    as?: SyntaxToken;
-    alias?: SyntaxNode;
-    settingList?: {
-      node: SyntaxNode;
-      attribute?: SyntaxNode;
-      name?: SyntaxNode;
-      value?: SyntaxNode;
-    };
-    body?: SyntaxNode;
-  };
-
-  subfield?: {
-    node: SyntaxNode;
-    callee?: SyntaxNode;
-    arg?: SyntaxNode;
-    settingList?: {
-      node: SyntaxNode;
-      attribute?: SyntaxNode;
-      name?: SyntaxNode;
-      value?: SyntaxNode;
-    };
-  };
-};

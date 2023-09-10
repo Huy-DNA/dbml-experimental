@@ -15,7 +15,6 @@ import {
   InfixExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
-import { isExpressionAVariableNode } from '../../../utils';
 import { extractStringFromIdentifierStream } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
@@ -28,6 +27,7 @@ import {
   optionalNameConfig,
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
+import { isExpressionAVariableNode } from '../../../parser/utils';
 
 export default class RefValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.REF;

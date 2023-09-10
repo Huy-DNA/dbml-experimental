@@ -35,6 +35,7 @@ import {
   VariableNode,
 } from './nodes';
 import NodeFactory from './factory';
+import { hasTrailingNewLines, hasTrailingSpaces, isAtStartOfLine } from '../lexer/utils';
 
 export default class Parser {
   private tokens: SyntaxToken[];
@@ -64,6 +65,7 @@ export default class Parser {
       return last(this.tokens)!; // The EOF
     }
 
+    // eslint-disable-next-line no-plusplus
     return this.tokens[this.current++];
   }
 
@@ -336,7 +338,7 @@ export default class Parser {
     let prevNode = callee;
 
     while (!this.isAtEnd() && !this.shouldStopExpression()) {
-      if (!this.hasTrailingSpaces(this.previous())) {
+      if (!hasTrailingSpaces(this.previous())) {
         this.logError(prevNode, CompileErrorCode.MISSING_SPACES, 'Expect a following space');
       }
       prevNode = this.normalExpression();
@@ -351,7 +353,7 @@ export default class Parser {
   }
 
   private shouldStopExpression() {
-    if (this.hasTrailingNewLines(this.previous())) {
+    if (hasTrailingNewLines(this.previous())) {
       return true;
     }
 
@@ -409,7 +411,7 @@ export default class Parser {
           // consider it part of another expression if
           // it's at the start of a new line
           // and we're currently not having unmatched '(' or '['
-          this.isAtStartOfLine(this.previous(), token) &&
+          isAtStartOfLine(this.previous(), token) &&
           !this.contextStack.isWithinGroupExpressionContext() &&
           !this.contextStack.isWithinListExpressionContext()
         ) {
@@ -550,7 +552,7 @@ export default class Parser {
     markInvalid(this.advance());
     while (!this.isAtEnd()) {
       const token = this.peek();
-      if (this.check(SyntaxTokenKind.RBRACE) || this.isAtStartOfLine(this.previous(), token)) {
+      if (this.check(SyntaxTokenKind.RBRACE) || isAtStartOfLine(this.previous(), token)) {
         break;
       }
       markInvalid(token);
@@ -804,23 +806,6 @@ export default class Parser {
     return identifiers.length === 0 ?
       undefined :
       this.nodeFactory.create(IdentiferStreamNode, { identifiers });
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private hasTrailingNewLines(token: SyntaxToken): boolean {
-    return token.trailingTrivia.find(({ kind }) => kind === SyntaxTokenKind.NEWLINE) !== undefined;
-  }
-
-  private isAtStartOfLine(previous: SyntaxToken, token: SyntaxToken): boolean {
-    const hasLeadingNewLines =
-      token.leadingTrivia.find(({ kind }) => kind === SyntaxTokenKind.NEWLINE) !== undefined;
-
-    return hasLeadingNewLines || this.hasTrailingNewLines(previous);
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private hasTrailingSpaces(token: SyntaxToken): boolean {
-    return token.trailingTrivia.find(({ kind }) => kind === SyntaxTokenKind.SPACE) !== undefined;
   }
 
   private logError(nodeOrToken: SyntaxToken | SyntaxNode, code: CompileErrorCode, message: string) {

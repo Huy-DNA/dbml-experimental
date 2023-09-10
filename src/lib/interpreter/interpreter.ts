@@ -452,6 +452,7 @@ export default class Interpreter {
     return proj;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private custom(element: ElementDeclarationNode): string {
     return extractQuotedStringToken(element.body)!;
   }
@@ -492,6 +493,7 @@ export default class Interpreter {
     };
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private note(
     element: ElementDeclarationNode,
   ): { value: string; token: TokenPosition } | undefined {

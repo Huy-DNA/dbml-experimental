@@ -2,7 +2,7 @@ import Report from '../../report';
 import { CompileError } from '../../errors';
 import { ProgramNode } from '../../parser/nodes';
 import { ContextStack } from './validatorContext';
-import { NodeSymbolIdGenerator, SchemaSymbol } from '../symbol/symbols';
+import { SchemaSymbol } from '../symbol/symbols';
 import SymbolFactory from '../symbol/factory';
 import { pickValidator } from './utils';
 import { ElementKind } from './types';

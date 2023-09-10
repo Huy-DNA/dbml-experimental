@@ -47,6 +47,7 @@
     "array-callback-return": "off",
     "lines-between-class-members": "off",
     "no-redeclare": "off",
-    "@typescript-eslint/no-redeclare": "error"
+    "@typescript-eslint/no-redeclare": "error",
+    "no-underscore-dangle": "off"
   }
 }

@@ -19,7 +19,7 @@ import {
   ListExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
-import { extractVariableNode } from '../../../utils';
+import { extractVariableNode } from '../../../parser/utils';
 import { destructureComplexVariable, extractStringFromIdentifierStream } from '../../utils';
 import { ContextStack, canBeNestedWithin } from '../validatorContext';
 import {
