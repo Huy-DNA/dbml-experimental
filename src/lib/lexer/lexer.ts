@@ -241,7 +241,7 @@ export default class Lexer {
     }
 
     let prevValidToken = this.tokens[i];
-    prevValidToken.leadingInvalid = [...leadingInvalidList, ...prevValidToken.leadingTrivia];
+    prevValidToken.leadingInvalid = [...leadingInvalidList, ...prevValidToken.leadingInvalid];
 
     for (i += 1; i < this.tokens.length; i += 1) {
       const token = this.tokens[i];
