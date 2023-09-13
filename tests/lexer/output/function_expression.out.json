@@ -174,71 +174,6 @@
       "end": 13
     },
     {
-      "kind": "<function-expression>",
-      "startPos": {
-        "offset": 18,
-        "line": 2,
-        "column": 0
-      },
-      "endPos": {
-        "offset": 20,
-        "line": 2,
-        "column": 2
-      },
-      "value": "`\r",
-      "leadingTrivia": [
-        {
-          "kind": "<newline>",
-          "startPos": {
-            "offset": 17,
-            "line": 1,
-            "column": 1
-          },
-          "endPos": {
-            "offset": 18,
-            "line": 2,
-            "column": 0
-          },
-          "value": "\n",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 17,
-          "end": 18
-        }
-      ],
-      "trailingTrivia": [
-        {
-          "kind": "<newline>",
-          "startPos": {
-            "offset": 20,
-            "line": 2,
-            "column": 2
-          },
-          "endPos": {
-            "offset": 21,
-            "line": 3,
-            "column": 0
-          },
-          "value": "\n",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 20,
-          "end": 21
-        }
-      ],
-      "leadingInvalid": [],
-      "trailingInvalid": [],
-      "isInvalid": true,
-      "start": 18,
-      "end": 20
-    },
-    {
       "kind": "<identifier>",
       "startPos": {
         "offset": 25,
@@ -473,27 +408,6 @@
       "isInvalid": false,
       "start": 30,
       "end": 31
-    },
-    {
-      "kind": "<function-expression>",
-      "startPos": {
-        "offset": 33,
-        "line": 4,
-        "column": 0
-      },
-      "endPos": {
-        "offset": 34,
-        "line": 4,
-        "column": 1
-      },
-      "value": "`",
-      "leadingTrivia": [],
-      "trailingTrivia": [],
-      "leadingInvalid": [],
-      "trailingInvalid": [],
-      "isInvalid": true,
-      "start": 33,
-      "end": 34
     },
     {
       "kind": "<eof>",

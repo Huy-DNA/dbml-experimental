@@ -4,7 +4,6 @@ import { describe, expect, it } from 'vitest';
 import { scanTestNames } from '../jestHelpers';
 import { Compiler } from '../../src';
 import Report from '../../src/lib/report';
-import Report from '../../src/lib/report';
 
 describe('#interpreter', () => {
   const testNames = scanTestNames(path.resolve(__dirname, './input/'));
