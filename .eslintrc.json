@@ -29,10 +29,10 @@
     "prefer-destructuring": "warn",
     "indent": "off",
     "no-plusplus": "warn",
-    "max-len": ["error", { "code": 100 }],
+    "max-len": ["error", { "code": 120 }],
     "no-continue": "warn",
     "newline-before-return": "error",
-    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
+    "newline-per-chained-call": ["off"],
     "operator-linebreak": ["error", "after"],
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "error",
@@ -48,6 +48,8 @@
     "lines-between-class-members": "off",
     "no-redeclare": "off",
     "@typescript-eslint/no-redeclare": "error",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-bitwise": "off",
+    "no-undef": "off"
   }
 }
