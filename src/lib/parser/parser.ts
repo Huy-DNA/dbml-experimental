@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {
   canBuildAttributeNode,
   convertFuncAppToElem,
@@ -140,7 +141,7 @@ export default class Parser {
 
   gatherInvalid() {
     let i;
-
+    const newTokenList = [];
     const leadingInvalidList: SyntaxToken[] = [];
     for (i = 0; i < this.tokens.length && isInvalidToken(this.tokens[i]); i += 1) {
       leadingInvalidList.push(this.tokens[i]);
@@ -155,8 +156,12 @@ export default class Parser {
         prevValidToken.trailingInvalid.push(token);
       } else {
         prevValidToken = token;
+        newTokenList.push(token);
       }
     }
+
+    _.remove(this.tokens);
+    this.tokens.push(...newTokenList);
   }
 
   parse(): Report<ProgramNode, CompileError> {

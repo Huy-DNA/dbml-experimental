@@ -234,6 +234,7 @@ export default class Lexer {
 
   gatherInvalid() {
     let i;
+    const newTokenList: SyntaxToken[] = [];
 
     const leadingInvalidList: SyntaxToken[] = [];
     for (i = 0; i < this.tokens.length && isInvalidToken(this.tokens[i]); i += 1) {
@@ -249,8 +250,11 @@ export default class Lexer {
         prevValidToken.trailingInvalid.push(token);
       } else {
         prevValidToken = token;
+        newTokenList.push(token);
       }
     }
+
+    this.tokens = newTokenList;
   }
 
   // Consuming characters until the `stopSequence` is encountered
