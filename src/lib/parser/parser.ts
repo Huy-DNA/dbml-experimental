@@ -525,7 +525,7 @@ export default class Parser {
     const blockOpenBrace = this.previous();
     while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACE)) {
       if (this.canBeField()) {
-        body.push(this.fieldDeclaration());
+        this.synchronize(() => body.push(this.fieldDeclaration()), this.synchronizeBlock);
       } else {
         this.synchronize(() => body.push(this.expression()), this.synchronizeBlock);
       }

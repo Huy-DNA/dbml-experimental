@@ -207,8 +207,8 @@ export interface BodyValidatorConfig {
 export interface SubFieldValidatorConfig {
   // The list of validators for each argument
   argValidators: Readonly<ArgumentValidator[]>;
-  invalidArgNumberErrorCode?: Readonly<CompileErrorCode>;
-  invalidArgNumberErrorMessage?: Readonly<string>;
+  invalidArgNumberErrorCode: Readonly<CompileErrorCode>;
+  invalidArgNumberErrorMessage: Readonly<string>;
 
   // The setting list configuration of the subfield
   settingList: Readonly<SettingListValidatorConfig>;
@@ -376,16 +376,6 @@ export function createBodyValidatorConfig(config: BodyValidatorConfig): BodyVali
 export function createSubFieldValidatorConfig(
   config: SubFieldValidatorConfig,
 ): SubFieldValidatorConfig {
-  if (
-    config.argValidators.length > 0 &&
-    (!config.invalidArgNumberErrorCode || !config.invalidArgNumberErrorMessage)
-  ) {
-    throw new Error(
-      // eslint-disable-next-line
-      'Misconfiguration: If subfield accepts arguments, invalidArgNumberErrorCode and invalidArgNumberErrorMessage must be present',
-    );
-  }
-
   if (config.shouldRegister && !config.duplicateErrorCode) {
     throw new Error(
       'Misconfiguration: If subfield should be registered, duplicateErrorCode must be present',

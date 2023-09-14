@@ -20,6 +20,7 @@ import {
   ProgramNode,
   SyntaxNode,
   SyntaxNodeIdGenerator,
+  TupleExpressionNode,
 } from './lib/parser/nodes';
 import { NodeSymbol, NodeSymbolIdGenerator } from './lib/analyzer/symbol/symbols';
 import Report from './lib/report';
@@ -28,10 +29,9 @@ import Parser from './lib/parser/parser';
 import Analyzer from './lib/analyzer/analyzer';
 import Interpreter from './lib/interpreter/interpreter';
 import Database from './lib/model_structure/database';
-import { SyntaxToken, isTriviaToken } from './lib/lexer/tokens';
+import { SyntaxToken, SyntaxTokenKind, isTriviaToken } from './lib/lexer/tokens';
 import { None, Option, Some } from './lib/option';
-import { hasTrailingNewLines } from './lib/lexer/utils';
-import { getMemberChain } from './lib/parser/utils';
+import { getMemberChain, isInvalidToken } from './lib/parser/utils';
 
 const enum Query {
   _Interpret,
@@ -40,6 +40,7 @@ const enum Query {
   Parse_RawDb,
   Parse_Tokens,
   Parse_PublicSymbolTable,
+  Token_InvalidStream,
   Token_NonTrivial_BeforeOrContain,
   Token_NonTrivial_AfterOrContain,
   Token_NonTrivial_FirstOfLine,
@@ -150,7 +151,9 @@ export default class Compiler {
   // A namespace for token-related queries
   readonly token = {
     stream: () => this.parse.tokens(),
-    // Invalid tokens (which are guarenteed to be non-trivials) are included in the stream
+    invalidStream: this.createQuery(Query.Token_InvalidStream, (): readonly SyntaxToken[] =>
+      this.parse.tokens().filter(isInvalidToken)),
+    // Valid + Invalid tokens (which are guarenteed to be non-trivials) are included in the stream
     flatStream: this.createQuery(Query.Token_FlatStream, (): readonly SyntaxToken[] =>
       this.token
         .stream()
@@ -161,15 +164,26 @@ export default class Compiler {
       beforeOrContain: this.createQuery(
         Query.Token_NonTrivial_BeforeOrContain,
         (offset: number): Option<number> => {
-          const id = this.token.flatStream().findIndex((token) => token.start > offset) - 1;
+          const id = this.token.flatStream().findIndex((token) => token.start > offset);
+          if (id === undefined) {
+            return new None();
+          }
 
-          return id >= 0 ? new Some(id) : new None();
+          if (id <= 0) {
+            return new None();
+          }
+
+          return new Some(id - 1);
         },
       ),
       // Return the index in the flatStream of the first token after/containing the offset
       afterOrContain: this.createQuery(
         Query.Token_NonTrivial_AfterOrContain,
         (offset: number): Option<number> => {
+          if (this.token.flatStream().length === 0) {
+            return new None();
+          }
+
           const id = this.token.nonTrivial.beforeOrContain(offset).unwrap_or(-1);
           if (id === -1) {
             return new Some(0);
@@ -218,7 +232,14 @@ export default class Compiler {
             return new None();
           }
           const token = this.token.flatStream()[id];
-          if (hasTrailingNewLines(token)) {
+          if (!isOffsetWithinSpan(offset, token)) {
+            const newline = token.trailingTrivia.find(
+              ({ kind }) => kind === SyntaxTokenKind.NEWLINE,
+            );
+            if (!newline || newline.start > offset) {
+              return new Some(id);
+            }
+
             return new None();
           }
 
@@ -265,11 +286,15 @@ export default class Compiler {
       Query.Parse_Ast,
       (): Readonly<ProgramNode> => this.parse._().getValue().ast,
     ),
-    errors: this.createQuery(Query.Parse_Errors, (): readonly Readonly<CompileError>[] =>
-      this.parse._().getErrors()),
+    errors: this.createQuery(Query.Parse_Errors, (): readonly Readonly<CompileError>[] => {
+      const errors = [...this.parse._().getErrors()];
+      errors.sort((e1, e2) => e1.start - e2.start);
+
+      return errors;
+    }),
     tokens: this.createQuery(
       Query.Parse_Tokens,
-      (): readonly Readonly<SyntaxToken>[] => this.parse._().getValue().tokens,
+      (): Readonly<SyntaxToken>[] => this.parse._().getValue().tokens,
     ),
     rawDb: this.createQuery(
       Query.Parse_RawDb,
@@ -283,34 +308,22 @@ export default class Compiler {
 
   // Find the stack of nodes/tokens, with the latter being nested inside the former
   // that contains `offset`
-  containers = this.createQuery(
-    Query.Containers,
-    (
-      offset: number,
-    ): Option<
-      Readonly<{
-        containerStack: SyntaxNode[];
-        token: Readonly<SyntaxToken>;
-        isLeadingInvalidToken: boolean;
-        isTrailingInvalidToken: boolean;
-      }>
-    > => {
-      const res: {
-        containerStack: SyntaxNode[];
-        token?: SyntaxToken;
-        isLeadingInvalidToken: boolean;
-        isTrailingInvalidToken: boolean;
-      } = {
-        containerStack: [],
-        token: undefined,
-        isLeadingInvalidToken: false,
-        isTrailingInvalidToken: false,
-      };
-      containersDelegate(this.parse.ast(), offset, res);
+  containers = this.createQuery(Query.Containers, (offset: number): Readonly<SyntaxNode>[] => {
+    let curNode: Readonly<SyntaxNode> = this.parse.ast();
+    const res: SyntaxNode[] = [curNode];
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      const memberChain = getMemberChain(curNode);
+      const foundMem = memberChain.find((mem) => isOffsetWithinSpan(offset, mem));
+      if (foundMem === undefined || foundMem instanceof SyntaxToken) {
+        break;
+      }
+      res.push(foundMem);
+      curNode = foundMem;
+    }
 
-      return res.token ? (new Some(res) as any) : new None();
-    },
-  );
+    return res;
+  });
 
   // A namespace for symbol-related queries
   readonly symbol = {
@@ -368,10 +381,10 @@ export default class Compiler {
       offset: number,
     ): Option<Readonly<{ kind: ScopeKind; symbolTable: SymbolTable | undefined }>> => {
       const res = this.containers(offset);
-      if (!res.isOk()) {
-        return new None();
+      if (res.length === 0) {
+        throw new Error('Unreachable - containers always contain at least the program node');
       }
-      const containerStack = [...res.unwrap().containerStack];
+      const containerStack = [...res];
 
       while (last(containerStack)) {
         const container = containerStack.pop()!;
@@ -424,21 +437,23 @@ export default class Compiler {
 
   context = this.createQuery(Query.Context, (offset: number): Option<Readonly<ContextInfo>> => {
     const res = this.containers(offset);
-    if (!res.isOk()) {
-      return new None();
+    if (res.length === 0) {
+      throw new Error('Unreachable - containers always contain at least the program node');
     }
-    const containerStack = [...res.unwrap().containerStack];
+    const containerStack = [...res];
 
     let firstParent: ElementDeclarationNode | undefined;
     let firstSubfield:
       | FunctionExpressionNode
       | FunctionApplicationNode
       | PrimaryExpressionNode
+      | TupleExpressionNode
       | undefined;
     let maybeSubfield:
       | FunctionExpressionNode
       | FunctionApplicationNode
       | PrimaryExpressionNode
+      | TupleExpressionNode
       | undefined;
     let maybeAttribute: AttributeNode | undefined;
     let maybeAttributeName: IdentiferStreamNode | undefined;
@@ -449,7 +464,8 @@ export default class Compiler {
       if (
         container instanceof FunctionApplicationNode ||
         container instanceof FunctionExpressionNode ||
-        container instanceof PrimaryExpressionNode
+        container instanceof PrimaryExpressionNode ||
+        container instanceof TupleExpressionNode
       ) {
         maybeSubfield = container;
       }
@@ -506,58 +522,4 @@ export default class Compiler {
       },
     });
   });
-}
-
-/* Helper for `containers` */
-function containersDelegate(
-  node: SyntaxNode,
-  offset: number,
-  res: {
-    containerStack: SyntaxNode[];
-    token?: SyntaxToken;
-    isLeadingInvalidToken: boolean;
-    isTrailingInvalidToken: boolean;
-  },
-) {
-  res.containerStack.push(node);
-  const members = getMemberChain(node);
-  const foundMember = members.find((m) => isOffsetWithinFullSpan(offset, m));
-
-  if (!foundMember) {
-    return;
-  }
-
-  if (foundMember instanceof SyntaxToken) {
-    let foundToken = foundMember;
-    while (foundToken && !isOffsetWithinSpan(offset, foundToken)) {
-      if (offset < foundToken.start) {
-        foundToken = (foundMember as SyntaxToken).leadingTrivia.find((token) =>
-          isOffsetWithinFullSpan(offset, token))!;
-      } else {
-        foundToken = (foundMember as SyntaxToken).trailingTrivia.find((token) =>
-          isOffsetWithinFullSpan(offset, token))!;
-      }
-    }
-    res.token = foundToken;
-    res.isLeadingInvalidToken = foundToken.isInvalid && offset < foundMember.start;
-    res.isTrailingInvalidToken = foundToken.isInvalid && offset >= foundMember.end;
-
-    if (isTriviaToken(foundToken)) {
-      while (
-        res.containerStack.length !== 0 &&
-        !isOffsetWithinSpan(offset, last(res.containerStack)!)
-      ) {
-        // In this case, the trivia token was added to the node only because it was invalid
-        // and it happens to be at right before or after the node
-        // so we shouldn't consider the node to be its container
-        res.containerStack.pop();
-      }
-    }
-
-    return;
-  }
-
-  if (!(foundMember instanceof SyntaxToken)) {
-    containersDelegate(foundMember, offset, res);
-  }
 }
