@@ -308,22 +308,25 @@ export default class Compiler {
 
   // Find the stack of nodes/tokens, with the latter being nested inside the former
   // that contains `offset`
-  containers = this.createQuery(Query.Containers, (offset: number): readonly Readonly<SyntaxNode>[] => {
-    let curNode: Readonly<SyntaxNode> = this.parse.ast();
-    const res: SyntaxNode[] = [curNode];
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      const memberChain = getMemberChain(curNode);
-      const foundMem = memberChain.find((mem) => isOffsetWithinSpan(offset, mem));
-      if (foundMem === undefined || foundMem instanceof SyntaxToken) {
-        break;
+  containers = this.createQuery(
+    Query.Containers,
+    (offset: number): readonly Readonly<SyntaxNode>[] => {
+      let curNode: Readonly<SyntaxNode> = this.parse.ast();
+      const res: SyntaxNode[] = [curNode];
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const memberChain = getMemberChain(curNode);
+        const foundMem = memberChain.find((mem) => isOffsetWithinSpan(offset, mem));
+        if (foundMem === undefined || foundMem instanceof SyntaxToken) {
+          break;
+        }
+        res.push(foundMem);
+        curNode = foundMem;
       }
-      res.push(foundMem);
-      curNode = foundMem;
-    }
 
-    return res;
-  });
+      return res;
+    },
+  );
 
   // A namespace for symbol-related queries
   readonly symbol = {

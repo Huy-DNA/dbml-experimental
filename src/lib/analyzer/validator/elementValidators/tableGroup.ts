@@ -1,6 +1,10 @@
 import SymbolFactory from '../../symbol/factory';
 import { UnresolvedName } from '../../types';
-import { destructureComplexVariable, destructureMemberAccessExpression, extractVariableFromExpression } from '../../utils';
+import {
+  destructureComplexVariable,
+  destructureMemberAccessExpression,
+  extractVariableFromExpression,
+} from '../../utils';
 import { createSchemaSymbolIndex, createTableSymbolIndex } from '../../symbol/symbolIndex';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode, SyntaxNode } from '../../../parser/nodes';

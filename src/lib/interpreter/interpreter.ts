@@ -335,22 +335,10 @@ export default class Interpreter {
     const [leftCardinality, rightCardinality] = convertRelationOpToCardinalities(rel.op.value);
     const leftReferee = getColumnSymbolOfRefOperand(rel.leftExpression).unwrap();
     const rightReferee = getColumnSymbolOfRefOperand(rel.rightExpression).unwrap();
-    if (
-      !this.logIfSameEndpoint(
-        rel,
-        leftReferee,
-        rightReferee,
-      )
-    ) {
+    if (!this.logIfSameEndpoint(rel, leftReferee, rightReferee)) {
       return undefined;
     }
-    if (
-      !this.logIfCircularRefError(
-        rel,
-        leftReferee,
-        rightReferee,
-      )
-    ) {
+    if (!this.logIfCircularRefError(rel, leftReferee, rightReferee)) {
       return undefined;
     }
     const left = processRelOperand(rel.leftExpression, ownerTableName, ownerSchemaName);
