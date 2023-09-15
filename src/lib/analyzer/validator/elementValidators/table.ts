@@ -14,7 +14,11 @@ import {
   PrimaryExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
-import { destructureComplexVariable } from '../../utils';
+import {
+  destructureComplexVariable,
+  destructureMemberAccessExpression,
+  extractVariableFromExpression,
+} from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
@@ -144,14 +148,17 @@ function registerEnumTypeIfComplexVariable(
     throw new Error('Unreachable - Invalid type when registerTypeIfComplexVariable is called');
   }
 
-  const fragments = destructureComplexVariable(node).unwrap();
-  const enumId = createEnumSymbolIndex(fragments.pop()!);
-  const schemaIdStack = fragments.map(createSchemaSymbolIndex);
+  const fragments = destructureMemberAccessExpression(node).unwrap();
+  const _enum = fragments.pop()!;
+  const enumId = createEnumSymbolIndex(extractVariableFromExpression(_enum).unwrap());
+  const schemaStack = fragments.map((s) => ({
+    index: createSchemaSymbolIndex(extractVariableFromExpression(s).unwrap()),
+    referrer: s,
+  }));
 
   unresolvedNames.push({
-    ids: [...schemaIdStack, enumId],
+    subnames: [...schemaStack, { index: enumId, referrer: _enum }],
     ownerElement,
-    referrer: node,
   });
 }
 
@@ -261,14 +268,22 @@ function registerEnumValueIfComplexVar(
     return;
   }
 
-  const fragments = destructureComplexVariable(value as SyntaxNode).unwrap();
-  const enumFieldId = createEnumFieldSymbolIndex(fragments.pop()!);
-  const enumId = createEnumSymbolIndex(fragments.pop()!);
-  const schemaId = fragments.map(createSchemaSymbolIndex);
+  const fragments = destructureMemberAccessExpression(value as SyntaxNode).unwrap();
+  const enumField = fragments.pop()!;
+  const enumFieldId = createEnumFieldSymbolIndex(extractVariableFromExpression(enumField).unwrap());
+  const _enum = fragments.pop()!;
+  const enumId = createEnumSymbolIndex(extractVariableFromExpression(_enum).unwrap());
+  const schemaStack = fragments.map((s) => ({
+    referrer: s,
+    index: createSchemaSymbolIndex(extractVariableFromExpression(s).unwrap()),
+  }));
 
   unresolvedNames.push({
-    ids: [...schemaId, enumId, enumFieldId],
+    subnames: [
+      ...schemaStack,
+      { referrer: _enum, index: enumId },
+      { referrer: enumField, index: enumFieldId },
+    ],
     ownerElement,
-    referrer: value as SyntaxNode,
   });
 }

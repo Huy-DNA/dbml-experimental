@@ -1,6 +1,6 @@
 import SymbolFactory from '../../symbol/factory';
 import { UnresolvedName } from '../../types';
-import { destructureComplexVariable } from '../../utils';
+import { destructureComplexVariable, destructureMemberAccessExpression, extractVariableFromExpression } from '../../utils';
 import { createSchemaSymbolIndex, createTableSymbolIndex } from '../../symbol/symbolIndex';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode, SyntaxNode } from '../../../parser/nodes';
@@ -86,14 +86,15 @@ function registerTableName(
   if (!isValidName(node)) {
     throw new Error('Unreachable - Must be a valid name when registerTableName is called');
   }
-  const fragments = destructureComplexVariable(node).unwrap();
-  const tableId = createTableSymbolIndex(fragments.pop()!);
-  const schemaIdStack = fragments.map(createSchemaSymbolIndex);
-  const qualifiers =
-    schemaIdStack.length === 0 ? [createSchemaSymbolIndex('public')] : schemaIdStack;
+  const fragments = destructureMemberAccessExpression(node).unwrap();
+  const table = fragments.pop()!;
+  const tableId = createTableSymbolIndex(extractVariableFromExpression(table).unwrap());
+  const schemaStack = fragments.map((s) => ({
+    index: createSchemaSymbolIndex(extractVariableFromExpression(s).unwrap()),
+    referrer: s,
+  }));
   unresolvedNames.push({
-    ids: [...qualifiers, tableId],
-    referrer: node,
+    subnames: [...schemaStack, { index: tableId, referrer: table }],
     ownerElement,
   });
 }

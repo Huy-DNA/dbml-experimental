@@ -13,7 +13,7 @@ import { isExpressionANumber } from '../analyzer/validator/utils';
 import { isExpressionAQuotedString } from '../parser/utils';
 import { InlineRef } from './types';
 import { ColumnSymbol } from '../analyzer/symbol/symbols';
-import { extractTokenForInterpreter, processRelOperand } from './utils';
+import { extractTokenForInterpreter, getColumnSymbolOfRefOperand, processRelOperand } from './utils';
 
 class AttributeMap {
   private map: Map<string, AttributeNode[]> = new Map();
@@ -158,7 +158,7 @@ class AttributeCollector {
           fieldNames: [columnName],
           relation,
           token: extractTokenForInterpreter(ref),
-          referee: (ref as PrefixExpressionNode).expression.referee as ColumnSymbol,
+          referee: getColumnSymbolOfRefOperand((ref as PrefixExpressionNode).expression).unwrap(),
           node: ref,
         });
       }

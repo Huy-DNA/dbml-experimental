@@ -1073,7 +1073,7 @@
   "errors": [
     {
       "code": 4000,
-      "diagnostic": "Schema 'public' does not have Table 'Products'",
+      "diagnostic": "Can not find Table 'Products'",
       "nodeOrToken": {
         "kind": "<primary-expression>",
         "id": 9,

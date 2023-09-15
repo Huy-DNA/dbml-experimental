@@ -6,7 +6,11 @@ import {
   createTableSymbolIndex,
 } from '../../symbol/symbolIndex';
 import { UnresolvedName } from '../../types';
-import { destructureComplexVariable } from '../../utils';
+import {
+  destructureComplexVariable,
+  destructureMemberAccessExpression,
+  extractVariableFromExpression,
+} from '../../utils';
 import { ElementKind } from '../types';
 
 // Register a relationship operand for later resolution
@@ -16,26 +20,31 @@ export function registerRelationshipOperand(
   ownerElement: ElementDeclarationNode,
   unresolvedNames: UnresolvedName[],
 ) {
-  const fragments = destructureComplexVariable(node).unwrap();
-
-  const columnId = createColumnSymbolIndex(fragments.pop()!);
+  const fragments = destructureMemberAccessExpression(node).unwrap();
+  const column = fragments.pop()!;
+  const columnId = createColumnSymbolIndex(extractVariableFromExpression(column).unwrap());
   if (fragments.length === 0) {
     unresolvedNames.push({
-      ids: [columnId],
+      subnames: [{ index: columnId, referrer: column }],
       ownerElement,
-      referrer: node,
     });
 
     return;
   }
-
-  const tableId = createTableSymbolIndex(fragments.pop()!);
-  const schemaIdStack = fragments.map(createSchemaSymbolIndex);
+  const table = fragments.pop()!;
+  const tableId = createTableSymbolIndex(extractVariableFromExpression(table).unwrap());
+  const schemaStack = fragments.map((s) => ({
+    index: createSchemaSymbolIndex(extractVariableFromExpression(s).unwrap()),
+    referrer: s,
+  }));
 
   unresolvedNames.push({
-    ids: [...schemaIdStack, tableId, columnId],
+    subnames: [
+      ...schemaStack,
+      { referrer: table, index: tableId },
+      { referrer: column, index: columnId },
+    ],
     ownerElement,
-    referrer: node,
   });
 }
 

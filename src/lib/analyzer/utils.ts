@@ -70,24 +70,21 @@ export function extractVariableFromExpression(node: SyntaxNode): Option<string> 
   return new Some(node.expression.variable.value);
 }
 
-export function destructureIndex(
-  node: SyntaxNode,
-): Option<{ functional: string[]; nonFunctional: string[] }> {
+export function destructureIndexNode(node: SyntaxNode): Option<{
+  functional: FunctionExpressionNode[];
+  nonFunctional: (PrimaryExpressionNode & { expression: VariableNode })[];
+}> {
   if (isValidIndexName(node)) {
-    const indexName = extractIndexName(node);
-
     return node instanceof FunctionExpressionNode ?
-      new Some({ functional: [indexName], nonFunctional: [] }) :
-      new Some({ functional: [], nonFunctional: [indexName] });
+      new Some({ functional: [node], nonFunctional: [] }) :
+      new Some({ functional: [], nonFunctional: [node] });
   }
 
   if (node instanceof TupleExpressionNode && node.elementList.every(isValidIndexName)) {
-    const functionalIndexName = node.elementList
-      .filter((e) => e instanceof FunctionExpressionNode)
-      .map(extractIndexName);
-    const nonfunctionalIndexName = node.elementList
-      .filter(isExpressionAVariableNode)
-      .map(extractIndexName);
+    const functionalIndexName = node.elementList.filter(
+      (e) => e instanceof FunctionExpressionNode,
+    ) as FunctionExpressionNode[];
+    const nonfunctionalIndexName = node.elementList.filter(isExpressionAVariableNode);
 
     return new Some({ functional: functionalIndexName, nonFunctional: nonfunctionalIndexName });
   }

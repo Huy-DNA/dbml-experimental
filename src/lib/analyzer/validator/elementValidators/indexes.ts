@@ -15,7 +15,7 @@ import {
   VariableNode,
 } from '../../../parser/nodes';
 import { isExpressionAQuotedString } from '../../../parser/utils';
-import { destructureIndex } from '../../utils';
+import { destructureIndexNode, extractVarNameFromPrimaryVariable } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import { isVoid } from '../utils';
@@ -52,7 +52,7 @@ export default class IndexesValidator extends ElementValidator {
     argValidators: [
       {
         validateArg: transformToReturnCompileErrors(
-          (node) => destructureIndex(node).unwrap_or(undefined) !== undefined,
+          (node) => destructureIndexNode(node).unwrap_or(undefined) !== undefined,
           CompileErrorCode.INVALID_INDEX,
           'This field must be a function expression, a column name or a tuple of such',
         ),
@@ -95,21 +95,23 @@ export function registerIndexForResolution(
   ownerElement: ElementDeclarationNode,
   unresolvedNames: UnresolvedName[],
 ) {
-  const columnIds = destructureIndex(node)
-    .unwrap_or(undefined)
-    ?.nonFunctional.map(createColumnSymbolIndex);
+  const columnNodes = destructureIndexNode(node).unwrap_or(undefined)?.nonFunctional;
 
-  if (!columnIds) {
+  if (!columnNodes) {
     throw new Error(
       'Unreachable - Index should be validated before registerIndexForResolution is called',
     );
   }
 
-  columnIds.forEach((id) =>
+  columnNodes.forEach((colNode) =>
     unresolvedNames.push({
-      ids: [id],
+      subnames: [
+        {
+          referrer: colNode,
+          index: createColumnSymbolIndex(extractVarNameFromPrimaryVariable(colNode)),
+        },
+      ],
       ownerElement,
-      referrer: node,
     }));
 }
 

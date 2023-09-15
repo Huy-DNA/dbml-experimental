@@ -27,62 +27,47 @@ export default class Binder {
     return new Report(this.ast, this.errors);
   }
 
-  private resolveName({ ids, ownerElement, referrer }: UnresolvedName) {
-    if (ids.length === 0) {
+  private resolveName({ subnames, ownerElement }: UnresolvedName) {
+    if (subnames.length === 0) {
       throw new Error('Unreachable - An unresolved name must have at least one name component');
     }
-    const [accessId, ...remainingIds] = ids;
-    const accessSymbol = findSymbol(accessId, ownerElement);
+    const [accessSubname, ...remainingSubnames] = subnames;
+    const accessSymbol = findSymbol(accessSubname.index, ownerElement);
     if (accessSymbol === undefined) {
-      const { kind, name } = destructureIndex(accessId).unwrap();
-      this.logError(referrer, `Can not find ${kind} '${name}'`);
+      const { kind, name } = destructureIndex(accessSubname.index).unwrap();
+      this.logError(accessSubname.referrer, `Can not find ${kind} '${name}'`);
 
       return;
     }
 
-    if (remainingIds.length === 0) {
-      accessSymbol.references.push(referrer);
-      // eslint-disable-next-line no-param-reassign
-      referrer.referee = accessSymbol;
+    accessSymbol.references.push(accessSubname.referrer);
+    accessSubname.referrer.referee = accessSymbol;
 
-      return;
-    }
-
-    const elementId = remainingIds.pop()!;
-
-    let { kind: prevKind, name: prevName } = destructureIndex(accessId).unwrap();
     let prevScope = accessSymbol.symbolTable!;
+    let { kind: prevKind, name: prevName } = destructureIndex(accessSubname.index).unwrap();
     // eslint-disable-next-line no-restricted-syntax
-    for (const qualifierId of remainingIds) {
-      const { kind: curKind, name: curName } = destructureIndex(qualifierId).unwrap();
-      const curSymbol = prevScope.get(qualifierId);
+    for (const subname of remainingSubnames) {
+      const { kind: curKind, name: curName } = destructureIndex(subname.index).unwrap();
+      const curSymbol = prevScope.get(subname.index);
 
       if (!curSymbol) {
-        this.logError(referrer, `${prevKind} '${prevName}' does not have ${curKind} '${curName}'`);
+        this.logError(
+          subname.referrer,
+          `${prevKind} '${prevName}' does not have ${curKind} '${curName}'`,
+        );
 
         return;
       }
 
-      if (!curSymbol.symbolTable) {
-        throw new Error('Unreachable - a symbol accessed by a qualifier must have a symbol table');
-      }
-
       prevKind = curKind;
       prevName = curName;
+      subname.referrer.referee = curSymbol;
+      curSymbol.references.push(subname.referrer);
+      if (!curSymbol.symbolTable) {
+        break;
+      }
       prevScope = curSymbol.symbolTable;
     }
-
-    if (!prevScope.has(elementId)) {
-      const { kind: type, name } = destructureIndex(elementId).unwrap();
-      this.logError(referrer, `${prevKind} '${prevName}' does not have ${type} '${name}'`);
-
-      return;
-    }
-
-    const elementSymbol = prevScope.get(elementId)!;
-    elementSymbol.references.push(referrer);
-    // eslint-disable-next-line no-param-reassign
-    referrer.referee = elementSymbol;
   }
 
   protected logError(node: SyntaxNode, message: string) {
