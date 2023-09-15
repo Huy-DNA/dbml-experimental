@@ -1,3 +1,4 @@
+import { hasTrailingNewLines } from '../lib/lexer/utils';
 import Compiler, { ScopeKind } from '../compiler';
 import { SyntaxToken, SyntaxTokenKind } from '../lib/lexer/tokens';
 import { isOffsetWithinSpan } from '../lib/utils';
@@ -12,7 +13,9 @@ import {
 import { TableSymbol } from '../lib/analyzer/symbol/symbols';
 import { SymbolKind, destructureIndex } from '../lib/analyzer/symbol/symbolIndex';
 import {
+  getOffsetFromMonacoPosition,
   isAtStartOfSimpleBody,
+  isDot,
   pickCompletionItemKind,
   shouldAppendSpace,
   trimLeftMemberAccess,
@@ -31,7 +34,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
   }
 
   provideCompletionItems(model: TextModel, position: Position): CompletionList {
-    const offset = model.getOffsetAt(position) - 1;
+    const offset = getOffsetFromMonacoPosition(model, position);
 
     const iter = TokenSourceIterator.fromOffset(this.compiler, offset);
     let iterSameLine = TokenLineIterator.fromOffset(this.compiler, offset);
@@ -153,6 +156,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
               insertText: name,
               insertTextRules: CompletionItemInsertTextRule.KeepWhitespace,
               kind: pickCompletionItemKind(kind),
+              sortText: pickCompletionItemKind(kind).toString().padStart(2, '0'),
               range: undefined as any,
             })),
         );
@@ -176,7 +180,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
             label: name,
             insertText: name,
             insertTextRules: CompletionItemInsertTextRule.KeepWhitespace,
-            kind: CompletionItemKind.Class,
+            kind: CompletionItemKind.Keyword,
             range: undefined as any,
           })),
         };
@@ -187,7 +191,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
             label: name,
             insertText: name,
             insertTextRules: CompletionItemInsertTextRule.KeepWhitespace,
-            kind: CompletionItemKind.Class,
+            kind: CompletionItemKind.Keyword,
             range: undefined as any,
           })),
         };
@@ -198,7 +202,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
             label: name,
             insertText: name,
             insertTextRules: CompletionItemInsertTextRule.KeepWhitespace,
-            kind: CompletionItemKind.Class,
+            kind: CompletionItemKind.Keyword,
             range: undefined as any,
           })),
         };
@@ -225,7 +229,11 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
 
   private suggestColumnNameInIndexes(model: TextModel, offset: number): CompletionList {
     const ctx = this.compiler.context(offset).unwrap_or(undefined);
-    if (ctx?.element === undefined || ctx?.scope?.kind !== ScopeKind.INDEXES) {
+    if (
+      ctx?.element === undefined ||
+      ctx?.scope?.kind !== ScopeKind.INDEXES ||
+      ctx.element.node instanceof ProgramNode
+    ) {
       return noSuggestions();
     }
 
@@ -247,7 +255,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
 
         return {
           label: name,
-          insertText: name,
+          insertText: name.search(' ') ? `"${name}"` : name,
           insertTextRules: CompletionItemInsertTextRule.KeepWhitespace,
           kind: pickCompletionItemKind(SymbolKind.Column),
           range: undefined as any,
@@ -275,7 +283,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
 
         return {
           label: name,
-          insertText: name,
+          insertText: name.search(' ') ? `"${name}"` : name,
           insertTextRules: CompletionItemInsertTextRule.KeepWhitespace,
           kind: pickCompletionItemKind(kind),
           range: undefined as any,
@@ -517,8 +525,20 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
     let iter = TokenSourceIterator.fromOffset(this.compiler, offset);
     const nameStack: string[] = [];
     let curToken = iter.value().unwrap_or(undefined);
+    if (!curToken) {
+      return noSuggestions();
+    }
 
-    while (curToken?.kind === SyntaxTokenKind.OP && curToken.value === '.') {
+    const nextToken = iter.next().value().unwrap_or(undefined);
+    if (
+      hasTrailingNewLines(curToken) &&
+      nextToken &&
+      [SyntaxTokenKind.IDENTIFIER, SyntaxTokenKind.QUOTED_STRING].includes(nextToken.kind)
+    ) {
+      return noSuggestions();
+    }
+
+    while (isDot(curToken)) {
       iter = iter.back();
       curToken = iter.value().unwrap_or(undefined);
       if (
@@ -558,7 +578,11 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
     if (curLine.length === 0) {
       switch (ctx?.scope?.kind) {
         case ScopeKind.TABLE:
-          return this.suggestColumnType(model, offset);
+          if (ctx.element?.body) {
+            return this.suggestColumnType(model, offset);
+          }
+
+          return noSuggestions();
         default:
           break;
       }
@@ -589,6 +613,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
           insertText: name,
           insertTextRules: CompletionItemInsertTextRule.KeepWhitespace,
           kind: CompletionItemKind.TypeParameter,
+          sortText: CompletionItemKind.TypeParameter.toString().padStart(2, '0'),
           range: undefined as any,
         })),
         ...this.suggestNamesInScope(model, offset, ctx?.element?.node, [

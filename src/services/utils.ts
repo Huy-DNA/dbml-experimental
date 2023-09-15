@@ -1,6 +1,6 @@
 import { TokenLineIterator } from 'iterator';
 import { SymbolKind } from '../lib/analyzer/symbol/symbolIndex';
-import { CompletionItemKind } from './types';
+import { CompletionItemKind, Position, TextModel } from './types';
 import { ElementKind } from '../lib/analyzer/validator/types';
 import { SyntaxToken, SyntaxTokenKind } from '../lib/lexer/tokens';
 import { toElementKind } from '../lib/analyzer/validator/utils';
@@ -101,7 +101,7 @@ export function trimLeftMemberAccess(stream: readonly Readonly<SyntaxToken>[]): 
       break;
     }
     extracted.push(_stream.shift()!);
-    if (!maybeDot || maybeDot.value !== '.') {
+    if (!isDot(maybeDot)) {
       break;
     }
     _stream.shift();
@@ -111,4 +111,12 @@ export function trimLeftMemberAccess(stream: readonly Readonly<SyntaxToken>[]): 
     extracted,
     remaining: _stream,
   };
+}
+
+export function isDot(token?: SyntaxToken): boolean {
+  return token?.kind === SyntaxTokenKind.OP && token?.value === '.';
+}
+
+export function getOffsetFromMonacoPosition(model: TextModel, position: Position): number {
+  return model.getOffsetAt(position) - 1;
 }

@@ -72,7 +72,7 @@ export enum ScopeKind {
 export type ContextInfo = Readonly<{
   scope?: { kind: ScopeKind; symbolTable: SymbolTable | undefined };
   element?: {
-    node: ElementDeclarationNode;
+    node: ElementDeclarationNode | ProgramNode;
     type?: SyntaxToken;
     name?: SyntaxNode;
     as?: SyntaxToken;
@@ -308,7 +308,7 @@ export default class Compiler {
 
   // Find the stack of nodes/tokens, with the latter being nested inside the former
   // that contains `offset`
-  containers = this.createQuery(Query.Containers, (offset: number): Readonly<SyntaxNode>[] => {
+  containers = this.createQuery(Query.Containers, (offset: number): readonly Readonly<SyntaxNode>[] => {
     let curNode: Readonly<SyntaxNode> = this.parse.ast();
     const res: SyntaxNode[] = [curNode];
     // eslint-disable-next-line no-constant-condition
@@ -442,7 +442,7 @@ export default class Compiler {
     }
     const containerStack = [...res];
 
-    let firstParent: ElementDeclarationNode | undefined;
+    let firstParent: ElementDeclarationNode | ProgramNode | undefined;
     let firstSubfield:
       | FunctionExpressionNode
       | FunctionApplicationNode
@@ -480,46 +480,53 @@ export default class Compiler {
       if (container instanceof ListExpressionNode) {
         maybeSettingList ||= container;
       }
-      if (container instanceof ElementDeclarationNode) {
+      if (container instanceof ElementDeclarationNode || container instanceof ProgramNode) {
         firstParent = container;
         firstSubfield = maybeSubfield;
         break;
       }
     }
 
-    return new Some({
-      scope: this.scope(offset).unwrap_or(undefined),
-      element: firstParent && {
-        node: firstParent,
-        type: returnIfIsOffsetWithinFullSpan(offset, firstParent.type),
-        name: returnIfIsOffsetWithinFullSpan(offset, firstParent.name),
-        as: returnIfIsOffsetWithinFullSpan(offset, firstParent.as),
-        alias: returnIfIsOffsetWithinFullSpan(offset, firstParent.alias),
-        settingList: returnIfIsOffsetWithinFullSpan(offset, firstParent.attributeList) && {
-          node: firstParent.attributeList!,
-          attribute: maybeAttribute,
-          name: returnIfIsOffsetWithinFullSpan(offset, maybeAttributeName),
-          value: returnIfIsOffsetWithinFullSpan(offset, maybeAttributeValue),
-        },
-        body: returnIfIsOffsetWithinFullSpan(offset, firstParent.body),
-      },
-      subfield: firstSubfield && {
-        node: firstSubfield,
-        callee:
-          firstSubfield instanceof FunctionApplicationNode ?
-            returnIfIsOffsetWithinFullSpan(offset, firstSubfield.callee) :
-            firstSubfield,
-        arg:
-          firstSubfield instanceof FunctionApplicationNode ?
-            firstSubfield.args.find((arg) => isOffsetWithinFullSpan(offset, arg)) :
-            undefined,
-        settingList: maybeSettingList && {
-          node: maybeSettingList,
-          attribute: maybeAttribute,
-          name: maybeAttributeName,
-          value: maybeAttributeValue,
-        },
-      },
-    });
+    return firstParent instanceof ProgramNode ?
+      new Some({
+          scope: this.scope(offset).unwrap_or(undefined),
+          element: {
+            node: firstParent,
+          },
+        }) :
+      new Some({
+          scope: this.scope(offset).unwrap_or(undefined),
+          element: firstParent && {
+            node: firstParent,
+            type: returnIfIsOffsetWithinFullSpan(offset, firstParent.type),
+            name: returnIfIsOffsetWithinFullSpan(offset, firstParent.name),
+            as: returnIfIsOffsetWithinFullSpan(offset, firstParent.as),
+            alias: returnIfIsOffsetWithinFullSpan(offset, firstParent.alias),
+            settingList: returnIfIsOffsetWithinFullSpan(offset, firstParent.attributeList) && {
+              node: firstParent.attributeList!,
+              attribute: maybeAttribute,
+              name: returnIfIsOffsetWithinFullSpan(offset, maybeAttributeName),
+              value: returnIfIsOffsetWithinFullSpan(offset, maybeAttributeValue),
+            },
+            body: returnIfIsOffsetWithinFullSpan(offset, firstParent.body),
+          },
+          subfield: firstSubfield && {
+            node: firstSubfield,
+            callee:
+              firstSubfield instanceof FunctionApplicationNode ?
+                returnIfIsOffsetWithinFullSpan(offset, firstSubfield.callee) :
+                firstSubfield,
+            arg:
+              firstSubfield instanceof FunctionApplicationNode ?
+                firstSubfield.args.find((arg) => isOffsetWithinFullSpan(offset, arg)) :
+                undefined,
+            settingList: maybeSettingList && {
+              node: maybeSettingList,
+              attribute: maybeAttribute,
+              name: maybeAttributeName,
+              value: maybeAttributeValue,
+            },
+          },
+        });
   });
 }
