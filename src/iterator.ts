@@ -1,4 +1,3 @@
-import { isOffsetWithinSpan } from './lib/utils';
 import { SyntaxNodeKind } from './lib/parser/nodes';
 import Compiler from './compiler';
 import { SyntaxToken, SyntaxTokenKind } from './lib/lexer/tokens';
@@ -110,6 +109,7 @@ function isAtEndOfLogicalLine(compiler: Compiler, token: SyntaxToken): boolean {
       SyntaxTokenKind.SINGLE_LINE_COMMENT,
       SyntaxTokenKind.COLOR_LITERAL,
       SyntaxTokenKind.IDENTIFIER,
+      SyntaxTokenKind.LBRACE,
       SyntaxTokenKind.RBRACE,
     ].includes(token.kind) ||
       // Or this token must not be within a context that can span multiple physical lines
