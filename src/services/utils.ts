@@ -1,4 +1,4 @@
-import { TokenLineIterator } from 'iterator';
+import { TokenLogicalLineIterator } from 'iterator';
 import { SymbolKind } from '../lib/analyzer/symbol/symbolIndex';
 import { CompletionItemKind, Position, TextModel } from './types';
 import { ElementKind } from '../lib/analyzer/validator/types';
@@ -44,7 +44,10 @@ export function pickCompletionItemKind(symbolKind: SymbolKind): CompletionItemKi
 // Type A as B: ...
 // Type A as B:
 //  ...
-export function isAtStartOfSimpleBody(iter: TokenLineIterator, elementKind: ElementKind): boolean {
+export function isAtStartOfSimpleBody(
+  iter: TokenLogicalLineIterator,
+  elementKind: ElementKind,
+): boolean {
   let line = iter.collectFromStart().unwrap_or([]);
   const maybeColon = line.pop();
   if (maybeColon?.kind !== SyntaxTokenKind.COLON) {

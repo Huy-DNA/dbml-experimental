@@ -40,6 +40,9 @@ export type Definition = monaco.languages.Definition;
 export type CodeActionList = monaco.languages.CodeActionList;
 export type SignatureHelpResult = monaco.languages.SignatureHelpResult;
 
+// Show references
+export type ReferenceProvider = monaco.languages.ReferenceProvider;
+
 // Redefine monaco enums
 // as enums have compilation targets so importing from monaco.d.ts alone does not suffice
 

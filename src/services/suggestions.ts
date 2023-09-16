@@ -22,12 +22,12 @@ import {
 } from './utils';
 import { ElementDeclarationNode, ProgramNode } from '../lib/parser/nodes';
 import { ElementKind } from '../lib/analyzer/validator/types';
-import { TokenSourceIterator, TokenLineIterator } from '../iterator';
+import { TokenSourceIterator, TokenLogicalLineIterator } from '../iterator';
 
 export default class DBMLCompletionItemProvider implements CompletionItemProvider {
   private compiler: Compiler;
   // alphabetic characters implictily invoke the autocompletion provider
-  triggerCharacters = ['.', ':', ',', '[', '(', ' ', '>', '<', '-'];
+  triggerCharacters = ['.', ':', ',', '[', ' ', '(', '>', '<', '-'];
 
   constructor(compiler: Compiler) {
     this.compiler = compiler;
@@ -37,53 +37,70 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
     const offset = getOffsetFromMonacoPosition(model, position);
 
     const iter = TokenSourceIterator.fromOffset(this.compiler, offset);
-    let iterSameLine = TokenLineIterator.fromOffset(this.compiler, offset);
+
+    // Return `true` if `iter` is before any other non-trivial tokens
+    // Happens when:
+    // A trivial character has just been typed and it's before every non-trivial ones
+    // or autocompletion is triggered before any non-trivial tokens
     if (iter.isOutOfBound()) {
-      return this.suggestOnFirstNonTrivialToken(model, offset);
+      return this.suggestOnFirstTokenOfLogicalLine(model, offset);
     }
 
-    let editedToken: SyntaxToken | undefined;
-    let lastToken: SyntaxToken | undefined = iter.value().unwrap();
-    if (isOffsetWithinSpan(offset, lastToken)) {
-      switch (lastToken.kind) {
+    let lineIter = TokenLogicalLineIterator.fromOffset(this.compiler, offset);
+
+    let editedToken: SyntaxToken | undefined; // The token being currently modified
+    // e.g: Table v1.a<trigger completion> -> `a` is being modified
+    let lastToken: SyntaxToken | undefined; // The token before the token being edited,
+    // if no token is being edited, it's the last token before or contain offset
+
+    const beforeOrContainToken = iter.value().unwrap();
+    if (isOffsetWithinSpan(offset, beforeOrContainToken)) {
+      const containToken = beforeOrContainToken;
+      switch (containToken.kind) {
+        // We're editing a comment
+        // No suggestions
         case SyntaxTokenKind.SINGLE_LINE_COMMENT:
         case SyntaxTokenKind.MULTILINE_COMMENT:
           return noSuggestions();
-        // We don't care about the last token in these cases as we're editing this last token
+        // We're editing `containToken` in these cases
         case SyntaxTokenKind.IDENTIFIER:
         case SyntaxTokenKind.FUNCTION_EXPRESSION:
         case SyntaxTokenKind.COLOR_LITERAL:
         case SyntaxTokenKind.QUOTED_STRING:
         case SyntaxTokenKind.STRING_LITERAL:
         case SyntaxTokenKind.NUMERIC_LITERAL:
-          editedToken = lastToken;
+          editedToken = containToken;
           lastToken = iter.back().value().unwrap_or(undefined);
-          iterSameLine = iterSameLine.back();
+          lineIter = lineIter.back();
           break;
         default:
+          // All other cases, such as OP, COLON, parentheses
+          // We do not consider that `containToken` is being edited
+          editedToken = undefined;
+          lastToken = containToken;
           break;
       }
     }
 
-    // This case happens if we're editing the first non-trivial token of the whole program
-    if (lastToken === undefined) {
-      return this.suggestOnFirstNonTrivialToken(model, offset);
-    }
-
+    // Inspect the token before the being-edited token
     switch (lastToken?.kind) {
       case SyntaxTokenKind.OP:
         switch (lastToken.value) {
           case '.':
+            // We're editing a token after '.',
+            // which can mean that we're looking for a member
             return this.suggestMembers(model, offset);
           case '<>':
           case '>':
           case '<':
           case '-':
+            // We're editing a token after relationship operator
             return this.suggestOnRelOp(model, offset, lastToken);
           default:
             return noSuggestions();
         }
       case SyntaxTokenKind.LBRACKET:
+        // We're editing an attribute name (after [)
         return this.suggestAttributeName(model, offset);
       case SyntaxTokenKind.COLON:
         return this.suggestOnColon(model, offset, lastToken);
@@ -95,10 +112,25 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
         break;
     }
 
-    const tokenLine = iterSameLine.collectFromStart().unwrap_or([]);
-    // We're editing the last token of an "independent" line at this point
+    // We're editing a somewhat independent token
+    // e.g id intege<trigger completion> <- editToken === 'integer' and lastToken === 'id'
+    // We'll consider the whole logical line together
+    const prevTokensOnLine = lineIter.collectFromStart().unwrap_or([]);
 
-    return this.suggestOnIndependentLine(model, offset, tokenLine, editedToken);
+    if (prevTokensOnLine.length === 0) {
+      return this.suggestOnFirstTokenOfLogicalLine(model, offset);
+    }
+
+    const ctx = this.compiler.context(offset).unwrap_or(undefined);
+
+    switch (ctx?.scope?.kind) {
+      case ScopeKind.TABLE:
+        return this.suggestOnLogicalLineInTable(model, offset, lineIter, editedToken);
+      default:
+        break;
+    }
+
+    return noSuggestions();
   }
 
   private suggestOnRelOp(model: TextModel, offset: number, op: SyntaxToken): CompletionList {
@@ -114,7 +146,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
     //  Ref: S.a > // at this point `ctx.scope` would be `Table`
     // }
     // Therefore, this check also checks for possible parent scopes
-    // Which would cover redundant cases, but otherwise complete
+    // which would cover redundant cases, but otherwise complete
     if (
       ctx.scope.kind === ScopeKind.REF ||
       ctx.scope.kind === ScopeKind.TABLE ||
@@ -168,7 +200,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
     return res;
   }
 
-  private suggestOnFirstNonTrivialToken(model: TextModel, offset: number): CompletionList {
+  private suggestOnFirstTokenOfLogicalLine(model: TextModel, offset: number): CompletionList {
     const ctx = this.compiler.context(offset).unwrap_or(undefined);
     if (ctx?.scope?.kind === undefined) {
       return noSuggestions();
@@ -466,7 +498,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
       return noSuggestions();
     }
 
-    const lineIter = TokenLineIterator.fromOffset(this.compiler, offset);
+    const lineIter = TokenLogicalLineIterator.fromOffset(this.compiler, offset);
     // Note: An incomplete simple element declaration may corrupt the ElementDeclarationNode
     // and `ctx` may fail to hold the precise scope, rather, it would holds the parent's scope
     // e.g
@@ -561,31 +593,22 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
     };
   }
 
-  private suggestOnIndependentLine(
+  private suggestOnLogicalLineInTable(
     model: TextModel,
     offset: number,
-    prevTokensOnLine: SyntaxToken[],
-    editedToken: SyntaxToken | undefined,
+    prevTokensOnLineIter: TokenLogicalLineIterator,
+    editedToken?: SyntaxToken,
   ): CompletionList {
-    let curLine = prevTokensOnLine;
-    if (curLine.length === 0) {
-      return this.suggestOnFirstNonTrivialToken(model, offset);
-    }
-
+    const prevTokensOnLine = prevTokensOnLineIter.collectFromStart().unwrap_or([]);
     const ctx = this.compiler.context(offset).unwrap_or(undefined);
+    if (!ctx?.element?.body) {
+      return noSuggestions();
+    }
+    let curLine = prevTokensOnLine;
 
     curLine = trimLeftMemberAccess(curLine).remaining;
-    if (curLine.length === 0) {
-      switch (ctx?.scope?.kind) {
-        case ScopeKind.TABLE:
-          if (ctx.element?.body) {
-            return this.suggestColumnType(model, offset);
-          }
-
-          return noSuggestions();
-        default:
-          break;
-      }
+    if (curLine.length === 0 && ctx?.scope?.kind === ScopeKind.TABLE) {
+      return this.suggestColumnType(model, offset);
     }
 
     return noSuggestions();
