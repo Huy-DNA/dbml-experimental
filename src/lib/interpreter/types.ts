@@ -48,10 +48,7 @@ export interface Column {
   increment?: boolean;
   unique?: boolean;
   not_null?: boolean;
-  note?: {
-    value: string;
-    token: TokenPosition;
-  };
+  note?: string;
 }
 
 export interface Index {

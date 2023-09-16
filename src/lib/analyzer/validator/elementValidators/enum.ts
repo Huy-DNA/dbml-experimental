@@ -1,5 +1,5 @@
 import SymbolFactory from '../../symbol/factory';
-import { UnresolvedName } from '../../types';
+import { BindingRequest } from '../../types';
 import {
   ElementKind,
   createContextValidatorConfig,
@@ -61,7 +61,7 @@ export default class EnumValidator extends ElementValidator {
     declarationNode: ElementDeclarationNode,
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
-    unresolvedNames: UnresolvedName[],
+    bindingRequests: BindingRequest[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -71,7 +71,7 @@ export default class EnumValidator extends ElementValidator {
       declarationNode,
       publicSchemaSymbol,
       contextStack,
-      unresolvedNames,
+      bindingRequests,
       errors,
       kindsGloballyFound,
       kindsLocallyFound,

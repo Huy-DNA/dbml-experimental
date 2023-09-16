@@ -27,7 +27,7 @@ import { TokenSourceIterator, TokenLogicalLineIterator } from '../iterator';
 export default class DBMLCompletionItemProvider implements CompletionItemProvider {
   private compiler: Compiler;
   // alphabetic characters implictily invoke the autocompletion provider
-  triggerCharacters = ['.', ':', ',', '[', ' ', '(', '>', '<', '-'];
+  triggerCharacters = ['.', ':', ' ', '(', '>', '<', '-'];
 
   constructor(compiler: Compiler) {
     this.compiler = compiler;
@@ -50,6 +50,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
 
     let editedToken: SyntaxToken | undefined; // The token being currently modified
     // e.g: Table v1.a<trigger completion> -> `a` is being modified
+
     let lastToken: SyntaxToken | undefined; // The token before the token being edited,
     // if no token is being edited, it's the last token before or contain offset
 
@@ -80,6 +81,9 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
           lastToken = containToken;
           break;
       }
+    } else {
+      editedToken = undefined;
+      lastToken = beforeOrContainToken;
     }
 
     // Inspect the token before the being-edited token

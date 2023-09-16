@@ -8,3 +8,22 @@ export interface UnresolvedName {
   }[];
   ownerElement: ElementDeclarationNode;
 }
+
+export interface BindingRequest {
+  unresolvedName: UnresolvedName;
+  ignoreError: boolean;
+}
+
+export function createNonIgnorableBindingRequest(unresolvedName: UnresolvedName): BindingRequest {
+  return {
+    unresolvedName,
+    ignoreError: false,
+  };
+}
+
+export function createIgnorableBindingRequest(unresolvedName: UnresolvedName): BindingRequest {
+  return {
+    unresolvedName,
+    ignoreError: true,
+  };
+}

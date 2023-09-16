@@ -1,5 +1,9 @@
 import SymbolFactory from '../../symbol/factory';
-import { UnresolvedName } from '../../types';
+import {
+  BindingRequest,
+  createIgnorableBindingRequest,
+  createNonIgnorableBindingRequest,
+} from '../../types';
 import {
   ElementKind,
   createContextValidatorConfig,
@@ -102,7 +106,7 @@ export default class TableValidator extends ElementValidator {
           CompileErrorCode.INVALID_COLUMN_TYPE,
           'This field must be a valid column type',
         ),
-        registerUnresolvedName: registerEnumTypeIfComplexVariable,
+        registerBindingRequest: registerEnumTypeIfComplexVariable,
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_COLUMN,
@@ -116,7 +120,7 @@ export default class TableValidator extends ElementValidator {
     declarationNode: ElementDeclarationNode,
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
-    unresolvedNames: UnresolvedName[],
+    bindingRequests: BindingRequest[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -126,7 +130,7 @@ export default class TableValidator extends ElementValidator {
       declarationNode,
       publicSchemaSymbol,
       contextStack,
-      unresolvedNames,
+      bindingRequests,
       errors,
       kindsGloballyFound,
       kindsLocallyFound,
@@ -138,9 +142,9 @@ export default class TableValidator extends ElementValidator {
 function registerEnumTypeIfComplexVariable(
   node: SyntaxNode,
   ownerElement: ElementDeclarationNode,
-  unresolvedNames: UnresolvedName[],
+  bindingRequests: BindingRequest[],
 ) {
-  if (!isAccessExpression(node)) {
+  if (!isAccessExpression(node) && !(node instanceof PrimaryExpressionNode)) {
     return;
   }
 
@@ -156,10 +160,21 @@ function registerEnumTypeIfComplexVariable(
     referrer: s,
   }));
 
-  unresolvedNames.push({
-    subnames: [...schemaStack, { index: enumId, referrer: _enum }],
-    ownerElement,
-  });
+  if (isAccessExpression(node)) {
+    bindingRequests.push(
+      createNonIgnorableBindingRequest({
+        subnames: [...schemaStack, { index: enumId, referrer: _enum }],
+        ownerElement,
+      }),
+    );
+  } else {
+    bindingRequests.push(
+      createIgnorableBindingRequest({
+        subnames: [...schemaStack, { index: enumId, referrer: _enum }],
+        ownerElement,
+      }),
+    );
+  }
 }
 
 function isValidColumnType(type: SyntaxNode): boolean {
@@ -196,7 +211,7 @@ const columnSettingList = () =>
       ref: {
         allowDuplicate: true,
         isValid: isUnaryRelationship,
-        registerUnresolvedName: registerUnaryRelationship,
+        registerBindingRequest: registerUnaryRelationship,
       },
       'primary key': {
         allowDuplicate: false,
@@ -205,7 +220,7 @@ const columnSettingList = () =>
       default: {
         allowDuplicate: false,
         isValid: isValidDefaultValue,
-        registerUnresolvedName: registerEnumValueIfComplexVar,
+        registerBindingRequest: registerEnumValueIfComplexVar,
       },
       increment: {
         allowDuplicate: false,
@@ -243,7 +258,7 @@ const columnSettingList = () =>
 function registerUnaryRelationship(
   value: SyntaxNode | undefined,
   ownerElement: ElementDeclarationNode,
-  unresolvedNames: UnresolvedName[],
+  bindingRequests: BindingRequest[],
 ) {
   if (!isUnaryRelationship(value)) {
     throw new Error('Unreachable - Must be an unary rel when regiterUnaryRelationship is called');
@@ -251,14 +266,14 @@ function registerUnaryRelationship(
   registerRelationshipOperand(
     (value as PrefixExpressionNode).expression,
     ownerElement,
-    unresolvedNames,
+    bindingRequests,
   );
 }
 
 function registerEnumValueIfComplexVar(
   value: SyntaxNode | undefined,
   ownerElement: ElementDeclarationNode,
-  unresolvedNames: UnresolvedName[],
+  bindingRequests: BindingRequest[],
 ) {
   if (!isValidDefaultValue(value)) {
     throw new Error('Unreachable - Invalid default when registerEnumValueIfComplexVar is called');
@@ -278,12 +293,14 @@ function registerEnumValueIfComplexVar(
     index: createSchemaSymbolIndex(extractVariableFromExpression(s).unwrap()),
   }));
 
-  unresolvedNames.push({
-    subnames: [
-      ...schemaStack,
-      { referrer: _enum, index: enumId },
-      { referrer: enumField, index: enumFieldId },
-    ],
-    ownerElement,
-  });
+  bindingRequests.push(
+    createNonIgnorableBindingRequest({
+      subnames: [
+        ...schemaStack,
+        { referrer: _enum, index: enumId },
+        { referrer: enumField, index: enumFieldId },
+      ],
+      ownerElement,
+    }),
+  );
 }

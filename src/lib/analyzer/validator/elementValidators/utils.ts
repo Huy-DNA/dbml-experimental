@@ -5,12 +5,8 @@ import {
   createSchemaSymbolIndex,
   createTableSymbolIndex,
 } from '../../symbol/symbolIndex';
-import { UnresolvedName } from '../../types';
-import {
-  destructureComplexVariable,
-  destructureMemberAccessExpression,
-  extractVariableFromExpression,
-} from '../../utils';
+import { BindingRequest, createNonIgnorableBindingRequest } from '../../types';
+import { destructureMemberAccessExpression, extractVariableFromExpression } from '../../utils';
 import { ElementKind } from '../types';
 
 // Register a relationship operand for later resolution
@@ -18,16 +14,18 @@ import { ElementKind } from '../types';
 export function registerRelationshipOperand(
   node: NormalExpressionNode,
   ownerElement: ElementDeclarationNode,
-  unresolvedNames: UnresolvedName[],
+  bindingRequests: BindingRequest[],
 ) {
   const fragments = destructureMemberAccessExpression(node).unwrap();
   const column = fragments.pop()!;
   const columnId = createColumnSymbolIndex(extractVariableFromExpression(column).unwrap());
   if (fragments.length === 0) {
-    unresolvedNames.push({
-      subnames: [{ index: columnId, referrer: column }],
-      ownerElement,
-    });
+    bindingRequests.push(
+      createNonIgnorableBindingRequest({
+        subnames: [{ index: columnId, referrer: column }],
+        ownerElement,
+      }),
+    );
 
     return;
   }
@@ -38,14 +36,16 @@ export function registerRelationshipOperand(
     referrer: s,
   }));
 
-  unresolvedNames.push({
-    subnames: [
-      ...schemaStack,
-      { referrer: table, index: tableId },
-      { referrer: column, index: columnId },
-    ],
-    ownerElement,
-  });
+  bindingRequests.push(
+    createNonIgnorableBindingRequest({
+      subnames: [
+        ...schemaStack,
+        { referrer: table, index: tableId },
+        { referrer: column, index: columnId },
+      ],
+      ownerElement,
+    }),
+  );
 }
 
 export function isCustomElement(kind: ElementKind): kind is ElementKind.CUSTOM {
