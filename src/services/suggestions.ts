@@ -1,4 +1,3 @@
-import { hasTrailingNewLines } from '../lib/lexer/utils';
 import Compiler, { ScopeKind } from '../compiler';
 import { SyntaxToken, SyntaxTokenKind } from '../lib/lexer/tokens';
 import { isOffsetWithinSpan } from '../lib/utils';
