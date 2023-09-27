@@ -1,18 +1,16 @@
 import * as monaco from 'monaco-editor-core';
 import { SymbolKind } from '../../lib/analyzer/symbol/symbolIndex';
-import {
- CompletionItemKind, CompletionList, Position, TextModel,
-} from '../types';
+import { CompletionItemKind, CompletionList } from '../types';
 import { ElementKind } from '../../lib/analyzer/validator/types';
 import { SyntaxToken, SyntaxTokenKind } from '../../lib/lexer/tokens';
 import { toElementKind } from '../../lib/analyzer/validator/utils';
-import { hasTrailingNewLines, hasTrailingSpaces, isAtStartOfLine } from '../../lib/lexer/utils';
+import { hasTrailingSpaces, isAtStartOfLine } from '../../lib/lexer/utils';
 import { SyntaxNode, SyntaxNodeKind } from '../../lib/parser/nodes';
 import { None, Option, Some } from '../../lib/option';
-import Compiler, { ScopeKind } from '../../compiler';
+import Compiler from '../../compiler';
 
 /* eslint-disable @typescript-eslint/no-redeclare,no-import-assign */
-const { CompletionItemKind, CompletionItemInsertTextRule } = monaco.languages;
+const { CompletionItemKind } = monaco.languages;
 /* eslint-enable @typescript-eslint/no-redeclare,no-import-assign */
 
 export function pickCompletionItemKind(symbolKind: SymbolKind): CompletionItemKind {
@@ -202,32 +200,38 @@ export class TokenIterator {
 export class TokenLogicalLineIterator extends TokenIterator {
   static fromOffset(compiler: Compiler, offset: number): TokenLogicalLineIterator {
     const flatStream = compiler.token.flatStream();
-    const id = compiler.token.nonTrivial.beforeOrContainOnSameLine(offset).unwrap_or(-1);
-
-    if (id === -1) {
-      return new TokenLogicalLineIterator([], -1);
+    const aId = compiler.token.nonTrivial.afterOrContainOnSameLine(offset).unwrap_or(-1);
+    const bId = compiler.token.nonTrivial.beforeOrContainOnSameLine(offset).unwrap_or(-1);
+    if (aId === -1 && bId === -1) {
+      return new TokenLogicalLineIterator(
+        [],
+        -1,
+      );
     }
-
+    const id = aId !== -1 ? aId : bId;
     let start: number | undefined;
     let end: number | undefined;
     for (start = id; start >= 1; start -= 1) {
       const token = flatStream[start];
-      const prevToken = start === 0 ? undefined : flatStream[start - 1];
+      const prevToken = flatStream[start - 1];
       const containers = compiler.containers(token.start);
       if (isAtStartOfLogicalLine(containers, token, prevToken)) {
         break;
       }
     }
 
-    for (end = id; end < compiler.token.flatStream().length; end += 1) {
-      if (hasTrailingNewLines(compiler.token.flatStream()[end])) {
+    for (end = id + 1; end < flatStream.length; end += 1) {
+      const token = flatStream[end];
+      const prevToken = flatStream[end - 1];
+      const containers = compiler.containers(token.start);
+      if (isAtStartOfLogicalLine(containers, token, prevToken)) {
         break;
       }
     }
 
     return new TokenLogicalLineIterator(
-      compiler.token.flatStream().slice(start, end + 1),
-      id - start,
+      compiler.token.flatStream().slice(start, end),
+      aId !== -1 ? aId - start : -1,
     );
   }
 }
@@ -255,13 +259,7 @@ function isAtStartOfLogicalLine(
     if (containers.some((node) => isInNewlineInsensitiveContext(node, prevToken))) {
       return false;
     }
-    if (!isPrecedingLineJoiningToken(token)) {
-      return true;
-    }
-  }
-
-  if (hasTrailingNewLines(prevToken)) {
-    if (!isFollowingLineJoiningToken(prevToken)) {
+    if (!isPrecedingLineJoiningToken(token) || !isFollowingLineJoiningToken(prevToken)) {
       return true;
     }
   }
