@@ -1,8 +1,8 @@
-import Compiler from '../compiler';
-import { SyntaxTokenKind } from '../lib/lexer/tokens';
+import Compiler from '../../compiler';
+import { SyntaxTokenKind } from '../../lib/lexer/tokens';
 import {
  ColorInformation, ColorPresentation, DocumentColorProvider, TextModel,
-} from './types';
+} from '../types';
 
 export default class DBMLDocumentColorProvider implements DocumentColorProvider {
   private compiler: Compiler;
