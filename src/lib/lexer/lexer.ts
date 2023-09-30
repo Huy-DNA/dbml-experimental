@@ -266,7 +266,7 @@ export default class Lexer {
       allowEof, // Whether EOF is allowed
       raw, // Whether to interpret '\' as a backlash
       consumeStopSequence = true,
-    }: { allowNewline: boolean; allowEof: boolean; raw: boolean, consumeStopSequence?: boolean },
+    }: { allowNewline: boolean; allowEof: boolean; raw: boolean; consumeStopSequence?: boolean },
   ) {
     let string = '';
 
