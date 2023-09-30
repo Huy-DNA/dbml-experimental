@@ -1,10 +1,10 @@
+import _ from 'lodash';
 import { SymbolKind, destructureIndex } from './lib/analyzer/symbol/symbolIndex';
 import { generatePossibleIndexes } from './lib/analyzer/symbol/utils';
 import SymbolTable from './lib/analyzer/symbol/symbolTable';
 import {
   isOffsetWithinFullSpan,
   isOffsetWithinSpan,
-  last,
   returnIfIsOffsetWithinFullSpan,
 } from './lib/utils';
 import { CompileError } from './lib/errors';
@@ -416,7 +416,7 @@ export default class Compiler {
       }
       const containerStack = [...res];
 
-      while (last(containerStack)) {
+      while (_.last(containerStack)) {
         const container = containerStack.pop()!;
 
         if (container instanceof ElementDeclarationNode || container instanceof ProgramNode) {
@@ -489,7 +489,7 @@ export default class Compiler {
     let maybeAttributeName: IdentiferStreamNode | undefined;
     let maybeAttributeValue: ExpressionNode | undefined;
     let maybeSettingList: ListExpressionNode | undefined;
-    while (last(containerStack)) {
+    while (_.last(containerStack)) {
       const container = containerStack.pop()!;
       if (
         container instanceof FunctionApplicationNode ||

@@ -5,7 +5,7 @@ import { ElementKind } from '../../lib/analyzer/validator/types';
 import { SyntaxToken, SyntaxTokenKind } from '../../lib/lexer/tokens';
 import { toElementKind } from '../../lib/analyzer/validator/utils';
 import { hasTrailingSpaces, isAtStartOfLine } from '../../lib/lexer/utils';
-import { ListExpressionNode, SyntaxNode, SyntaxNodeKind, TupleExpressionNode } from '../../lib/parser/nodes';
+import { SyntaxNode, SyntaxNodeKind } from '../../lib/parser/nodes';
 import { None, Option, Some } from '../../lib/option';
 import Compiler from '../../compiler';
 

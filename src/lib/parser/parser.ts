@@ -11,7 +11,6 @@ import { CompileError, CompileErrorCode } from '../errors';
 import { SyntaxToken, SyntaxTokenKind, isOpToken } from '../lexer/tokens';
 import Report from '../report';
 import { ParsingContext, ParsingContextStack } from './contextStack';
-import { last } from '../utils';
 import {
   AttributeNode,
   BlockExpressionNode,
@@ -63,7 +62,7 @@ export default class Parser {
 
   private advance(): SyntaxToken {
     if (this.isAtEnd()) {
-      return last(this.tokens)!; // The EOF
+      return _.last(this.tokens)!; // The EOF
     }
 
     // eslint-disable-next-line no-plusplus
@@ -72,7 +71,7 @@ export default class Parser {
 
   private peek(lookahead: number = 0): SyntaxToken {
     if (lookahead + this.current >= this.tokens.length) {
-      return last(this.tokens)!; // The EOF
+      return _.last(this.tokens)!; // The EOF
     }
 
     return this.tokens[this.current + lookahead];

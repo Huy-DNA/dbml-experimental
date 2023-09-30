@@ -216,8 +216,7 @@ function suggestNamesInScope(
           })),
       );
     }
-    curElement =
-      curElement instanceof ElementDeclarationNode ? curElement.parentElement : undefined;
+    curElement = curElement instanceof ElementDeclarationNode ? curElement.owner : undefined;
   }
 
   return addQuoteIfContainSpace(res);
@@ -238,7 +237,7 @@ function suggestColumnNameInIndexes(
   }
 
   const indexesNode = ctx.element.node;
-  const tableNode = indexesNode.parentElement;
+  const tableNode = indexesNode.owner;
   if (!(tableNode?.symbol instanceof TableSymbol)) {
     return noSuggestions();
   }

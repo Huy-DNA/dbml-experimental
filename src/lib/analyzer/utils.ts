@@ -172,7 +172,7 @@ export function findSymbol(
       return undefined;
     }
 
-    curElement = curElement.parentElement;
+    curElement = curElement.owner;
   }
 
   return undefined;

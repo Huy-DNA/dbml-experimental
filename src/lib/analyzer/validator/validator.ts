@@ -44,7 +44,7 @@ export default class Validator {
   validate(): Report<{ program: ProgramNode; bindingRequests: BindingRequest[] }, CompileError> {
     this.ast.body.forEach((element) => {
       // eslint-disable-next-line no-param-reassign
-      element.parentElement = this.ast;
+      element.owner = this.ast;
       const Val = pickValidator(element);
       const validatorObject = new Val(
         element,

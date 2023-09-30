@@ -498,7 +498,7 @@ export default abstract class ElementValidator {
     kindsFoundInScope: Set<ElementKind>,
   ): boolean {
     // eslint-disable-next-line no-param-reassign
-    sub.parentElement = this.declarationNode;
+    sub.owner = this.declarationNode;
 
     const Val = pickValidator(sub);
 

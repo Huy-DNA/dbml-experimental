@@ -1,6 +1,7 @@
+import _ from 'lodash';
 import { SyntaxToken, SyntaxTokenKind } from '../lexer/tokens';
 import { None, Option, Some } from '../option';
-import { alternateLists, gatherIntoList, last } from '../utils';
+import { alternateLists, gatherIntoList } from '../utils';
 import NodeFactory from './factory';
 import {
   AttributeNode,
@@ -44,7 +45,7 @@ export function convertFuncAppToElem(
   }
 
   const attributeList =
-    last(cpArgs) instanceof ListExpressionNode ? (cpArgs.pop() as ListExpressionNode) : undefined;
+    _.last(cpArgs) instanceof ListExpressionNode ? (cpArgs.pop() as ListExpressionNode) : undefined;
 
   if (cpArgs.length === 3 && extractVariableNode(cpArgs[1]).unwrap().value === 'as') {
     return new Some(
