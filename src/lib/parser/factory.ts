@@ -7,7 +7,11 @@ export default class NodeFactory {
     this.generator = generator;
   }
 
-  create<T extends SyntaxNode, A>(Type: { new (args: A, id: SyntaxNodeId): T }, args: A): T {
-    return new Type(args, this.generator.nextId());
+  create<T extends SyntaxNode, A>(
+    Type: { new (args: A, id: SyntaxNodeId, isInvalid: boolean): T },
+    args: A,
+    isInvalid: boolean,
+  ): T {
+    return new Type(args, this.generator.nextId(), isInvalid);
   }
 }

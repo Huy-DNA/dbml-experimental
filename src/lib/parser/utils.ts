@@ -28,11 +28,11 @@ import {
 
 // Try to interpret a function application as an element
 export function convertFuncAppToElem(
-  callee: ExpressionNode,
+  callee: ExpressionNode | undefined,
   args: NormalExpressionNode[],
   factory: NodeFactory,
 ): Option<ElementDeclarationNode> {
-  if (!isExpressionAnIdentifierNode(callee) || args.length === 0) {
+  if (!callee || !isExpressionAnIdentifierNode(callee) || args.length === 0) {
     return new None();
   }
   const cpArgs = [...args];
@@ -49,35 +49,47 @@ export function convertFuncAppToElem(
 
   if (cpArgs.length === 3 && extractVariableNode(cpArgs[1]).unwrap().value === 'as') {
     return new Some(
-      factory.create(ElementDeclarationNode, {
-        type,
-        name: cpArgs[0],
-        as: extractVariableNode(cpArgs[1]).unwrap(),
-        alias: cpArgs[2],
-        attributeList,
-        body,
-      }),
+      factory.create(
+        ElementDeclarationNode,
+        {
+          type,
+          name: cpArgs[0],
+          as: extractVariableNode(cpArgs[1]).unwrap(),
+          alias: cpArgs[2],
+          attributeList,
+          body,
+        },
+        false,
+      ),
     );
   }
 
   if (cpArgs.length === 1) {
     return new Some(
-      factory.create(ElementDeclarationNode, {
-        type,
-        name: cpArgs[0],
-        attributeList,
-        body,
-      }),
+      factory.create(
+        ElementDeclarationNode,
+        {
+          type,
+          name: cpArgs[0],
+          attributeList,
+          body,
+        },
+        false,
+      ),
     );
   }
 
   if (cpArgs.length === 0) {
     return new Some(
-      factory.create(ElementDeclarationNode, {
-        type,
-        attributeList,
-        body,
-      }),
+      factory.create(
+        ElementDeclarationNode,
+        {
+          type,
+          attributeList,
+          body,
+        },
+        false,
+      ),
     );
   }
 
@@ -89,27 +101,6 @@ export function isAsKeyword(
   token: SyntaxToken,
 ): token is SyntaxToken & { kind: SyntaxTokenKind.IDENTIFIER; value: 'as' } {
   return token.kind === SyntaxTokenKind.IDENTIFIER && token.value === 'as';
-}
-
-// Check if an attribute components are valid to build an AttributeNode
-export function canBuildAttributeNode(
-  name: IdentiferStreamNode | undefined,
-  colon: SyntaxToken | undefined,
-  value: ExpressionNode | IdentiferStreamNode | undefined,
-): name is IdentiferStreamNode {
-  if (!name) {
-    return false;
-  }
-
-  if (colon && !value) {
-    return false;
-  }
-
-  if (!colon && value) {
-    return false;
-  }
-
-  return true;
 }
 
 export function markInvalid(nodeOrToken?: SyntaxNode | SyntaxToken) {
@@ -194,24 +185,6 @@ function markInvalidNode(node: SyntaxNode) {
 
 export function isInvalidToken(token?: SyntaxToken): boolean {
   return !!token?.isInvalid;
-}
-
-export function createDummySyntaxToken(kind: SyntaxTokenKind): SyntaxToken {
-  return SyntaxToken.create(
-    kind,
-    {
-      offset: NaN,
-      line: NaN,
-      column: NaN,
-    },
-    {
-      offset: NaN,
-      line: NaN,
-      column: NaN,
-    },
-    '',
-    false,
-  );
 }
 
 export function getMemberChain(node: SyntaxNode): Readonly<(SyntaxNode | SyntaxToken)[]> {

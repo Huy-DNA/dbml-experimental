@@ -156,7 +156,7 @@ export function findSymbol(
   id: NodeSymbolIndex,
   startElement: ElementDeclarationNode,
 ): NodeSymbol | undefined {
-  let curElement: ElementDeclarationNode | ProgramNode | undefined = startElement;
+  let curElement: SyntaxNode | undefined = startElement;
   const isPublicSchema = isPublicSchemaIndex(id);
 
   while (curElement) {

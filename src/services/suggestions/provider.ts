@@ -24,7 +24,7 @@ import {
   noSuggestions,
   prependSpace,
 } from './utils';
-import { ElementDeclarationNode, ProgramNode } from '../../lib/parser/nodes';
+import { ElementDeclarationNode, ProgramNode, SyntaxNode } from '../../lib/parser/nodes';
 import { ElementKind } from '../../lib/analyzer/validator/types';
 import { getOffsetFromMonacoPosition } from '../utils';
 import { isComment } from '../../lib/lexer/utils';
@@ -197,7 +197,7 @@ function suggestNamesInScope(
     return noSuggestions();
   }
 
-  let curElement: ElementDeclarationNode | ProgramNode | undefined = parent;
+  let curElement: SyntaxNode | undefined = parent;
   const res: CompletionList = { suggestions: [] };
   while (curElement) {
     if (curElement?.symbol?.symbolTable) {
