@@ -126,7 +126,7 @@ export default class Parser {
   // Discard tokens until one of `kind` is found
   // If any tokens are discarded, the error message is logged
   private discardUntil(message: string, ...kind: SyntaxTokenKind[]): boolean {
-    if (!this.check(...kind)) {
+    if (this.isAtEnd() || !this.check(...kind)) {
       markInvalid(this.peek());
       this.logError(this.advance(), CompileErrorCode.UNEXPECTED_TOKEN, message);
       while (!this.isAtEnd() && !this.check(...kind)) {
@@ -239,6 +239,7 @@ export default class Parser {
         if (!(e instanceof PartialParsingError)) {
           throw e;
         }
+        body.push(e.partialNode);
         this.synchronizeProgram();
       }
     }
@@ -313,23 +314,32 @@ export default class Parser {
       buildElement,
     );
 
-    this.discardUntil(
+    if (!this.discardUntil(
       "Expect an opening brace '{' or a colon ':'",
       SyntaxTokenKind.LBRACE,
       SyntaxTokenKind.COLON,
-    );
+    )) {
+      return buildElement();
+    }
 
     if (this.match(SyntaxTokenKind.COLON)) {
       args.bodyColon = this.previous();
+      this.synchAssignWrap(
+        () => this.expression(),
+        (value) => {
+          args.body = value;
+        },
+        buildElement,
+      );
+    } else {
+      this.synchAssignWrap(
+        () => this.blockExpression(),
+        (value) => {
+          args.body = value;
+        },
+        buildElement,
+      );
     }
-
-    this.synchAssignWrap(
-      () => this.expression(),
-      (value) => {
-        args.body = value;
-      },
-      buildElement,
-    );
 
     return this.nodeFactory.create(ElementDeclarationNode, args);
   }
@@ -458,7 +468,7 @@ export default class Parser {
   }
 
   private shouldStopExpression(): boolean {
-    if (hasTrailingNewLines(this.previous()) || this.isAtEnd()) {
+    if (this.isAtEnd() || hasTrailingNewLines(this.previous())) {
       return true;
     }
 

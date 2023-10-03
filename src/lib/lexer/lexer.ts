@@ -374,6 +374,9 @@ export default class Lexer {
 
   numericLiteral() {
     let nDots = 0;
+    if (this.isAtEnd()) {
+      return this.addToken(SyntaxTokenKind.NUMERIC_LITERAL);
+    }
     while (!this.isAtEnd()) {
       const isDot = this.check('.');
       nDots += isDot ? 1 : 0;

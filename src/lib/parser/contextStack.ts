@@ -101,37 +101,55 @@ export class ParsingContextStack {
       return null;
     }
 
-    for (let tokenId = curTokenId; tokenId < tokens.length; tokenId += 1) {
+    const skippedContexts: ParsingContext[] = [];
+    for (let tokenId = curTokenId; tokenId < tokens.length - 1; tokenId += 1) {
       const token = tokens[tokenId];
-      if (
-        ![
-          SyntaxTokenKind.COMMA,
-          SyntaxTokenKind.RBRACE,
-          SyntaxTokenKind.RBRACKET,
-          SyntaxTokenKind.RPAREN,
-        ].includes(token.kind)
-      ) {
-        continue;
-      }
-
-      if (token.kind === SyntaxTokenKind.COMMA) {
-        if (this.isWithinGroupExpressionContext() || this.isWithinListExpressionContext()) {
-          return this.stack
-            .reverse()
-            .find((c) =>
-              [ParsingContext.GroupExpression, ParsingContext.ListExpression].includes(c))!;
-        }
-        continue;
-      }
-
-      if (token.kind === SyntaxTokenKind.RBRACKET && this.isWithinListExpressionContext()) {
-        return ParsingContext.ListExpression;
-      }
-      if (token.kind === SyntaxTokenKind.RPAREN && this.isWithinGroupExpressionContext()) {
-        return ParsingContext.GroupExpression;
-      }
-      if (token.kind === SyntaxTokenKind.RBRACE && this.isWithinBlockExpressionContext()) {
-        return ParsingContext.BlockExpression;
+      switch (token.kind) {
+        case SyntaxTokenKind.LPAREN:
+          skippedContexts.push(ParsingContext.GroupExpression);
+          break;
+        case SyntaxTokenKind.LBRACE:
+          skippedContexts.push(ParsingContext.BlockExpression);
+          break;
+        case SyntaxTokenKind.LBRACKET:
+          skippedContexts.push(ParsingContext.ListExpression);
+          break;
+        case SyntaxTokenKind.COMMA:
+          if (
+            ![ParsingContext.GroupExpression, ParsingContext.ListExpression].includes(
+              _.last(skippedContexts) as any,
+            ) &&
+            (this.isWithinGroupExpressionContext() || this.isWithinListExpressionContext())
+          ) {
+            return this.stack
+              .reverse()
+              .find((c) =>
+                [ParsingContext.GroupExpression, ParsingContext.ListExpression].includes(c))!;
+          }
+          break;
+        case SyntaxTokenKind.RPAREN:
+          if (_.last(skippedContexts) === ParsingContext.GroupExpression) {
+            skippedContexts.pop();
+          } else if (this.isWithinGroupExpressionContext()) {
+            return ParsingContext.GroupExpression;
+          }
+          break;
+        case SyntaxTokenKind.RBRACE:
+          if (_.last(skippedContexts) === ParsingContext.BlockExpression) {
+            skippedContexts.pop();
+          } else if (this.isWithinBlockExpressionContext()) {
+            return ParsingContext.BlockExpression;
+          }
+          break;
+        case SyntaxTokenKind.RBRACKET:
+          if (_.last(skippedContexts) === ParsingContext.ListExpression) {
+            skippedContexts.pop();
+          } else if (this.isWithinListExpressionContext()) {
+            return ParsingContext.ListExpression;
+          }
+          break;
+        default:
+          break;
       }
     }
 
