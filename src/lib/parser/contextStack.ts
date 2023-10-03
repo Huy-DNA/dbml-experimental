@@ -7,20 +7,6 @@ export const enum ParsingContext {
   BlockExpression,
 }
 
-function canHandle(context: ParsingContext, token: SyntaxToken): boolean {
-  const tokenKind = token.kind;
-  switch (context) {
-    case ParsingContext.ListExpression:
-      return tokenKind === SyntaxTokenKind.RBRACKET || tokenKind === SyntaxTokenKind.COMMA;
-    case ParsingContext.GroupExpression:
-      return tokenKind === SyntaxTokenKind.RPAREN || tokenKind === SyntaxTokenKind.COMMA;
-    case ParsingContext.BlockExpression:
-      return tokenKind === SyntaxTokenKind.RBRACE;
-  }
-
-  return false;
-}
-
 export class ParsingContextStack {
   private stack: ParsingContext[] = [];
 
