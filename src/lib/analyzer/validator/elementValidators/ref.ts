@@ -1,4 +1,4 @@
-import { SyntaxTokenKind } from '../../../lexer/tokens';
+import { SyntaxToken, SyntaxTokenKind } from '../../../lexer/tokens';
 import SymbolFactory from '../../symbol/factory';
 import { BindingRequest } from '../../types';
 import { registerRelationshipOperand, transformToReturnCompileErrors } from './utils';
@@ -9,12 +9,7 @@ import {
   createSubFieldValidatorConfig,
 } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
-import {
-  ElementDeclarationNode,
-  IdentiferStreamNode,
-  InfixExpressionNode,
-  SyntaxNode,
-} from '../../../parser/nodes';
+import { ElementDeclarationNode, IdentiferStreamNode, SyntaxNode } from '../../../parser/nodes';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import { isBinaryRelationship } from '../utils';
@@ -69,7 +64,7 @@ export default class RefValidator extends ElementValidator {
   });
 
   constructor(
-    declarationNode: ElementDeclarationNode,
+    declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     bindingRequests: BindingRequest[],
@@ -102,16 +97,15 @@ function registerBinaryRelationship(
     );
   }
 
-  registerRelationshipOperand(
-    (node as InfixExpressionNode).leftExpression,
-    ownerElement,
-    bindingRequests,
-  );
-  registerRelationshipOperand(
-    (node as InfixExpressionNode).rightExpression,
-    ownerElement,
-    bindingRequests,
-  );
+  const { leftExpression, rightExpression } = node;
+
+  if (leftExpression) {
+    registerRelationshipOperand(leftExpression, ownerElement, bindingRequests);
+  }
+
+  if (rightExpression) {
+    registerRelationshipOperand(rightExpression, ownerElement, bindingRequests);
+  }
 }
 
 function isValidPolicy(value?: SyntaxNode): boolean {

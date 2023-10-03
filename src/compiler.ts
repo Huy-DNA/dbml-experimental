@@ -442,6 +442,9 @@ export default class Compiler {
       if (node instanceof ProgramNode) {
         return new Some(ScopeKind.TOPLEVEL);
       }
+      if (!node.type) {
+        return new None();
+      }
       switch (node.type.value.toLowerCase()) {
         case 'table':
           return new Some(ScopeKind.TABLE);

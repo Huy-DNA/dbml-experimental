@@ -53,7 +53,7 @@ export default abstract class ElementValidator {
   protected abstract settingList: SettingListValidatorConfig;
   protected abstract subfield: SubFieldValidatorConfig;
 
-  protected declarationNode: ElementDeclarationNode;
+  protected declarationNode: ElementDeclarationNode & { type: SyntaxToken };
   protected publicSchemaSymbol: SchemaSymbol;
   protected contextStack: ContextStack;
   protected bindingRequests: BindingRequest[];
@@ -63,7 +63,7 @@ export default abstract class ElementValidator {
   protected symbolFactory: SymbolFactory;
 
   constructor(
-    declarationNode: ElementDeclarationNode,
+    declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     bindingRequests: BindingRequest[],
@@ -431,8 +431,12 @@ export default abstract class ElementValidator {
   /* Validate body format according to config `this.body` */
 
   private validateBodyForm(): boolean {
-    let hasError = false;
     const node = this.declarationNode;
+    if (!node.body) {
+      return true;
+    }
+
+    let hasError = false;
 
     if (!this.body.allowComplex && hasComplexBody(node)) {
       this.logError(
@@ -459,6 +463,9 @@ export default abstract class ElementValidator {
 
   protected validateBodyContent(): boolean {
     const node = this.declarationNode;
+    if (!node.body) {
+      return true;
+    }
 
     if (hasComplexBody(node)) {
       if (!this.body.allowComplex) {
@@ -499,11 +506,15 @@ export default abstract class ElementValidator {
   ): boolean {
     // eslint-disable-next-line no-param-reassign
     sub.owner = this.declarationNode;
+    if (sub.type === undefined) {
+      return true;
+    }
+    const _sub = sub as ElementDeclarationNode & { type: SyntaxToken };
 
-    const Val = pickValidator(sub);
+    const Val = pickValidator(_sub);
 
     const validatorObject = new Val(
-      sub,
+      _sub,
       this.publicSchemaSymbol,
       this.contextStack,
       this.bindingRequests,
@@ -519,7 +530,13 @@ export default abstract class ElementValidator {
   /* Validate and register subfield according to config `this.subfield` */
 
   protected validateSubField(sub: ExpressionNode, ith: number): boolean {
-    const args = sub instanceof FunctionApplicationNode ? [sub.callee, ...sub.args] : [sub];
+    const _args = sub instanceof FunctionApplicationNode ? [sub.callee, ...sub.args] : [sub];
+    if (!_args.every((v) => v !== undefined)) {
+      return true;
+    }
+
+    const args = _args as ExpressionNode[];
+
     if (args.length === 0) {
       throw new Error('A function application node always has at least 1 callee');
     }

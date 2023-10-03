@@ -13,6 +13,7 @@ import {
   optionalNameConfig,
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
+import { SyntaxToken } from '../../../lexer/tokens';
 
 export default class ProjectValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.PROJECT;
@@ -43,7 +44,7 @@ export default class ProjectValidator extends ElementValidator {
   });
 
   constructor(
-    declarationNode: ElementDeclarationNode,
+    declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     bindingRequests: BindingRequest[],

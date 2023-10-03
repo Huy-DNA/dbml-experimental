@@ -3,7 +3,6 @@ import {
   ElementDeclarationNode,
   FunctionExpressionNode,
   InfixExpressionNode,
-  LiteralNode,
   PrimaryExpressionNode,
   ProgramNode,
   SyntaxNode,
@@ -18,6 +17,7 @@ import {
   isExpressionAQuotedString,
   isExpressionAVariableNode,
 } from '../parser/utils';
+import { SyntaxToken } from '../lexer/tokens';
 
 export function destructureMemberAccessExpression(node: SyntaxNode): Option<SyntaxNode[]> {
   if (node instanceof PrimaryExpressionNode || node instanceof TupleExpressionNode) {
@@ -39,7 +39,11 @@ export function destructureMemberAccessExpression(node: SyntaxNode): Option<Synt
   return new Some(fragments);
 }
 
-export function destructureComplexVariable(node: SyntaxNode): Option<string[]> {
+export function destructureComplexVariable(node?: SyntaxNode): Option<string[]> {
+  if (node === undefined) {
+    return new None();
+  }
+
   const fragments = destructureMemberAccessExpression(node).unwrap_or(undefined);
 
   if (!fragments) {
@@ -93,33 +97,30 @@ export function destructureIndexNode(node: SyntaxNode): Option<{
 
 export function extractVarNameFromPrimaryVariable(
   node: PrimaryExpressionNode & { expression: VariableNode },
-): string {
-  return node.expression.variable.value;
+): Option<string> {
+  const value = node.expression.variable?.value;
+
+  return value === undefined ? new None() : new Some(value);
 }
 
-export function extractQuotedStringToken(value?: SyntaxNode): string | undefined {
+export function extractQuotedStringToken(value?: SyntaxNode): Option<string> {
   if (!isExpressionAQuotedString(value)) {
-    return undefined;
+    return new None();
   }
 
-  const primaryExp = value as PrimaryExpressionNode;
-  if (primaryExp.expression instanceof VariableNode) {
-    return primaryExp.expression.variable.value;
+  if (value.expression instanceof VariableNode) {
+    return new Some(value.expression.variable!.value);
   }
 
-  if (primaryExp.expression instanceof LiteralNode) {
-    return primaryExp.expression.literal.value;
-  }
-
-  return undefined; // unreachable
+  return new Some(value.expression.literal.value);
 }
 
-export function isBinaryRelationship(value?: SyntaxNode): boolean {
+export function isBinaryRelationship(value?: SyntaxNode): value is InfixExpressionNode {
   if (!(value instanceof InfixExpressionNode)) {
     return false;
   }
 
-  if (!isRelationshipOp(value.op.value)) {
+  if (!isRelationshipOp(value.op?.value)) {
     return false;
   }
 
@@ -140,7 +141,9 @@ export function isValidIndexName(
 }
 
 export function extractIndexName(
-  value: (PrimaryExpressionNode & { expression: VariableNode }) | FunctionExpressionNode,
+  value:
+    | (PrimaryExpressionNode & { expression: VariableNode & { variable: SyntaxToken } })
+    | (FunctionExpressionNode & { value: SyntaxToken }),
 ): string {
   if (value instanceof PrimaryExpressionNode) {
     return value.expression.variable.value;

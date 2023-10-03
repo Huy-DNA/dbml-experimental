@@ -14,7 +14,6 @@ import { CompileError, CompileErrorCode } from '../../../errors';
 import {
   CallExpressionNode,
   ElementDeclarationNode,
-  PrefixExpressionNode,
   PrimaryExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
@@ -50,6 +49,7 @@ import {
   isExpressionAQuotedString,
   isExpressionAVariableNode,
 } from '../../../parser/utils';
+import { SyntaxToken } from '../../../lexer/tokens';
 
 export default class TableValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLE;
@@ -117,7 +117,7 @@ export default class TableValidator extends ElementValidator {
   });
 
   constructor(
-    declarationNode: ElementDeclarationNode,
+    declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     bindingRequests: BindingRequest[],
@@ -189,9 +189,14 @@ function isValidColumnType(type: SyntaxNode): boolean {
   }
 
   if (type instanceof CallExpressionNode) {
-    if (!type.argumentList.elementList.every(isExpressionANumber)) {
+    if (type.callee === undefined || type.argumentList?.elementList.every((e) => e !== undefined)) {
+      return true;
+    }
+
+    if (!type.argumentList?.elementList.every(isExpressionANumber)) {
       return false;
     }
+
     // eslint-disable-next-line no-param-reassign
     type = type.callee;
   }
@@ -263,11 +268,11 @@ function registerUnaryRelationship(
   if (!isUnaryRelationship(value)) {
     throw new Error('Unreachable - Must be an unary rel when regiterUnaryRelationship is called');
   }
-  registerRelationshipOperand(
-    (value as PrefixExpressionNode).expression,
-    ownerElement,
-    bindingRequests,
-  );
+
+  const { expression } = value;
+  if (expression !== undefined) {
+    registerRelationshipOperand(expression, ownerElement, bindingRequests);
+  }
 }
 
 function registerEnumValueIfComplexVar(

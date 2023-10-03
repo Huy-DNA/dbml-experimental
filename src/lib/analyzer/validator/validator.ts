@@ -1,6 +1,6 @@
 import Report from '../../report';
 import { CompileError } from '../../errors';
-import { ProgramNode } from '../../parser/nodes';
+import { ElementDeclarationNode, ProgramNode } from '../../parser/nodes';
 import { ContextStack } from './validatorContext';
 import { SchemaSymbol } from '../symbol/symbols';
 import SymbolFactory from '../symbol/factory';
@@ -8,6 +8,7 @@ import { pickValidator } from './utils';
 import { ElementKind } from './types';
 import SymbolTable from '../symbol/symbolTable';
 import { BindingRequest } from '../types';
+import { SyntaxToken } from '../../lexer/tokens';
 
 export default class Validator {
   private ast: ProgramNode;
@@ -42,9 +43,14 @@ export default class Validator {
   }
 
   validate(): Report<{ program: ProgramNode; bindingRequests: BindingRequest[] }, CompileError> {
-    this.ast.body.forEach((element) => {
+    this.ast.body.forEach((_element) => {
       // eslint-disable-next-line no-param-reassign
-      element.owner = this.ast;
+      _element.owner = this.ast;
+      if (_element.type === undefined) {
+        return;
+      }
+      const element = _element as ElementDeclarationNode & { type: SyntaxToken };
+
       const Val = pickValidator(element);
       const validatorObject = new Val(
         element,

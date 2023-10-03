@@ -15,6 +15,7 @@ import {
 import { SchemaSymbol } from '../../symbol/symbols';
 import SymbolFactory from '../../symbol/factory';
 import { transformToReturnCompileErrors } from './utils';
+import { SyntaxToken } from '../../../lexer/tokens';
 
 export default class CustomValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.CUSTOM;
@@ -53,7 +54,7 @@ export default class CustomValidator extends ElementValidator {
   });
 
   constructor(
-    declarationNode: ElementDeclarationNode,
+    declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     bindingRequests: BindingRequest[],

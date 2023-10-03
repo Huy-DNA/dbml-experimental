@@ -17,6 +17,7 @@ import {
 import { SchemaSymbol } from '../../symbol/symbols';
 import { isValidName } from '../utils';
 import { transformToReturnCompileErrors } from './utils';
+import { SyntaxToken } from '../../../lexer/tokens';
 
 export default class TableGroupValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.TABLEGROUP;
@@ -56,7 +57,7 @@ export default class TableGroupValidator extends ElementValidator {
   });
 
   constructor(
-    declarationNode: ElementDeclarationNode,
+    declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     bindingRequests: BindingRequest[],

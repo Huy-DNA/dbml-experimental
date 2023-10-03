@@ -3,7 +3,7 @@ import { convertFuncAppToElem, isAsKeyword, markInvalid } from './utils';
 import { CompileError, CompileErrorCode } from '../errors';
 import { SyntaxToken, SyntaxTokenKind, isOpToken } from '../lexer/tokens';
 import Report from '../report';
-import { HandlerContext, ParsingContext, ParsingContextStack } from './contextStack';
+import { ParsingContext, ParsingContextStack } from './contextStack';
 import {
   AttributeNode,
   BlockExpressionNode,
@@ -30,12 +30,13 @@ import {
 import NodeFactory from './factory';
 import { hasTrailingNewLines, hasTrailingSpaces, isAtStartOfLine } from '../lexer/utils';
 
+/* eslint-disable no-loop-func */
 class PartialParsingError<T extends SyntaxNode | undefined> {
   partialNode: T;
   token: Readonly<SyntaxToken>;
-  handlerContext: HandlerContext;
+  handlerContext: null | ParsingContext;
 
-  constructor(token: Readonly<SyntaxToken>, partialNode: T, handlerContext: HandlerContext) {
+  constructor(token: Readonly<SyntaxToken>, partialNode: T, handlerContext: null | ParsingContext) {
     this.token = token;
     this.partialNode = partialNode;
     this.handlerContext = handlerContext;
@@ -102,10 +103,7 @@ export default class Parser {
   }
 
   private canHandle<T extends SyntaxNode>(e: PartialParsingError<T>): boolean {
-    return (
-      e.handlerContext === HandlerContext.This ||
-      e.handlerContext === (this.contextStack.top() as unknown as HandlerContext)
-    );
+    return e.handlerContext === null || e.handlerContext === this.contextStack.top();
   }
 
   private consume(message: string, ...kind: SyntaxTokenKind[]) {
@@ -114,12 +112,12 @@ export default class Parser {
       throw new PartialParsingError(
         this.peek(),
         undefined,
-        this.contextStack.findHandlerContext(this.peek()),
+        this.contextStack.findHandlerContext(this.tokens, this.current),
       );
     }
   }
 
-  private consumeAndYield(message: string, ...kind: SyntaxTokenKind[]): SyntaxToken {
+  private consumeReturn(message: string, ...kind: SyntaxTokenKind[]): SyntaxToken {
     this.consume(message, ...kind);
 
     return this.previous();
@@ -172,7 +170,7 @@ export default class Parser {
     this.tokens.push(...tokens);
   }
 
-  synchronize<T extends SyntaxNode>(
+  synchWrap<T extends SyntaxNode>(
     parsingCallback: () => void,
     handlePartial: (subPartial: unknown) => void,
     constructPartial: (subPartial: unknown) => T,
@@ -195,7 +193,7 @@ export default class Parser {
     }
   }
 
-  synchronizeAssign<T extends SyntaxNode, V>(
+  synchAssignWrap<T extends SyntaxNode, V>(
     parsingCallback: () => V,
     assignCallback: (value: V, isPartial: boolean) => void,
     constructPartial: (subPartial: V) => T,
@@ -223,7 +221,7 @@ export default class Parser {
   parse(): Report<ProgramNode, CompileError> {
     const body = this.program();
     const eof = this.advance();
-    const program = this.nodeFactory.create(ProgramNode, { body, eof }, false);
+    const program = this.nodeFactory.create(ProgramNode, { body, eof });
     this.gatherInvalid();
 
     return new Report(program, this.errors);
@@ -270,24 +268,23 @@ export default class Parser {
       bodyColon: SyntaxToken | undefined;
       body: NormalExpressionNode | undefined;
     } = {} as any;
-    const buildElement = (isInvalid: boolean) =>
-      this.nodeFactory.create(ElementDeclarationNode, args, isInvalid);
+    const buildElement = () => this.nodeFactory.create(ElementDeclarationNode, args);
 
-    this.synchronizeAssign(
-      () => this.consumeAndYield('Expect an identifier', SyntaxTokenKind.IDENTIFIER),
+    this.synchAssignWrap(
+      () => this.consumeReturn('Expect an identifier', SyntaxTokenKind.IDENTIFIER),
       (value) => {
         args.type = value;
       },
-      () => buildElement(true),
+      buildElement,
     );
 
     if (!this.check(SyntaxTokenKind.COLON, SyntaxTokenKind.LBRACE, SyntaxTokenKind.LBRACKET)) {
-      this.synchronizeAssign(
+      this.synchAssignWrap(
         () => this.normalExpression(),
         (value) => {
           args.name = value;
         },
-        () => buildElement(true),
+        buildElement,
         this.synchronizeElementDeclarationName,
       );
     }
@@ -295,12 +292,12 @@ export default class Parser {
     if (isAsKeyword(this.peek())) {
       args.as = this.advance();
       if (!this.check(SyntaxTokenKind.COLON, SyntaxTokenKind.LBRACE, SyntaxTokenKind.LBRACKET)) {
-        this.synchronizeAssign(
+        this.synchAssignWrap(
           () => this.normalExpression(),
           (value) => {
             args.alias = value;
           },
-          () => buildElement(true),
+          buildElement,
           this.synchronizeElementDeclarationAlias,
         );
       } else {
@@ -308,12 +305,12 @@ export default class Parser {
       }
     }
 
-    this.synchronizeAssign(
+    this.synchAssignWrap(
       () => (this.check(SyntaxTokenKind.LBRACKET) ? this.listExpression() : undefined),
       (value) => {
         args.attributeList = value;
       },
-      () => buildElement(true),
+      buildElement,
     );
 
     this.discardUntil(
@@ -326,15 +323,15 @@ export default class Parser {
       args.bodyColon = this.previous();
     }
 
-    this.synchronizeAssign(
+    this.synchAssignWrap(
       () => this.expression(),
       (value) => {
         args.body = value;
       },
-      () => buildElement(true),
+      buildElement,
     );
 
-    return this.nodeFactory.create(ElementDeclarationNode, args, true);
+    return this.nodeFactory.create(ElementDeclarationNode, args);
   }
 
   private synchronizeElementDeclarationName = () => {
@@ -376,32 +373,31 @@ export default class Parser {
       bodyColon: SyntaxToken | undefined;
       body: NormalExpressionNode | undefined;
     } = {} as any;
-    const buildElement = (isInvalid: boolean) =>
-      this.nodeFactory.create(ElementDeclarationNode, args, isInvalid);
+    const buildElement = () => this.nodeFactory.create(ElementDeclarationNode, args);
 
-    this.synchronizeAssign(
-      () => this.consumeAndYield('Expect an identifier', SyntaxTokenKind.IDENTIFIER),
+    this.synchAssignWrap(
+      () => this.consumeReturn('Expect an identifier', SyntaxTokenKind.IDENTIFIER),
       (value) => {
         args.type = value;
       },
-      () => buildElement(true),
+      buildElement,
     );
-    this.synchronizeAssign(
-      () => this.consumeAndYield("Expect a colon ':'", SyntaxTokenKind.COLON),
+    this.synchAssignWrap(
+      () => this.consumeReturn("Expect a colon ':'", SyntaxTokenKind.COLON),
       (value) => {
         args.bodyColon = value;
       },
-      () => buildElement(true),
+      buildElement,
     );
-    this.synchronizeAssign(
+    this.synchAssignWrap(
       () => this.expression(),
       (value) => {
         args.body = value;
       },
-      () => buildElement(true),
+      buildElement,
     );
 
-    return this.nodeFactory.create(ElementDeclarationNode, args, false);
+    return this.nodeFactory.create(ElementDeclarationNode, args);
   }
 
   /* Parsing any ExpressionNode, including non-NormalExpression */
@@ -416,17 +412,17 @@ export default class Parser {
 
     // Try interpreting the function application as an element declaration expression
     // if fail, fall back to the generic function application
-    const buildExpression = (isInvalid: boolean) =>
+    const buildExpression = () =>
       convertFuncAppToElem(args.callee, args.args, this.nodeFactory).unwrap_or(
-        this.nodeFactory.create(FunctionApplicationNode, args, isInvalid),
+        this.nodeFactory.create(FunctionApplicationNode, args),
       );
 
-    this.synchronizeAssign(
+    this.synchAssignWrap(
       () => this.normalExpression(),
       (value) => {
         args.callee = value;
       },
-      () => buildExpression(true),
+      () => args.callee!,
     );
 
     // If there are newlines after the callee, then it's a simple expression
@@ -443,27 +439,26 @@ export default class Parser {
     }
 
     let prevNode = args.callee!;
-    while (!this.isAtEnd() && !this.shouldStopExpression()) {
+    while (!this.shouldStopExpression()) {
       if (!hasTrailingSpaces(this.previous())) {
         this.logError(prevNode, CompileErrorCode.MISSING_SPACES, 'Expect a following space');
       }
 
-      this.synchronize(
-        // eslint-disable-next-line no-loop-func
-        () => {
-          prevNode = this.normalExpression();
+      this.synchAssignWrap(
+        () => this.normalExpression(),
+        (value) => {
+          prevNode = value;
           args.args.push(prevNode);
         },
-        (partial: any) => args.args.push(partial),
-        () => buildExpression(true),
+        buildExpression,
       );
     }
 
-    return buildExpression(false);
+    return buildExpression();
   }
 
-  private shouldStopExpression() {
-    if (hasTrailingNewLines(this.previous())) {
+  private shouldStopExpression(): boolean {
+    if (hasTrailingNewLines(this.previous()) || this.isAtEnd()) {
       return true;
     }
 
@@ -505,21 +500,14 @@ export default class Parser {
         ) {
           break;
         }
-        this.synchronizeAssign(
-          // eslint-disable-next-line no-loop-func
+        this.synchAssignWrap(
           () => this.tupleExpression(),
-          // eslint-disable-next-line no-loop-func
-          (value, isPartial) => {
-            leftExpression = this.nodeFactory.create(
-              CallExpressionNode,
-              {
-                callee: leftExpression,
-                argumentList: value,
-              },
-              isPartial,
-            );
+          (value) => {
+            leftExpression = this.nodeFactory.create(CallExpressionNode, {
+              callee: leftExpression,
+              argumentList: value,
+            });
           },
-          // eslint-disable-next-line no-loop-func
           () => leftExpression,
         );
       } else if (!isOpToken(token)) {
@@ -533,29 +521,26 @@ export default class Parser {
             break;
           }
           this.advance();
-          leftExpression = this.nodeFactory.create(
-            PostfixExpressionNode,
-            {
-              expression: leftExpression!,
-              op,
-            },
-            false,
-          );
+          leftExpression = this.nodeFactory.create(PostfixExpressionNode, {
+            expression: leftExpression!,
+            op,
+          });
         } else {
           const opInfixPower = infixBindingPower(op);
           if (opInfixPower.left === null || opInfixPower.left <= mbp) {
             break;
           }
           this.advance();
-          const rightExpression = this.expression_bp(opInfixPower.right);
-          leftExpression = this.nodeFactory.create(
-            InfixExpressionNode,
-            {
-              leftExpression: leftExpression!,
-              op,
-              rightExpression,
+          this.synchAssignWrap(
+            () => this.expression_bp(opInfixPower.right),
+            (value) => {
+              leftExpression = this.nodeFactory.create(InfixExpressionNode, {
+                leftExpression: leftExpression!,
+                op,
+                rightExpression: value,
+              });
             },
-            false,
+            () => leftExpression,
           );
         }
       }
@@ -580,22 +565,22 @@ export default class Parser {
         this.logError(
           args.op,
           CompileErrorCode.UNKNOWN_PREFIX_OP,
-          `Unexpected '${args.op}' in an expression`,
+          `Unexpected '${args.op.value}' in an expression`,
         );
 
         this.throwDummyOperand(args.op);
       }
       this.advance();
 
-      this.synchronizeAssign(
+      this.synchAssignWrap(
         () => this.expression_bp(opPrefixPower.right as number),
         (value) => {
           args.expression = value;
         },
-        () => this.nodeFactory.create(PrefixExpressionNode, args, true),
+        () => this.nodeFactory.create(PrefixExpressionNode, args),
       );
 
-      leftExpression = this.nodeFactory.create(PrefixExpressionNode, args, false);
+      leftExpression = this.nodeFactory.create(PrefixExpressionNode, args);
     } else {
       leftExpression = this.extractOperand();
     }
@@ -655,8 +640,8 @@ export default class Parser {
   private throwDummyOperand(token: SyntaxToken): never {
     throw new PartialParsingError(
       token,
-      this.nodeFactory.create(FunctionExpressionNode, {}, true),
-      this.contextStack.findHandlerContext(token),
+      this.nodeFactory.create(FunctionExpressionNode, {}),
+      this.contextStack.findHandlerContext(this.tokens, this.current),
     );
   }
 
@@ -664,16 +649,15 @@ export default class Parser {
 
   private functionExpression(): FunctionExpressionNode {
     const args: { value: SyntaxToken | undefined } = { value: undefined };
-    this.synchronizeAssign(
-      () =>
-        this.consumeAndYield('Expect a function expression', SyntaxTokenKind.FUNCTION_EXPRESSION),
+    this.synchAssignWrap(
+      () => this.consumeReturn('Expect a function expression', SyntaxTokenKind.FUNCTION_EXPRESSION),
       (value) => {
         args.value = value;
       },
-      () => this.nodeFactory.create(FunctionExpressionNode, args, true),
+      () => this.nodeFactory.create(FunctionExpressionNode, args),
     );
 
-    return this.nodeFactory.create(FunctionExpressionNode, args, false);
+    return this.nodeFactory.create(FunctionExpressionNode, args);
   }
 
   /* Parsing and synchronizing BlockExpression */
@@ -684,45 +668,36 @@ export default class Parser {
       body: ExpressionNode[];
       blockCloseBrace: SyntaxToken | undefined;
     } = { body: [] } as any;
-    const buildBlock = (isInvalid: boolean) =>
-      this.nodeFactory.create(BlockExpressionNode, args, isInvalid);
+    const buildBlock = () => this.nodeFactory.create(BlockExpressionNode, args);
 
-    this.synchronizeAssign(
-      () => this.consumeAndYield("Expect an opening brace '{'", SyntaxTokenKind.LBRACE),
+    this.synchAssignWrap(
+      () => this.consumeReturn("Expect an opening brace '{'", SyntaxTokenKind.LBRACE),
       (value) => {
         args.blockOpenBrace = value;
       },
-      () => buildBlock(true),
+      buildBlock,
       this.synchronizeBlock,
     );
 
     while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACE)) {
-      this.synchronize(
-        () => {
-          if (this.canBeField()) {
-            args.body.push(this.fieldDeclaration());
-          } else {
-            args.body.push(this.expression());
-          }
-        },
-        (partial: any) => {
-          args.body.push(partial);
-        },
-        () => buildBlock(true),
+      this.synchAssignWrap(
+        () => (this.canBeField() ? this.fieldDeclaration() : this.expression()),
+        (value) => args.body.push(value),
+        buildBlock,
         this.synchronizeBlock,
       );
     }
 
-    this.synchronizeAssign(
-      () => this.consumeAndYield("Expect a closing brace '}'", SyntaxTokenKind.RBRACE),
+    this.synchAssignWrap(
+      () => this.consumeReturn("Expect a closing brace '}'", SyntaxTokenKind.RBRACE),
       (value) => {
         args.blockCloseBrace = value;
       },
-      () => buildBlock(true),
+      buildBlock,
       this.synchronizeBlock,
     );
 
-    return buildBlock(false);
+    return buildBlock();
   });
 
   private canBeField(): boolean {
@@ -765,38 +740,26 @@ export default class Parser {
         SyntaxTokenKind.NUMERIC_LITERAL,
       )
     ) {
-      return this.nodeFactory.create(
-        PrimaryExpressionNode,
-        {
-          expression: this.nodeFactory.create(LiteralNode, { literal: this.previous() }, false),
-        },
-        false,
-      );
+      return this.nodeFactory.create(PrimaryExpressionNode, {
+        expression: this.nodeFactory.create(LiteralNode, { literal: this.previous() }),
+      });
     }
 
     // Primary expression containing a nested VariableNode
     if (this.match(SyntaxTokenKind.QUOTED_STRING, SyntaxTokenKind.IDENTIFIER)) {
-      return this.nodeFactory.create(
-        PrimaryExpressionNode,
-        {
-          expression: this.nodeFactory.create(VariableNode, { variable: this.previous() }, false),
-        },
-        false,
-      );
+      return this.nodeFactory.create(PrimaryExpressionNode, {
+        expression: this.nodeFactory.create(VariableNode, { variable: this.previous() }),
+      });
     }
 
     this.logError(this.peek(), CompileErrorCode.UNEXPECTED_TOKEN, 'Expect a variable or literal');
 
     throw new PartialParsingError(
       this.peek(),
-      this.nodeFactory.create(
-        PrimaryExpressionNode,
-        {
-          expression: this.nodeFactory.create(VariableNode, {}, true),
-        },
-        true,
-      ),
-      this.contextStack.findHandlerContext(this.peek()),
+      this.nodeFactory.create(PrimaryExpressionNode, {
+        expression: this.nodeFactory.create(VariableNode, {}),
+      }),
+      this.contextStack.findHandlerContext(this.tokens, this.current),
     );
   }
 
@@ -809,41 +772,36 @@ export default class Parser {
       commaList: SyntaxToken[];
       tupleCloseParen: SyntaxToken | undefined;
     } = { elementList: [], commaList: [] } as any;
-    const buildGroup = (isInvalid: boolean) =>
-      this.nodeFactory.create(
-        GroupExpressionNode,
-        {
-          groupOpenParen: args.tupleOpenParen,
-          groupCloseParen: args.tupleCloseParen,
-          expression: args.elementList[0],
-        },
-        isInvalid,
-      );
-    const buildTuple = (isInvalid: boolean) =>
-      this.nodeFactory.create(TupleExpressionNode, args, isInvalid);
+    const buildGroup = () =>
+      this.nodeFactory.create(GroupExpressionNode, {
+        groupOpenParen: args.tupleOpenParen,
+        groupCloseParen: args.tupleCloseParen,
+        expression: args.elementList[0],
+      });
+    const buildTuple = () => this.nodeFactory.create(TupleExpressionNode, args);
 
-    this.synchronizeAssign(
-      () => this.consumeAndYield("Expect an opening parenthesis '('", SyntaxTokenKind.LPAREN),
+    this.synchAssignWrap(
+      () => this.consumeReturn("Expect an opening parenthesis '('", SyntaxTokenKind.LPAREN),
       (value) => {
         args.tupleOpenParen = value;
       },
-      () => buildTuple(true),
+      buildTuple,
       this.synchronizeTuple,
     );
 
     if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
-      this.synchronize(
-        () => args.elementList.push(this.normalExpression()),
-        (partial: any) => args.elementList.push(partial),
-        () => buildGroup(true),
+      this.synchAssignWrap(
+        () => this.normalExpression(),
+        (value) => args.elementList.push(value),
+        buildGroup,
         this.synchronizeTuple,
       );
     }
 
     while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RPAREN)) {
-      this.synchronize(
+      this.synchWrap(
         () => {
-          args.commaList.push(this.consumeAndYield("Expect a comma ','", SyntaxTokenKind.COMMA));
+          args.commaList.push(this.consumeReturn("Expect a comma ','", SyntaxTokenKind.COMMA));
           args.elementList.push(this.normalExpression());
         },
         (partial: unknown) => {
@@ -851,21 +809,21 @@ export default class Parser {
             args.elementList.push(partial);
           }
         },
-        () => buildTuple(true),
+        buildTuple,
         this.synchronizeTuple,
       );
     }
 
-    this.synchronizeAssign(
-      () => this.consumeAndYield("Expect a closing parenthesis '('", SyntaxTokenKind.RPAREN),
+    this.synchAssignWrap(
+      () => this.consumeReturn("Expect a closing parenthesis '('", SyntaxTokenKind.RPAREN),
       (value) => {
         args.tupleCloseParen = value;
       },
-      () => buildTuple(true),
+      buildTuple,
       this.synchronizeTuple,
     );
 
-    return args.elementList.length === 1 ? buildGroup(false) : buildTuple(false);
+    return args.elementList.length === 1 ? buildGroup() : buildTuple();
   });
 
   private synchronizeTuple = () => {
@@ -888,54 +846,48 @@ export default class Parser {
       commaList: SyntaxToken[];
       listCloseBracket: SyntaxToken | undefined;
     } = { elementList: [], commaList: [] } as any;
-    const buildList = (isInvalid: boolean) =>
-      this.nodeFactory.create(ListExpressionNode, args, isInvalid);
+    const buildList = () => this.nodeFactory.create(ListExpressionNode, args);
 
-    this.synchronizeAssign(
-      () => this.consumeAndYield("Expect a closing bracket '['", SyntaxTokenKind.LBRACKET),
+    this.synchAssignWrap(
+      () => this.consumeReturn("Expect a closing bracket '['", SyntaxTokenKind.LBRACKET),
       (value) => {
         args.listOpenBracket = value;
       },
-      () => buildList(true),
+      buildList,
       this.synchronizeList,
     );
 
     if (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACKET)) {
-      this.synchronize(
-        () => {
-          const attribute = this.attribute();
-          if (attribute) {
-            args.elementList.push(attribute);
-          }
-        },
-        (partial: any) => args.elementList.push(partial),
-        () => buildList(true),
+      this.synchAssignWrap(
+        () => this.attribute(),
+        (value) => args.elementList.push(value),
+        buildList,
         this.synchronizeList,
       );
     }
 
     while (!this.isAtEnd() && !this.check(SyntaxTokenKind.RBRACKET)) {
-      this.synchronize(
+      this.synchWrap(
         () => {
-          args.commaList.push(this.consumeAndYield("Expect a comma ','", SyntaxTokenKind.COMMA));
+          args.commaList.push(this.consumeReturn("Expect a comma ','", SyntaxTokenKind.COMMA));
           args.elementList.push(this.attribute());
         },
         (partial: unknown) => partial instanceof SyntaxNode && args.elementList.push(partial),
-        () => buildList(true),
+        buildList,
         this.synchronizeList,
       );
     }
 
-    this.synchronizeAssign(
-      () => this.consumeAndYield("Expect a closing bracket ']'", SyntaxTokenKind.RBRACKET),
+    this.synchAssignWrap(
+      () => this.consumeReturn("Expect a closing bracket ']'", SyntaxTokenKind.RBRACKET),
       (value) => {
         args.listCloseBracket = value;
       },
-      () => buildList(true),
+      buildList,
       this.synchronizeList,
     );
 
-    return buildList(false);
+    return buildList();
   });
 
   private synchronizeList = () => {
@@ -963,14 +915,14 @@ export default class Parser {
         CompileErrorCode.EMPTY_ATTRIBUTE_NAME,
         'Expect a non-empty attribute name',
       );
-      args.name = this.nodeFactory.create(IdentiferStreamNode, { identifiers: [] }, false);
+      args.name = this.nodeFactory.create(IdentiferStreamNode, { identifiers: [] });
     } else {
-      this.synchronizeAssign(
+      this.synchAssignWrap(
         () => this.extractIdentifierStream(),
         (value) => {
           args.name = value;
         },
-        () => this.nodeFactory.create(AttributeNode, args, true),
+        () => this.nodeFactory.create(AttributeNode, args),
         this.synchronizeAttributeName,
       );
     }
@@ -980,7 +932,7 @@ export default class Parser {
       args.value = this.attributeValue();
     }
 
-    return this.nodeFactory.create(AttributeNode, args, false);
+    return this.nodeFactory.create(AttributeNode, args);
   }
 
   private synchronizeAttributeName = () => {
@@ -996,19 +948,14 @@ export default class Parser {
 
   private attributeValue(): NormalExpressionNode | IdentiferStreamNode {
     let value: NormalExpressionNode | IdentiferStreamNode | undefined;
-    this.synchronize(
-      () => {
-        if (
-          this.peek().kind === SyntaxTokenKind.IDENTIFIER &&
-          this.peek(1).kind === SyntaxTokenKind.IDENTIFIER
-        ) {
-          value = this.extractIdentifierStream();
-        } else {
-          value = this.normalExpression();
-        }
-      },
-      (partial: any) => {
-        value = partial;
+    this.synchAssignWrap(
+      () =>
+        (this.peek().kind === SyntaxTokenKind.IDENTIFIER &&
+        this.peek(1).kind === SyntaxTokenKind.IDENTIFIER ?
+          this.extractIdentifierStream() :
+          this.normalExpression()),
+      (_value) => {
+        value = _value;
       },
       () => value as any,
       this.synchronizeAttributeValue,
@@ -1044,19 +991,15 @@ export default class Parser {
         markInvalid(this.previous());
         this.logError(this.previous(), CompileErrorCode.UNEXPECTED_TOKEN, 'Expect an identifier');
       } else {
-        this.synchronize(
-          () => {
-            identifiers.push(
-              this.consumeAndYield('Expect an identifier', SyntaxTokenKind.IDENTIFIER),
-            );
-          },
-          (partial: any) => identifiers.push(partial),
-          () => this.nodeFactory.create(IdentiferStreamNode, { identifiers }, true),
+        this.synchAssignWrap(
+          () => this.consumeReturn('Expect an identifier', SyntaxTokenKind.IDENTIFIER),
+          (value) => value && identifiers.push(value),
+          () => this.nodeFactory.create(IdentiferStreamNode, { identifiers }),
         );
       }
     }
 
-    return this.nodeFactory.create(IdentiferStreamNode, { identifiers }, identifiers.length === 0);
+    return this.nodeFactory.create(IdentiferStreamNode, { identifiers });
   }
 
   private logError(nodeOrToken: SyntaxToken | SyntaxNode, code: CompileErrorCode, message: string) {
@@ -1119,3 +1062,5 @@ function postfixBindingPower(token: SyntaxToken): { left: null | number; right: 
 
   return power || { left: null, right: null };
 }
+
+/* eslint-enable */
