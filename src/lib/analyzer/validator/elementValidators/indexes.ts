@@ -28,6 +28,7 @@ import {
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
 import { transformToReturnCompileErrors } from './utils';
+import { SyntaxToken } from '../../../lexer/tokens';
 
 export default class IndexesValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.INDEXES;
@@ -68,7 +69,7 @@ export default class IndexesValidator extends ElementValidator {
   });
 
   constructor(
-    declarationNode: ElementDeclarationNode,
+    declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     bindingRequests: BindingRequest[],
@@ -104,18 +105,19 @@ export function registerIndexForResolution(
   }
 
   columnNodes.forEach((colNode) =>
-    bindingRequests.push({
-      unresolvedName: {
-        subnames: [
-          {
-            referrer: colNode,
-            index: createColumnSymbolIndex(extractVarNameFromPrimaryVariable(colNode)),
-          },
-        ],
-        ownerElement,
-      },
-      ignoreError: false,
-    }));
+    extractVarNameFromPrimaryVariable(colNode).map((indexName) =>
+      bindingRequests.push({
+        unresolvedName: {
+          subnames: [
+            {
+              referrer: colNode,
+              index: createColumnSymbolIndex(indexName),
+            },
+          ],
+          ownerElement,
+        },
+        ignoreError: false,
+      })));
 }
 
 export function isValidIndexesType(value?: SyntaxNode): boolean {
@@ -123,7 +125,7 @@ export function isValidIndexesType(value?: SyntaxNode): boolean {
     return false;
   }
 
-  const str = value.expression.variable.value;
+  const str = value.expression.variable?.value;
 
   return str === 'btree' || str === 'hash';
 }

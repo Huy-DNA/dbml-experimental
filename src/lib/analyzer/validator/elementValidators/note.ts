@@ -14,6 +14,7 @@ import {
   noSettingListConfig,
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
+import { SyntaxToken } from '../../../lexer/tokens';
 
 export default class NoteValidator extends ElementValidator {
   protected elementKind: ElementKind = ElementKind.NOTE;
@@ -69,7 +70,7 @@ export default class NoteValidator extends ElementValidator {
   });
 
   constructor(
-    declarationNode: ElementDeclarationNode,
+    declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
     bindingRequests: BindingRequest[],

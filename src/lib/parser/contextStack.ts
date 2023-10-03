@@ -7,13 +7,6 @@ export const enum ParsingContext {
   BlockExpression,
 }
 
-export const enum HandlerContext {
-  ListExpression = ParsingContext.ListExpression,
-  BlockExpression = ParsingContext.BlockExpression,
-  GroupExpression = ParsingContext.GroupExpression,
-  This,
-}
-
 function canHandle(context: ParsingContext, token: SyntaxToken): boolean {
   const tokenKind = token.kind;
   switch (context) {
@@ -77,6 +70,10 @@ export class ParsingContextStack {
     return this.numberOfNestedLBrackets > 0;
   }
 
+  isWithinBlockExpressionContext(): boolean {
+    return this.numberOfNestedLBraces > 0;
+  }
+
   // Call the passed in callback
   // with the guarantee that the passed in context will be pushed and popped properly
   // even in cases of exceptions
@@ -95,23 +92,49 @@ export class ParsingContextStack {
   }
 
   // Return the type of the handler context currently in the context stack to handle `token`
-  findHandlerContext(token: SyntaxToken): HandlerContext {
+  findHandlerContext(tokens: SyntaxToken[], curTokenId: number): ParsingContext | null {
     if (
-      token.kind === SyntaxTokenKind.COMMA &&
+      this.numberOfNestedLBraces <= 0 &&
       this.numberOfNestedLBrackets <= 0 &&
       this.numberOfNestedLParens <= 0
     ) {
-      return HandlerContext.This;
+      return null;
     }
-    if (token.kind === SyntaxTokenKind.RBRACKET && this.numberOfNestedLBrackets <= 0) return HandlerContext.This;
-    if (token.kind === SyntaxTokenKind.RPAREN && this.numberOfNestedLParens <= 0) return HandlerContext.This;
-    if (token.kind === SyntaxTokenKind.RBRACE && this.numberOfNestedLBraces <= 0) return HandlerContext.This;
-    for (let i = this.stack.length - 1; i >= 0; i -= 1) {
-      if (canHandle(this.stack[i], token)) {
-        return this.stack[i] as unknown as HandlerContext;
+
+    for (let tokenId = curTokenId; tokenId < tokens.length; tokenId += 1) {
+      const token = tokens[tokenId];
+      if (
+        ![
+          SyntaxTokenKind.COMMA,
+          SyntaxTokenKind.RBRACE,
+          SyntaxTokenKind.RBRACKET,
+          SyntaxTokenKind.RPAREN,
+        ].includes(token.kind)
+      ) {
+        continue;
+      }
+
+      if (token.kind === SyntaxTokenKind.COMMA) {
+        if (this.isWithinGroupExpressionContext() || this.isWithinListExpressionContext()) {
+          return this.stack
+            .reverse()
+            .find((c) =>
+              [ParsingContext.GroupExpression, ParsingContext.ListExpression].includes(c))!;
+        }
+        continue;
+      }
+
+      if (token.kind === SyntaxTokenKind.RBRACKET && this.isWithinListExpressionContext()) {
+        return ParsingContext.ListExpression;
+      }
+      if (token.kind === SyntaxTokenKind.RPAREN && this.isWithinGroupExpressionContext()) {
+        return ParsingContext.GroupExpression;
+      }
+      if (token.kind === SyntaxTokenKind.RBRACE && this.isWithinBlockExpressionContext()) {
+        return ParsingContext.BlockExpression;
       }
     }
 
-    return HandlerContext.This;
+    return null;
   }
 }

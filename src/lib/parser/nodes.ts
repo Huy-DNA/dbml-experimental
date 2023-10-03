@@ -30,20 +30,17 @@ export class SyntaxNode {
   symbol?: NodeSymbol;
   referee?: NodeSymbol; // The symbol that this syntax node refers to
   owner?: SyntaxNode;
-  isInvalid: boolean;
 
   // args must be passed in order of appearance in the node
   constructor(
     id: SyntaxNodeId,
     kind: SyntaxNodeKind,
-    isInvalid: boolean,
     args: Readonly<SyntaxToken | SyntaxNode | undefined>[],
   ) {
     this.id = id;
     this.kind = kind;
-    this.isInvalid = isInvalid;
 
-    const firstValid = args.find((sub) => sub !== undefined);
+    const firstValid = args.find((sub) => sub !== undefined && !Number.isNaN(sub.start));
     if (!firstValid) {
       this.startPos = {
         offset: NaN,
@@ -59,7 +56,7 @@ export class SyntaxNode {
           (firstValid as SyntaxNode).fullStart;
     }
 
-    const lastValid = args.reverse().find((sub) => sub !== undefined);
+    const lastValid = args.reverse().find((sub) => sub !== undefined && !Number.isNaN(sub.end));
     if (!lastValid) {
       this.endPos = {
         offset: NaN,
@@ -113,9 +110,8 @@ export class ProgramNode extends SyntaxNode {
   constructor(
     { body = [], eof }: { body?: ElementDeclarationNode[]; eof?: SyntaxToken },
     id: SyntaxNodeId,
-    isInvalid: boolean = false,
   ) {
-    super(id, SyntaxNodeKind.PROGRAM, isInvalid, [...body, eof]);
+    super(id, SyntaxNodeKind.PROGRAM, [...body, eof]);
     this.body = body;
     this.eof = eof;
   }
@@ -155,9 +151,8 @@ export class ElementDeclarationNode extends SyntaxNode {
       body?: BlockExpressionNode | ExpressionNode;
     },
     id: SyntaxNodeId,
-    isInvalid: boolean = false,
   ) {
-    super(id, SyntaxNodeKind.ELEMENT_DECLARATION, isInvalid, [
+    super(id, SyntaxNodeKind.ELEMENT_DECLARATION, [
       type,
       name,
       as,
@@ -180,12 +175,8 @@ export class ElementDeclarationNode extends SyntaxNode {
 export class IdentiferStreamNode extends SyntaxNode {
   identifiers: SyntaxToken[];
 
-  constructor(
-    { identifiers = [] }: { identifiers?: SyntaxToken[] },
-    id: SyntaxNodeId,
-    isInvalid: boolean = false,
-  ) {
-    super(id, SyntaxNodeKind.IDENTIFIER_STREAM, isInvalid, identifiers || []);
+  constructor({ identifiers = [] }: { identifiers?: SyntaxToken[] }, id: SyntaxNodeId) {
+    super(id, SyntaxNodeKind.IDENTIFIER_STREAM, identifiers || []);
     this.identifiers = identifiers;
   }
 }
@@ -208,9 +199,8 @@ export class AttributeNode extends SyntaxNode {
       value?: NormalExpressionNode | IdentiferStreamNode;
     },
     id: SyntaxNodeId,
-    isInvalid: boolean = false,
   ) {
-    super(id, SyntaxNodeKind.ATTRIBUTE, isInvalid, [name, value, colon]);
+    super(id, SyntaxNodeKind.ATTRIBUTE, [name, value, colon]);
     this.name = name;
     this.value = value;
     this.colon = colon;
@@ -244,9 +234,8 @@ export class PrefixExpressionNode extends SyntaxNode {
   constructor(
     { op, expression }: { op?: SyntaxToken; expression?: NormalExpressionNode },
     id: SyntaxNodeId,
-    isInvalid: boolean = false,
   ) {
-    super(id, SyntaxNodeKind.PREFIX_EXPRESSION, isInvalid, [op, expression]);
+    super(id, SyntaxNodeKind.PREFIX_EXPRESSION, [op, expression]);
     this.op = op;
     this.expression = expression;
   }
@@ -270,9 +259,8 @@ export class InfixExpressionNode extends SyntaxNode {
       rightExpression?: NormalExpressionNode;
     },
     id: SyntaxNodeId,
-    isInvalid: boolean = false,
   ) {
-    super(id, SyntaxNodeKind.INFIX_EXPRESSION, isInvalid, [leftExpression, op, rightExpression]);
+    super(id, SyntaxNodeKind.INFIX_EXPRESSION, [leftExpression, op, rightExpression]);
     this.op = op;
     this.leftExpression = leftExpression;
     this.rightExpression = rightExpression;
@@ -287,9 +275,8 @@ export class PostfixExpressionNode extends SyntaxNode {
   constructor(
     { op, expression }: { op?: SyntaxToken; expression?: NormalExpressionNode },
     id: SyntaxNodeId,
-    isInvalid: boolean = false,
   ) {
-    super(id, SyntaxNodeKind.POSTFIX_EXPRESSION, isInvalid, [expression, op]);
+    super(id, SyntaxNodeKind.POSTFIX_EXPRESSION, [expression, op]);
     this.op = op;
     this.expression = expression;
   }
@@ -298,8 +285,8 @@ export class PostfixExpressionNode extends SyntaxNode {
 export class FunctionExpressionNode extends SyntaxNode {
   value?: SyntaxToken;
 
-  constructor({ value }: { value?: SyntaxToken }, id: SyntaxNodeId, isInvalid: boolean = false) {
-    super(id, SyntaxNodeKind.FUNCTION_EXPRESSION, isInvalid, [value]);
+  constructor({ value }: { value?: SyntaxToken }, id: SyntaxNodeId) {
+    super(id, SyntaxNodeKind.FUNCTION_EXPRESSION, [value]);
     this.value = value;
   }
 }
@@ -312,9 +299,8 @@ export class FunctionApplicationNode extends SyntaxNode {
   constructor(
     { callee, args = [] }: { callee?: ExpressionNode; args?: ExpressionNode[] },
     id: SyntaxNodeId,
-    isInvalid: boolean = false,
   ) {
-    super(id, SyntaxNodeKind.FUNCTION_APPLICATION, isInvalid, [callee, ...args]);
+    super(id, SyntaxNodeKind.FUNCTION_APPLICATION, [callee, ...args]);
     this.callee = callee;
     this.args = args;
   }
@@ -338,13 +324,8 @@ export class BlockExpressionNode extends SyntaxNode {
       blockCloseBrace?: SyntaxToken;
     },
     id: SyntaxNodeId,
-    isInvalid: boolean = false,
   ) {
-    super(id, SyntaxNodeKind.BLOCK_EXPRESSION, isInvalid, [
-      blockOpenBrace,
-      ...body,
-      blockCloseBrace,
-    ]);
+    super(id, SyntaxNodeKind.BLOCK_EXPRESSION, [blockOpenBrace, ...body, blockCloseBrace]);
     this.blockOpenBrace = blockOpenBrace;
     this.body = body;
     this.blockCloseBrace = blockCloseBrace;
@@ -373,9 +354,8 @@ export class ListExpressionNode extends SyntaxNode {
       listCloseBracket?: SyntaxToken;
     },
     id: SyntaxNodeId,
-    isInvalid: boolean = false,
   ) {
-    super(id, SyntaxNodeKind.LIST_EXPRESSION, isInvalid, [
+    super(id, SyntaxNodeKind.LIST_EXPRESSION, [
       listOpenBracket,
       ...interleave(elementList, commaList),
       listCloseBracket,
@@ -409,9 +389,8 @@ export class TupleExpressionNode extends SyntaxNode {
       tupleCloseParen?: SyntaxToken;
     },
     id: SyntaxNodeId,
-    isInvalid: boolean = false,
   ) {
-    super(id, SyntaxNodeKind.TUPLE_EXPRESSION, isInvalid, [
+    super(id, SyntaxNodeKind.TUPLE_EXPRESSION, [
       tupleOpenParen,
       ...interleave(elementList, commaList),
       tupleCloseParen,
@@ -435,7 +414,6 @@ export class GroupExpressionNode extends TupleExpressionNode {
       groupCloseParen?: SyntaxToken;
     },
     id: SyntaxNodeId,
-    isInvalid: boolean = false,
   ) {
     super(
       {
@@ -445,7 +423,6 @@ export class GroupExpressionNode extends TupleExpressionNode {
         tupleCloseParen: groupCloseParen,
       },
       id,
-      isInvalid,
     );
     this.kind = SyntaxNodeKind.GROUP_EXPRESSION;
   }
@@ -465,9 +442,8 @@ export class CallExpressionNode extends SyntaxNode {
       argumentList?: TupleExpressionNode;
     },
     id: SyntaxNodeId,
-    isInvalid: boolean = false,
   ) {
-    super(id, SyntaxNodeKind.CALL_EXPRESSION, isInvalid, [callee, argumentList]);
+    super(id, SyntaxNodeKind.CALL_EXPRESSION, [callee, argumentList]);
     this.callee = callee;
     this.argumentList = argumentList;
   }
@@ -476,12 +452,8 @@ export class CallExpressionNode extends SyntaxNode {
 export class LiteralNode extends SyntaxNode {
   literal?: SyntaxToken;
 
-  constructor(
-    { literal }: { literal?: SyntaxToken },
-    id: SyntaxNodeId,
-    isInvalid: boolean = false,
-  ) {
-    super(id, SyntaxNodeKind.LITERAL, isInvalid, [literal]);
+  constructor({ literal }: { literal?: SyntaxToken }, id: SyntaxNodeId) {
+    super(id, SyntaxNodeKind.LITERAL, [literal]);
     this.literal = literal;
   }
 }
@@ -489,12 +461,8 @@ export class LiteralNode extends SyntaxNode {
 export class VariableNode extends SyntaxNode {
   variable?: SyntaxToken;
 
-  constructor(
-    { variable }: { variable?: SyntaxToken },
-    id: SyntaxNodeId,
-    isInvalid: boolean = false,
-  ) {
-    super(id, SyntaxNodeKind.VARIABLE, isInvalid, [variable]);
+  constructor({ variable }: { variable?: SyntaxToken }, id: SyntaxNodeId) {
+    super(id, SyntaxNodeKind.VARIABLE, [variable]);
     this.variable = variable;
   }
 }
@@ -502,12 +470,8 @@ export class VariableNode extends SyntaxNode {
 export class PrimaryExpressionNode extends SyntaxNode {
   expression?: LiteralNode | VariableNode;
 
-  constructor(
-    { expression }: { expression?: LiteralNode | VariableNode },
-    id: SyntaxNodeId,
-    isInvalid: boolean = false,
-  ) {
-    super(id, SyntaxNodeKind.PRIMARY_EXPRESSION, isInvalid, [expression]);
+  constructor({ expression }: { expression?: LiteralNode | VariableNode }, id: SyntaxNodeId) {
+    super(id, SyntaxNodeKind.PRIMARY_EXPRESSION, [expression]);
     this.expression = expression;
   }
 }

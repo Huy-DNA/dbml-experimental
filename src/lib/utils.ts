@@ -25,12 +25,6 @@ export function isAlphaNumeric(char: string): boolean {
   return isAlphaOrUnderscore(char) || isDigit(char);
 }
 
-export function gatherIntoList(
-  ...maybeMembers: (SyntaxToken | SyntaxNode | undefined)[]
-): (SyntaxToken | SyntaxNode)[] {
-  return maybeMembers.filter((e) => e !== undefined) as (SyntaxNode | SyntaxToken)[];
-}
-
 export function alternateLists<T, S>(firstList: T[], secondList: S[]): (T | S)[] {
   const res: (T | S)[] = [];
   const minLength = Math.min(firstList.length, secondList.length);
