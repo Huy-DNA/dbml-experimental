@@ -87,26 +87,11 @@ export class ParsingContextStack {
       return null;
     }
 
-    const skippedContexts: ParsingContext[] = [];
     for (let tokenId = curTokenId; tokenId < tokens.length - 1; tokenId += 1) {
       const token = tokens[tokenId];
       switch (token.kind) {
-        case SyntaxTokenKind.LPAREN:
-          skippedContexts.push(ParsingContext.GroupExpression);
-          break;
-        case SyntaxTokenKind.LBRACE:
-          skippedContexts.push(ParsingContext.BlockExpression);
-          break;
-        case SyntaxTokenKind.LBRACKET:
-          skippedContexts.push(ParsingContext.ListExpression);
-          break;
         case SyntaxTokenKind.COMMA:
-          if (
-            ![ParsingContext.GroupExpression, ParsingContext.ListExpression].includes(
-              _.last(skippedContexts) as any,
-            ) &&
-            (this.isWithinGroupExpressionContext() || this.isWithinListExpressionContext())
-          ) {
+          if (this.isWithinGroupExpressionContext() || this.isWithinListExpressionContext()) {
             return this.stack
               .reverse()
               .find((c) =>
@@ -114,23 +99,17 @@ export class ParsingContextStack {
           }
           break;
         case SyntaxTokenKind.RPAREN:
-          if (_.last(skippedContexts) === ParsingContext.GroupExpression) {
-            skippedContexts.pop();
-          } else if (this.isWithinGroupExpressionContext()) {
+          if (this.isWithinGroupExpressionContext()) {
             return ParsingContext.GroupExpression;
           }
           break;
         case SyntaxTokenKind.RBRACE:
-          if (_.last(skippedContexts) === ParsingContext.BlockExpression) {
-            skippedContexts.pop();
-          } else if (this.isWithinBlockExpressionContext()) {
+          if (this.isWithinBlockExpressionContext()) {
             return ParsingContext.BlockExpression;
           }
           break;
         case SyntaxTokenKind.RBRACKET:
-          if (_.last(skippedContexts) === ParsingContext.ListExpression) {
-            skippedContexts.pop();
-          } else if (this.isWithinListExpressionContext()) {
+          if (this.isWithinListExpressionContext()) {
             return ParsingContext.ListExpression;
           }
           break;

@@ -314,11 +314,13 @@ export default class Parser {
       buildElement,
     );
 
-    if (!this.discardUntil(
-      "Expect an opening brace '{' or a colon ':'",
-      SyntaxTokenKind.LBRACE,
-      SyntaxTokenKind.COLON,
-    )) {
+    if (
+      !this.discardUntil(
+        "Expect an opening brace '{' or a colon ':'",
+        SyntaxTokenKind.LBRACE,
+        SyntaxTokenKind.COLON,
+      )
+    ) {
       return buildElement();
     }
 
