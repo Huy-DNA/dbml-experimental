@@ -1,7 +1,6 @@
 import { SyntaxToken, SyntaxTokenKind } from '../../../lexer/tokens';
 import SymbolFactory from '../../symbol/factory';
-import { BindingRequest } from '../../types';
-import { registerRelationshipOperand, transformToReturnCompileErrors } from './utils';
+import { transformToReturnCompileErrors } from './utils';
 import {
   ElementKind,
   createContextValidatorConfig,
@@ -53,7 +52,6 @@ export default class RefValidator extends ElementValidator {
           CompileErrorCode.INVALID_REF_RELATIONSHIP,
           'This field must be a valid binary relationship',
         ),
-        registerBindingRequest: registerBinaryRelationship,
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_REF_FIELD,
@@ -67,7 +65,6 @@ export default class RefValidator extends ElementValidator {
     declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
-    bindingRequests: BindingRequest[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -77,34 +74,11 @@ export default class RefValidator extends ElementValidator {
       declarationNode,
       publicSchemaSymbol,
       contextStack,
-      bindingRequests,
       errors,
       kindsGloballyFound,
       kindsLocallyFound,
       symbolFactory,
     );
-  }
-}
-
-function registerBinaryRelationship(
-  node: SyntaxNode,
-  ownerElement: ElementDeclarationNode,
-  bindingRequests: BindingRequest[],
-) {
-  if (!isBinaryRelationship(node)) {
-    throw new Error(
-      'Unreachable - Must be a binary relationship when registerRelationshipOperands is called',
-    );
-  }
-
-  const { leftExpression, rightExpression } = node;
-
-  if (leftExpression) {
-    registerRelationshipOperand(leftExpression, ownerElement, bindingRequests);
-  }
-
-  if (rightExpression) {
-    registerRelationshipOperand(rightExpression, ownerElement, bindingRequests);
   }
 }
 

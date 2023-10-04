@@ -20,12 +20,8 @@ import {
 import { SyntaxToken } from '../lexer/tokens';
 
 export function destructureMemberAccessExpression(node: SyntaxNode): Option<SyntaxNode[]> {
-  if (node instanceof PrimaryExpressionNode || node instanceof TupleExpressionNode) {
-    return new Some([node]);
-  }
-
   if (!isAccessExpression(node)) {
-    return new None();
+    return new Some([node]);
   }
 
   const fragments = destructureMemberAccessExpression(node.leftExpression).unwrap_or(undefined);

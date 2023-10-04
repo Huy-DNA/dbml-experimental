@@ -1,31 +1,39 @@
 {
   "value": {
-    "kind": "<program>",
     "id": 12,
+    "kind": "<program>",
     "startPos": {
       "offset": 0,
       "line": 0,
       "column": 0
     },
+    "fullStart": 0,
     "endPos": {
       "offset": 68,
       "line": 7,
       "column": 1
     },
+    "fullEnd": 68,
+    "start": 0,
+    "end": 68,
     "body": [
       {
-        "kind": "<element-declaration>",
         "id": 3,
+        "kind": "<element-declaration>",
         "startPos": {
           "offset": 0,
           "line": 0,
           "column": 0
         },
+        "fullStart": 0,
         "endPos": {
           "offset": 18,
           "line": 2,
           "column": 1
         },
+        "fullEnd": 20,
+        "start": 0,
+        "end": 18,
         "type": {
           "kind": "<identifier>",
           "startPos": {
@@ -70,31 +78,39 @@
           "end": 5
         },
         "name": {
-          "kind": "<primary-expression>",
           "id": 1,
+          "kind": "<primary-expression>",
           "startPos": {
             "offset": 6,
             "line": 0,
             "column": 6
           },
+          "fullStart": 6,
           "endPos": {
             "offset": 11,
             "line": 0,
             "column": 11
           },
+          "fullEnd": 12,
+          "start": 6,
+          "end": 11,
           "expression": {
-            "kind": "<variable>",
             "id": 0,
+            "kind": "<variable>",
             "startPos": {
               "offset": 6,
               "line": 0,
               "column": 6
             },
+            "fullStart": 6,
             "endPos": {
               "offset": 11,
               "line": 0,
               "column": 11
             },
+            "fullEnd": 12,
+            "start": 6,
+            "end": 11,
             "variable": {
               "kind": "<identifier>",
               "startPos": {
@@ -137,30 +153,26 @@
               "isInvalid": false,
               "start": 6,
               "end": 11
-            },
-            "start": 6,
-            "end": 11,
-            "fullStart": 6,
-            "fullEnd": 12
-          },
-          "start": 6,
-          "end": 11,
-          "fullStart": 6,
-          "fullEnd": 12
+            }
+          }
         },
         "body": {
-          "kind": "<block-expression>",
           "id": 2,
+          "kind": "<block-expression>",
           "startPos": {
             "offset": 12,
             "line": 0,
             "column": 12
           },
+          "fullStart": 12,
           "endPos": {
             "offset": 18,
             "line": 2,
             "column": 1
           },
+          "fullEnd": 20,
+          "start": 12,
+          "end": 18,
           "blockOpenBrace": {
             "kind": "<lbrace>",
             "startPos": {
@@ -269,32 +281,28 @@
             "isInvalid": false,
             "start": 17,
             "end": 18
-          },
-          "start": 12,
-          "end": 18,
-          "fullStart": 12,
-          "fullEnd": 20
+          }
         },
-        "start": 0,
-        "end": 18,
-        "fullStart": 0,
-        "fullEnd": 20,
-        "parentElement": 12,
+        "owner": 12,
         "symbol": 2
       },
       {
-        "kind": "<element-declaration>",
         "id": 11,
+        "kind": "<element-declaration>",
         "startPos": {
           "offset": 22,
           "line": 4,
           "column": 0
         },
+        "fullStart": 21,
         "endPos": {
           "offset": 68,
           "line": 7,
           "column": 1
         },
+        "fullEnd": 68,
+        "start": 22,
+        "end": 68,
         "type": {
           "kind": "<identifier>",
           "startPos": {
@@ -361,31 +369,39 @@
           "end": 32
         },
         "name": {
-          "kind": "<primary-expression>",
           "id": 5,
+          "kind": "<primary-expression>",
           "startPos": {
             "offset": 33,
             "line": 4,
             "column": 11
           },
+          "fullStart": 33,
           "endPos": {
             "offset": 38,
             "line": 4,
             "column": 16
           },
+          "fullEnd": 39,
+          "start": 33,
+          "end": 38,
           "expression": {
-            "kind": "<variable>",
             "id": 4,
+            "kind": "<variable>",
             "startPos": {
               "offset": 33,
               "line": 4,
               "column": 11
             },
+            "fullStart": 33,
             "endPos": {
               "offset": 38,
               "line": 4,
               "column": 16
             },
+            "fullEnd": 39,
+            "start": 33,
+            "end": 38,
             "variable": {
               "kind": "<identifier>",
               "startPos": {
@@ -428,30 +444,26 @@
               "isInvalid": false,
               "start": 33,
               "end": 38
-            },
-            "start": 33,
-            "end": 38,
-            "fullStart": 33,
-            "fullEnd": 39
-          },
-          "start": 33,
-          "end": 38,
-          "fullStart": 33,
-          "fullEnd": 39
+            }
+          }
         },
         "body": {
-          "kind": "<block-expression>",
           "id": 10,
+          "kind": "<block-expression>",
           "startPos": {
             "offset": 39,
             "line": 4,
             "column": 17
           },
+          "fullStart": 39,
           "endPos": {
             "offset": 68,
             "line": 7,
             "column": 1
           },
+          "fullEnd": 68,
+          "start": 39,
+          "end": 68,
           "blockOpenBrace": {
             "kind": "<lbrace>",
             "startPos": {
@@ -497,31 +509,39 @@
           },
           "body": [
             {
-              "kind": "<primary-expression>",
               "id": 7,
+              "kind": "<primary-expression>",
               "startPos": {
                 "offset": 46,
                 "line": 5,
                 "column": 4
               },
+              "fullStart": 42,
               "endPos": {
                 "offset": 51,
                 "line": 5,
                 "column": 9
               },
+              "fullEnd": 53,
+              "start": 46,
+              "end": 51,
               "expression": {
-                "kind": "<variable>",
                 "id": 6,
+                "kind": "<variable>",
                 "startPos": {
                   "offset": 46,
                   "line": 5,
                   "column": 4
                 },
+                "fullStart": 42,
                 "endPos": {
                   "offset": 51,
                   "line": 5,
                   "column": 9
                 },
+                "fullEnd": 53,
+                "start": 46,
+                "end": 51,
                 "variable": {
                   "kind": "<identifier>",
                   "startPos": {
@@ -649,44 +669,44 @@
                   "isInvalid": false,
                   "start": 46,
                   "end": 51
-                },
-                "start": 46,
-                "end": 51,
-                "fullStart": 42,
-                "fullEnd": 53
+                }
               },
-              "start": 46,
-              "end": 51,
-              "fullStart": 42,
-              "fullEnd": 53,
               "referee": 2
             },
             {
-              "kind": "<primary-expression>",
               "id": 9,
+              "kind": "<primary-expression>",
               "startPos": {
                 "offset": 57,
                 "line": 6,
                 "column": 4
               },
+              "fullStart": 53,
               "endPos": {
                 "offset": 65,
                 "line": 6,
                 "column": 12
               },
+              "fullEnd": 67,
+              "start": 57,
+              "end": 65,
               "expression": {
-                "kind": "<variable>",
                 "id": 8,
+                "kind": "<variable>",
                 "startPos": {
                   "offset": 57,
                   "line": 6,
                   "column": 4
                 },
+                "fullStart": 53,
                 "endPos": {
                   "offset": 65,
                   "line": 6,
                   "column": 12
                 },
+                "fullEnd": 67,
+                "start": 57,
+                "end": 65,
                 "variable": {
                   "kind": "<identifier>",
                   "startPos": {
@@ -814,16 +834,8 @@
                   "isInvalid": false,
                   "start": 57,
                   "end": 65
-                },
-                "start": 57,
-                "end": 65,
-                "fullStart": 53,
-                "fullEnd": 67
-              },
-              "start": 57,
-              "end": 65,
-              "fullStart": 53,
-              "fullEnd": 67
+                }
+              }
             }
           ],
           "blockCloseBrace": {
@@ -846,17 +858,9 @@
             "isInvalid": false,
             "start": 67,
             "end": 68
-          },
-          "start": 39,
-          "end": 68,
-          "fullStart": 39,
-          "fullEnd": 68
+          }
         },
-        "start": 22,
-        "end": 68,
-        "fullStart": 21,
-        "fullEnd": 68,
-        "parentElement": 12,
+        "owner": 12,
         "symbol": 4
       }
     ],
@@ -881,40 +885,44 @@
       "start": 68,
       "end": 68
     },
-    "start": 0,
-    "end": 68,
-    "fullStart": 0,
-    "fullEnd": 68,
     "symbol": {
       "symbolTable": {
         "Table:Users": {
           "references": [
             {
-              "kind": "<primary-expression>",
               "id": 7,
+              "kind": "<primary-expression>",
               "startPos": {
                 "offset": 46,
                 "line": 5,
                 "column": 4
               },
+              "fullStart": 42,
               "endPos": {
                 "offset": 51,
                 "line": 5,
                 "column": 9
               },
+              "fullEnd": 53,
+              "start": 46,
+              "end": 51,
               "expression": {
-                "kind": "<variable>",
                 "id": 6,
+                "kind": "<variable>",
                 "startPos": {
                   "offset": 46,
                   "line": 5,
                   "column": 4
                 },
+                "fullStart": 42,
                 "endPos": {
                   "offset": 51,
                   "line": 5,
                   "column": 9
                 },
+                "fullEnd": 53,
+                "start": 46,
+                "end": 51,
                 "variable": {
                   "kind": "<identifier>",
                   "startPos": {
@@ -1042,16 +1050,8 @@
                   "isInvalid": false,
                   "start": 46,
                   "end": 51
-                },
-                "start": 46,
-                "end": 51,
-                "fullStart": 42,
-                "fullEnd": 53
+                }
               },
-              "start": 46,
-              "end": 51,
-              "fullStart": 42,
-              "fullEnd": 53,
               "referee": 2
             }
           ],
@@ -1075,31 +1075,39 @@
       "code": 4000,
       "diagnostic": "Can not find Table 'Products'",
       "nodeOrToken": {
-        "kind": "<primary-expression>",
         "id": 9,
+        "kind": "<primary-expression>",
         "startPos": {
           "offset": 57,
           "line": 6,
           "column": 4
         },
+        "fullStart": 53,
         "endPos": {
           "offset": 65,
           "line": 6,
           "column": 12
         },
+        "fullEnd": 67,
+        "start": 57,
+        "end": 65,
         "expression": {
-          "kind": "<variable>",
           "id": 8,
+          "kind": "<variable>",
           "startPos": {
             "offset": 57,
             "line": 6,
             "column": 4
           },
+          "fullStart": 53,
           "endPos": {
             "offset": 65,
             "line": 6,
             "column": 12
           },
+          "fullEnd": 67,
+          "start": 57,
+          "end": 65,
           "variable": {
             "kind": "<identifier>",
             "startPos": {
@@ -1227,16 +1235,8 @@
             "isInvalid": false,
             "start": 57,
             "end": 65
-          },
-          "start": 57,
-          "end": 65,
-          "fullStart": 53,
-          "fullEnd": 67
-        },
-        "start": 57,
-        "end": 65,
-        "fullStart": 53,
-        "fullEnd": 67
+          }
+        }
       },
       "start": 57,
       "end": 65,

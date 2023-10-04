@@ -1,10 +1,5 @@
 import SymbolFactory from '../../symbol/factory';
 import {
-  BindingRequest,
-  createIgnorableBindingRequest,
-  createNonIgnorableBindingRequest,
-} from '../../types';
-import {
   ElementKind,
   createContextValidatorConfig,
   createSettingListValidatorConfig,
@@ -17,11 +12,7 @@ import {
   PrimaryExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
-import {
-  destructureComplexVariable,
-  destructureMemberAccessExpression,
-  extractVariableFromExpression,
-} from '../../utils';
+import { destructureComplexVariable } from '../../utils';
 import { ContextStack, ValidatorContext } from '../validatorContext';
 import ElementValidator from './elementValidator';
 import {
@@ -38,12 +29,8 @@ import {
   noUniqueConfig,
 } from './_preset_configs';
 import { SchemaSymbol } from '../../symbol/symbols';
-import {
-  createEnumFieldSymbolIndex,
-  createEnumSymbolIndex,
-  createSchemaSymbolIndex,
-} from '../../symbol/symbolIndex';
-import { registerRelationshipOperand, transformToReturnCompileErrors } from './utils';
+import { createEnumSymbolIndex, createSchemaSymbolIndex } from '../../symbol/symbolIndex';
+import { transformToReturnCompileErrors } from './utils';
 import {
   isAccessExpression,
   isExpressionAQuotedString,
@@ -106,7 +93,6 @@ export default class TableValidator extends ElementValidator {
           CompileErrorCode.INVALID_COLUMN_TYPE,
           'This field must be a valid column type',
         ),
-        registerBindingRequest: registerEnumTypeIfComplexVariable,
       },
     ],
     invalidArgNumberErrorCode: CompileErrorCode.INVALID_COLUMN,
@@ -120,7 +106,6 @@ export default class TableValidator extends ElementValidator {
     declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
-    bindingRequests: BindingRequest[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -130,49 +115,10 @@ export default class TableValidator extends ElementValidator {
       declarationNode,
       publicSchemaSymbol,
       contextStack,
-      bindingRequests,
       errors,
       kindsGloballyFound,
       kindsLocallyFound,
       symbolFactory,
-    );
-  }
-}
-
-function registerEnumTypeIfComplexVariable(
-  node: SyntaxNode,
-  ownerElement: ElementDeclarationNode,
-  bindingRequests: BindingRequest[],
-) {
-  if (!isAccessExpression(node) && !(node instanceof PrimaryExpressionNode)) {
-    return;
-  }
-
-  if (!isValidColumnType(node)) {
-    throw new Error('Unreachable - Invalid type when registerTypeIfComplexVariable is called');
-  }
-
-  const fragments = destructureMemberAccessExpression(node).unwrap();
-  const _enum = fragments.pop()!;
-  const enumId = createEnumSymbolIndex(extractVariableFromExpression(_enum).unwrap());
-  const schemaStack = fragments.map((s) => ({
-    index: createSchemaSymbolIndex(extractVariableFromExpression(s).unwrap()),
-    referrer: s,
-  }));
-
-  if (isAccessExpression(node)) {
-    bindingRequests.push(
-      createNonIgnorableBindingRequest({
-        subnames: [...schemaStack, { index: enumId, referrer: _enum }],
-        ownerElement,
-      }),
-    );
-  } else {
-    bindingRequests.push(
-      createIgnorableBindingRequest({
-        subnames: [...schemaStack, { index: enumId, referrer: _enum }],
-        ownerElement,
-      }),
     );
   }
 }
@@ -216,7 +162,6 @@ const columnSettingList = () =>
       ref: {
         allowDuplicate: true,
         isValid: isUnaryRelationship,
-        registerBindingRequest: registerUnaryRelationship,
       },
       'primary key': {
         allowDuplicate: false,
@@ -225,7 +170,6 @@ const columnSettingList = () =>
       default: {
         allowDuplicate: false,
         isValid: isValidDefaultValue,
-        registerBindingRequest: registerEnumValueIfComplexVar,
       },
       increment: {
         allowDuplicate: false,
@@ -259,53 +203,3 @@ const columnSettingList = () =>
       stopOnError: false,
     },
   );
-
-function registerUnaryRelationship(
-  value: SyntaxNode | undefined,
-  ownerElement: ElementDeclarationNode,
-  bindingRequests: BindingRequest[],
-) {
-  if (!isUnaryRelationship(value)) {
-    throw new Error('Unreachable - Must be an unary rel when regiterUnaryRelationship is called');
-  }
-
-  const { expression } = value;
-  if (expression !== undefined) {
-    registerRelationshipOperand(expression, ownerElement, bindingRequests);
-  }
-}
-
-function registerEnumValueIfComplexVar(
-  value: SyntaxNode | undefined,
-  ownerElement: ElementDeclarationNode,
-  bindingRequests: BindingRequest[],
-) {
-  if (!isValidDefaultValue(value)) {
-    throw new Error('Unreachable - Invalid default when registerEnumValueIfComplexVar is called');
-  }
-
-  if (value instanceof PrimaryExpressionNode) {
-    return;
-  }
-
-  const fragments = destructureMemberAccessExpression(value as SyntaxNode).unwrap();
-  const enumField = fragments.pop()!;
-  const enumFieldId = createEnumFieldSymbolIndex(extractVariableFromExpression(enumField).unwrap());
-  const _enum = fragments.pop()!;
-  const enumId = createEnumSymbolIndex(extractVariableFromExpression(_enum).unwrap());
-  const schemaStack = fragments.map((s) => ({
-    referrer: s,
-    index: createSchemaSymbolIndex(extractVariableFromExpression(s).unwrap()),
-  }));
-
-  bindingRequests.push(
-    createNonIgnorableBindingRequest({
-      subnames: [
-        ...schemaStack,
-        { referrer: _enum, index: enumId },
-        { referrer: enumField, index: enumFieldId },
-      ],
-      ownerElement,
-    }),
-  );
-}

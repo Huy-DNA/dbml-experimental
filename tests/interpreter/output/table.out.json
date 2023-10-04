@@ -1,3 +1,4 @@
 [
-  [CompileError: Note already appears as a setting of the table],
+  [CompileError: Unknown setting],
+  [CompileError: Unknown setting],
 ]

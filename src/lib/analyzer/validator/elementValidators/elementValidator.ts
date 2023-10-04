@@ -40,7 +40,6 @@ import {
 } from '../../symbol/utils';
 import SymbolFactory from '../../symbol/factory';
 import { getSubfieldKind, isCustomElement } from './utils';
-import { BindingRequest } from '../../types';
 
 export default abstract class ElementValidator {
   protected abstract elementKind: ElementKind;
@@ -56,7 +55,6 @@ export default abstract class ElementValidator {
   protected declarationNode: ElementDeclarationNode & { type: SyntaxToken };
   protected publicSchemaSymbol: SchemaSymbol;
   protected contextStack: ContextStack;
-  protected bindingRequests: BindingRequest[];
   protected errors: CompileError[];
   protected kindsGloballyFound: Set<ElementKind>;
   protected kindsLocallyFound: Set<ElementKind>;
@@ -66,7 +64,6 @@ export default abstract class ElementValidator {
     declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
-    bindingRequests: BindingRequest[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -75,7 +72,6 @@ export default abstract class ElementValidator {
     this.declarationNode = declarationNode;
     this.publicSchemaSymbol = publicSchemaSymbol;
     this.contextStack = contextStack;
-    this.bindingRequests = bindingRequests;
     this.errors = errors;
     this.kindsGloballyFound = kindsGloballyFound;
     this.kindsLocallyFound = kindsLocallyFound;
@@ -433,7 +429,7 @@ export default abstract class ElementValidator {
   private validateBodyForm(): boolean {
     const node = this.declarationNode;
     if (!node.body) {
-      return true;
+      return false;
     }
 
     let hasError = false;
@@ -464,7 +460,7 @@ export default abstract class ElementValidator {
   protected validateBodyContent(): boolean {
     const node = this.declarationNode;
     if (!node.body) {
-      return true;
+      return false;
     }
 
     if (hasComplexBody(node)) {
@@ -479,11 +475,11 @@ export default abstract class ElementValidator {
         !node.body.body
           .map((sub) => {
             if (sub instanceof ElementDeclarationNode) {
-              return this.validateNestedElementDeclaration(sub, kindsFoundInScope);
+              return !sub.type || this.validateNestedElementDeclaration(sub, kindsFoundInScope);
             }
             ith += 1;
             if (sub instanceof FunctionApplicationNode) {
-              return this.validateSubField(sub, ith);
+              return !sub.callee || this.validateSubField(sub, ith);
             }
 
             return this.validateSubField(sub, ith);
@@ -506,8 +502,8 @@ export default abstract class ElementValidator {
   ): boolean {
     // eslint-disable-next-line no-param-reassign
     sub.owner = this.declarationNode;
-    if (sub.type === undefined) {
-      return true;
+    if (!sub.type) {
+      return false;
     }
     const _sub = sub as ElementDeclarationNode & { type: SyntaxToken };
 
@@ -517,7 +513,6 @@ export default abstract class ElementValidator {
       _sub,
       this.publicSchemaSymbol,
       this.contextStack,
-      this.bindingRequests,
       this.errors,
       this.kindsGloballyFound,
       kindsFoundInScope,
@@ -530,10 +525,11 @@ export default abstract class ElementValidator {
   /* Validate and register subfield according to config `this.subfield` */
 
   protected validateSubField(sub: ExpressionNode, ith: number): boolean {
-    const _args = sub instanceof FunctionApplicationNode ? [sub.callee, ...sub.args] : [sub];
-    if (!_args.every((v) => v !== undefined)) {
-      return true;
+    if (sub instanceof FunctionApplicationNode && !sub.callee) {
+      throw new Error('Unreachable - to validate a subfield, its callee must be present');
     }
+
+    const _args = sub instanceof FunctionApplicationNode ? [sub.callee, ...sub.args] : [sub];
 
     const args = _args as ExpressionNode[];
 
@@ -564,13 +560,6 @@ export default abstract class ElementValidator {
       if (errors.length > 0) {
         this.errors.push(...errors);
         hasError = true;
-      } else {
-        this.subfield.argValidators[i].registerBindingRequest?.call(
-          undefined,
-          args[i],
-          this.declarationNode,
-          this.bindingRequests,
-        );
       }
     }
 
@@ -661,12 +650,7 @@ export default abstract class ElementValidator {
     let hasError = false;
     // eslint-disable-next-line no-restricted-syntax
     for (const setting of settingListNode.elementList) {
-      const name = extractStringFromIdentifierStream(setting.name)
-        .unwrap_or(undefined)
-        ?.toLowerCase();
-      if (!name) {
-        continue;
-      }
+      const name = extractStringFromIdentifierStream(setting.name).unwrap_or('')?.toLowerCase();
 
       const { value } = setting;
 
@@ -678,11 +662,10 @@ export default abstract class ElementValidator {
         hasError = true;
       } else {
         settingListSet.add(name);
-        if (!config.isValid(name, value).unwrap()) {
+        const isValid = config.isValid(name, value).unwrap();
+        if (!isValid) {
           this.logError(setting, config.invalidErrorCode, 'Invalid value for this setting');
           hasError = true;
-        } else {
-          config.registerBindingRequest(name, value, this.declarationNode, this.bindingRequests);
         }
       }
     }

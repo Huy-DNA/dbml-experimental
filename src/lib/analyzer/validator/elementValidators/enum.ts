@@ -1,5 +1,4 @@
 import SymbolFactory from '../../symbol/factory';
-import { BindingRequest } from '../../types';
 import {
   ElementKind,
   createContextValidatorConfig,
@@ -62,7 +61,6 @@ export default class EnumValidator extends ElementValidator {
     declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
-    bindingRequests: BindingRequest[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -72,7 +70,6 @@ export default class EnumValidator extends ElementValidator {
       declarationNode,
       publicSchemaSymbol,
       contextStack,
-      bindingRequests,
       errors,
       kindsGloballyFound,
       kindsLocallyFound,

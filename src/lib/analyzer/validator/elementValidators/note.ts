@@ -1,5 +1,4 @@
 import SymbolFactory from '../../symbol/factory';
-import { BindingRequest } from '../../types';
 import { ElementKind, createContextValidatorConfig, createSubFieldValidatorConfig } from '../types';
 import { CompileError, CompileErrorCode } from '../../../errors';
 import { ElementDeclarationNode, SyntaxNode } from '../../../parser/nodes';
@@ -73,7 +72,6 @@ export default class NoteValidator extends ElementValidator {
     declarationNode: ElementDeclarationNode & { type: SyntaxToken },
     publicSchemaSymbol: SchemaSymbol,
     contextStack: ContextStack,
-    bindingRequests: BindingRequest[],
     errors: CompileError[],
     kindsGloballyFound: Set<ElementKind>,
     kindsLocallyFound: Set<ElementKind>,
@@ -83,7 +81,6 @@ export default class NoteValidator extends ElementValidator {
       declarationNode,
       publicSchemaSymbol,
       contextStack,
-      bindingRequests,
       errors,
       kindsGloballyFound,
       kindsLocallyFound,

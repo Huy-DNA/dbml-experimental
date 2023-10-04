@@ -7,7 +7,6 @@ import SymbolFactory from '../symbol/factory';
 import { pickValidator } from './utils';
 import { ElementKind } from './types';
 import SymbolTable from '../symbol/symbolTable';
-import { BindingRequest } from '../types';
 import { SyntaxToken } from '../../lexer/tokens';
 
 export default class Validator {
@@ -19,8 +18,6 @@ export default class Validator {
 
   private kindsGloballyFound: Set<ElementKind>;
   private kindsLocallyFound: Set<ElementKind>;
-
-  private bindingRequests: BindingRequest[];
 
   private errors: CompileError[];
 
@@ -36,13 +33,12 @@ export default class Validator {
     });
     this.kindsGloballyFound = new Set();
     this.kindsLocallyFound = new Set();
-    this.bindingRequests = [];
 
     this.ast.symbol = this.publicSchemaSymbol;
     this.ast.symbol.declaration = this.ast;
   }
 
-  validate(): Report<{ program: ProgramNode; bindingRequests: BindingRequest[] }, CompileError> {
+  validate(): Report<ProgramNode, CompileError> {
     this.ast.body.forEach((_element) => {
       // eslint-disable-next-line no-param-reassign
       _element.owner = this.ast;
@@ -56,7 +52,6 @@ export default class Validator {
         element,
         this.publicSchemaSymbol,
         this.contextStack,
-        this.bindingRequests,
         this.errors,
         this.kindsGloballyFound,
         this.kindsLocallyFound,
@@ -65,9 +60,6 @@ export default class Validator {
       validatorObject.validate();
     });
 
-    return new Report(
-      { program: this.ast, schema: this.publicSchemaSymbol, bindingRequests: this.bindingRequests },
-      this.errors,
-    );
+    return new Report(this.ast, this.errors);
   }
 }

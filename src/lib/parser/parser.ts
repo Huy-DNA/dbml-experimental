@@ -1,5 +1,11 @@
 import _ from 'lodash';
-import { convertFuncAppToElem, isAsKeyword, markInvalid } from './utils';
+import {
+  convertFuncAppToElem,
+  createDummyOperand,
+  isAsKeyword,
+  isDummyOperand,
+  markInvalid,
+} from './utils';
 import { CompileError, CompileErrorCode } from '../errors';
 import { SyntaxToken, SyntaxTokenKind, isOpToken } from '../lexer/tokens';
 import Report from '../report';
@@ -558,7 +564,8 @@ export default class Parser {
           }
           this.advance();
           this.synchAssignWrap(
-            () => this.expression_bp(opInfixPower.right),
+            () =>
+              (op.value === '.' ? this.extractOperand() : this.expression_bp(opInfixPower.right)),
             (value) => {
               leftExpression = this.nodeFactory.create(InfixExpressionNode, {
                 leftExpression: leftExpression!,
@@ -609,6 +616,9 @@ export default class Parser {
       leftExpression = this.nodeFactory.create(PrefixExpressionNode, args);
     } else {
       leftExpression = this.extractOperand();
+      if (isDummyOperand(leftExpression)) {
+        this.throwDummyOperand(this.peek());
+      }
     }
 
     return leftExpression;
@@ -660,13 +670,13 @@ export default class Parser {
       `Invalid start of operand "${this.peek().value}"`,
     );
 
-    this.throwDummyOperand(this.peek());
+    return createDummyOperand(this.nodeFactory);
   }
 
   private throwDummyOperand(token: SyntaxToken): never {
     throw new PartialParsingError(
       token,
-      this.nodeFactory.create(FunctionExpressionNode, {}),
+      createDummyOperand(this.nodeFactory),
       this.contextStack.findHandlerContext(this.tokens, this.current),
     );
   }
