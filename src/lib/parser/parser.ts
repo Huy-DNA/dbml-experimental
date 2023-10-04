@@ -31,6 +31,8 @@ import NodeFactory from './factory';
 import { hasTrailingNewLines, hasTrailingSpaces, isAtStartOfLine } from '../lexer/utils';
 
 /* eslint-disable no-loop-func */
+
+// A class of errors that represent a parsing failure and contain the node that was partially parsed
 class PartialParsingError<T extends SyntaxNode | undefined> {
   partialNode: T;
   token: Readonly<SyntaxToken>;
@@ -170,6 +172,13 @@ export default class Parser {
     this.tokens.push(...tokens);
   }
 
+  // Invoke a parsing callback
+  // If the parsing callback fails,
+  // the node that was partially parsed (contained in the PartialParsingError)
+  // will be passed to a partial-handler
+  // If the current context can handle the error
+  // we simply synchronize
+  // otherwise, we wrap the partial in a PartialParsingError and throw to the upper contexts
   synchWrap<T extends SyntaxNode>(
     parsingCallback: () => void,
     handlePartial: (subPartial: unknown) => void,
@@ -193,6 +202,11 @@ export default class Parser {
     }
   }
 
+  // Invoke a parsing callback
+  // Then invoke `assignCallback` with the value of the parsing callback
+  // If the parsing callback fails,
+  // `assignCallback` is invoked with the partial instead
+  // Otherwise the same as `synchWrap`
   synchAssignWrap<T extends SyntaxNode, V>(
     parsingCallback: () => V,
     assignCallback: (value: V, isPartial: boolean) => void,
