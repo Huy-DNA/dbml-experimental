@@ -56,7 +56,9 @@ export class SyntaxNode {
           (firstValid as SyntaxNode).fullStart;
     }
 
-    const lastValid = [...args].reverse().find((sub) => sub !== undefined && !Number.isNaN(sub.end));
+    const lastValid = [...args]
+      .reverse()
+      .find((sub) => sub !== undefined && !Number.isNaN(sub.end));
     if (!lastValid) {
       this.endPos = {
         offset: NaN,
@@ -200,7 +202,7 @@ export class AttributeNode extends SyntaxNode {
     },
     id: SyntaxNodeId,
   ) {
-    super(id, SyntaxNodeKind.ATTRIBUTE, [name, value, colon]);
+    super(id, SyntaxNodeKind.ATTRIBUTE, [name, colon, value]);
     this.name = name;
     this.value = value;
     this.colon = colon;

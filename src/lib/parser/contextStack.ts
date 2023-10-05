@@ -95,7 +95,8 @@ export class ParsingContextStack {
             return [...this.stack]
               .reverse()
               .find((c) =>
-                [ParsingContext.GroupExpression, ParsingContext.ListExpression].includes(c))!;
+                [ParsingContext.GroupExpression, ParsingContext.ListExpression].includes(c),
+              )!;
           }
           break;
         case SyntaxTokenKind.RPAREN:
