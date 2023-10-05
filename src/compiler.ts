@@ -10,6 +10,7 @@ import {
   ElementDeclarationNode,
   FunctionApplicationNode,
   FunctionExpressionNode,
+  IdentiferStreamNode,
   InfixExpressionNode,
   ListExpressionNode,
   LiteralNode,
@@ -240,20 +241,13 @@ export default class Compiler {
           } else if (
             lastContainer instanceof ListExpressionNode ||
             lastContainer instanceof TupleExpressionNode ||
-            lastContainer instanceof BlockExpressionNode ||
-            lastContainer instanceof CallExpressionNode
+            lastContainer instanceof BlockExpressionNode
           ) {
             if (lastContainer.end <= offset) {
               res.pop();
               popOnce = true;
             }
-          } else if (
-            lastContainer instanceof PostfixExpressionNode ||
-            lastContainer instanceof FunctionExpressionNode ||
-            lastContainer instanceof VariableNode ||
-            lastContainer instanceof LiteralNode ||
-            lastContainer instanceof PrimaryExpressionNode
-          ) {
+          } else if (!(lastContainer instanceof IdentiferStreamNode)) {
             if (lastContainer.end < offset) {
               res.pop();
               popOnce = true;
@@ -280,7 +274,7 @@ export default class Compiler {
       (
         offset: number,
       ): { token: SyntaxToken; index: number } | { token: undefined; index: undefined } => {
-        const id = this.token.flatStream().findIndex((token) => token.start > offset);
+        const id = this.token.flatStream().findIndex((token) => token.start >= offset);
         if (id === undefined) {
           return { token: undefined, index: undefined };
         }

@@ -15,7 +15,7 @@ import { TableSymbol } from '../../lib/analyzer/symbol/symbols';
 import { SymbolKind, destructureIndex } from '../../lib/analyzer/symbol/symbolIndex';
 import {
   pickCompletionItemKind,
-  shouldAppendSpace,
+  shouldPrependSpace,
   addQuoteIfContainSpace,
   noSuggestions,
   prependSpace,
@@ -42,7 +42,7 @@ const { CompletionItemKind, CompletionItemInsertTextRule } = monaco.languages;
 export default class DBMLCompletionItemProvider implements CompletionItemProvider {
   private compiler: Compiler;
   // alphabetic characters implictily invoke the autocompletion provider
-  triggerCharacters = ['.', ':', '>', '<', '-'];
+  triggerCharacters = ['.', ':'];
 
   constructor(compiler: Compiler) {
     this.compiler = compiler;
@@ -75,7 +75,8 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
       this.compiler.container.scopeKind(offset) === ScopeKind.TOPLEVEL ||
       (element instanceof ElementDeclarationNode &&
         element.type &&
-        isOffsetWithinSpan(offset, element.type))
+        element.type.start <= offset &&
+        element.type.end >= offset)
     ) {
       return suggestTopLevelElementType();
     }
@@ -149,7 +150,7 @@ function suggestOnRelOp(
       SymbolKind.Column,
     ]);
 
-    return !shouldAppendSpace(container.op, offset) ? res : prependSpace(res);
+    return !shouldPrependSpace(container.op, offset) ? res : prependSpace(res);
   }
 
   return noSuggestions();
@@ -412,8 +413,13 @@ function suggestInSubField(
       return suggestInIndex(compiler, offset);
     case ScopeKind.ENUM:
       return suggestInEnumField(compiler, offset, container);
-    case ScopeKind.REF:
-      return suggestInRefField(compiler, offset);
+    case ScopeKind.REF: {
+      const suggestions = suggestInRefField(compiler, offset);
+
+      return shouldPrependSpace(compiler.container.token(offset).token, offset) ?
+              prependSpace(suggestions) :
+              suggestions;
+    }
     case ScopeKind.TABLEGROUP:
       return suggestInTableGroupField(compiler);
     default:
@@ -668,7 +674,7 @@ function findContainerArg(offset: number, node: FunctionApplicationNode): number
   if (!node.callee) return -1;
   const args = [node.callee, ...node.args];
 
-  const containerArgId = args.findIndex((c) => c.start <= offset && offset < c.end);
+  const containerArgId = args.findIndex((c) => c.start <= offset && offset <= c.end);
 
   return containerArgId === -1 ? args.length : containerArgId;
 }

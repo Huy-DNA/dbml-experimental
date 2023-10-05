@@ -31,7 +31,11 @@ export function pickCompletionItemKind(symbolKind: SymbolKind): CompletionItemKi
 
 // To determine if autocompletion should insert an additional space before
 // inserting other tokens
-export function shouldAppendSpace(token: SyntaxToken, offset: number): boolean {
+export function shouldPrependSpace(token: SyntaxToken | undefined, offset: number): boolean {
+  if (!token) {
+    return false;
+  }
+
   if (hasTrailingSpaces(token)) {
     return false;
   }
