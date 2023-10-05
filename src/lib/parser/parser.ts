@@ -133,6 +133,7 @@ export default class Parser {
 
   // Discard tokens until one of `kind` is found
   // If any tokens are discarded, the error message is logged
+  // Return whether the token of one of the listed kinds are eventually reached
   private discardUntil(message: string, ...kind: SyntaxTokenKind[]): boolean {
     if (this.isAtEnd() || !this.check(...kind)) {
       markInvalid(this.peek());
@@ -141,7 +142,7 @@ export default class Parser {
         markInvalid(this.advance());
       }
 
-      return false;
+      return !this.isAtEnd();
     }
 
     return true;

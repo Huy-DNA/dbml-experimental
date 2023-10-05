@@ -56,7 +56,9 @@ export class SyntaxNode {
           (firstValid as SyntaxNode).fullStart;
     }
 
-    const lastValid = [...args].reverse().find((sub) => sub !== undefined && !Number.isNaN(sub.end));
+    const lastValid = [...args]
+      .reverse()
+      .find((sub) => sub !== undefined && !Number.isNaN(sub.end));
     if (!lastValid) {
       this.endPos = {
         offset: NaN,
