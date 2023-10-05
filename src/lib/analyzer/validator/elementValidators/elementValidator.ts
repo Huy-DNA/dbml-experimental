@@ -651,7 +651,7 @@ export default abstract class ElementValidator {
     // eslint-disable-next-line no-restricted-syntax
     for (const setting of settingListNode.elementList) {
       const name = extractStringFromIdentifierStream(setting.name).unwrap_or('')?.toLowerCase();
-
+      console.log(name);
       const { value } = setting;
 
       if (!config.isValid(name, value).isOk()) {
