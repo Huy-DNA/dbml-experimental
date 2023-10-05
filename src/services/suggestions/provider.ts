@@ -42,7 +42,7 @@ const { CompletionItemKind, CompletionItemInsertTextRule } = monaco.languages;
 export default class DBMLCompletionItemProvider implements CompletionItemProvider {
   private compiler: Compiler;
   // alphabetic characters implictily invoke the autocompletion provider
-  triggerCharacters = ['.', ':', ' ', '>', '<', '-'];
+  triggerCharacters = ['.', ':', '>', '<', '-'];
 
   constructor(compiler: Compiler) {
     this.compiler = compiler;
@@ -68,7 +68,13 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
       return noSuggestions();
     }
 
-    if (this.compiler.container.scopeKind(offset) === ScopeKind.TOPLEVEL) {
+    const element = this.compiler.container.element(offset);
+    if (
+      this.compiler.container.scopeKind(offset) === ScopeKind.TOPLEVEL ||
+      (element instanceof ElementDeclarationNode &&
+        element.type &&
+        element.type.start <= offset && element.type.end >= offset)
+    ) {
       return suggestTopLevelElementType();
     }
 
@@ -113,6 +119,13 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
         return suggestInTuple(this.compiler, offset);
       } else if (container instanceof FunctionApplicationNode) {
         return suggestInSubField(this.compiler, offset, container);
+      } else if (container instanceof ElementDeclarationNode) {
+        if (
+          (container.bodyColon && offset >= container.bodyColon.end) ||
+          (container.body && isOffsetWithinSpan(offset, container.body))
+        ) {
+          return suggestInSubField(this.compiler, offset, undefined);
+        }
       }
     }
 
@@ -192,7 +205,7 @@ function suggestInAttribute(
   offset: number,
   container: AttributeNode,
 ): CompletionList {
-  if (container.name && isOffsetWithinSpan(offset, container)) {
+  if (container.name && isOffsetWithinSpan(offset, container.name)) {
     return suggestAttributeName(compiler, offset);
   }
 
@@ -213,7 +226,7 @@ function suggestAttributeName(compiler: Compiler, offset: number): CompletionLis
   if (element instanceof ProgramNode) {
     return noSuggestions();
   }
-  if (element.body && isOffsetWithinSpan(offset, (element as ElementDeclarationNode).body!)) {
+  if (element.body && !isOffsetWithinSpan(offset, (element as ElementDeclarationNode).body!)) {
     switch (scopeKind) {
       case ScopeKind.TABLE:
         return {
@@ -376,7 +389,7 @@ function suggestMembers(
 function suggestInSubField(
   compiler: Compiler,
   offset: number,
-  container: FunctionApplicationNode,
+  container?: FunctionApplicationNode,
 ): CompletionList {
   const scopeKind = compiler.container.scopeKind(offset);
 
@@ -413,15 +426,13 @@ function suggestTopLevelElementType(): CompletionList {
 function suggestInEnumField(
   compiler: Compiler,
   offset: number,
-  container: FunctionApplicationNode,
+  container?: FunctionApplicationNode,
 ): CompletionList {
-  if (!container.callee) {
+  if (!container?.callee) {
     return noSuggestions();
   }
-  const args = [container.callee, ...container.args];
-  const containerArgId = args.findIndex(
-    (c) => c.end <= offset || (c.start <= offset && offset < c.end),
-  );
+  const containerArgId = findContainerArg(offset, container);
+
   if (containerArgId === 1) {
     return suggestNamesInScope(compiler, offset, compiler.container.element(offset), [
       SymbolKind.Schema,
@@ -436,9 +447,9 @@ function suggestInEnumField(
 function suggestInColumn(
   compiler: Compiler,
   offset: number,
-  container: FunctionApplicationNode,
+  container?: FunctionApplicationNode,
 ): CompletionList {
-  if (!container.callee) {
+  if (!container?.callee) {
     return {
       suggestions: ['Ref', 'Note', 'indexes'].map((name) => ({
         label: name,
@@ -450,10 +461,7 @@ function suggestInColumn(
     };
   }
 
-  const args = [container.callee, ...container.args];
-  const containerArgId = args.findIndex(
-    (c) => c.end <= offset || (c.start <= offset && offset < c.end),
-  );
+  const containerArgId = findContainerArg(offset, container);
 
   if (containerArgId === 0) {
     return {
@@ -476,9 +484,9 @@ function suggestInColumn(
 function suggestInProjectField(
   compiler: Compiler,
   offset: number,
-  container: FunctionApplicationNode,
+  container?: FunctionApplicationNode,
 ): CompletionList {
-  if (!container.callee) {
+  if (!container?.callee) {
     return {
       suggestions: ['Table', 'TableGroup', 'Enum', 'Note', 'Ref'].map((name) => ({
         label: name,
@@ -490,10 +498,7 @@ function suggestInProjectField(
     };
   }
 
-  const args = [container.callee, ...container.args];
-  const containerArgId = args.findIndex(
-    (c) => c.end <= offset || (c.start <= offset && offset < c.end),
-  );
+  const containerArgId = findContainerArg(offset, container);
 
   if (containerArgId === 0) {
     return {
@@ -647,4 +652,13 @@ function suggestColumnNameInIndexes(compiler: Compiler, offset: number): Complet
       };
     }),
   });
+}
+
+function findContainerArg(offset: number, node: FunctionApplicationNode): number {
+  if (!node.callee) return -1;
+  const args = [node.callee, ...node.args];
+
+  const containerArgId = args.findIndex((c) => c.start <= offset && offset <= c.end);
+
+  return containerArgId === -1 ? args.length : containerArgId;
 }

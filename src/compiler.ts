@@ -225,8 +225,12 @@ export default class Compiler {
             lastContainer instanceof TupleExpressionNode ||
             lastContainer instanceof BlockExpressionNode
           ) {
-            if (lastContainer.end < offset) {
+            if (lastContainer.end <= offset) {
               res.pop();
+              const maybeElement = _.last(res);
+              if (maybeElement instanceof ElementDeclarationNode && maybeElement.end <= offset) {
+                res.pop();
+              }
             } else {
               break;
             }
