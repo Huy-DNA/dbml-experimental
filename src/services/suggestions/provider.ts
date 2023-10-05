@@ -1,7 +1,7 @@
 import * as monaco from 'monaco-editor-core';
 import { extractStringFromIdentifierStream } from '../../lib/parser/utils';
 import Compiler, { ScopeKind } from '../../compiler';
-import { SyntaxToken } from '../../lib/lexer/tokens';
+import { SyntaxToken, SyntaxTokenKind } from '../../lib/lexer/tokens';
 import { isOffsetWithinSpan } from '../../lib/utils';
 import {
   CompletionList,
@@ -51,10 +51,12 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
   provideCompletionItems(model: TextModel, position: Position): CompletionList {
     const offset = getOffsetFromMonacoPosition(model, position);
     const flatStream = this.compiler.token.flatStream();
+    // bOc: before-or-contain
     const { token: bOcToken, index: bOcTokenId } = this.compiler.container.token(offset);
     if (bOcTokenId === undefined) {
-      return noSuggestions();
+      return suggestTopLevelElementType();
     }
+    // abOc: after before-or-contain
     const abOcToken = flatStream[bOcTokenId + 1];
 
     // Check if we're inside a comment
@@ -73,7 +75,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
       this.compiler.container.scopeKind(offset) === ScopeKind.TOPLEVEL ||
       (element instanceof ElementDeclarationNode &&
         element.type &&
-        element.type.start <= offset && element.type.end >= offset)
+        isOffsetWithinSpan(offset, element.type))
     ) {
       return suggestTopLevelElementType();
     }
@@ -114,7 +116,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
       } else if (container instanceof AttributeNode) {
         return suggestInAttribute(this.compiler, offset, container);
       } else if (container instanceof ListExpressionNode) {
-        return suggestAttributeName(this.compiler, offset);
+        return suggestInAttribute(this.compiler, offset, container);
       } else if (container instanceof TupleExpressionNode) {
         return suggestInTuple(this.compiler, offset);
       } else if (container instanceof FunctionApplicationNode) {
@@ -205,11 +207,19 @@ function suggestInAttribute(
   offset: number,
   container: AttributeNode,
 ): CompletionList {
+  if (
+    [SyntaxTokenKind.COMMA, SyntaxTokenKind.LBRACKET].includes(
+      compiler.container.token(offset).token?.kind as any,
+    )
+  ) {
+    return suggestAttributeName(compiler, offset);
+  }
+
   if (container.name && isOffsetWithinSpan(offset, container.name)) {
     return suggestAttributeName(compiler, offset);
   }
 
-  if (container.name) {
+  if (container.name && compiler.container.token(offset).token?.kind === SyntaxTokenKind.COLON) {
     return suggestAttributeValue(
       compiler,
       offset,
@@ -658,7 +668,7 @@ function findContainerArg(offset: number, node: FunctionApplicationNode): number
   if (!node.callee) return -1;
   const args = [node.callee, ...node.args];
 
-  const containerArgId = args.findIndex((c) => c.start <= offset && offset <= c.end);
+  const containerArgId = args.findIndex((c) => c.start <= offset && offset < c.end);
 
   return containerArgId === -1 ? args.length : containerArgId;
 }

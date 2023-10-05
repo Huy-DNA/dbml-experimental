@@ -6,13 +6,21 @@ import { isOffsetWithinSpan } from './lib/utils';
 import { CompileError } from './lib/errors';
 import {
   BlockExpressionNode,
+  CallExpressionNode,
   ElementDeclarationNode,
   FunctionApplicationNode,
+  FunctionExpressionNode,
+  InfixExpressionNode,
   ListExpressionNode,
+  LiteralNode,
+  PostfixExpressionNode,
+  PrefixExpressionNode,
+  PrimaryExpressionNode,
   ProgramNode,
   SyntaxNode,
   SyntaxNodeIdGenerator,
   TupleExpressionNode,
+  VariableNode,
 } from './lib/parser/nodes';
 import { NodeSymbol, NodeSymbolIdGenerator } from './lib/analyzer/symbol/symbols';
 import Report from './lib/report';
@@ -111,12 +119,14 @@ export default class Compiler {
   // A namespace for token-related queries
   readonly token = {
     invalidStream: this.createQuery(Query.Token_InvalidStream, (): readonly SyntaxToken[] =>
-      this.parse.tokens().filter(isInvalidToken)),
+      this.parse.tokens().filter(isInvalidToken),
+    ),
     // Valid + Invalid tokens (which are guarenteed to be non-trivials) are included in the stream
     flatStream: this.createQuery(Query.Token_FlatStream, (): readonly SyntaxToken[] =>
       this.parse
         .tokens()
-        .flatMap((token) => [...token.leadingInvalid, token, ...token.trailingInvalid])),
+        .flatMap((token) => [...token.leadingInvalid, token, ...token.trailingInvalid]),
+    ),
   };
 
   // A namespace for parsing-related utility
@@ -183,14 +193,14 @@ export default class Compiler {
       (offset: number): readonly Readonly<SyntaxNode>[] => {
         const tokens = this.parse.tokens();
         let { index } = this.container.token(offset);
-        if (!index) {
-          return [];
+        if (index === undefined) {
+          return [this.parse.ast()];
         }
         while (tokens[index].isInvalid && index >= 0) {
           index -= 1;
         }
         if (index === -1) {
-          return [];
+          return [this.parse.ast()];
         }
 
         const searchOffset = tokens[index].start;
@@ -208,33 +218,55 @@ export default class Compiler {
           curNode = foundMem;
         }
 
-        while (true) {
-          const lastContainer = _.last(res);
+        while (res.length > 0) {
+          let popOnce = false;
+          const lastContainer = _.last(res)!;
           if (lastContainer instanceof FunctionApplicationNode) {
             const source = this.parse.source();
             for (let i = lastContainer.end; i < offset; i += 1) {
               if (source[i] === '\n') {
                 res.pop();
+                popOnce = true;
               }
             }
-            break;
-          }
-
-          if (
+          } else if (
+            lastContainer instanceof PrefixExpressionNode ||
+            lastContainer instanceof InfixExpressionNode
+          ) {
+            if (this.container.token(offset).token !== lastContainer.op) {
+              res.pop();
+              popOnce = true;
+            }
+          } else if (
             lastContainer instanceof ListExpressionNode ||
             lastContainer instanceof TupleExpressionNode ||
-            lastContainer instanceof BlockExpressionNode
+            lastContainer instanceof BlockExpressionNode ||
+            lastContainer instanceof CallExpressionNode
           ) {
             if (lastContainer.end <= offset) {
               res.pop();
-              const maybeElement = _.last(res);
-              if (maybeElement instanceof ElementDeclarationNode && maybeElement.end <= offset) {
-                res.pop();
-              }
-            } else {
-              break;
+              popOnce = true;
             }
-          } else {
+          } else if (
+            lastContainer instanceof PostfixExpressionNode ||
+            lastContainer instanceof FunctionExpressionNode ||
+            lastContainer instanceof VariableNode ||
+            lastContainer instanceof LiteralNode ||
+            lastContainer instanceof PrimaryExpressionNode
+          ) {
+            if (lastContainer.end < offset) {
+              res.pop();
+              popOnce = true;
+            }
+          }
+
+          if (popOnce) {
+            const maybeElement = _.last(res);
+            if (maybeElement instanceof ElementDeclarationNode && maybeElement.end <= offset) {
+              res.pop();
+            }
+          }
+          if (!popOnce) {
             break;
           }
         }
@@ -331,9 +363,11 @@ export default class Compiler {
               const res = destructureIndex(index).unwrap_or(undefined);
 
               return !symbol || !res ? [] : { ...res, symbol };
-            }));
+            }),
+          );
           currentPossibleSymbolTables = currentPossibleSymbols.flatMap((e) =>
-            (e.symbol.symbolTable ? e.symbol.symbolTable : []));
+            (e.symbol.symbolTable ? e.symbol.symbolTable : []),
+          );
         }
 
         return currentPossibleSymbols;
