@@ -92,7 +92,7 @@ export class ParsingContextStack {
       switch (token.kind) {
         case SyntaxTokenKind.COMMA:
           if (this.isWithinGroupExpressionContext() || this.isWithinListExpressionContext()) {
-            return this.stack
+            return [...this.stack]
               .reverse()
               .find((c) =>
                 [ParsingContext.GroupExpression, ParsingContext.ListExpression].includes(c))!;

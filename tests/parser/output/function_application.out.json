@@ -555,27 +555,6 @@
                           {
                             "kind": "<identifier>",
                             "startPos": {
-                              "offset": 52,
-                              "line": 1,
-                              "column": 24
-                            },
-                            "endPos": {
-                              "offset": 55,
-                              "line": 1,
-                              "column": 27
-                            },
-                            "value": "key",
-                            "leadingTrivia": [],
-                            "trailingTrivia": [],
-                            "leadingInvalid": [],
-                            "trailingInvalid": [],
-                            "isInvalid": false,
-                            "start": 52,
-                            "end": 55
-                          },
-                          {
-                            "kind": "<identifier>",
-                            "startPos": {
                               "offset": 44,
                               "line": 1,
                               "column": 16
@@ -615,6 +594,27 @@
                             "isInvalid": false,
                             "start": 44,
                             "end": 51
+                          },
+                          {
+                            "kind": "<identifier>",
+                            "startPos": {
+                              "offset": 52,
+                              "line": 1,
+                              "column": 24
+                            },
+                            "endPos": {
+                              "offset": 55,
+                              "line": 1,
+                              "column": 27
+                            },
+                            "value": "key",
+                            "leadingTrivia": [],
+                            "trailingTrivia": [],
+                            "leadingInvalid": [],
+                            "trailingInvalid": [],
+                            "isInvalid": false,
+                            "start": 52,
+                            "end": 55
                           }
                         ]
                       }
