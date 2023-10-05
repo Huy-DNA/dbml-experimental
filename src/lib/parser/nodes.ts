@@ -202,7 +202,7 @@ export class AttributeNode extends SyntaxNode {
     },
     id: SyntaxNodeId,
   ) {
-    super(id, SyntaxNodeKind.ATTRIBUTE, [name, value, colon]);
+    super(id, SyntaxNodeKind.ATTRIBUTE, [name, colon, value]);
     this.name = name;
     this.value = value;
     this.colon = colon;
