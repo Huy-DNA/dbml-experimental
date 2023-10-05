@@ -303,7 +303,7 @@ export default class Interpreter {
 
     if (!(element.body instanceof BlockExpressionNode)) {
       const maybeRef = this.refField(
-        element.body!,
+        element.body! as FunctionApplicationNode,
         schemaName,
         name,
         ownerTableName,
@@ -316,7 +316,13 @@ export default class Interpreter {
     const res: Ref[] = [];
     // eslint-disable-next-line no-restricted-syntax
     for (const field of element.body.body) {
-      const maybeRef = this.refField(field, schemaName, name, ownerTableName, ownerSchemaName);
+      const maybeRef = this.refField(
+        field as FunctionApplicationNode,
+        schemaName,
+        name,
+        ownerTableName,
+        ownerSchemaName,
+      );
       if (maybeRef) {
         res.push(maybeRef);
       }
@@ -326,13 +332,13 @@ export default class Interpreter {
   }
 
   private refField(
-    field: ExpressionNode,
+    field: FunctionApplicationNode,
     refSchemaName: string | null,
     refName: string | null,
     ownerTableName: string | null,
     ownerSchemaName: string | null,
   ): Ref | undefined {
-    const args = field instanceof FunctionApplicationNode ? [field.callee, ...field.args] : [field];
+    const args = [field.callee, ...field.args];
     const rel = args[0] as InfixExpressionNode;
     const [leftCardinality, rightCardinality] = convertRelationOpToCardinalities(rel.op!.value);
     const leftReferee = getColumnSymbolOfRefOperand(rel.leftExpression!).unwrap();
@@ -393,7 +399,9 @@ export default class Interpreter {
       return undefined;
     }
     const { name, schemaName } = maybeName.unwrap();
-    const values = (element.body as BlockExpressionNode).body.map((sub) => this.enumField(sub));
+    const values = (element.body as BlockExpressionNode).body.map((sub) =>
+      this.enumField(sub as FunctionApplicationNode),
+    );
 
     return {
       schemaName,
@@ -403,8 +411,8 @@ export default class Interpreter {
     };
   }
 
-  private enumField(field: ExpressionNode): EnumField {
-    const args = field instanceof FunctionApplicationNode ? [field.callee, ...field.args] : [field];
+  private enumField(field: FunctionApplicationNode): EnumField {
+    const args = [field.callee, ...field.args];
     let note: string | undefined;
     if (args.length === 2) {
       const collector = collectAttribute(args[1] as ListExpressionNode, this.errors);
@@ -472,7 +480,7 @@ export default class Interpreter {
     const tables: TableGroupField[] = [];
     // eslint-disable-next-line no-restricted-syntax
     for (const field of (element.body as BlockExpressionNode).body) {
-      const maybeTableGroupField = this.tableGroupField(field);
+      const maybeTableGroupField = this.tableGroupField(field as FunctionApplicationNode);
       if (maybeTableGroupField) {
         tables.push(maybeTableGroupField);
       }
@@ -486,8 +494,8 @@ export default class Interpreter {
     };
   }
 
-  private tableGroupField(field: ExpressionNode): TableGroupField | undefined {
-    const maybeName = this.extractElementName(field);
+  private tableGroupField(field: FunctionApplicationNode): TableGroupField | undefined {
+    const maybeName = this.extractElementName(field.callee!);
     if (!maybeName.isOk()) {
       return undefined;
     }
@@ -505,8 +513,10 @@ export default class Interpreter {
   ): { value: string; token: TokenPosition } | undefined {
     const content =
       element.body instanceof BlockExpressionNode ?
-        extractQuotedStringToken((element.body as BlockExpressionNode).body[0]) :
-        extractQuotedStringToken(element.body);
+        extractQuotedStringToken(
+            ((element.body as BlockExpressionNode).body[0] as FunctionApplicationNode).callee,
+          ) :
+        extractQuotedStringToken((element.body as FunctionApplicationNode).callee);
 
     return {
       value: content.unwrap(),
@@ -519,7 +529,7 @@ export default class Interpreter {
 
     // eslint-disable-next-line no-restricted-syntax
     for (const sub of (element.body as BlockExpressionNode).body) {
-      const maybeIndexField = this.indexField(sub);
+      const maybeIndexField = this.indexField(sub as FunctionApplicationNode);
       if (maybeIndexField) {
         res.push(maybeIndexField);
       }
@@ -528,8 +538,8 @@ export default class Interpreter {
     return res;
   }
 
-  private indexField(field: ExpressionNode): Index {
-    const args = field instanceof FunctionApplicationNode ? [field.callee, ...field.args] : [field];
+  private indexField(field: FunctionApplicationNode): Index {
+    const args = [field.callee, ...field.args];
 
     const { functional, nonFunctional } = destructureIndexNode(args[0]!).unwrap();
     let pk: boolean | undefined;

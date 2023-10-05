@@ -655,13 +655,13 @@
                   },
                   "fullStart": 32,
                   "endPos": {
-                    "offset": 39,
+                    "offset": 49,
                     "line": 0,
-                    "column": 39
+                    "column": 49
                   },
-                  "fullEnd": 40,
+                  "fullEnd": 49,
                   "start": 32,
-                  "end": 39,
+                  "end": 49,
                   "name": {
                     "id": 13,
                     "kind": "<identifer-stream>",

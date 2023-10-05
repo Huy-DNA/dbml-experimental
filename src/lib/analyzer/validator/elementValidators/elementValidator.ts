@@ -478,22 +478,31 @@ export default abstract class ElementValidator {
               return !sub.type || this.validateNestedElementDeclaration(sub, kindsFoundInScope);
             }
             ith += 1;
-            if (sub instanceof FunctionApplicationNode) {
-              return !sub.callee || this.validateSubField(sub, ith);
-            }
 
-            return this.validateSubField(sub, ith);
+            return (
+              !sub.callee ||
+              this.validateSubField(sub as FunctionApplicationNode & { callee: SyntaxNode }, ith)
+            );
           })
           .every((v) => !!v === true) || hasError;
 
       return !hasError;
     }
 
-    if (node.body instanceof FunctionApplicationNode) {
-      return this.validateSubField(node.body, 0);
+    if (node.body instanceof FunctionApplicationNode && node.body.callee) {
+      return this.validateSubField(
+        node.body as FunctionApplicationNode & { callee: SyntaxNode },
+        0,
+      );
     }
 
-    return this.validateSubField(node.body, 0);
+    this.logError(
+      node.body,
+      CompileErrorCode.INVALID_ELEMENT_IN_SIMPLE_BODY,
+      "An element's simple body can not contain an element declaration",
+    );
+
+    return false;
   }
 
   protected validateNestedElementDeclaration(
@@ -524,12 +533,11 @@ export default abstract class ElementValidator {
 
   /* Validate and register subfield according to config `this.subfield` */
 
-  protected validateSubField(sub: ExpressionNode, ith: number): boolean {
-    if (sub instanceof FunctionApplicationNode && !sub.callee) {
-      throw new Error('Unreachable - to validate a subfield, its callee must be present');
-    }
-
-    const _args = sub instanceof FunctionApplicationNode ? [sub.callee, ...sub.args] : [sub];
+  protected validateSubField(
+    sub: FunctionApplicationNode & { callee: SyntaxNode },
+    ith: number,
+  ): boolean {
+    const _args = [sub.callee, ...sub.args];
 
     const args = _args as ExpressionNode[];
 

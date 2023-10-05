@@ -586,13 +586,13 @@
                       },
                       "fullStart": 44,
                       "endPos": {
-                        "offset": 48,
+                        "offset": 54,
                         "line": 1,
-                        "column": 25
+                        "column": 31
                       },
-                      "fullEnd": 49,
+                      "fullEnd": 54,
                       "start": 44,
-                      "end": 48,
+                      "end": 54,
                       "name": {
                         "id": 8,
                         "kind": "<identifer-stream>",
@@ -745,13 +745,13 @@
                       },
                       "fullStart": 57,
                       "endPos": {
-                        "offset": 79,
+                        "offset": 87,
                         "line": 2,
-                        "column": 22
+                        "column": 30
                       },
-                      "fullEnd": 80,
+                      "fullEnd": 87,
                       "start": 73,
-                      "end": 79,
+                      "end": 87,
                       "name": {
                         "id": 12,
                         "kind": "<identifer-stream>",
@@ -1695,19 +1695,19 @@
                       "id": 21,
                       "kind": "<attribute>",
                       "startPos": {
-                        "offset": 122,
+                        "offset": 120,
                         "line": 3,
-                        "column": 23
+                        "column": 21
                       },
-                      "fullStart": 122,
+                      "fullStart": 120,
                       "endPos": {
-                        "offset": 121,
+                        "offset": 141,
                         "line": 3,
-                        "column": 22
+                        "column": 42
                       },
-                      "fullEnd": 122,
-                      "start": 122,
-                      "end": 121,
+                      "fullEnd": 142,
+                      "start": 120,
+                      "end": 141,
                       "name": {
                         "id": 18,
                         "kind": "<identifer-stream>",
@@ -2381,13 +2381,13 @@
                       },
                       "fullStart": 173,
                       "endPos": {
-                        "offset": 177,
+                        "offset": 184,
                         "line": 4,
-                        "column": 32
+                        "column": 39
                       },
-                      "fullEnd": 178,
+                      "fullEnd": 185,
                       "start": 173,
-                      "end": 177,
+                      "end": 184,
                       "name": {
                         "id": 28,
                         "kind": "<identifer-stream>",

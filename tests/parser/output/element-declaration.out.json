@@ -1,6 +1,6 @@
 {
   "value": {
-    "id": 20,
+    "id": 22,
     "kind": "<program>",
     "startPos": {
       "offset": 0,
@@ -705,7 +705,7 @@
         }
       },
       {
-        "id": 10,
+        "id": 11,
         "kind": "<element-declaration>",
         "startPos": {
           "offset": 57,
@@ -808,8 +808,8 @@
           "end": 62
         },
         "body": {
-          "id": 9,
-          "kind": "<primary-expression>",
+          "id": 10,
+          "kind": "<function-application>",
           "startPos": {
             "offset": 63,
             "line": 12,
@@ -824,9 +824,9 @@
           "fullEnd": 81,
           "start": 63,
           "end": 79,
-          "expression": {
-            "id": 8,
-            "kind": "<literal>",
+          "callee": {
+            "id": 9,
+            "kind": "<primary-expression>",
             "startPos": {
               "offset": 63,
               "line": 12,
@@ -841,54 +841,73 @@
             "fullEnd": 81,
             "start": 63,
             "end": 79,
-            "literal": {
-              "kind": "<string>",
+            "expression": {
+              "id": 8,
+              "kind": "<literal>",
               "startPos": {
                 "offset": 63,
                 "line": 12,
                 "column": 6
               },
+              "fullStart": 63,
               "endPos": {
                 "offset": 79,
                 "line": 12,
                 "column": 22
               },
-              "value": "This is a note",
-              "leadingTrivia": [],
-              "trailingTrivia": [
-                {
-                  "kind": "<newline>",
-                  "startPos": {
-                    "offset": 80,
-                    "line": 12,
-                    "column": 23
-                  },
-                  "endPos": {
-                    "offset": 81,
-                    "line": 13,
-                    "column": 0
-                  },
-                  "value": "\n",
-                  "leadingTrivia": [],
-                  "trailingTrivia": [],
-                  "leadingInvalid": [],
-                  "trailingInvalid": [],
-                  "isInvalid": false,
-                  "start": 80,
-                  "end": 81
-                }
-              ],
-              "leadingInvalid": [],
-              "trailingInvalid": [],
-              "isInvalid": false,
+              "fullEnd": 81,
               "start": 63,
-              "end": 79
+              "end": 79,
+              "literal": {
+                "kind": "<string>",
+                "startPos": {
+                  "offset": 63,
+                  "line": 12,
+                  "column": 6
+                },
+                "endPos": {
+                  "offset": 79,
+                  "line": 12,
+                  "column": 22
+                },
+                "value": "This is a note",
+                "leadingTrivia": [],
+                "trailingTrivia": [
+                  {
+                    "kind": "<newline>",
+                    "startPos": {
+                      "offset": 80,
+                      "line": 12,
+                      "column": 23
+                    },
+                    "endPos": {
+                      "offset": 81,
+                      "line": 13,
+                      "column": 0
+                    },
+                    "value": "\n",
+                    "leadingTrivia": [],
+                    "trailingTrivia": [],
+                    "leadingInvalid": [],
+                    "trailingInvalid": [],
+                    "isInvalid": false,
+                    "start": 80,
+                    "end": 81
+                  }
+                ],
+                "leadingInvalid": [],
+                "trailingInvalid": [],
+                "isInvalid": false,
+                "start": 63,
+                "end": 79
+              }
             }
-          }
+          },
+          "args": []
         }
       },
       {
-        "id": 13,
+        "id": 15,
         "kind": "<element-declaration>",
         "startPos": {
           "offset": 83,
@@ -991,8 +1010,8 @@
           "end": 88
         },
         "body": {
-          "id": 12,
-          "kind": "<primary-expression>",
+          "id": 14,
+          "kind": "<function-application>",
           "startPos": {
             "offset": 89,
             "line": 14,
@@ -1007,9 +1026,9 @@
           "fullEnd": 119,
           "start": 89,
           "end": 117,
-          "expression": {
-            "id": 11,
-            "kind": "<literal>",
+          "callee": {
+            "id": 13,
+            "kind": "<primary-expression>",
             "startPos": {
               "offset": 89,
               "line": 14,
@@ -1024,54 +1043,73 @@
             "fullEnd": 119,
             "start": 89,
             "end": 117,
-            "literal": {
-              "kind": "<string>",
+            "expression": {
+              "id": 12,
+              "kind": "<literal>",
               "startPos": {
                 "offset": 89,
                 "line": 14,
                 "column": 6
               },
+              "fullStart": 89,
               "endPos": {
                 "offset": 117,
                 "line": 15,
                 "column": 15
               },
-              "value": "This is \r\nanother note",
-              "leadingTrivia": [],
-              "trailingTrivia": [
-                {
-                  "kind": "<newline>",
-                  "startPos": {
-                    "offset": 118,
-                    "line": 15,
-                    "column": 16
-                  },
-                  "endPos": {
-                    "offset": 119,
-                    "line": 16,
-                    "column": 0
-                  },
-                  "value": "\n",
-                  "leadingTrivia": [],
-                  "trailingTrivia": [],
-                  "leadingInvalid": [],
-                  "trailingInvalid": [],
-                  "isInvalid": false,
-                  "start": 118,
-                  "end": 119
-                }
-              ],
-              "leadingInvalid": [],
-              "trailingInvalid": [],
-              "isInvalid": false,
+              "fullEnd": 119,
               "start": 89,
-              "end": 117
+              "end": 117,
+              "literal": {
+                "kind": "<string>",
+                "startPos": {
+                  "offset": 89,
+                  "line": 14,
+                  "column": 6
+                },
+                "endPos": {
+                  "offset": 117,
+                  "line": 15,
+                  "column": 15
+                },
+                "value": "This is \r\nanother note",
+                "leadingTrivia": [],
+                "trailingTrivia": [
+                  {
+                    "kind": "<newline>",
+                    "startPos": {
+                      "offset": 118,
+                      "line": 15,
+                      "column": 16
+                    },
+                    "endPos": {
+                      "offset": 119,
+                      "line": 16,
+                      "column": 0
+                    },
+                    "value": "\n",
+                    "leadingTrivia": [],
+                    "trailingTrivia": [],
+                    "leadingInvalid": [],
+                    "trailingInvalid": [],
+                    "isInvalid": false,
+                    "start": 118,
+                    "end": 119
+                  }
+                ],
+                "leadingInvalid": [],
+                "trailingInvalid": [],
+                "isInvalid": false,
+                "start": 89,
+                "end": 117
+              }
             }
-          }
+          },
+          "args": []
         }
       },
       {
-        "id": 19,
+        "id": 21,
         "kind": "<element-declaration>",
         "startPos": {
           "offset": 121,
@@ -1153,7 +1191,7 @@
           "end": 126
         },
         "name": {
-          "id": 15,
+          "id": 17,
           "kind": "<primary-expression>",
           "startPos": {
             "offset": 127,
@@ -1170,7 +1208,7 @@
           "start": 127,
           "end": 132,
           "expression": {
-            "id": 14,
+            "id": 16,
             "kind": "<variable>",
             "startPos": {
               "offset": 127,
@@ -1275,7 +1313,7 @@
           "end": 135
         },
         "alias": {
-          "id": 17,
+          "id": 19,
           "kind": "<primary-expression>",
           "startPos": {
             "offset": 136,
@@ -1292,7 +1330,7 @@
           "start": 136,
           "end": 137,
           "expression": {
-            "id": 16,
+            "id": 18,
             "kind": "<variable>",
             "startPos": {
               "offset": 136,
@@ -1354,7 +1392,7 @@
           }
         },
         "body": {
-          "id": 18,
+          "id": 20,
           "kind": "<block-expression>",
           "startPos": {
             "offset": 138,

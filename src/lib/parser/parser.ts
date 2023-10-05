@@ -15,7 +15,6 @@ import {
   BlockExpressionNode,
   CallExpressionNode,
   ElementDeclarationNode,
-  ExpressionNode,
   FunctionApplicationNode,
   FunctionExpressionNode,
   GroupExpressionNode,
@@ -288,7 +287,7 @@ export default class Parser {
       alias: NormalExpressionNode | undefined;
       attributeList: ListExpressionNode | undefined;
       bodyColon: SyntaxToken | undefined;
-      body: NormalExpressionNode | undefined;
+      body: FunctionApplicationNode | BlockExpressionNode | ElementDeclarationNode | undefined;
     } = {} as any;
     const buildElement = () => this.nodeFactory.create(ElementDeclarationNode, args);
 
@@ -404,7 +403,7 @@ export default class Parser {
       type: SyntaxToken | undefined;
       name: NormalExpressionNode | undefined;
       bodyColon: SyntaxToken | undefined;
-      body: NormalExpressionNode | undefined;
+      body: FunctionApplicationNode | ElementDeclarationNode | undefined;
     } = {} as any;
     const buildElement = () => this.nodeFactory.create(ElementDeclarationNode, args);
 
@@ -435,7 +434,7 @@ export default class Parser {
 
   /* Parsing any ExpressionNode, including non-NormalExpression */
 
-  private expression(): ExpressionNode {
+  private expression(): FunctionApplicationNode | ElementDeclarationNode {
     // Since function application expression is the most generic form
     // by default, we'll interpret any expression as a function application
     const args: {
@@ -455,7 +454,7 @@ export default class Parser {
       (value) => {
         args.callee = value;
       },
-      () => args.callee!,
+      buildExpression,
     );
 
     // If there are newlines after the callee, then it's a simple expression
@@ -468,7 +467,7 @@ export default class Parser {
     //   'This is a note'
     // }
     if (this.shouldStopExpression()) {
-      return args.callee!;
+      return buildExpression();
     }
 
     let prevNode = args.callee!;
@@ -702,7 +701,7 @@ export default class Parser {
   private blockExpression = this.contextStack.withContextDo(ParsingContext.BlockExpression, () => {
     const args: {
       blockOpenBrace: SyntaxToken | undefined;
-      body: ExpressionNode[];
+      body: (ElementDeclarationNode | FunctionApplicationNode)[];
       blockCloseBrace: SyntaxToken | undefined;
     } = { body: [] } as any;
     const buildBlock = () => this.nodeFactory.create(BlockExpressionNode, args);

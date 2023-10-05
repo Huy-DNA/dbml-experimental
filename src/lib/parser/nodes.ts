@@ -132,7 +132,8 @@ export class ElementDeclarationNode extends SyntaxNode {
 
   bodyColon?: SyntaxToken;
 
-  body?: ExpressionNode | BlockExpressionNode;
+  // if simple body, `body` must be a FunctionApplicationNode or ElementDeclarationNode
+  body?: FunctionApplicationNode | ElementDeclarationNode | BlockExpressionNode;
 
   constructor(
     {
@@ -150,7 +151,7 @@ export class ElementDeclarationNode extends SyntaxNode {
       alias?: NormalExpressionNode;
       attributeList?: ListExpressionNode;
       bodyColon?: SyntaxToken;
-      body?: BlockExpressionNode | ExpressionNode;
+      body?: BlockExpressionNode | FunctionApplicationNode | ElementDeclarationNode;
     },
     id: SyntaxNodeId,
   ) {
@@ -163,6 +164,13 @@ export class ElementDeclarationNode extends SyntaxNode {
       bodyColon,
       body,
     ]);
+
+    if (
+      bodyColon &&
+      !(body instanceof FunctionApplicationNode || body instanceof ElementDeclarationNode)
+    ) {
+      throw new Error('If an element has a simple body, it must be a function application node');
+    }
 
     this.type = type;
     this.name = name;
@@ -311,7 +319,7 @@ export class FunctionApplicationNode extends SyntaxNode {
 export class BlockExpressionNode extends SyntaxNode {
   blockOpenBrace?: SyntaxToken;
 
-  body: ExpressionNode[];
+  body: (ElementDeclarationNode | FunctionApplicationNode)[];
 
   blockCloseBrace?: SyntaxToken;
 
@@ -322,7 +330,7 @@ export class BlockExpressionNode extends SyntaxNode {
       blockCloseBrace,
     }: {
       blockOpenBrace?: SyntaxToken;
-      body?: ExpressionNode[];
+      body?: (ElementDeclarationNode | FunctionApplicationNode)[];
       blockCloseBrace?: SyntaxToken;
     },
     id: SyntaxNodeId,

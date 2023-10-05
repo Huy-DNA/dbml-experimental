@@ -89,12 +89,15 @@ export default abstract class ElementBinder {
         }
       }
     } else {
-      this.bindSubfield(node.body);
+      this.bindSubfield(nodeBody);
     }
   }
 
-  private bindSubfield(sub: ExpressionNode) {
-    const args = sub instanceof FunctionApplicationNode ? [sub.callee, ...sub.args] : [sub];
+  private bindSubfield(sub: FunctionApplicationNode | ElementDeclarationNode) {
+    if (sub instanceof ElementDeclarationNode) {
+      throw new Error("An element's subfield can not be an element declaration");
+    }
+    const args = [sub.callee, ...sub.args];
     const maybeSettingList = _.last(args);
     if (maybeSettingList instanceof ListExpressionNode) {
       args.pop();

@@ -50,6 +50,7 @@
     "@typescript-eslint/no-redeclare": "error",
     "no-underscore-dangle": "off",
     "no-bitwise": "off",
-    "no-undef": "off"
+    "no-undef": "off",
+    "function-paren-newline": "off"
   }
 }
