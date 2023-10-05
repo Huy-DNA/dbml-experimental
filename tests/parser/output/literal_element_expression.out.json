@@ -1156,27 +1156,6 @@
                                 {
                                   "kind": "<identifier>",
                                   "startPos": {
-                                    "offset": 115,
-                                    "line": 2,
-                                    "column": 32
-                                  },
-                                  "endPos": {
-                                    "offset": 118,
-                                    "line": 2,
-                                    "column": 35
-                                  },
-                                  "value": "key",
-                                  "leadingTrivia": [],
-                                  "trailingTrivia": [],
-                                  "leadingInvalid": [],
-                                  "trailingInvalid": [],
-                                  "isInvalid": false,
-                                  "start": 115,
-                                  "end": 118
-                                },
-                                {
-                                  "kind": "<identifier>",
-                                  "startPos": {
                                     "offset": 107,
                                     "line": 2,
                                     "column": 24
@@ -1216,6 +1195,27 @@
                                   "isInvalid": false,
                                   "start": 107,
                                   "end": 114
+                                },
+                                {
+                                  "kind": "<identifier>",
+                                  "startPos": {
+                                    "offset": 115,
+                                    "line": 2,
+                                    "column": 32
+                                  },
+                                  "endPos": {
+                                    "offset": 118,
+                                    "line": 2,
+                                    "column": 35
+                                  },
+                                  "value": "key",
+                                  "leadingTrivia": [],
+                                  "trailingTrivia": [],
+                                  "leadingInvalid": [],
+                                  "trailingInvalid": [],
+                                  "isInvalid": false,
+                                  "start": 115,
+                                  "end": 118
                                 }
                               ]
                             }
