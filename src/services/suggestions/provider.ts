@@ -216,16 +216,16 @@ function suggestInAttribute(
     return suggestAttributeName(compiler, offset);
   }
 
-  if (container.name && isOffsetWithinSpan(offset, container.name)) {
-    return suggestAttributeName(compiler, offset);
-  }
-
   if (container.name && compiler.container.token(offset).token?.kind === SyntaxTokenKind.COLON) {
     return suggestAttributeValue(
       compiler,
       offset,
       extractStringFromIdentifierStream(container.name).unwrap(),
     );
+  }
+
+  if (container.name && isOffsetWithinSpan(offset, container.name)) {
+    return suggestAttributeName(compiler, offset);
   }
 
   return noSuggestions();
