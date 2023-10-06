@@ -6,22 +6,16 @@ import { isOffsetWithinSpan } from './lib/utils';
 import { CompileError } from './lib/errors';
 import {
   BlockExpressionNode,
-  CallExpressionNode,
   ElementDeclarationNode,
   FunctionApplicationNode,
-  FunctionExpressionNode,
   IdentiferStreamNode,
   InfixExpressionNode,
   ListExpressionNode,
-  LiteralNode,
-  PostfixExpressionNode,
   PrefixExpressionNode,
-  PrimaryExpressionNode,
   ProgramNode,
   SyntaxNode,
   SyntaxNodeIdGenerator,
   TupleExpressionNode,
-  VariableNode,
 } from './lib/parser/nodes';
 import { NodeSymbol, NodeSymbolIdGenerator } from './lib/analyzer/symbol/symbols';
 import Report from './lib/report';
@@ -76,10 +70,15 @@ export default class Compiler {
   private symbolIdGenerator = new NodeSymbolIdGenerator();
 
   private createQuery<V>(kind: Query, queryCallback: () => V): () => V;
-  private createQuery<V, U>(kind: Query, queryCallback: (arg: U) => V): (arg: U) => V;
-  private createQuery<V, U>(
+  private createQuery<V, U, K>(
+    kind: Query,
+    queryCallback: (arg: U) => V,
+    toKey?: (arg: U) => K,
+  ): (arg: U) => V;
+  private createQuery<V, U, K>(
     kind: Query,
     queryCallback: (arg: U | undefined) => V,
+    toKey?: (arg: U) => K,
   ): (arg: U | undefined) => V {
     return (arg: U | undefined): V => {
       const cacheEntry = this.cache[kind];
@@ -88,7 +87,7 @@ export default class Compiler {
           return cacheEntry;
         }
 
-        if (cacheEntry.has(arg)) {
+        if (cacheEntry.has(toKey ? toKey(arg!) : arg)) {
           return cacheEntry.get(arg)!;
         }
       }
@@ -97,10 +96,10 @@ export default class Compiler {
 
       if (arg !== undefined) {
         if (cacheEntry instanceof Map) {
-          cacheEntry.set(arg, res);
+          cacheEntry.set(toKey ? toKey(arg) : arg, res);
         } else {
           this.cache[kind] = new Map();
-          this.cache[kind].set(arg, res);
+          this.cache[kind].set(toKey ? toKey(arg) : arg, res);
         }
       } else {
         this.cache[kind] = res;
@@ -343,29 +342,47 @@ export default class Compiler {
   readonly symbol = {
     ofName: this.createQuery(
       Query.Symbol_OfName,
-      (
-        nameStack: string[],
-      ): readonly Readonly<{ symbol: NodeSymbol; kind: SymbolKind; name: string }>[] => {
-        const { symbolTable } = this.parse.ast().symbol!;
-        let currentPossibleSymbolTables: SymbolTable[] = [symbolTable!];
-        let currentPossibleSymbols: { symbol: NodeSymbol; kind: SymbolKind; name: string }[] = [];
-        // eslint-disable-next-line no-restricted-syntax
-        for (const name of nameStack) {
-          currentPossibleSymbols = currentPossibleSymbolTables.flatMap((st) =>
-            generatePossibleIndexes(name).flatMap((index) => {
-              const symbol = st.get(index);
-              const res = destructureIndex(index).unwrap_or(undefined);
-
-              return !symbol || !res ? [] : { ...res, symbol };
-            }),
-          );
-          currentPossibleSymbolTables = currentPossibleSymbols.flatMap((e) =>
-            (e.symbol.symbolTable ? e.symbol.symbolTable : []),
-          );
+      ({
+        nameStack,
+        owner = this.parse.ast(),
+      }: {
+        nameStack: string[];
+        owner: ElementDeclarationNode | ProgramNode;
+      }): readonly Readonly<{ symbol: NodeSymbol; kind: SymbolKind; name: string }>[] => {
+        if (nameStack.length === 0) {
+          return [];
         }
 
-        return currentPossibleSymbols;
+        const res: { symbol: NodeSymbol; kind: SymbolKind; name: string }[] = [];
+
+        let currentOwner: ElementDeclarationNode | ProgramNode | undefined = owner;
+        while (currentOwner?.symbol?.symbolTable) {
+          const { symbolTable } = currentOwner.symbol;
+          let currentPossibleSymbolTables: SymbolTable[] = [symbolTable];
+          let currentPossibleSymbols: { symbol: NodeSymbol; kind: SymbolKind; name: string }[] = [];
+          // eslint-disable-next-line no-restricted-syntax
+          for (const name of nameStack) {
+            currentPossibleSymbols = currentPossibleSymbolTables.flatMap((st) =>
+              generatePossibleIndexes(name).flatMap((index) => {
+                const symbol = st.get(index);
+                const desRes = destructureIndex(index).unwrap_or(undefined);
+
+                return !symbol || !desRes ? [] : { ...desRes, symbol };
+              }),
+            );
+            currentPossibleSymbolTables = currentPossibleSymbols.flatMap((e) =>
+              (e.symbol.symbolTable ? e.symbol.symbolTable : []),
+            );
+          }
+
+          res.push(...currentPossibleSymbols);
+          currentOwner =
+            currentOwner instanceof ElementDeclarationNode ? currentOwner.parent : undefined;
+        }
+
+        return res;
       },
+      ({ nameStack, owner }) => `${nameStack.join('.')}@${owner.id}`,
     ),
     members: this.createQuery(
       Query.Symbol_Members,
