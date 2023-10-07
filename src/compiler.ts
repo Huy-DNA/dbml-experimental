@@ -82,13 +82,14 @@ export default class Compiler {
   ): (arg: U | undefined) => V {
     return (arg: U | undefined): V => {
       const cacheEntry = this.cache[kind];
+      const key = (arg && toKey) ? toKey(arg) : arg;
       if (cacheEntry !== null) {
         if (!(cacheEntry instanceof Map)) {
           return cacheEntry;
         }
 
-        if (cacheEntry.has(toKey ? toKey(arg!) : arg)) {
-          return cacheEntry.get(arg)!;
+        if (cacheEntry.has(key)) {
+          return cacheEntry.get(key);
         }
       }
 
@@ -96,10 +97,10 @@ export default class Compiler {
 
       if (arg !== undefined) {
         if (cacheEntry instanceof Map) {
-          cacheEntry.set(toKey ? toKey(arg) : arg, res);
+          cacheEntry.set(key, res);
         } else {
           this.cache[kind] = new Map();
-          this.cache[kind].set(toKey ? toKey(arg) : arg, res);
+          this.cache[kind].set(key, res);
         }
       } else {
         this.cache[kind] = res;
