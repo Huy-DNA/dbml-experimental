@@ -1,14 +1,3 @@
-Project ecommerce {
-  note: '''
-    # Introduction
-    This is an ecommerce project
-
-    # Description
-    ...
-  '''
-  database_type: 'PostgreSQL'
-}
-
 Enum "orders_status" {
   "created"
   "running"

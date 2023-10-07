@@ -1,0 +1,166 @@
+{
+  "value": {
+    "database": {
+      "1": {
+        "id": 1,
+        "hasDefaultSchema": false,
+        "note": null,
+        "schemaIds": [
+          1
+        ]
+      }
+    },
+    "schemas": {
+      "1": {
+        "id": 1,
+        "name": "public",
+        "note": "Default Public Schema",
+        "tableIds": [
+          1
+        ],
+        "enumIds": [],
+        "tableGroupIds": [],
+        "refIds": [],
+        "databaseId": 1
+      }
+    },
+    "refs": {},
+    "enums": {},
+    "tableGroups": {},
+    "tables": {
+      "1": {
+        "id": 1,
+        "name": "users",
+        "alias": null,
+        "note": null,
+        "fieldIds": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "indexIds": [],
+        "schemaId": 1,
+        "groupId": null
+      }
+    },
+    "endpoints": {},
+    "enumValues": {},
+    "indexes": {},
+    "indexColumns": {},
+    "fields": {
+      "1": {
+        "id": 1,
+        "name": "id",
+        "type": {
+          "schemaName": null,
+          "type_name": "int",
+          "args": null
+        },
+        "pk": true,
+        "note": null,
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      },
+      "2": {
+        "id": 2,
+        "name": "full_name",
+        "type": {
+          "schemaName": null,
+          "type_name": "varchar",
+          "args": null
+        },
+        "note": null,
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      },
+      "3": {
+        "id": 3,
+        "name": "email",
+        "type": {
+          "schemaName": null,
+          "type_name": "varchar",
+          "args": null
+        },
+        "unique": true,
+        "note": null,
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      },
+      "4": {
+        "id": 4,
+        "name": "gender",
+        "type": {
+          "schemaName": null,
+          "type_name": "varchar",
+          "args": null
+        },
+        "note": null,
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      },
+      "5": {
+        "id": 5,
+        "name": "date_of_birth",
+        "type": {
+          "schemaName": null,
+          "type_name": "varchar",
+          "args": null
+        },
+        "note": null,
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      },
+      "6": {
+        "id": 6,
+        "name": "created_at",
+        "type": {
+          "schemaName": null,
+          "type_name": "varchar",
+          "args": null
+        },
+        "note": null,
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      },
+      "7": {
+        "id": 7,
+        "name": "country_code",
+        "type": {
+          "schemaName": null,
+          "type_name": "int",
+          "args": null
+        },
+        "note": null,
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      },
+      "8": {
+        "id": 8,
+        "name": "active",
+        "type": {
+          "schemaName": null,
+          "type_name": "boolean",
+          "args": null
+        },
+        "not_null": true,
+        "note": null,
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      }
+    }
+  },
+  "errors": []
+}

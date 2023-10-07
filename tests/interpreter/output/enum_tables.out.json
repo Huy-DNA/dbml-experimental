@@ -1,0 +1,222 @@
+{
+  "value": {
+    "database": {
+      "1": {
+        "id": 1,
+        "hasDefaultSchema": false,
+        "note": null,
+        "schemaIds": [
+          1
+        ]
+      }
+    },
+    "schemas": {
+      "1": {
+        "id": 1,
+        "name": "public",
+        "note": "Default Public Schema",
+        "tableIds": [
+          1,
+          2
+        ],
+        "enumIds": [
+          1,
+          2
+        ],
+        "tableGroupIds": [],
+        "refIds": [],
+        "databaseId": 1
+      }
+    },
+    "refs": {},
+    "enums": {
+      "1": {
+        "id": 1,
+        "name": "job_status",
+        "note": null,
+        "valueIds": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "fieldIds": [
+          2
+        ],
+        "schemaId": 1
+      },
+      "2": {
+        "id": 2,
+        "name": "order status",
+        "note": null,
+        "valueIds": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "fieldIds": [
+          4
+        ],
+        "schemaId": 1
+      }
+    },
+    "tableGroups": {},
+    "tables": {
+      "1": {
+        "id": 1,
+        "name": "jobs",
+        "alias": null,
+        "note": null,
+        "fieldIds": [
+          1,
+          2
+        ],
+        "indexIds": [],
+        "schemaId": 1,
+        "groupId": null
+      },
+      "2": {
+        "id": 2,
+        "name": "orders",
+        "alias": null,
+        "note": null,
+        "fieldIds": [
+          3,
+          4,
+          5
+        ],
+        "indexIds": [],
+        "schemaId": 1,
+        "groupId": null
+      }
+    },
+    "endpoints": {},
+    "enumValues": {
+      "1": {
+        "id": 1,
+        "name": "created",
+        "enumId": 1
+      },
+      "2": {
+        "id": 2,
+        "name": "running",
+        "enumId": 1
+      },
+      "3": {
+        "id": 3,
+        "name": "done",
+        "note": null,
+        "enumId": 1
+      },
+      "4": {
+        "id": 4,
+        "name": "failed",
+        "note": null,
+        "enumId": 1
+      },
+      "5": {
+        "id": 5,
+        "name": "wait for validation",
+        "enumId": 1
+      },
+      "6": {
+        "id": 6,
+        "name": "created",
+        "enumId": 2
+      },
+      "7": {
+        "id": 7,
+        "name": "pending",
+        "note": null,
+        "enumId": 2
+      },
+      "8": {
+        "id": 8,
+        "name": "processing",
+        "note": null,
+        "enumId": 2
+      },
+      "9": {
+        "id": 9,
+        "name": "completed",
+        "note": null,
+        "enumId": 2
+      }
+    },
+    "indexes": {},
+    "indexColumns": {},
+    "fields": {
+      "1": {
+        "id": 1,
+        "name": "id",
+        "type": {
+          "schemaName": null,
+          "type_name": "integer",
+          "args": null
+        },
+        "pk": true,
+        "note": null,
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      },
+      "2": {
+        "id": 2,
+        "name": "status",
+        "type": {
+          "schemaName": null,
+          "type_name": "job_status",
+          "args": null
+        },
+        "note": "This is a column note",
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": 1
+      },
+      "3": {
+        "id": 3,
+        "name": "id",
+        "type": {
+          "schemaName": null,
+          "type_name": "int",
+          "args": null
+        },
+        "unique": true,
+        "pk": true,
+        "note": null,
+        "endpointIds": [],
+        "tableId": 2,
+        "enumId": null
+      },
+      "4": {
+        "id": 4,
+        "name": "status",
+        "type": {
+          "schemaName": null,
+          "type_name": "order status",
+          "args": null
+        },
+        "note": null,
+        "endpointIds": [],
+        "tableId": 2,
+        "enumId": 2
+      },
+      "5": {
+        "id": 5,
+        "name": "created_at",
+        "type": {
+          "schemaName": null,
+          "type_name": "varchar",
+          "args": null
+        },
+        "note": null,
+        "endpointIds": [],
+        "tableId": 2,
+        "enumId": null
+      }
+    }
+  },
+  "errors": []
+}

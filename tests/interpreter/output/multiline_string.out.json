@@ -1,0 +1,65 @@
+{
+  "value": {
+    "database": {
+      "1": {
+        "id": 1,
+        "hasDefaultSchema": false,
+        "note": null,
+        "schemaIds": [
+          1
+        ]
+      }
+    },
+    "schemas": {
+      "1": {
+        "id": 1,
+        "name": "public",
+        "note": "Default Public Schema",
+        "tableIds": [
+          1
+        ],
+        "enumIds": [],
+        "tableGroupIds": [],
+        "refIds": [],
+        "databaseId": 1
+      }
+    },
+    "refs": {},
+    "enums": {},
+    "tableGroups": {},
+    "tables": {
+      "1": {
+        "id": 1,
+        "name": "users",
+        "alias": null,
+        "note": null,
+        "fieldIds": [
+          1
+        ],
+        "indexIds": [],
+        "schemaId": 1,
+        "groupId": null
+      }
+    },
+    "endpoints": {},
+    "enumValues": {},
+    "indexes": {},
+    "indexColumns": {},
+    "fields": {
+      "1": {
+        "id": 1,
+        "name": "id",
+        "type": {
+          "schemaName": null,
+          "type_name": "int",
+          "args": null
+        },
+        "note": "\n\n    # Objective\n      * Support writing long string that can \\undefined'span' over multiple lines\n      * Support writing markdown for DBML Note\n  \n    # Syntax\n\n  ",
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      }
+    }
+  },
+  "errors": []
+}

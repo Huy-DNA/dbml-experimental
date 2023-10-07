@@ -283,7 +283,7 @@
             "end": 18
           }
         },
-        "owner": 11,
+        "parent": 11,
         "symbol": 2
       },
       {
@@ -732,7 +732,7 @@
             "end": 51
           }
         },
-        "owner": 11,
+        "parent": 11,
         "symbol": 4
       }
     ],

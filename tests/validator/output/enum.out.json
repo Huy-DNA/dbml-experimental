@@ -379,7 +379,7 @@
             "end": 17
           }
         },
-        "owner": 24,
+        "parent": 24,
         "symbol": 3
       },
       {
@@ -1466,7 +1466,7 @@
             "end": 72
           }
         },
-        "owner": 24,
+        "parent": 24,
         "symbol": 4
       }
     ],

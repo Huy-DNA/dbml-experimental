@@ -1,0 +1,121 @@
+{
+  "value": {
+    "database": {
+      "1": {
+        "id": 1,
+        "hasDefaultSchema": false,
+        "note": null,
+        "schemaIds": [
+          1
+        ]
+      }
+    },
+    "schemas": {
+      "1": {
+        "id": 1,
+        "name": "public",
+        "note": "Default Public Schema",
+        "tableIds": [
+          1,
+          2
+        ],
+        "enumIds": [],
+        "tableGroupIds": [],
+        "refIds": [],
+        "databaseId": 1
+      }
+    },
+    "refs": {},
+    "enums": {},
+    "tableGroups": {},
+    "tables": {
+      "1": {
+        "id": 1,
+        "name": "sal_emp",
+        "alias": null,
+        "note": null,
+        "fieldIds": [
+          1,
+          2,
+          3
+        ],
+        "indexIds": [],
+        "schemaId": 1,
+        "groupId": null
+      },
+      "2": {
+        "id": 2,
+        "name": "tictactoe",
+        "alias": null,
+        "note": null,
+        "fieldIds": [
+          4
+        ],
+        "indexIds": [],
+        "schemaId": 1,
+        "groupId": null
+      }
+    },
+    "endpoints": {},
+    "enumValues": {},
+    "indexes": {},
+    "indexColumns": {},
+    "fields": {
+      "1": {
+        "id": 1,
+        "name": "name",
+        "type": {
+          "schemaName": null,
+          "type_name": "text",
+          "args": null
+        },
+        "note": null,
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      },
+      "2": {
+        "id": 2,
+        "name": "pay_by_quarter",
+        "type": {
+          "schemaName": null,
+          "type_name": "int[]",
+          "args": null
+        },
+        "not_null": true,
+        "note": null,
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      },
+      "3": {
+        "id": 3,
+        "name": "schedule",
+        "type": {
+          "schemaName": null,
+          "type_name": "text[][]",
+          "args": null
+        },
+        "not_null": false,
+        "note": null,
+        "endpointIds": [],
+        "tableId": 1,
+        "enumId": null
+      },
+      "4": {
+        "id": 4,
+        "name": "squares",
+        "type": {
+          "schemaName": null,
+          "type_name": "integer[3][3]",
+          "args": null
+        },
+        "note": null,
+        "endpointIds": [],
+        "tableId": 2,
+        "enumId": null
+      }
+    }
+  },
+  "errors": []
+}

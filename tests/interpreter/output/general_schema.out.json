@@ -3,32 +3,32 @@
     "code": 5000,
     "diagnostic": "Unsupported default value",
     "nodeOrToken": {
-      "id": 139,
+      "id": 127,
       "kind": "<function-expression>",
       "startPos": {
-        "offset": 678,
-        "line": 42,
+        "offset": 528,
+        "line": 31,
         "column": 34
       },
-      "fullStart": 678,
+      "fullStart": 528,
       "endPos": {
-        "offset": 685,
-        "line": 42,
+        "offset": 535,
+        "line": 31,
         "column": 41
       },
-      "fullEnd": 685,
-      "start": 678,
-      "end": 685,
+      "fullEnd": 535,
+      "start": 528,
+      "end": 535,
       "value": {
         "kind": "<function-expression>",
         "startPos": {
-          "offset": 678,
-          "line": 42,
+          "offset": 528,
+          "line": 31,
           "column": 34
         },
         "endPos": {
-          "offset": 685,
-          "line": 42,
+          "offset": 535,
+          "line": 31,
           "column": 41
         },
         "value": "now()",
@@ -37,12 +37,12 @@
         "leadingInvalid": [],
         "trailingInvalid": [],
         "isInvalid": false,
-        "start": 678,
-        "end": 685
+        "start": 528,
+        "end": 535
       }
     },
-    "start": 678,
-    "end": 685,
+    "start": 528,
+    "end": 535,
     "name": "CompileError"
   }
 ]

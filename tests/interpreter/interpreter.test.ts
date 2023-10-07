@@ -28,13 +28,23 @@ describe('#interpreter', () => {
       });
 
     if (report.getErrors().length !== 0) {
-      output = report.getErrors();
+      output = JSON.stringify(
+        report.getErrors(),
+        (key, value) =>
+          ['symbol', 'references', 'referee', 'parent'].includes(key) ? undefined : value,
+        2,
+      );
     } else {
       const res = new Interpreter(report.getValue())
         .interpret()
         .map((rawDb) => new Database(rawDb).normalize());
       if (res.getErrors().length > 0) {
-        output = res.getErrors();
+        output = JSON.stringify(
+          res.getErrors(),
+          (key, value) =>
+            ['symbol', 'references', 'referee', 'parent'].includes(key) ? undefined : value,
+          2,
+        );
       } else {
         output = JSON.stringify(
           res,

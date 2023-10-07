@@ -1490,7 +1490,7 @@
                   "end": 93
                 }
               },
-              "owner": 24
+              "parent": 24
             }
           ],
           "blockCloseBrace": {
@@ -1515,7 +1515,7 @@
             "end": 95
           }
         },
-        "owner": 25,
+        "parent": 25,
         "symbol": 2
       }
     ],
