@@ -5,6 +5,7 @@ import SymbolTable from './lib/analyzer/symbol/symbolTable';
 import { isOffsetWithinSpan } from './lib/utils';
 import { CompileError } from './lib/errors';
 import {
+  AttributeNode,
   BlockExpressionNode,
   ElementDeclarationNode,
   FunctionApplicationNode,
@@ -24,7 +25,7 @@ import Parser from './lib/parser/parser';
 import Analyzer from './lib/analyzer/analyzer';
 import Interpreter from './lib/interpreter/interpreter';
 import Database from './lib/model_structure/database';
-import { SyntaxToken } from './lib/lexer/tokens';
+import { SyntaxToken, SyntaxTokenKind } from './lib/lexer/tokens';
 import { getMemberChain, isInvalidToken } from './lib/parser/utils';
 
 const enum Query {
@@ -82,7 +83,7 @@ export default class Compiler {
   ): (arg: U | undefined) => V {
     return (arg: U | undefined): V => {
       const cacheEntry = this.cache[kind];
-      const key = (arg && toKey) ? toKey(arg) : arg;
+      const key = arg && toKey ? toKey(arg) : arg;
       if (cacheEntry !== null) {
         if (!(cacheEntry instanceof Map)) {
           return cacheEntry;
@@ -194,6 +195,7 @@ export default class Compiler {
       (offset: number): readonly Readonly<SyntaxNode>[] => {
         const tokens = this.parse.tokens();
         let { index } = this.container.token(offset);
+        const { token } = this.container.token(offset);
         if (index === undefined) {
           return [this.parse.ast()];
         }
@@ -219,9 +221,14 @@ export default class Compiler {
           curNode = foundMem;
         }
 
+        if (token?.kind === SyntaxTokenKind.COLON) {
+          return res;
+        }
+
         while (res.length > 0) {
           let popOnce = false;
           const lastContainer = _.last(res)!;
+
           if (lastContainer instanceof FunctionApplicationNode) {
             const source = this.parse.source();
             for (let i = lastContainer.end; i < offset; i += 1) {
@@ -356,8 +363,15 @@ export default class Compiler {
 
         const res: { symbol: NodeSymbol; kind: SymbolKind; name: string }[] = [];
 
-        let currentOwner: ElementDeclarationNode | ProgramNode | undefined = owner;
-        while (currentOwner?.symbol?.symbolTable) {
+        for (
+          let currentOwner: ElementDeclarationNode | ProgramNode | undefined = owner;
+          currentOwner;
+          currentOwner =
+            currentOwner instanceof ElementDeclarationNode ? currentOwner.parent : undefined
+        ) {
+          if (!currentOwner.symbol?.symbolTable) {
+            continue;
+          }
           const { symbolTable } = currentOwner.symbol;
           let currentPossibleSymbolTables: SymbolTable[] = [symbolTable];
           let currentPossibleSymbols: { symbol: NodeSymbol; kind: SymbolKind; name: string }[] = [];
@@ -377,8 +391,6 @@ export default class Compiler {
           }
 
           res.push(...currentPossibleSymbols);
-          currentOwner =
-            currentOwner instanceof ElementDeclarationNode ? currentOwner.parent : undefined;
         }
 
         return res;
