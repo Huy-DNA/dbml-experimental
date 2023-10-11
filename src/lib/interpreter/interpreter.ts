@@ -243,8 +243,8 @@ export default class Interpreter {
       pk,
       dbdefault,
       increment,
-      unique,
       not_null: notNull,
+      unique,
       note:
         note === undefined ?
           undefined :

@@ -48,8 +48,8 @@
             }
           },
           "inline_refs": [],
-          "unique": true,
-          "not_null": true
+          "not_null": true,
+          "unique": true
         },
         {
           "name": "status",
