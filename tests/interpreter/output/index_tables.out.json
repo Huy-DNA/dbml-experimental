@@ -178,7 +178,164 @@
           "inline_refs": []
         }
       ],
-      "indexes": [],
+      "indexes": [
+        {
+          "columns": [
+            {
+              "value": "id",
+              "type": "column"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 211,
+              "line": 12,
+              "column": 5
+            },
+            "end": {
+              "offset": 244,
+              "line": 12,
+              "column": 38
+            }
+          },
+          "unique": true,
+          "note": "index note"
+        },
+        {
+          "columns": [
+            {
+              "value": "full_name",
+              "type": "column"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 249,
+              "line": 13,
+              "column": 5
+            },
+            "end": {
+              "offset": 278,
+              "line": 13,
+              "column": 34
+            }
+          },
+          "name": "User Name"
+        },
+        {
+          "columns": [
+            {
+              "value": "email",
+              "type": "column"
+            },
+            {
+              "value": "created_at",
+              "type": "column"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 283,
+              "line": 14,
+              "column": 5
+            },
+            "end": {
+              "offset": 314,
+              "line": 14,
+              "column": 36
+            }
+          },
+          "type": "hash"
+        },
+        {
+          "columns": [
+            {
+              "value": "now()",
+              "type": "expression"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 319,
+              "line": 15,
+              "column": 5
+            },
+            "end": {
+              "offset": 326,
+              "line": 15,
+              "column": 12
+            }
+          }
+        },
+        {
+          "columns": [
+            {
+              "value": "lower(full_name)",
+              "type": "expression"
+            },
+            {
+              "value": "active",
+              "type": "column"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 331,
+              "line": 16,
+              "column": 5
+            },
+            "end": {
+              "offset": 359,
+              "line": 16,
+              "column": 33
+            }
+          }
+        },
+        {
+          "columns": [
+            {
+              "value": "getdate()",
+              "type": "expression"
+            },
+            {
+              "value": "upper(gender)",
+              "type": "expression"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 364,
+              "line": 17,
+              "column": 5
+            },
+            "end": {
+              "offset": 394,
+              "line": 17,
+              "column": 35
+            }
+          }
+        },
+        {
+          "columns": [
+            {
+              "value": "reverse(country_code)",
+              "type": "expression"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 399,
+              "line": 18,
+              "column": 5
+            },
+            "end": {
+              "offset": 424,
+              "line": 18,
+              "column": 30
+            }
+          }
+        }
+      ],
       "token": {
         "start": {
           "offset": 0,

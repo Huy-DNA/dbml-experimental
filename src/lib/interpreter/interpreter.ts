@@ -132,7 +132,7 @@ export default class Interpreter {
             this.db.refs.push(...this.ref(sub, name, schemaName));
             break;
           case 'indexes':
-            this.indexes(sub);
+            indexes.push(...this.indexes(sub));
             break;
           case 'note':
             if (note !== undefined) {

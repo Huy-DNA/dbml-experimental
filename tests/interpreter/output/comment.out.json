@@ -124,7 +124,49 @@
           }
         }
       ],
-      "indexes": [],
+      "indexes": [
+        {
+          "columns": [
+            {
+              "value": "id",
+              "type": "column"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 372,
+              "line": 24,
+              "column": 5
+            },
+            "end": {
+              "offset": 387,
+              "line": 24,
+              "column": 20
+            }
+          },
+          "type": "hash"
+        },
+        {
+          "columns": [
+            {
+              "value": "created_at",
+              "type": "column"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 399,
+              "line": 25,
+              "column": 5
+            },
+            "end": {
+              "offset": 409,
+              "line": 25,
+              "column": 15
+            }
+          }
+        }
+      ],
       "token": {
         "start": {
           "offset": 93,
