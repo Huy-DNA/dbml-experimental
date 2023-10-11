@@ -44,7 +44,6 @@ import {
   processRelOperand,
 } from './utils';
 import { None, Option, Some } from '../option';
-import { SyntaxToken } from 'lib/lexer/tokens';
 
 // The interpreted format follows the old parser
 export default class Interpreter {

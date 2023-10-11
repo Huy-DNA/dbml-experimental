@@ -2,6 +2,7 @@
 
 import {
   AttributeNode,
+  FunctionExpressionNode,
   IdentiferStreamNode,
   ListExpressionNode,
   PrefixExpressionNode,
@@ -94,7 +95,7 @@ class AttributeCollector {
       undefined;
   }
 
-  extractDefault(): { type: 'number' | 'string'; value: number | string } | undefined {
+  extractDefault(): { type: 'number' | 'string' | 'expression'; value: number | string } | undefined {
     const deflt = this.settingMap.getValue('default');
 
     if (deflt === undefined) {
@@ -115,6 +116,13 @@ class AttributeCollector {
       return {
         type: 'string',
         value: extractQuotedStringToken(_deflt as SyntaxNode).unwrap(),
+      };
+    }
+
+    if (_deflt instanceof FunctionExpressionNode) {
+      return {
+        type: 'expression',
+        value: _deflt.value!.value,
       };
     }
 
