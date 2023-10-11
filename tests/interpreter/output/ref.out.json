@@ -67,7 +67,6 @@
   "refs": [
     {
       "name": null,
-      "schemaName": null,
       "endpoints": [
         {
           "schemaName": null,
@@ -110,6 +109,7 @@
           }
         }
       ],
+      "schemaName": null,
       "token": {
         "start": {
           "offset": 72,

@@ -780,7 +780,6 @@
   "refs": [
     {
       "name": null,
-      "schemaName": null,
       "endpoints": [
         {
           "schemaName": null,
@@ -823,6 +822,7 @@
           }
         }
       ],
+      "schemaName": null,
       "token": {
         "start": {
           "offset": 1254,
@@ -838,7 +838,6 @@
     },
     {
       "name": null,
-      "schemaName": null,
       "endpoints": [
         {
           "schemaName": null,
@@ -881,6 +880,7 @@
           }
         }
       ],
+      "schemaName": null,
       "token": {
         "start": {
           "offset": 1300,
@@ -896,7 +896,6 @@
     },
     {
       "name": null,
-      "schemaName": null,
       "endpoints": [
         {
           "schemaName": null,
@@ -939,6 +938,7 @@
           }
         }
       ],
+      "schemaName": null,
       "token": {
         "start": {
           "offset": 1350,
@@ -954,7 +954,6 @@
     },
     {
       "name": null,
-      "schemaName": null,
       "endpoints": [
         {
           "schemaName": null,
@@ -997,6 +996,7 @@
           }
         }
       ],
+      "schemaName": null,
       "token": {
         "start": {
           "offset": 1399,
@@ -1012,7 +1012,6 @@
     },
     {
       "name": null,
-      "schemaName": null,
       "endpoints": [
         {
           "schemaName": null,
@@ -1055,6 +1054,7 @@
           }
         }
       ],
+      "schemaName": null,
       "token": {
         "start": {
           "offset": 1452,
@@ -1070,7 +1070,6 @@
     },
     {
       "name": null,
-      "schemaName": null,
       "endpoints": [
         {
           "schemaName": null,
@@ -1113,6 +1112,7 @@
           }
         }
       ],
+      "schemaName": null,
       "token": {
         "start": {
           "offset": 1501,
