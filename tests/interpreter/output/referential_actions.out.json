@@ -268,8 +268,8 @@
           "name": "price",
           "type": {
             "schemaName": null,
-            "type_name": "decimal(10, 4)",
-            "args": "10, 4"
+            "type_name": "decimal(10,4)",
+            "args": "10,4"
           },
           "token": {
             "start": {

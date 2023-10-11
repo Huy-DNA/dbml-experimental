@@ -178,7 +178,7 @@ export default class Interpreter {
     if (typeNode instanceof CallExpressionNode) {
       typeArgs = typeNode
         .argumentList!.elementList.map((e) => (e as any).expression.literal.value)
-        .join(', ');
+        .join(',');
       typeNode = typeNode.callee!;
     }
 
