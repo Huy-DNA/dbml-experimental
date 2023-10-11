@@ -1,108 +1,118 @@
 {
   "value": {
-    "database": {
-      "1": {
-        "id": 1,
-        "hasDefaultSchema": false,
-        "note": null,
-        "schemaIds": [
-          1
-        ]
-      }
-    },
-    "schemas": {
-      "1": {
-        "id": 1,
-        "name": "public",
-        "note": "Default Public Schema",
-        "tableIds": [
-          1
-        ],
-        "enumIds": [],
-        "tableGroupIds": [],
-        "refIds": [],
-        "databaseId": 1
-      }
-    },
-    "refs": {},
-    "enums": {},
-    "tableGroups": {},
-    "tables": {
-      "1": {
-        "id": 1,
+    "schemas": [],
+    "tables": [
+      {
         "name": "orders",
+        "schemaName": null,
         "alias": null,
-        "note": null,
-        "headerColor": "#0065ab",
-        "fieldIds": [
-          1,
-          2,
-          3,
-          4
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "schemaName": null,
+              "type_name": "int",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 76,
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "offset": 82,
+                "line": 2,
+                "column": 8
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "user_id",
+            "type": {
+              "schemaName": null,
+              "type_name": "int",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 95,
+                "line": 3,
+                "column": 2
+              },
+              "end": {
+                "offset": 106,
+                "line": 3,
+                "column": 13
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "status",
+            "type": {
+              "schemaName": null,
+              "type_name": "varchar",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 109,
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "offset": 123,
+                "line": 4,
+                "column": 16
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "create_at",
+            "type": {
+              "schemaName": null,
+              "type_name": "date_time",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 126,
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "offset": 145,
+                "line": 5,
+                "column": 21
+              }
+            },
+            "inline_refs": []
+          }
         ],
-        "indexIds": [],
-        "schemaId": 1,
-        "groupId": null
+        "indexes": [],
+        "token": {
+          "start": {
+            "offset": 0,
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "offset": 148,
+            "line": 6,
+            "column": 2
+          }
+        },
+        "headerColor": "#0065ab"
       }
-    },
-    "endpoints": {},
-    "enumValues": {},
-    "indexes": {},
-    "indexColumns": {},
-    "fields": {
-      "1": {
-        "id": 1,
-        "name": "id",
-        "type": {
-          "schemaName": null,
-          "type_name": "int",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 1,
-        "enumId": null
-      },
-      "2": {
-        "id": 2,
-        "name": "user_id",
-        "type": {
-          "schemaName": null,
-          "type_name": "int",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 1,
-        "enumId": null
-      },
-      "3": {
-        "id": 3,
-        "name": "status",
-        "type": {
-          "schemaName": null,
-          "type_name": "varchar",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 1,
-        "enumId": null
-      },
-      "4": {
-        "id": 4,
-        "name": "create_at",
-        "type": {
-          "schemaName": null,
-          "type_name": "date_time",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 1,
-        "enumId": null
-      }
-    }
+    ],
+    "refs": [],
+    "enums": [],
+    "tableGroups": [],
+    "aliases": [],
+    "project": {}
   },
   "errors": []
 }

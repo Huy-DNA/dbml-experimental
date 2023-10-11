@@ -5,12 +5,12 @@
     "nodeOrToken": {
       "kind": "<identifier>",
       "startPos": {
-        "offset": 227,
+        "offset": 245,
         "line": 18,
         "column": 2
       },
       "endPos": {
-        "offset": 231,
+        "offset": 249,
         "line": 18,
         "column": 6
       },
@@ -19,12 +19,12 @@
         {
           "kind": "<newline>",
           "startPos": {
-            "offset": 224,
+            "offset": 242,
             "line": 17,
-            "column": 0
+            "column": 1
           },
           "endPos": {
-            "offset": 225,
+            "offset": 243,
             "line": 18,
             "column": 0
           },
@@ -34,18 +34,18 @@
           "leadingInvalid": [],
           "trailingInvalid": [],
           "isInvalid": false,
-          "start": 224,
-          "end": 225
+          "start": 242,
+          "end": 243
         },
         {
           "kind": "<space>",
           "startPos": {
-            "offset": 225,
+            "offset": 243,
             "line": 18,
             "column": 0
           },
           "endPos": {
-            "offset": 226,
+            "offset": 244,
             "line": 18,
             "column": 1
           },
@@ -55,18 +55,18 @@
           "leadingInvalid": [],
           "trailingInvalid": [],
           "isInvalid": false,
-          "start": 225,
-          "end": 226
+          "start": 243,
+          "end": 244
         },
         {
           "kind": "<space>",
           "startPos": {
-            "offset": 226,
+            "offset": 244,
             "line": 18,
             "column": 1
           },
           "endPos": {
-            "offset": 227,
+            "offset": 245,
             "line": 18,
             "column": 2
           },
@@ -76,20 +76,20 @@
           "leadingInvalid": [],
           "trailingInvalid": [],
           "isInvalid": false,
-          "start": 226,
-          "end": 227
+          "start": 244,
+          "end": 245
         }
       ],
       "trailingTrivia": [
         {
           "kind": "<space>",
           "startPos": {
-            "offset": 231,
+            "offset": 249,
             "line": 18,
             "column": 6
           },
           "endPos": {
-            "offset": 232,
+            "offset": 250,
             "line": 18,
             "column": 7
           },
@@ -99,18 +99,18 @@
           "leadingInvalid": [],
           "trailingInvalid": [],
           "isInvalid": false,
-          "start": 231,
-          "end": 232
+          "start": 249,
+          "end": 250
         }
       ],
       "leadingInvalid": [],
       "trailingInvalid": [],
       "isInvalid": false,
-      "start": 227,
-      "end": 231
+      "start": 245,
+      "end": 249
     },
-    "start": 227,
-    "end": 231,
+    "start": 245,
+    "end": 249,
     "name": "CompileError"
   }
 ]

@@ -6,45 +6,45 @@
       "id": 65,
       "kind": "<primary-expression>",
       "startPos": {
-        "offset": 232,
+        "offset": 247,
         "line": 15,
         "column": 6
       },
-      "fullStart": 232,
+      "fullStart": 247,
       "endPos": {
-        "offset": 237,
+        "offset": 252,
         "line": 15,
         "column": 11
       },
-      "fullEnd": 238,
-      "start": 232,
-      "end": 237,
+      "fullEnd": 253,
+      "start": 247,
+      "end": 252,
       "expression": {
         "id": 64,
         "kind": "<variable>",
         "startPos": {
-          "offset": 232,
+          "offset": 247,
           "line": 15,
           "column": 6
         },
-        "fullStart": 232,
+        "fullStart": 247,
         "endPos": {
-          "offset": 237,
+          "offset": 252,
           "line": 15,
           "column": 11
         },
-        "fullEnd": 238,
-        "start": 232,
-        "end": 237,
+        "fullEnd": 253,
+        "start": 247,
+        "end": 252,
         "variable": {
           "kind": "<identifier>",
           "startPos": {
-            "offset": 232,
+            "offset": 247,
             "line": 15,
             "column": 6
           },
           "endPos": {
-            "offset": 237,
+            "offset": 252,
             "line": 15,
             "column": 11
           },
@@ -54,12 +54,12 @@
             {
               "kind": "<space>",
               "startPos": {
-                "offset": 237,
+                "offset": 252,
                 "line": 15,
                 "column": 11
               },
               "endPos": {
-                "offset": 238,
+                "offset": 253,
                 "line": 15,
                 "column": 12
               },
@@ -69,20 +69,20 @@
               "leadingInvalid": [],
               "trailingInvalid": [],
               "isInvalid": false,
-              "start": 237,
-              "end": 238
+              "start": 252,
+              "end": 253
             }
           ],
           "leadingInvalid": [],
           "trailingInvalid": [],
           "isInvalid": false,
-          "start": 232,
-          "end": 237
+          "start": 247,
+          "end": 252
         }
       }
     },
-    "start": 232,
-    "end": 237,
+    "start": 247,
+    "end": 252,
     "name": "CompileError"
   }
 ]

@@ -1,244 +1,358 @@
 {
   "value": {
-    "database": {
-      "1": {
-        "id": 1,
-        "hasDefaultSchema": false,
-        "note": null,
-        "schemaIds": [
-          1
-        ]
-      }
-    },
-    "schemas": {
-      "1": {
-        "id": 1,
-        "name": "public",
-        "note": "Default Public Schema",
-        "tableIds": [
-          1,
-          2
-        ],
-        "enumIds": [],
-        "tableGroupIds": [
-          1
-        ],
-        "refIds": [
-          1
-        ],
-        "databaseId": 1
-      }
-    },
-    "refs": {
-      "1": {
-        "id": 1,
-        "name": null,
-        "endpointIds": [
-          1,
-          2
-        ],
-        "schemaId": 1
-      }
-    },
-    "enums": {},
-    "tableGroups": {
-      "1": {
-        "id": 1,
-        "name": "g1",
-        "tableIds": [
-          1,
-          2
-        ],
-        "schemaId": 1
-      }
-    },
-    "tables": {
-      "1": {
-        "id": 1,
+    "schemas": [],
+    "tables": [
+      {
         "name": "users",
+        "schemaName": null,
         "alias": "U",
-        "note": null,
-        "fieldIds": [
-          1,
-          2,
-          3,
-          4
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "schemaName": null,
+              "type_name": "int",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 22,
+                "line": 2,
+                "column": 3
+              },
+              "end": {
+                "offset": 28,
+                "line": 2,
+                "column": 9
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "full_name",
+            "type": {
+              "schemaName": null,
+              "type_name": "varchar",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 31,
+                "line": 3,
+                "column": 2
+              },
+              "end": {
+                "offset": 48,
+                "line": 3,
+                "column": 19
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "created_at",
+            "type": {
+              "schemaName": null,
+              "type_name": "timestamp",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 52,
+                "line": 4,
+                "column": 3
+              },
+              "end": {
+                "offset": 72,
+                "line": 4,
+                "column": 23
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "country_code",
+            "type": {
+              "schemaName": null,
+              "type_name": "int",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 76,
+                "line": 5,
+                "column": 3
+              },
+              "end": {
+                "offset": 92,
+                "line": 5,
+                "column": 19
+              }
+            },
+            "inline_refs": []
+          }
         ],
-        "indexIds": [],
-        "schemaId": 1,
-        "groupId": 1
+        "indexes": [],
+        "token": {
+          "start": {
+            "offset": 0,
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "offset": 95,
+            "line": 6,
+            "column": 2
+          }
+        }
       },
-      "2": {
-        "id": 2,
+      {
         "name": "merchants",
+        "schemaName": null,
         "alias": null,
-        "note": null,
-        "fieldIds": [
-          5,
-          6,
-          7,
-          8,
-          9
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "schemaName": null,
+              "type_name": "int",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 120,
+                "line": 9,
+                "column": 3
+              },
+              "end": {
+                "offset": 126,
+                "line": 9,
+                "column": 9
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "merchant_name",
+            "type": {
+              "schemaName": null,
+              "type_name": "varchar",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 131,
+                "line": 10,
+                "column": 3
+              },
+              "end": {
+                "offset": 152,
+                "line": 10,
+                "column": 24
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "country_code",
+            "type": {
+              "schemaName": null,
+              "type_name": "int",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 155,
+                "line": 11,
+                "column": 2
+              },
+              "end": {
+                "offset": 171,
+                "line": 11,
+                "column": 18
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "created at",
+            "type": {
+              "schemaName": null,
+              "type_name": "varchar",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 175,
+                "line": 12,
+                "column": 3
+              },
+              "end": {
+                "offset": 195,
+                "line": 12,
+                "column": 23
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "admin_id",
+            "type": {
+              "schemaName": null,
+              "type_name": "int",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 199,
+                "line": 13,
+                "column": 3
+              },
+              "end": {
+                "offset": 225,
+                "line": 13,
+                "column": 29
+              }
+            },
+            "inline_refs": [
+              {
+                "schemaName": null,
+                "fieldNames": [
+                  "id"
+                ],
+                "tableName": "U",
+                "relation": ">",
+                "token": {
+                  "start": {
+                    "offset": 218,
+                    "line": 13,
+                    "column": 22
+                  },
+                  "end": {
+                    "offset": 224,
+                    "line": 13,
+                    "column": 28
+                  }
+                }
+              }
+            ]
+          }
         ],
-        "indexIds": [],
-        "schemaId": 1,
-        "groupId": 1
+        "indexes": [],
+        "token": {
+          "start": {
+            "offset": 99,
+            "line": 8,
+            "column": 1
+          },
+          "end": {
+            "offset": 265,
+            "line": 14,
+            "column": 2
+          }
+        }
       }
-    },
-    "endpoints": {
-      "1": {
-        "id": 1,
+    ],
+    "refs": [
+      {
         "schemaName": null,
-        "tableName": "merchants",
-        "fieldNames": [
-          "admin_id"
+        "name": null,
+        "endpoints": [
+          {
+            "schemaName": null,
+            "tableName": "merchants",
+            "fieldNames": [
+              "admin_id"
+            ],
+            "relation": "*",
+            "token": {
+              "start": {
+                "offset": 199,
+                "line": 13,
+                "column": 3
+              },
+              "end": {
+                "offset": 225,
+                "line": 13,
+                "column": 29
+              }
+            }
+          },
+          {
+            "schemaName": null,
+            "tableName": "U",
+            "fieldNames": [
+              "id"
+            ],
+            "relation": "1",
+            "token": {
+              "start": {
+                "offset": 218,
+                "line": 13,
+                "column": 22
+              },
+              "end": {
+                "offset": 224,
+                "line": 13,
+                "column": 28
+              }
+            }
+          }
         ],
-        "relation": "*",
-        "refId": 1,
-        "fieldIds": [
-          9
-        ]
-      },
-      "2": {
-        "id": 2,
+        "token": {
+          "start": {
+            "offset": 218,
+            "line": 13,
+            "column": 22
+          },
+          "end": {
+            "offset": 224,
+            "line": 13,
+            "column": 28
+          }
+        }
+      }
+    ],
+    "enums": [],
+    "tableGroups": [
+      {
         "schemaName": null,
-        "tableName": "U",
-        "fieldNames": [
-          "id"
+        "name": "g1",
+        "tables": [
+          {
+            "name": "users",
+            "schemaName": null
+          },
+          {
+            "name": "merchants",
+            "schemaName": null
+          }
         ],
-        "relation": "1",
-        "refId": 1,
-        "fieldIds": [
-          1
-        ]
+        "token": {
+          "start": {
+            "offset": 269,
+            "line": 16,
+            "column": 1
+          },
+          "end": {
+            "offset": 309,
+            "line": 19,
+            "column": 2
+          }
+        }
       }
-    },
-    "enumValues": {},
-    "indexes": {},
-    "indexColumns": {},
-    "fields": {
-      "1": {
-        "id": 1,
-        "name": "id",
-        "type": {
-          "schemaName": null,
-          "type_name": "int",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [
-          2
-        ],
-        "tableId": 1,
-        "enumId": null
-      },
-      "2": {
-        "id": 2,
-        "name": "full_name",
-        "type": {
-          "schemaName": null,
-          "type_name": "varchar",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 1,
-        "enumId": null
-      },
-      "3": {
-        "id": 3,
-        "name": "created_at",
-        "type": {
-          "schemaName": null,
-          "type_name": "timestamp",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 1,
-        "enumId": null
-      },
-      "4": {
-        "id": 4,
-        "name": "country_code",
-        "type": {
-          "schemaName": null,
-          "type_name": "int",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 1,
-        "enumId": null
-      },
-      "5": {
-        "id": 5,
-        "name": "id",
-        "type": {
-          "schemaName": null,
-          "type_name": "int",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 2,
-        "enumId": null
-      },
-      "6": {
-        "id": 6,
-        "name": "merchant_name",
-        "type": {
-          "schemaName": null,
-          "type_name": "varchar",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 2,
-        "enumId": null
-      },
-      "7": {
-        "id": 7,
-        "name": "country_code",
-        "type": {
-          "schemaName": null,
-          "type_name": "int",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 2,
-        "enumId": null
-      },
-      "8": {
-        "id": 8,
-        "name": "created at",
-        "type": {
-          "schemaName": null,
-          "type_name": "varchar",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 2,
-        "enumId": null
-      },
-      "9": {
-        "id": 9,
-        "name": "admin_id",
-        "type": {
-          "schemaName": null,
-          "type_name": "int",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [
-          1
-        ],
-        "tableId": 2,
-        "enumId": null
+    ],
+    "aliases": [
+      {
+        "name": "U",
+        "kind": "table",
+        "value": {
+          "tableName": "users",
+          "schemaName": null
+        }
       }
-    }
+    ],
+    "project": {}
   },
   "errors": []
 }

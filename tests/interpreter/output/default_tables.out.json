@@ -6,46 +6,46 @@
       "id": 94,
       "kind": "<attribute>",
       "startPos": {
-        "offset": 320,
+        "offset": 336,
         "line": 16,
         "column": 29
       },
-      "fullStart": 320,
+      "fullStart": 336,
       "endPos": {
-        "offset": 331,
+        "offset": 347,
         "line": 16,
         "column": 40
       },
-      "fullEnd": 331,
-      "start": 320,
-      "end": 331,
+      "fullEnd": 347,
+      "start": 336,
+      "end": 347,
       "name": {
         "id": 90,
         "kind": "<identifer-stream>",
         "startPos": {
-          "offset": 320,
+          "offset": 336,
           "line": 16,
           "column": 29
         },
-        "fullStart": 320,
+        "fullStart": 336,
         "endPos": {
-          "offset": 327,
+          "offset": 343,
           "line": 16,
           "column": 36
         },
-        "fullEnd": 327,
-        "start": 320,
-        "end": 327,
+        "fullEnd": 343,
+        "start": 336,
+        "end": 343,
         "identifiers": [
           {
             "kind": "<identifier>",
             "startPos": {
-              "offset": 320,
+              "offset": 336,
               "line": 16,
               "column": 29
             },
             "endPos": {
-              "offset": 327,
+              "offset": 343,
               "line": 16,
               "column": 36
             },
@@ -55,8 +55,8 @@
             "leadingInvalid": [],
             "trailingInvalid": [],
             "isInvalid": false,
-            "start": 320,
-            "end": 327
+            "start": 336,
+            "end": 343
           }
         ]
       },
@@ -64,28 +64,28 @@
         "id": 93,
         "kind": "<prefix-expression>",
         "startPos": {
-          "offset": 329,
+          "offset": 345,
           "line": 16,
           "column": 38
         },
-        "fullStart": 329,
+        "fullStart": 345,
         "endPos": {
-          "offset": 331,
+          "offset": 347,
           "line": 16,
           "column": 40
         },
-        "fullEnd": 331,
-        "start": 329,
-        "end": 331,
+        "fullEnd": 347,
+        "start": 345,
+        "end": 347,
         "op": {
           "kind": "<op>",
           "startPos": {
-            "offset": 329,
+            "offset": 345,
             "line": 16,
             "column": 38
           },
           "endPos": {
-            "offset": 330,
+            "offset": 346,
             "line": 16,
             "column": 39
           },
@@ -95,52 +95,52 @@
           "leadingInvalid": [],
           "trailingInvalid": [],
           "isInvalid": false,
-          "start": 329,
-          "end": 330
+          "start": 345,
+          "end": 346
         },
         "expression": {
           "id": 92,
           "kind": "<primary-expression>",
           "startPos": {
-            "offset": 330,
+            "offset": 346,
             "line": 16,
             "column": 39
           },
-          "fullStart": 330,
+          "fullStart": 346,
           "endPos": {
-            "offset": 331,
+            "offset": 347,
             "line": 16,
             "column": 40
           },
-          "fullEnd": 331,
-          "start": 330,
-          "end": 331,
+          "fullEnd": 347,
+          "start": 346,
+          "end": 347,
           "expression": {
             "id": 91,
             "kind": "<literal>",
             "startPos": {
-              "offset": 330,
+              "offset": 346,
               "line": 16,
               "column": 39
             },
-            "fullStart": 330,
+            "fullStart": 346,
             "endPos": {
-              "offset": 331,
+              "offset": 347,
               "line": 16,
               "column": 40
             },
-            "fullEnd": 331,
-            "start": 330,
-            "end": 331,
+            "fullEnd": 347,
+            "start": 346,
+            "end": 347,
             "literal": {
               "kind": "<number>",
               "startPos": {
-                "offset": 330,
+                "offset": 346,
                 "line": 16,
                 "column": 39
               },
               "endPos": {
-                "offset": 331,
+                "offset": 347,
                 "line": 16,
                 "column": 40
               },
@@ -150,8 +150,8 @@
               "leadingInvalid": [],
               "trailingInvalid": [],
               "isInvalid": false,
-              "start": 330,
-              "end": 331
+              "start": 346,
+              "end": 347
             }
           }
         }
@@ -159,12 +159,12 @@
       "colon": {
         "kind": "<colon>",
         "startPos": {
-          "offset": 327,
+          "offset": 343,
           "line": 16,
           "column": 36
         },
         "endPos": {
-          "offset": 328,
+          "offset": 344,
           "line": 16,
           "column": 37
         },
@@ -174,12 +174,12 @@
           {
             "kind": "<space>",
             "startPos": {
-              "offset": 328,
+              "offset": 344,
               "line": 16,
               "column": 37
             },
             "endPos": {
-              "offset": 329,
+              "offset": 345,
               "line": 16,
               "column": 38
             },
@@ -189,19 +189,19 @@
             "leadingInvalid": [],
             "trailingInvalid": [],
             "isInvalid": false,
-            "start": 328,
-            "end": 329
+            "start": 344,
+            "end": 345
           }
         ],
         "leadingInvalid": [],
         "trailingInvalid": [],
         "isInvalid": false,
-        "start": 327,
-        "end": 328
+        "start": 343,
+        "end": 344
       }
     },
-    "start": 320,
-    "end": 331,
+    "start": 336,
+    "end": 347,
     "name": "CompileError"
   },
   {
@@ -211,46 +211,46 @@
       "id": 105,
       "kind": "<attribute>",
       "startPos": {
-        "offset": 348,
+        "offset": 365,
         "line": 17,
         "column": 15
       },
-      "fullStart": 348,
+      "fullStart": 365,
       "endPos": {
-        "offset": 364,
+        "offset": 381,
         "line": 17,
         "column": 31
       },
-      "fullEnd": 364,
-      "start": 348,
-      "end": 364,
+      "fullEnd": 381,
+      "start": 365,
+      "end": 381,
       "name": {
         "id": 101,
         "kind": "<identifer-stream>",
         "startPos": {
-          "offset": 348,
+          "offset": 365,
           "line": 17,
           "column": 15
         },
-        "fullStart": 348,
+        "fullStart": 365,
         "endPos": {
-          "offset": 355,
+          "offset": 372,
           "line": 17,
           "column": 22
         },
-        "fullEnd": 355,
-        "start": 348,
-        "end": 355,
+        "fullEnd": 372,
+        "start": 365,
+        "end": 372,
         "identifiers": [
           {
             "kind": "<identifier>",
             "startPos": {
-              "offset": 348,
+              "offset": 365,
               "line": 17,
               "column": 15
             },
             "endPos": {
-              "offset": 355,
+              "offset": 372,
               "line": 17,
               "column": 22
             },
@@ -260,8 +260,8 @@
             "leadingInvalid": [],
             "trailingInvalid": [],
             "isInvalid": false,
-            "start": 348,
-            "end": 355
+            "start": 365,
+            "end": 372
           }
         ]
       },
@@ -269,28 +269,28 @@
         "id": 104,
         "kind": "<prefix-expression>",
         "startPos": {
-          "offset": 357,
+          "offset": 374,
           "line": 17,
           "column": 24
         },
-        "fullStart": 357,
+        "fullStart": 374,
         "endPos": {
-          "offset": 364,
+          "offset": 381,
           "line": 17,
           "column": 31
         },
-        "fullEnd": 364,
-        "start": 357,
-        "end": 364,
+        "fullEnd": 381,
+        "start": 374,
+        "end": 381,
         "op": {
           "kind": "<op>",
           "startPos": {
-            "offset": 357,
+            "offset": 374,
             "line": 17,
             "column": 24
           },
           "endPos": {
-            "offset": 358,
+            "offset": 375,
             "line": 17,
             "column": 25
           },
@@ -300,52 +300,52 @@
           "leadingInvalid": [],
           "trailingInvalid": [],
           "isInvalid": false,
-          "start": 357,
-          "end": 358
+          "start": 374,
+          "end": 375
         },
         "expression": {
           "id": 103,
           "kind": "<primary-expression>",
           "startPos": {
-            "offset": 358,
+            "offset": 375,
             "line": 17,
             "column": 25
           },
-          "fullStart": 358,
+          "fullStart": 375,
           "endPos": {
-            "offset": 364,
+            "offset": 381,
             "line": 17,
             "column": 31
           },
-          "fullEnd": 364,
-          "start": 358,
-          "end": 364,
+          "fullEnd": 381,
+          "start": 375,
+          "end": 381,
           "expression": {
             "id": 102,
             "kind": "<literal>",
             "startPos": {
-              "offset": 358,
+              "offset": 375,
               "line": 17,
               "column": 25
             },
-            "fullStart": 358,
+            "fullStart": 375,
             "endPos": {
-              "offset": 364,
+              "offset": 381,
               "line": 17,
               "column": 31
             },
-            "fullEnd": 364,
-            "start": 358,
-            "end": 364,
+            "fullEnd": 381,
+            "start": 375,
+            "end": 381,
             "literal": {
               "kind": "<number>",
               "startPos": {
-                "offset": 358,
+                "offset": 375,
                 "line": 17,
                 "column": 25
               },
               "endPos": {
-                "offset": 364,
+                "offset": 381,
                 "line": 17,
                 "column": 31
               },
@@ -355,8 +355,8 @@
               "leadingInvalid": [],
               "trailingInvalid": [],
               "isInvalid": false,
-              "start": 358,
-              "end": 364
+              "start": 375,
+              "end": 381
             }
           }
         }
@@ -364,12 +364,12 @@
       "colon": {
         "kind": "<colon>",
         "startPos": {
-          "offset": 355,
+          "offset": 372,
           "line": 17,
           "column": 22
         },
         "endPos": {
-          "offset": 356,
+          "offset": 373,
           "line": 17,
           "column": 23
         },
@@ -379,12 +379,12 @@
           {
             "kind": "<space>",
             "startPos": {
-              "offset": 356,
+              "offset": 373,
               "line": 17,
               "column": 23
             },
             "endPos": {
-              "offset": 357,
+              "offset": 374,
               "line": 17,
               "column": 24
             },
@@ -394,19 +394,19 @@
             "leadingInvalid": [],
             "trailingInvalid": [],
             "isInvalid": false,
-            "start": 356,
-            "end": 357
+            "start": 373,
+            "end": 374
           }
         ],
         "leadingInvalid": [],
         "trailingInvalid": [],
         "isInvalid": false,
-        "start": 355,
-        "end": 356
+        "start": 372,
+        "end": 373
       }
     },
-    "start": 348,
-    "end": 364,
+    "start": 365,
+    "end": 381,
     "name": "CompileError"
   },
   {
@@ -416,45 +416,45 @@
       "id": 30,
       "kind": "<primary-expression>",
       "startPos": {
-        "offset": 103,
+        "offset": 106,
         "line": 3,
         "column": 27
       },
-      "fullStart": 103,
+      "fullStart": 106,
       "endPos": {
-        "offset": 114,
+        "offset": 117,
         "line": 3,
         "column": 38
       },
-      "fullEnd": 114,
-      "start": 103,
-      "end": 114,
+      "fullEnd": 117,
+      "start": 106,
+      "end": 117,
       "expression": {
         "id": 29,
         "kind": "<variable>",
         "startPos": {
-          "offset": 103,
+          "offset": 106,
           "line": 3,
           "column": 27
         },
-        "fullStart": 103,
+        "fullStart": 106,
         "endPos": {
-          "offset": 114,
+          "offset": 117,
           "line": 3,
           "column": 38
         },
-        "fullEnd": 114,
-        "start": 103,
-        "end": 114,
+        "fullEnd": 117,
+        "start": 106,
+        "end": 117,
         "variable": {
           "kind": "<variable>",
           "startPos": {
-            "offset": 103,
+            "offset": 106,
             "line": 3,
             "column": 27
           },
           "endPos": {
-            "offset": 114,
+            "offset": 117,
             "line": 3,
             "column": 38
           },
@@ -464,13 +464,13 @@
           "leadingInvalid": [],
           "trailingInvalid": [],
           "isInvalid": false,
-          "start": 103,
-          "end": 114
+          "start": 106,
+          "end": 117
         }
       }
     },
-    "start": 103,
-    "end": 114,
+    "start": 106,
+    "end": 117,
     "name": "CompileError"
   },
   {
@@ -480,45 +480,45 @@
       "id": 80,
       "kind": "<primary-expression>",
       "startPos": {
-        "offset": 285,
+        "offset": 300,
         "line": 15,
         "column": 25
       },
-      "fullStart": 285,
+      "fullStart": 300,
       "endPos": {
-        "offset": 289,
+        "offset": 304,
         "line": 15,
         "column": 29
       },
-      "fullEnd": 289,
-      "start": 285,
-      "end": 289,
+      "fullEnd": 304,
+      "start": 300,
+      "end": 304,
       "expression": {
         "id": 79,
         "kind": "<variable>",
         "startPos": {
-          "offset": 285,
+          "offset": 300,
           "line": 15,
           "column": 25
         },
-        "fullStart": 285,
+        "fullStart": 300,
         "endPos": {
-          "offset": 289,
+          "offset": 304,
           "line": 15,
           "column": 29
         },
-        "fullEnd": 289,
-        "start": 285,
-        "end": 289,
+        "fullEnd": 304,
+        "start": 300,
+        "end": 304,
         "variable": {
           "kind": "<identifier>",
           "startPos": {
-            "offset": 285,
+            "offset": 300,
             "line": 15,
             "column": 25
           },
           "endPos": {
-            "offset": 289,
+            "offset": 304,
             "line": 15,
             "column": 29
           },
@@ -528,13 +528,13 @@
           "leadingInvalid": [],
           "trailingInvalid": [],
           "isInvalid": false,
-          "start": 285,
-          "end": 289
+          "start": 300,
+          "end": 304
         }
       }
     },
-    "start": 285,
-    "end": 289,
+    "start": 300,
+    "end": 304,
     "name": "CompileError"
   },
   {
@@ -544,45 +544,45 @@
       "id": 114,
       "kind": "<primary-expression>",
       "startPos": {
-        "offset": 392,
+        "offset": 410,
         "line": 18,
         "column": 26
       },
-      "fullStart": 392,
+      "fullStart": 410,
       "endPos": {
-        "offset": 396,
+        "offset": 414,
         "line": 18,
         "column": 30
       },
-      "fullEnd": 396,
-      "start": 392,
-      "end": 396,
+      "fullEnd": 414,
+      "start": 410,
+      "end": 414,
       "expression": {
         "id": 113,
         "kind": "<variable>",
         "startPos": {
-          "offset": 392,
+          "offset": 410,
           "line": 18,
           "column": 26
         },
-        "fullStart": 392,
+        "fullStart": 410,
         "endPos": {
-          "offset": 396,
+          "offset": 414,
           "line": 18,
           "column": 30
         },
-        "fullEnd": 396,
-        "start": 392,
-        "end": 396,
+        "fullEnd": 414,
+        "start": 410,
+        "end": 414,
         "variable": {
           "kind": "<identifier>",
           "startPos": {
-            "offset": 392,
+            "offset": 410,
             "line": 18,
             "column": 26
           },
           "endPos": {
-            "offset": 396,
+            "offset": 414,
             "line": 18,
             "column": 30
           },
@@ -592,13 +592,13 @@
           "leadingInvalid": [],
           "trailingInvalid": [],
           "isInvalid": false,
-          "start": 392,
-          "end": 396
+          "start": 410,
+          "end": 414
         }
       }
     },
-    "start": 392,
-    "end": 396,
+    "start": 410,
+    "end": 414,
     "name": "CompileError"
   }
 ]

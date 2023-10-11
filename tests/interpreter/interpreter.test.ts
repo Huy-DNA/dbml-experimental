@@ -36,8 +36,7 @@ describe('#interpreter', () => {
       );
     } else {
       const res = new Interpreter(report.getValue())
-        .interpret()
-        .map((rawDb) => new Database(rawDb).normalize());
+        .interpret();
       if (res.getErrors().length > 0) {
         output = JSON.stringify(
           res.getErrors(),

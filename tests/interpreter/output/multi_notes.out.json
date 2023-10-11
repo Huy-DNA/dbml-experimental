@@ -1,204 +1,303 @@
 {
   "value": {
-    "database": {
-      "1": {
-        "id": 1,
-        "hasDefaultSchema": false,
-        "databaseType": "",
-        "name": "multi_notes",
-        "schemaIds": [
-          1
-        ]
-      }
-    },
-    "schemas": {
-      "1": {
-        "id": 1,
-        "name": "public",
-        "note": "Default Public Schema",
-        "tableIds": [
-          1,
-          2
-        ],
-        "enumIds": [
-          1
-        ],
-        "tableGroupIds": [],
-        "refIds": [],
-        "databaseId": 1
-      }
-    },
-    "refs": {},
-    "enums": {
-      "1": {
-        "id": 1,
-        "name": "order status",
-        "note": null,
-        "valueIds": [
-          1,
-          2,
-          3,
-          4
-        ],
-        "fieldIds": [
-          2
-        ],
-        "schemaId": 1
-      }
-    },
-    "tableGroups": {},
-    "tables": {
-      "1": {
-        "id": 1,
+    "schemas": [],
+    "tables": [
+      {
         "name": "orders",
+        "schemaName": null,
         "alias": null,
-        "note": null,
-        "fieldIds": [
-          1,
-          2,
-          3
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "schemaName": null,
+              "type_name": "int",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 214,
+                "line": 14,
+                "column": 3
+              },
+              "end": {
+                "offset": 252,
+                "line": 14,
+                "column": 41
+              }
+            },
+            "pk": true,
+            "inline_refs": [],
+            "note": {
+              "value": "primary key field",
+              "token": {
+                "start": {
+                  "offset": 226,
+                  "line": 14,
+                  "column": 15
+                },
+                "end": {
+                  "offset": 230,
+                  "line": 14,
+                  "column": 19
+                }
+              }
+            }
+          },
+          {
+            "name": "status",
+            "type": {
+              "schemaName": null,
+              "type_name": "order status",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 256,
+                "line": 15,
+                "column": 3
+              },
+              "end": {
+                "offset": 277,
+                "line": 15,
+                "column": 24
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "created_at",
+            "type": {
+              "schemaName": null,
+              "type_name": "varchar",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 281,
+                "line": 16,
+                "column": 3
+              },
+              "end": {
+                "offset": 299,
+                "line": 16,
+                "column": 21
+              }
+            },
+            "inline_refs": []
+          }
         ],
-        "indexIds": [],
-        "schemaId": 1,
-        "groupId": null
+        "indexes": [],
+        "token": {
+          "start": {
+            "offset": 196,
+            "line": 13,
+            "column": 1
+          },
+          "end": {
+            "offset": 345,
+            "line": 20,
+            "column": 2
+          }
+        }
       },
-      "2": {
-        "id": 2,
+      {
         "name": "bookings",
+        "schemaName": null,
         "alias": null,
-        "note": null,
-        "fieldIds": [
-          4,
-          5,
-          6,
-          7
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "schemaName": null,
+              "type_name": "integer",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 369,
+                "line": 23,
+                "column": 3
+              },
+              "end": {
+                "offset": 379,
+                "line": 23,
+                "column": 13
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "country",
+            "type": {
+              "schemaName": null,
+              "type_name": "varchar",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 383,
+                "line": 24,
+                "column": 3
+              },
+              "end": {
+                "offset": 398,
+                "line": 24,
+                "column": 18
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "booking_date",
+            "type": {
+              "schemaName": null,
+              "type_name": "date",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 402,
+                "line": 25,
+                "column": 3
+              },
+              "end": {
+                "offset": 419,
+                "line": 25,
+                "column": 20
+              }
+            },
+            "inline_refs": []
+          },
+          {
+            "name": "created_at",
+            "type": {
+              "schemaName": null,
+              "type_name": "timestamp",
+              "args": null
+            },
+            "token": {
+              "start": {
+                "offset": 423,
+                "line": 26,
+                "column": 3
+              },
+              "end": {
+                "offset": 443,
+                "line": 26,
+                "column": 23
+              }
+            },
+            "inline_refs": []
+          }
         ],
-        "indexIds": [],
-        "schemaId": 1,
-        "groupId": null
+        "indexes": [],
+        "token": {
+          "start": {
+            "offset": 349,
+            "line": 22,
+            "column": 1
+          },
+          "end": {
+            "offset": 732,
+            "line": 38,
+            "column": 2
+          }
+        }
       }
-    },
-    "endpoints": {},
-    "enumValues": {
-      "1": {
-        "id": 1,
-        "name": "created",
-        "enumId": 1
-      },
-      "2": {
-        "id": 2,
-        "name": "pending",
-        "note": null,
-        "enumId": 1
-      },
-      "3": {
-        "id": 3,
-        "name": "processing",
-        "note": null,
-        "enumId": 1
-      },
-      "4": {
-        "id": 4,
-        "name": "completed",
-        "note": null,
-        "enumId": 1
+    ],
+    "refs": [],
+    "enums": [
+      {
+        "schemaName": null,
+        "name": "order status",
+        "values": [
+          {
+            "name": "created",
+            "token": {
+              "start": {
+                "offset": 120,
+                "line": 7,
+                "column": 3
+              },
+              "end": {
+                "offset": 151,
+                "line": 7,
+                "column": 34
+              }
+            },
+            "note": "Order created"
+          },
+          {
+            "name": "pending",
+            "token": {
+              "start": {
+                "offset": 155,
+                "line": 8,
+                "column": 3
+              },
+              "end": {
+                "offset": 162,
+                "line": 8,
+                "column": 10
+              }
+            }
+          },
+          {
+            "name": "processing",
+            "token": {
+              "start": {
+                "offset": 166,
+                "line": 9,
+                "column": 3
+              },
+              "end": {
+                "offset": 176,
+                "line": 9,
+                "column": 13
+              }
+            }
+          },
+          {
+            "name": "completed",
+            "token": {
+              "start": {
+                "offset": 180,
+                "line": 10,
+                "column": 3
+              },
+              "end": {
+                "offset": 189,
+                "line": 10,
+                "column": 12
+              }
+            }
+          }
+        ],
+        "token": {
+          "start": {
+            "offset": 95,
+            "line": 6,
+            "column": 1
+          },
+          "end": {
+            "offset": 192,
+            "line": 11,
+            "column": 2
+          }
+        }
       }
-    },
-    "indexes": {},
-    "indexColumns": {},
-    "fields": {
-      "1": {
-        "id": 1,
-        "name": "id",
-        "type": {
-          "schemaName": null,
-          "type_name": "int",
-          "args": null
-        },
-        "pk": true,
-        "note": "primary key field",
-        "endpointIds": [],
-        "tableId": 1,
-        "enumId": null
-      },
-      "2": {
-        "id": 2,
-        "name": "status",
-        "type": {
-          "schemaName": null,
-          "type_name": "order status",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 1,
-        "enumId": 1
-      },
-      "3": {
-        "id": 3,
-        "name": "created_at",
-        "type": {
-          "schemaName": null,
-          "type_name": "varchar",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 1,
-        "enumId": null
-      },
-      "4": {
-        "id": 4,
-        "name": "id",
-        "type": {
-          "schemaName": null,
-          "type_name": "integer",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 2,
-        "enumId": null
-      },
-      "5": {
-        "id": 5,
-        "name": "country",
-        "type": {
-          "schemaName": null,
-          "type_name": "varchar",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 2,
-        "enumId": null
-      },
-      "6": {
-        "id": 6,
-        "name": "booking_date",
-        "type": {
-          "schemaName": null,
-          "type_name": "date",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 2,
-        "enumId": null
-      },
-      "7": {
-        "id": 7,
-        "name": "created_at",
-        "type": {
-          "schemaName": null,
-          "type_name": "timestamp",
-          "args": null
-        },
-        "note": null,
-        "endpointIds": [],
-        "tableId": 2,
-        "enumId": null
-      }
+    ],
+    "tableGroups": [],
+    "aliases": [],
+    "project": {
+      "name": "multi_notes",
+      "tables": [],
+      "refs": [],
+      "enums": [],
+      "tableGroups": [],
+      "note": "project multi_notes note",
+      "database_type": ""
     }
   },
   "errors": []

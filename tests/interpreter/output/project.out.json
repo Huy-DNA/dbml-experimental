@@ -6,28 +6,28 @@
       "id": 139,
       "kind": "<function-expression>",
       "startPos": {
-        "offset": 678,
+        "offset": 720,
         "line": 42,
         "column": 34
       },
-      "fullStart": 678,
+      "fullStart": 720,
       "endPos": {
-        "offset": 685,
+        "offset": 727,
         "line": 42,
         "column": 41
       },
-      "fullEnd": 685,
-      "start": 678,
-      "end": 685,
+      "fullEnd": 727,
+      "start": 720,
+      "end": 727,
       "value": {
         "kind": "<function-expression>",
         "startPos": {
-          "offset": 678,
+          "offset": 720,
           "line": 42,
           "column": 34
         },
         "endPos": {
-          "offset": 685,
+          "offset": 727,
           "line": 42,
           "column": 41
         },
@@ -37,12 +37,12 @@
         "leadingInvalid": [],
         "trailingInvalid": [],
         "isInvalid": false,
-        "start": 678,
-        "end": 685
+        "start": 720,
+        "end": 727
       }
     },
-    "start": 678,
-    "end": 685,
+    "start": 720,
+    "end": 727,
     "name": "CompileError"
   }
 ]
