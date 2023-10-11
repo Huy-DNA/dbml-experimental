@@ -20,9 +20,9 @@
               "column": 3
             },
             "end": {
-              "offset": 230,
-              "line": 10,
-              "column": 18
+              "offset": 231,
+              "line": 11,
+              "column": 1
             }
           },
           "inline_refs": [],
@@ -37,14 +37,14 @@
           },
           "token": {
             "start": {
-              "offset": 233,
+              "offset": 231,
               "line": 11,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 282,
-              "line": 11,
-              "column": 52
+              "offset": 283,
+              "line": 12,
+              "column": 1
             }
           },
           "inline_refs": [],
@@ -98,9 +98,9 @@
               "column": 3
             },
             "end": {
-              "offset": 416,
-              "line": 22,
-              "column": 22
+              "offset": 414,
+              "line": 23,
+              "column": 1
             }
           },
           "inline_refs": [],
@@ -116,14 +116,14 @@
           },
           "token": {
             "start": {
-              "offset": 419,
+              "offset": 414,
               "line": 23,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 440,
-              "line": 23,
-              "column": 24
+              "offset": 438,
+              "line": 24,
+              "column": 1
             }
           },
           "inline_refs": []
@@ -137,14 +137,14 @@
           },
           "token": {
             "start": {
-              "offset": 443,
+              "offset": 438,
               "line": 24,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 461,
-              "line": 24,
-              "column": 21
+              "offset": 459,
+              "line": 25,
+              "column": 1
             }
           },
           "inline_refs": []
@@ -157,7 +157,7 @@
           "column": 1
         },
         "end": {
-          "offset": 463,
+          "offset": 460,
           "line": 25,
           "column": 2
         }
@@ -192,9 +192,9 @@
               "column": 3
             },
             "end": {
-              "offset": 61,
-              "line": 2,
-              "column": 44
+              "offset": 62,
+              "line": 3,
+              "column": 1
             }
           },
           "note": {
@@ -217,14 +217,14 @@
           "name": "running",
           "token": {
             "start": {
-              "offset": 64,
+              "offset": 62,
               "line": 3,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 114,
-              "line": 3,
-              "column": 53
+              "offset": 115,
+              "line": 4,
+              "column": 1
             }
           },
           "note": {
@@ -247,14 +247,14 @@
           "name": "done",
           "token": {
             "start": {
-              "offset": 117,
+              "offset": 115,
               "line": 4,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 121,
-              "line": 4,
-              "column": 7
+              "offset": 122,
+              "line": 5,
+              "column": 1
             }
           }
         },
@@ -262,14 +262,14 @@
           "name": "failed",
           "token": {
             "start": {
-              "offset": 124,
+              "offset": 122,
               "line": 5,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 130,
-              "line": 5,
-              "column": 9
+              "offset": 131,
+              "line": 6,
+              "column": 1
             }
           }
         },
@@ -277,14 +277,14 @@
           "name": "wait for validation",
           "token": {
             "start": {
-              "offset": 132,
+              "offset": 131,
               "line": 6,
-              "column": 2
+              "column": 1
             },
             "end": {
-              "offset": 196,
-              "line": 6,
-              "column": 66
+              "offset": 197,
+              "line": 7,
+              "column": 1
             }
           },
           "note": {
@@ -330,9 +330,9 @@
               "column": 3
             },
             "end": {
-              "offset": 341,
-              "line": 15,
-              "column": 34
+              "offset": 342,
+              "line": 16,
+              "column": 1
             }
           },
           "note": {
@@ -355,14 +355,14 @@
           "name": "pending",
           "token": {
             "start": {
-              "offset": 344,
+              "offset": 342,
               "line": 16,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 351,
-              "line": 16,
-              "column": 10
+              "offset": 352,
+              "line": 17,
+              "column": 1
             }
           }
         },
@@ -370,14 +370,14 @@
           "name": "processing",
           "token": {
             "start": {
-              "offset": 354,
+              "offset": 352,
               "line": 17,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 364,
-              "line": 17,
-              "column": 13
+              "offset": 365,
+              "line": 18,
+              "column": 1
             }
           }
         },
@@ -385,14 +385,14 @@
           "name": "completed",
           "token": {
             "start": {
-              "offset": 367,
+              "offset": 365,
               "line": 18,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 376,
-              "line": 18,
-              "column": 12
+              "offset": 377,
+              "line": 19,
+              "column": 1
             }
           }
         }

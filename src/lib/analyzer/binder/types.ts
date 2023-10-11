@@ -22,7 +22,7 @@ export type BinderRule =
       //    }
       ignoreNameNotFound: boolean;
       // A list of keywords that, when encountered by the binder as a standalone variable, skipped
-      keywords?: string[];
+      keywords?: readonly string[];
     }
   | {
       shouldBind: false;

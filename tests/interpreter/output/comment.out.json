@@ -20,9 +20,9 @@
               "column": 3
             },
             "end": {
-              "offset": 128,
-              "line": 15,
-              "column": 14
+              "offset": 144,
+              "line": 16,
+              "column": 1
             }
           },
           "inline_refs": [],
@@ -37,19 +37,19 @@
           },
           "token": {
             "start": {
-              "offset": 146,
+              "offset": 144,
               "line": 16,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 176,
-              "line": 16,
-              "column": 33
+              "offset": 177,
+              "line": 17,
+              "column": 1
             }
           },
           "inline_refs": [],
-          "unique": true,
-          "not_null": true
+          "not_null": true,
+          "unique": true
         },
         {
           "name": "status",
@@ -60,14 +60,14 @@
           },
           "token": {
             "start": {
-              "offset": 179,
+              "offset": 177,
               "line": 17,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 222,
-              "line": 17,
-              "column": 46
+              "offset": 223,
+              "line": 18,
+              "column": 1
             }
           },
           "inline_refs": [],
@@ -96,14 +96,14 @@
           },
           "token": {
             "start": {
-              "offset": 225,
+              "offset": 223,
               "line": 18,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 272,
-              "line": 18,
-              "column": 50
+              "offset": 292,
+              "line": 19,
+              "column": 1
             }
           },
           "inline_refs": [],
@@ -172,9 +172,9 @@
               "column": 5
             },
             "end": {
-              "offset": 409,
+              "offset": 410,
               "line": 25,
-              "column": 15
+              "column": 16
             }
           }
         }
@@ -208,9 +208,9 @@
               "column": 3
             },
             "end": {
-              "offset": 499,
-              "line": 34,
-              "column": 15
+              "offset": 511,
+              "line": 35,
+              "column": 1
             }
           }
         },
@@ -218,14 +218,14 @@
           "name": "in_stock",
           "token": {
             "start": {
-              "offset": 513,
+              "offset": 511,
               "line": 35,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 540,
-              "line": 35,
-              "column": 30
+              "offset": 541,
+              "line": 36,
+              "column": 1
             }
           },
           "note": {
@@ -248,14 +248,14 @@
           "name": "running_low",
           "token": {
             "start": {
-              "offset": 543,
+              "offset": 541,
               "line": 36,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 577,
-              "line": 36,
-              "column": 37
+              "offset": 597,
+              "line": 37,
+              "column": 1
             }
           },
           "note": {
@@ -301,9 +301,9 @@
               "column": 3
             },
             "end": {
-              "offset": 711,
-              "line": 46,
-              "column": 15
+              "offset": 723,
+              "line": 47,
+              "column": 1
             }
           }
         },
@@ -311,14 +311,14 @@
           "name": "in_stock",
           "token": {
             "start": {
-              "offset": 725,
+              "offset": 723,
               "line": 47,
-              "column": 3
+              "column": 1
             },
             "end": {
-              "offset": 733,
-              "line": 47,
-              "column": 11
+              "offset": 769,
+              "line": 48,
+              "column": 1
             }
           }
         },
@@ -326,14 +326,14 @@
           "name": "running_low",
           "token": {
             "start": {
-              "offset": 807,
-              "line": 52,
-              "column": 3
+              "offset": 769,
+              "line": 48,
+              "column": 1
             },
             "end": {
-              "offset": 841,
-              "line": 52,
-              "column": 37
+              "offset": 863,
+              "line": 53,
+              "column": 1
             }
           },
           "note": {
