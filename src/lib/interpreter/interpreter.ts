@@ -403,10 +403,10 @@ export default class Interpreter {
     );
 
     return {
-      schemaName,
       name,
-      values,
+      schemaName,
       token: extractTokenForInterpreter(element),
+      values,
     };
   }
 

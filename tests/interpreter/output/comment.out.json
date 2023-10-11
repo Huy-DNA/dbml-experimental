@@ -184,8 +184,20 @@
   "refs": [],
   "enums": [
     {
-      "schemaName": null,
       "name": "products_status",
+      "schemaName": null,
+      "token": {
+        "start": {
+          "offset": 456,
+          "line": 33,
+          "column": 1
+        },
+        "end": {
+          "offset": 607,
+          "line": 38,
+          "column": 2
+        }
+      },
       "values": [
         {
           "name": "out_of_stock",
@@ -234,23 +246,23 @@
           },
           "note": "less than 20"
         }
-      ],
+      ]
+    },
+    {
+      "name": "products_status2",
+      "schemaName": null,
       "token": {
         "start": {
-          "offset": 456,
-          "line": 33,
+          "offset": 615,
+          "line": 40,
           "column": 1
         },
         "end": {
-          "offset": 607,
-          "line": 38,
+          "offset": 920,
+          "line": 56,
           "column": 2
         }
-      }
-    },
-    {
-      "schemaName": null,
-      "name": "products_status2",
+      },
       "values": [
         {
           "name": "out_of_stock",
@@ -298,19 +310,7 @@
           },
           "note": "less than 20"
         }
-      ],
-      "token": {
-        "start": {
-          "offset": 615,
-          "line": 40,
-          "column": 1
-        },
-        "end": {
-          "offset": 920,
-          "line": 56,
-          "column": 2
-        }
-      }
+      ]
     }
   ],
   "tableGroups": [],

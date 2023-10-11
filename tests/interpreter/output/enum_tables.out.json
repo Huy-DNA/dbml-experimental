@@ -168,8 +168,20 @@
   "refs": [],
   "enums": [
     {
-      "schemaName": null,
       "name": "job_status",
+      "schemaName": null,
+      "token": {
+        "start": {
+          "offset": 0,
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "offset": 198,
+          "line": 7,
+          "column": 2
+        }
+      },
       "values": [
         {
           "name": "created",
@@ -249,23 +261,23 @@
           },
           "note": "Enum label that has white spaces"
         }
-      ],
+      ]
+    },
+    {
+      "name": "order status",
+      "schemaName": null,
       "token": {
         "start": {
-          "offset": 0,
-          "line": 1,
+          "offset": 286,
+          "line": 14,
           "column": 1
         },
         "end": {
-          "offset": 198,
-          "line": 7,
+          "offset": 378,
+          "line": 19,
           "column": 2
         }
-      }
-    },
-    {
-      "schemaName": null,
-      "name": "order status",
+      },
       "values": [
         {
           "name": "created",
@@ -328,19 +340,7 @@
             }
           }
         }
-      ],
-      "token": {
-        "start": {
-          "offset": 286,
-          "line": 14,
-          "column": 1
-        },
-        "end": {
-          "offset": 378,
-          "line": 19,
-          "column": 2
-        }
-      }
+      ]
     }
   ],
   "tableGroups": [],
