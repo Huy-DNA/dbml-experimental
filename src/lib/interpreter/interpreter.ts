@@ -154,8 +154,8 @@ export default class Interpreter {
       schemaName,
       alias,
       fields,
-      indexes,
       token: extractTokenForInterpreter(element),
+      indexes,
       headerColor,
       note: note ?
         {

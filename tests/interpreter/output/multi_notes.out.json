@@ -86,7 +86,6 @@
           "inline_refs": []
         }
       ],
-      "indexes": [],
       "token": {
         "start": {
           "offset": 184,
@@ -98,7 +97,8 @@
           "line": 20,
           "column": 2
         }
-      }
+      },
+      "indexes": []
     },
     {
       "name": "bookings",
@@ -190,6 +190,18 @@
           "inline_refs": []
         }
       ],
+      "token": {
+        "start": {
+          "offset": 328,
+          "line": 22,
+          "column": 1
+        },
+        "end": {
+          "offset": 695,
+          "line": 38,
+          "column": 2
+        }
+      },
       "indexes": [
         {
           "columns": [
@@ -372,19 +384,7 @@
             }
           }
         }
-      ],
-      "token": {
-        "start": {
-          "offset": 328,
-          "line": 22,
-          "column": 1
-        },
-        "end": {
-          "offset": 695,
-          "line": 38,
-          "column": 2
-        }
-      }
+      ]
     }
   ],
   "refs": [],

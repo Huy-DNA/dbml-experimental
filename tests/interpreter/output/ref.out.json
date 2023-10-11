@@ -49,7 +49,6 @@
           "inline_refs": []
         }
       ],
-      "indexes": [],
       "token": {
         "start": {
           "offset": 0,
@@ -61,7 +60,8 @@
           "line": 8,
           "column": 2
         }
-      }
+      },
+      "indexes": []
     }
   ],
   "refs": [

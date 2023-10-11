@@ -124,6 +124,18 @@
           }
         }
       ],
+      "token": {
+        "start": {
+          "offset": 93,
+          "line": 14,
+          "column": 1
+        },
+        "end": {
+          "offset": 439,
+          "line": 29,
+          "column": 2
+        }
+      },
       "indexes": [
         {
           "columns": [
@@ -166,19 +178,7 @@
             }
           }
         }
-      ],
-      "token": {
-        "start": {
-          "offset": 93,
-          "line": 14,
-          "column": 1
-        },
-        "end": {
-          "offset": 439,
-          "line": 29,
-          "column": 2
-        }
-      }
+      ]
     }
   ],
   "refs": [],

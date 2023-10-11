@@ -91,7 +91,6 @@
           "inline_refs": []
         }
       ],
-      "indexes": [],
       "token": {
         "start": {
           "offset": 0,
@@ -103,7 +102,8 @@
           "line": 6,
           "column": 2
         }
-      }
+      },
+      "indexes": []
     },
     {
       "name": "merchants",
@@ -237,7 +237,6 @@
           ]
         }
       ],
-      "indexes": [],
       "token": {
         "start": {
           "offset": 92,
@@ -249,7 +248,8 @@
           "line": 14,
           "column": 2
         }
-      }
+      },
+      "indexes": []
     }
   ],
   "refs": [

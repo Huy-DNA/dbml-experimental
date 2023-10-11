@@ -178,6 +178,18 @@
           "inline_refs": []
         }
       ],
+      "token": {
+        "start": {
+          "offset": 0,
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "offset": 430,
+          "line": 20,
+          "column": 2
+        }
+      },
       "indexes": [
         {
           "columns": [
@@ -335,19 +347,7 @@
             }
           }
         }
-      ],
-      "token": {
-        "start": {
-          "offset": 0,
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "offset": 430,
-          "line": 20,
-          "column": 2
-        }
-      }
+      ]
     }
   ],
   "refs": [],

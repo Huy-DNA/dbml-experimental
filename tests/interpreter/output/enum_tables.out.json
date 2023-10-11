@@ -65,7 +65,6 @@
           }
         }
       ],
-      "indexes": [],
       "token": {
         "start": {
           "offset": 200,
@@ -77,7 +76,8 @@
           "line": 12,
           "column": 2
         }
-      }
+      },
+      "indexes": []
     },
     {
       "name": "orders",
@@ -150,7 +150,6 @@
           "inline_refs": []
         }
       ],
-      "indexes": [],
       "token": {
         "start": {
           "offset": 380,
@@ -162,7 +161,8 @@
           "line": 25,
           "column": 2
         }
-      }
+      },
+      "indexes": []
     }
   ],
   "refs": [],

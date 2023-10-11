@@ -91,7 +91,6 @@
           "inline_refs": []
         }
       ],
-      "indexes": [],
       "token": {
         "start": {
           "offset": 0,
@@ -104,6 +103,7 @@
           "column": 2
         }
       },
+      "indexes": [],
       "headerColor": "#0065ab"
     }
   ],

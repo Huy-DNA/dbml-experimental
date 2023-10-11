@@ -50,7 +50,6 @@
           "inline_refs": []
         }
       ],
-      "indexes": [],
       "token": {
         "start": {
           "offset": 0,
@@ -63,6 +62,7 @@
           "column": 2
         }
       },
+      "indexes": [],
       "headerColor": "#555"
     },
     {
@@ -115,7 +115,6 @@
           "inline_refs": []
         }
       ],
-      "indexes": [],
       "token": {
         "start": {
           "offset": 70,
@@ -128,6 +127,7 @@
           "column": 2
         }
       },
+      "indexes": [],
       "note": {
         "value": "name is required",
         "token": {
@@ -215,7 +215,6 @@
           "inline_refs": []
         }
       ],
-      "indexes": [],
       "token": {
         "start": {
           "offset": 161,
@@ -228,6 +227,7 @@
           "column": 2
         }
       },
+      "indexes": [],
       "headerColor": "#17DACC",
       "note": {
         "value": "product must have price",
@@ -336,7 +336,6 @@
           "inline_refs": []
         }
       ],
-      "indexes": [],
       "token": {
         "start": {
           "offset": 299,
@@ -349,6 +348,7 @@
           "column": 2
         }
       },
+      "indexes": [],
       "headerColor": "#08DAFF",
       "note": {
         "value": "merchants sell a lot",

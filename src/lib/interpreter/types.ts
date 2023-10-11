@@ -20,8 +20,8 @@ export interface Table {
   schemaName: null | string;
   alias: string | null;
   fields: Column[];
-  indexes: Index[];
   token: TokenPosition;
+  indexes: Index[];
   headerColor?: string;
   note?: {
     value: string;
