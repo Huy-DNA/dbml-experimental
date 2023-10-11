@@ -1,604 +1,380 @@
-[
-  {
-    "code": 3023,
-    "diagnostic": "Invalid value for this setting",
-    "nodeOrToken": {
-      "id": 94,
-      "kind": "<attribute>",
-      "startPos": {
-        "offset": 320,
-        "line": 16,
-        "column": 29
-      },
-      "fullStart": 320,
-      "endPos": {
-        "offset": 331,
-        "line": 16,
-        "column": 40
-      },
-      "fullEnd": 331,
-      "start": 320,
-      "end": 331,
-      "name": {
-        "id": 90,
-        "kind": "<identifer-stream>",
-        "startPos": {
-          "offset": 320,
-          "line": 16,
-          "column": 29
-        },
-        "fullStart": 320,
-        "endPos": {
-          "offset": 327,
-          "line": 16,
-          "column": 36
-        },
-        "fullEnd": 327,
-        "start": 320,
-        "end": 327,
-        "identifiers": [
-          {
-            "kind": "<identifier>",
-            "startPos": {
-              "offset": 320,
-              "line": 16,
-              "column": 29
+{
+  "schemas": [],
+  "tables": [
+    {
+      "name": "orders",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 17,
+              "line": 2,
+              "column": 3
             },
-            "endPos": {
-              "offset": 327,
-              "line": 16,
-              "column": 36
+            "end": {
+              "offset": 42,
+              "line": 2,
+              "column": 28
+            }
+          },
+          "pk": true,
+          "dbdefault": {
+            "type": "number",
+            "value": 123
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "user_id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 45,
+              "line": 3,
+              "column": 3
             },
-            "value": "default",
-            "leadingTrivia": [],
-            "trailingTrivia": [],
-            "leadingInvalid": [],
-            "trailingInvalid": [],
-            "isInvalid": false,
-            "start": 320,
-            "end": 327
-          }
-        ]
-      },
-      "value": {
-        "id": 93,
-        "kind": "<prefix-expression>",
-        "startPos": {
-          "offset": 329,
-          "line": 16,
-          "column": 38
+            "end": {
+              "offset": 75,
+              "line": 3,
+              "column": 33
+            }
+          },
+          "unique": true,
+          "not_null": true,
+          "inline_refs": []
         },
-        "fullStart": 329,
-        "endPos": {
-          "offset": 331,
-          "line": 16,
-          "column": 40
-        },
-        "fullEnd": 331,
-        "start": 329,
-        "end": 331,
-        "op": {
-          "kind": "<op>",
-          "startPos": {
-            "offset": 329,
-            "line": 16,
-            "column": 38
+        {
+          "name": "status",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar",
+            "args": null
           },
-          "endPos": {
-            "offset": 330,
-            "line": 16,
-            "column": 39
-          },
-          "value": "-",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 329,
-          "end": 330
-        },
-        "expression": {
-          "id": 92,
-          "kind": "<primary-expression>",
-          "startPos": {
-            "offset": 330,
-            "line": 16,
-            "column": 39
-          },
-          "fullStart": 330,
-          "endPos": {
-            "offset": 331,
-            "line": 16,
-            "column": 40
-          },
-          "fullEnd": 331,
-          "start": 330,
-          "end": 331,
-          "expression": {
-            "id": 91,
-            "kind": "<literal>",
-            "startPos": {
-              "offset": 330,
-              "line": 16,
-              "column": 39
+          "token": {
+            "start": {
+              "offset": 78,
+              "line": 4,
+              "column": 3
             },
-            "fullStart": 330,
-            "endPos": {
-              "offset": 331,
-              "line": 16,
+            "end": {
+              "offset": 115,
+              "line": 4,
               "column": 40
-            },
-            "fullEnd": 331,
-            "start": 330,
-            "end": 331,
-            "literal": {
-              "kind": "<number>",
-              "startPos": {
-                "offset": 330,
-                "line": 16,
-                "column": 39
-              },
-              "endPos": {
-                "offset": 331,
-                "line": 16,
-                "column": 40
-              },
-              "value": "1",
-              "leadingTrivia": [],
-              "trailingTrivia": [],
-              "leadingInvalid": [],
-              "trailingInvalid": [],
-              "isInvalid": false,
-              "start": 330,
-              "end": 331
             }
-          }
+          },
+          "dbdefault": {
+            "type": "string",
+            "value": "Completed"
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "created_at",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 118,
+              "line": 5,
+              "column": 3
+            },
+            "end": {
+              "offset": 155,
+              "line": 5,
+              "column": 40
+            }
+          },
+          "dbdefault": {
+            "type": "expression",
+            "value": "now()"
+          },
+          "inline_refs": []
+        }
+      ],
+      "token": {
+        "start": {
+          "offset": 0,
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "offset": 157,
+          "line": 6,
+          "column": 2
         }
       },
-      "colon": {
-        "kind": "<colon>",
-        "startPos": {
-          "offset": 327,
-          "line": 16,
-          "column": 36
-        },
-        "endPos": {
-          "offset": 328,
-          "line": 16,
-          "column": 37
-        },
-        "value": ":",
-        "leadingTrivia": [],
-        "trailingTrivia": [
-          {
-            "kind": "<space>",
-            "startPos": {
-              "offset": 328,
-              "line": 16,
-              "column": 37
-            },
-            "endPos": {
-              "offset": 329,
-              "line": 16,
-              "column": 38
-            },
-            "value": " ",
-            "leadingTrivia": [],
-            "trailingTrivia": [],
-            "leadingInvalid": [],
-            "trailingInvalid": [],
-            "isInvalid": false,
-            "start": 328,
-            "end": 329
-          }
-        ],
-        "leadingInvalid": [],
-        "trailingInvalid": [],
-        "isInvalid": false,
-        "start": 327,
-        "end": 328
-      }
+      "indexes": []
     },
-    "start": 320,
-    "end": 331,
-    "name": "CompileError"
-  },
-  {
-    "code": 3023,
-    "diagnostic": "Invalid value for this setting",
-    "nodeOrToken": {
-      "id": 105,
-      "kind": "<attribute>",
-      "startPos": {
-        "offset": 348,
-        "line": 17,
-        "column": 15
-      },
-      "fullStart": 348,
-      "endPos": {
-        "offset": 364,
-        "line": 17,
-        "column": 31
-      },
-      "fullEnd": 364,
-      "start": 348,
-      "end": 364,
-      "name": {
-        "id": 101,
-        "kind": "<identifer-stream>",
-        "startPos": {
-          "offset": 348,
-          "line": 17,
-          "column": 15
-        },
-        "fullStart": 348,
-        "endPos": {
-          "offset": 355,
-          "line": 17,
-          "column": 22
-        },
-        "fullEnd": 355,
-        "start": 348,
-        "end": 355,
-        "identifiers": [
-          {
-            "kind": "<identifier>",
-            "startPos": {
-              "offset": 348,
-              "line": 17,
+    {
+      "name": "order_items",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "order_id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 181,
+              "line": 9,
+              "column": 3
+            },
+            "end": {
+              "offset": 193,
+              "line": 9,
               "column": 15
-            },
-            "endPos": {
-              "offset": 355,
-              "line": 17,
-              "column": 22
-            },
-            "value": "default",
-            "leadingTrivia": [],
-            "trailingTrivia": [],
-            "leadingInvalid": [],
-            "trailingInvalid": [],
-            "isInvalid": false,
-            "start": 348,
-            "end": 355
-          }
-        ]
-      },
-      "value": {
-        "id": 104,
-        "kind": "<prefix-expression>",
-        "startPos": {
-          "offset": 357,
-          "line": 17,
-          "column": 24
-        },
-        "fullStart": 357,
-        "endPos": {
-          "offset": 364,
-          "line": 17,
-          "column": 31
-        },
-        "fullEnd": 364,
-        "start": 357,
-        "end": 364,
-        "op": {
-          "kind": "<op>",
-          "startPos": {
-            "offset": 357,
-            "line": 17,
-            "column": 24
-          },
-          "endPos": {
-            "offset": 358,
-            "line": 17,
-            "column": 25
-          },
-          "value": "-",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 357,
-          "end": 358
-        },
-        "expression": {
-          "id": 103,
-          "kind": "<primary-expression>",
-          "startPos": {
-            "offset": 358,
-            "line": 17,
-            "column": 25
-          },
-          "fullStart": 358,
-          "endPos": {
-            "offset": 364,
-            "line": 17,
-            "column": 31
-          },
-          "fullEnd": 364,
-          "start": 358,
-          "end": 364,
-          "expression": {
-            "id": 102,
-            "kind": "<literal>",
-            "startPos": {
-              "offset": 358,
-              "line": 17,
-              "column": 25
-            },
-            "fullStart": 358,
-            "endPos": {
-              "offset": 364,
-              "line": 17,
-              "column": 31
-            },
-            "fullEnd": 364,
-            "start": 358,
-            "end": 364,
-            "literal": {
-              "kind": "<number>",
-              "startPos": {
-                "offset": 358,
-                "line": 17,
-                "column": 25
-              },
-              "endPos": {
-                "offset": 364,
-                "line": 17,
-                "column": 31
-              },
-              "value": "123.12",
-              "leadingTrivia": [],
-              "trailingTrivia": [],
-              "leadingInvalid": [],
-              "trailingInvalid": [],
-              "isInvalid": false,
-              "start": 358,
-              "end": 364
             }
-          }
-        }
-      },
-      "colon": {
-        "kind": "<colon>",
-        "startPos": {
-          "offset": 355,
-          "line": 17,
-          "column": 22
+          },
+          "inline_refs": []
         },
-        "endPos": {
-          "offset": 356,
-          "line": 17,
-          "column": 23
-        },
-        "value": ":",
-        "leadingTrivia": [],
-        "trailingTrivia": [
-          {
-            "kind": "<space>",
-            "startPos": {
-              "offset": 356,
-              "line": 17,
-              "column": 23
+        {
+          "name": "product_id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 196,
+              "line": 10,
+              "column": 3
             },
-            "endPos": {
-              "offset": 357,
-              "line": 17,
-              "column": 24
+            "end": {
+              "offset": 210,
+              "line": 10,
+              "column": 17
+            }
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "quantity",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 213,
+              "line": 11,
+              "column": 3
             },
-            "value": " ",
-            "leadingTrivia": [],
-            "trailingTrivia": [],
-            "leadingInvalid": [],
-            "trailingInvalid": [],
-            "isInvalid": false,
-            "start": 356,
-            "end": 357
-          }
-        ],
-        "leadingInvalid": [],
-        "trailingInvalid": [],
-        "isInvalid": false,
-        "start": 355,
-        "end": 356
-      }
-    },
-    "start": 348,
-    "end": 364,
-    "name": "CompileError"
-  },
-  {
-    "code": 4000,
-    "diagnostic": "Can not find Enum field 'Completed'",
-    "nodeOrToken": {
-      "id": 30,
-      "kind": "<primary-expression>",
-      "startPos": {
-        "offset": 103,
-        "line": 3,
-        "column": 27
-      },
-      "fullStart": 103,
-      "endPos": {
-        "offset": 114,
-        "line": 3,
-        "column": 38
-      },
-      "fullEnd": 114,
-      "start": 103,
-      "end": 114,
-      "expression": {
-        "id": 29,
-        "kind": "<variable>",
-        "startPos": {
-          "offset": 103,
-          "line": 3,
-          "column": 27
-        },
-        "fullStart": 103,
-        "endPos": {
-          "offset": 114,
-          "line": 3,
-          "column": 38
-        },
-        "fullEnd": 114,
-        "start": 103,
-        "end": 114,
-        "variable": {
-          "kind": "<variable>",
-          "startPos": {
-            "offset": 103,
-            "line": 3,
-            "column": 27
+            "end": {
+              "offset": 225,
+              "line": 11,
+              "column": 15
+            }
           },
-          "endPos": {
-            "offset": 114,
-            "line": 3,
-            "column": 38
-          },
-          "value": "Completed",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 103,
-          "end": 114
+          "inline_refs": []
         }
-      }
-    },
-    "start": 103,
-    "end": 114,
-    "name": "CompileError"
-  },
-  {
-    "code": 4000,
-    "diagnostic": "Can not find Enum field 'null'",
-    "nodeOrToken": {
-      "id": 80,
-      "kind": "<primary-expression>",
-      "startPos": {
-        "offset": 285,
-        "line": 15,
-        "column": 25
-      },
-      "fullStart": 285,
-      "endPos": {
-        "offset": 289,
-        "line": 15,
-        "column": 29
-      },
-      "fullEnd": 289,
-      "start": 285,
-      "end": 289,
-      "expression": {
-        "id": 79,
-        "kind": "<variable>",
-        "startPos": {
-          "offset": 285,
-          "line": 15,
-          "column": 25
+      ],
+      "token": {
+        "start": {
+          "offset": 159,
+          "line": 8,
+          "column": 1
         },
-        "fullStart": 285,
-        "endPos": {
-          "offset": 289,
-          "line": 15,
-          "column": 29
-        },
-        "fullEnd": 289,
-        "start": 285,
-        "end": 289,
-        "variable": {
-          "kind": "<identifier>",
-          "startPos": {
-            "offset": 285,
-            "line": 15,
-            "column": 25
-          },
-          "endPos": {
-            "offset": 289,
-            "line": 15,
-            "column": 29
-          },
-          "value": "null",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 285,
-          "end": 289
+        "end": {
+          "offset": 227,
+          "line": 12,
+          "column": 2
         }
-      }
+      },
+      "indexes": []
     },
-    "start": 285,
-    "end": 289,
-    "name": "CompileError"
-  },
-  {
-    "code": 4000,
-    "diagnostic": "Can not find Enum field 'true'",
-    "nodeOrToken": {
-      "id": 114,
-      "kind": "<primary-expression>",
-      "startPos": {
-        "offset": 392,
-        "line": 18,
-        "column": 26
-      },
-      "fullStart": 392,
-      "endPos": {
-        "offset": 396,
-        "line": 18,
-        "column": 30
-      },
-      "fullEnd": 396,
-      "start": 392,
-      "end": 396,
-      "expression": {
-        "id": 113,
-        "kind": "<variable>",
-        "startPos": {
-          "offset": 392,
-          "line": 18,
-          "column": 26
-        },
-        "fullStart": 392,
-        "endPos": {
-          "offset": 396,
-          "line": 18,
-          "column": 30
-        },
-        "fullEnd": 396,
-        "start": 392,
-        "end": 396,
-        "variable": {
-          "kind": "<identifier>",
-          "startPos": {
-            "offset": 392,
-            "line": 18,
-            "column": 26
+    {
+      "name": "products",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
           },
-          "endPos": {
-            "offset": 396,
-            "line": 18,
-            "column": 30
+          "token": {
+            "start": {
+              "offset": 248,
+              "line": 15,
+              "column": 3
+            },
+            "end": {
+              "offset": 259,
+              "line": 15,
+              "column": 14
+            }
           },
-          "value": "true",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 392,
-          "end": 396
+          "pk": true,
+          "inline_refs": []
+        },
+        {
+          "name": "name",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 262,
+              "line": 16,
+              "column": 3
+            },
+            "end": {
+              "offset": 290,
+              "line": 16,
+              "column": 31
+            }
+          },
+          "dbdefault": {
+            "type": "boolean",
+            "value": "null"
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "merchant_id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 293,
+              "line": 17,
+              "column": 3
+            },
+            "end": {
+              "offset": 332,
+              "line": 17,
+              "column": 42
+            }
+          },
+          "dbdefault": {
+            "type": "number",
+            "value": -1
+          },
+          "not_null": true,
+          "inline_refs": []
+        },
+        {
+          "name": "price",
+          "type": {
+            "schemaName": null,
+            "type_name": "float",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 335,
+              "line": 18,
+              "column": 3
+            },
+            "end": {
+              "offset": 365,
+              "line": 18,
+              "column": 33
+            }
+          },
+          "dbdefault": {
+            "type": "number",
+            "value": -123.12
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "stock",
+          "type": {
+            "schemaName": null,
+            "type_name": "boolean",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 368,
+              "line": 19,
+              "column": 3
+            },
+            "end": {
+              "offset": 397,
+              "line": 19,
+              "column": 32
+            }
+          },
+          "dbdefault": {
+            "type": "boolean",
+            "value": "true"
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "expiration",
+          "type": {
+            "schemaName": null,
+            "type_name": "date",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 400,
+              "line": 20,
+              "column": 3
+            },
+            "end": {
+              "offset": 458,
+              "line": 20,
+              "column": 61
+            }
+          },
+          "dbdefault": {
+            "type": "expression",
+            "value": "current_date + interval 1 year"
+          },
+          "inline_refs": []
         }
-      }
-    },
-    "start": 392,
-    "end": 396,
-    "name": "CompileError"
-  }
-]
+      ],
+      "token": {
+        "start": {
+          "offset": 229,
+          "line": 14,
+          "column": 1
+        },
+        "end": {
+          "offset": 460,
+          "line": 21,
+          "column": 2
+        }
+      },
+      "indexes": []
+    }
+  ],
+  "refs": [],
+  "enums": [],
+  "tableGroups": [],
+  "aliases": [],
+  "project": {}
+}
