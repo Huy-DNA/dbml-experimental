@@ -25,8 +25,8 @@
               "column": 23
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "full_name",
@@ -68,8 +68,8 @@
               "column": 25
             }
           },
-          "unique": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "unique": true
         },
         {
           "name": "gender",
@@ -174,8 +174,8 @@
               "column": 28
             }
           },
-          "not_null": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "not_null": true
         }
       ],
       "token": {
@@ -238,8 +238,8 @@
               "column": 23
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "full_name",
@@ -281,8 +281,8 @@
               "column": 25
             }
           },
-          "unique": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "unique": true
         },
         {
           "name": "gender",
@@ -387,8 +387,8 @@
               "column": 28
             }
           },
-          "not_null": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "not_null": true
         }
       ],
       "token": {

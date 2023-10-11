@@ -25,8 +25,8 @@
               "column": 18
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "status",
@@ -103,9 +103,9 @@
               "column": 22
             }
           },
+          "inline_refs": [],
           "pk": true,
-          "unique": true,
-          "inline_refs": []
+          "unique": true
         },
         {
           "name": "status",

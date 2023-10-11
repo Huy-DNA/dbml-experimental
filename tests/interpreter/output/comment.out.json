@@ -25,8 +25,8 @@
               "column": 14
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "user_id",
@@ -47,9 +47,9 @@
               "column": 33
             }
           },
+          "inline_refs": [],
           "unique": true,
-          "not_null": true,
-          "inline_refs": []
+          "not_null": true
         },
         {
           "name": "status",

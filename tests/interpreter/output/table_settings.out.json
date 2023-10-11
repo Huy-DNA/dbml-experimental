@@ -25,8 +25,8 @@
               "column": 16
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "name",
@@ -89,8 +89,8 @@
               "column": 16
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "name",
@@ -111,8 +111,8 @@
               "column": 27
             }
           },
-          "not_null": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "not_null": true
         }
       ],
       "token": {
@@ -168,8 +168,8 @@
               "column": 16
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "name",
@@ -211,8 +211,8 @@
               "column": 29
             }
           },
-          "not_null": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "not_null": true
         }
       ],
       "token": {
@@ -269,8 +269,8 @@
               "column": 16
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "user_id",

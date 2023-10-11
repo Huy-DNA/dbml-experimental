@@ -25,9 +25,9 @@
               "column": 27
             }
           },
+          "inline_refs": [],
           "pk": true,
-          "increment": true,
-          "inline_refs": []
+          "increment": true
         },
         {
           "name": "user_id",
@@ -48,9 +48,9 @@
               "column": 35
             }
           },
+          "inline_refs": [],
           "unique": true,
-          "not_null": true,
-          "inline_refs": []
+          "not_null": true
         },
         {
           "name": "status",
@@ -176,11 +176,11 @@
               "column": 30
             }
           },
+          "inline_refs": [],
           "dbdefault": {
             "type": "number",
             "value": 1
-          },
-          "inline_refs": []
+          }
         }
       ],
       "token": {
@@ -221,8 +221,8 @@
               "column": 16
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "name",
@@ -264,8 +264,8 @@
               "column": 31
             }
           },
-          "not_null": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "not_null": true
         },
         {
           "name": "price",
@@ -328,11 +328,11 @@
               "column": 43
             }
           },
+          "inline_refs": [],
           "dbdefault": {
             "type": "expression",
             "value": "now()"
-          },
-          "inline_refs": []
+          }
         }
       ],
       "token": {
@@ -392,8 +392,8 @@
               "column": 26
             }
           },
-          "unique": true,
-          "type": "hash"
+          "type": "hash",
+          "unique": true
         }
       ]
     },
@@ -421,8 +421,8 @@
               "column": 16
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "full_name",
@@ -464,8 +464,8 @@
               "column": 27
             }
           },
-          "unique": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "unique": true
         },
         {
           "name": "gender",
@@ -590,8 +590,8 @@
               "column": 16
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "merchant_name",
@@ -716,8 +716,8 @@
               "column": 18
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "name",

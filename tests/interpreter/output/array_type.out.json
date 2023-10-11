@@ -46,8 +46,8 @@
               "column": 36
             }
           },
-          "not_null": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "not_null": true
         },
         {
           "name": "schedule",
@@ -68,8 +68,8 @@
               "column": 29
             }
           },
-          "not_null": false,
-          "inline_refs": []
+          "inline_refs": [],
+          "not_null": false
         }
       ],
       "token": {

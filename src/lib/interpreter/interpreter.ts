@@ -222,8 +222,8 @@ export default class Interpreter {
         }
         _inlineRefs.push({
           schemaName: ref.schemaName,
-          fieldNames: ref.fieldNames,
           tableName: ref.tableName,
+          fieldNames: ref.fieldNames,
           relation: ref.relation,
           token: ref.token,
         });
@@ -239,12 +239,12 @@ export default class Interpreter {
         args: typeArgs,
       },
       token: extractTokenForInterpreter(field),
+      inline_refs: _inlineRefs,
       pk,
       dbdefault,
       increment,
       unique,
       not_null: notNull,
-      inline_refs: _inlineRefs,
       note:
         note === undefined ?
           undefined :
@@ -579,10 +579,10 @@ export default class Interpreter {
         })),
       ],
       token: extractTokenForInterpreter(field),
+      type,
       pk,
       unique,
       name,
-      type,
       note:
         note === undefined ?
           undefined :

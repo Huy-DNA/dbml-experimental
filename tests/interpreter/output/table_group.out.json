@@ -216,10 +216,10 @@
           "inline_refs": [
             {
               "schemaName": null,
+              "tableName": "U",
               "fieldNames": [
                 "id"
               ],
-              "tableName": "U",
               "relation": ">",
               "token": {
                 "start": {

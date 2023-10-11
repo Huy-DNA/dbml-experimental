@@ -25,9 +25,9 @@
               "column": 27
             }
           },
+          "inline_refs": [],
           "pk": true,
-          "increment": true,
-          "inline_refs": []
+          "increment": true
         },
         {
           "name": "user_id",
@@ -48,9 +48,9 @@
               "column": 35
             }
           },
+          "inline_refs": [],
           "unique": true,
-          "not_null": true,
-          "inline_refs": []
+          "not_null": true
         },
         {
           "name": "status",
@@ -196,11 +196,11 @@
               "column": 30
             }
           },
+          "inline_refs": [],
           "dbdefault": {
             "type": "number",
             "value": 1
-          },
-          "inline_refs": []
+          }
         }
       ],
       "token": {
@@ -304,11 +304,11 @@
               "column": 43
             }
           },
+          "inline_refs": [],
           "dbdefault": {
             "type": "expression",
             "value": "now()"
-          },
-          "inline_refs": []
+          }
         }
       ],
       "token": {
@@ -375,9 +375,9 @@
               "column": 27
             }
           },
+          "inline_refs": [],
           "pk": true,
-          "increment": true,
-          "inline_refs": []
+          "increment": true
         },
         {
           "name": "name",
@@ -419,8 +419,8 @@
               "column": 32
             }
           },
-          "unique": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "unique": true
         },
         {
           "name": "date_of_birth",
@@ -462,11 +462,11 @@
               "column": 43
             }
           },
+          "inline_refs": [],
           "dbdefault": {
             "type": "expression",
             "value": "now()"
-          },
-          "inline_refs": []
+          }
         },
         {
           "name": "country_code",
@@ -487,8 +487,8 @@
               "column": 32
             }
           },
-          "not_null": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "not_null": true
         }
       ],
       "token": {
@@ -529,8 +529,8 @@
               "column": 18
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "name",

@@ -25,8 +25,8 @@
               "column": 41
             }
           },
-          "pk": true,
           "inline_refs": [],
+          "pk": true,
           "note": {
             "value": "primary key field",
             "token": {

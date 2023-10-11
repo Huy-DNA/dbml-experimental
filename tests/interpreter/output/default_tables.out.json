@@ -25,12 +25,12 @@
               "column": 28
             }
           },
+          "inline_refs": [],
           "pk": true,
           "dbdefault": {
             "type": "number",
             "value": 123
-          },
-          "inline_refs": []
+          }
         },
         {
           "name": "user_id",
@@ -51,9 +51,9 @@
               "column": 33
             }
           },
+          "inline_refs": [],
           "unique": true,
-          "not_null": true,
-          "inline_refs": []
+          "not_null": true
         },
         {
           "name": "status",
@@ -74,11 +74,11 @@
               "column": 40
             }
           },
+          "inline_refs": [],
           "dbdefault": {
             "type": "string",
             "value": "Completed"
-          },
-          "inline_refs": []
+          }
         },
         {
           "name": "created_at",
@@ -99,11 +99,11 @@
               "column": 40
             }
           },
+          "inline_refs": [],
           "dbdefault": {
             "type": "expression",
             "value": "now()"
-          },
-          "inline_refs": []
+          }
         }
       ],
       "token": {
@@ -227,8 +227,8 @@
               "column": 14
             }
           },
-          "pk": true,
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": true
         },
         {
           "name": "name",
@@ -249,11 +249,11 @@
               "column": 31
             }
           },
+          "inline_refs": [],
           "dbdefault": {
             "type": "boolean",
             "value": "null"
-          },
-          "inline_refs": []
+          }
         },
         {
           "name": "merchant_id",
@@ -274,12 +274,12 @@
               "column": 42
             }
           },
+          "inline_refs": [],
           "dbdefault": {
             "type": "number",
             "value": -1
           },
-          "not_null": true,
-          "inline_refs": []
+          "not_null": true
         },
         {
           "name": "price",
@@ -300,11 +300,11 @@
               "column": 33
             }
           },
+          "inline_refs": [],
           "dbdefault": {
             "type": "number",
             "value": -123.12
-          },
-          "inline_refs": []
+          }
         },
         {
           "name": "stock",
@@ -325,11 +325,11 @@
               "column": 32
             }
           },
+          "inline_refs": [],
           "dbdefault": {
             "type": "boolean",
             "value": "true"
-          },
-          "inline_refs": []
+          }
         },
         {
           "name": "expiration",
@@ -350,11 +350,11 @@
               "column": 61
             }
           },
+          "inline_refs": [],
           "dbdefault": {
             "type": "expression",
             "value": "current_date + interval 1 year"
-          },
-          "inline_refs": []
+          }
         }
       ],
       "token": {
