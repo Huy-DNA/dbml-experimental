@@ -488,8 +488,8 @@ export default class Interpreter {
     }
 
     return {
-      schemaName,
       name,
+      schemaName,
       tables,
       token: extractTokenForInterpreter(element),
     };

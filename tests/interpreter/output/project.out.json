@@ -1257,8 +1257,8 @@
   ],
   "tableGroups": [
     {
-      "schemaName": null,
       "name": "g1",
+      "schemaName": null,
       "tables": [
         {
           "name": "users",
@@ -1283,8 +1283,8 @@
       }
     },
     {
-      "schemaName": null,
       "name": "g2",
+      "schemaName": null,
       "tables": [
         {
           "name": "countries",

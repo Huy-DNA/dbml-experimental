@@ -315,8 +315,8 @@
   "enums": [],
   "tableGroups": [
     {
-      "schemaName": null,
       "name": "g1",
+      "schemaName": null,
       "tables": [
         {
           "name": "users",
