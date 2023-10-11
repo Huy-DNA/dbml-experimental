@@ -330,8 +330,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "value": "now()",
-            "type": "expression"
+            "type": "expression",
+            "value": "now()"
           }
         }
       ],

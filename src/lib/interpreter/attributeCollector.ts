@@ -116,8 +116,8 @@ class AttributeCollector {
       KEYWORDS_OF_DEFAULT_SETTING.includes(_deflt.expression.variable?.value as any)
     ) {
       return {
-        value: _deflt.expression.variable!.value,
         type: 'boolean',
+        value: _deflt.expression.variable!.value,
       };
     }
 
@@ -142,15 +142,15 @@ class AttributeCollector {
 
     if (isExpressionAQuotedString(_deflt)) {
       return {
-        value: extractQuotedStringToken(_deflt as SyntaxNode).unwrap(),
         type: 'string',
+        value: extractQuotedStringToken(_deflt as SyntaxNode).unwrap(),
       };
     }
 
     if (_deflt instanceof FunctionExpressionNode) {
       return {
-        value: _deflt.value!.value,
         type: 'expression',
+        value: _deflt.value!.value,
       };
     }
 

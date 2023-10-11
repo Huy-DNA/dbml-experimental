@@ -76,8 +76,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "value": "Completed",
-            "type": "string"
+            "type": "string",
+            "value": "Completed"
           }
         },
         {
@@ -101,8 +101,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "value": "now()",
-            "type": "expression"
+            "type": "expression",
+            "value": "now()"
           }
         }
       ],
@@ -251,8 +251,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "value": "null",
-            "type": "boolean"
+            "type": "boolean",
+            "value": "null"
           }
         },
         {
@@ -327,8 +327,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "value": "true",
-            "type": "boolean"
+            "type": "boolean",
+            "value": "true"
           }
         },
         {
@@ -352,8 +352,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "value": "current_date + interval 1 year",
-            "type": "expression"
+            "type": "expression",
+            "value": "current_date + interval 1 year"
           }
         }
       ],
