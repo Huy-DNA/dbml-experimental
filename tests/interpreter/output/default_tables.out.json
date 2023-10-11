@@ -52,8 +52,8 @@
             }
           },
           "inline_refs": [],
-          "not_null": true,
-          "unique": true
+          "unique": true,
+          "not_null": true
         },
         {
           "name": "status",
@@ -275,11 +275,11 @@
             }
           },
           "inline_refs": [],
+          "not_null": true,
           "dbdefault": {
             "type": "number",
             "value": -1
-          },
-          "not_null": true
+          }
         },
         {
           "name": "price",

@@ -241,10 +241,10 @@ export default class Interpreter {
       token: extractTokenForInterpreter(field),
       inline_refs: _inlineRefs,
       pk,
+      unique,
+      not_null: notNull,
       dbdefault,
       increment,
-      not_null: notNull,
-      unique,
       note:
         note === undefined ?
           undefined :

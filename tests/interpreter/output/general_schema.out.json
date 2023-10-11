@@ -49,8 +49,8 @@
             }
           },
           "inline_refs": [],
-          "not_null": true,
-          "unique": true
+          "unique": true,
+          "not_null": true
         },
         {
           "name": "status",
