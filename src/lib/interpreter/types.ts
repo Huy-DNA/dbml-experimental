@@ -82,8 +82,8 @@ export interface Ref {
   schemaName: string | null;
   name: string | null;
   endpoints: RefEndpointPair;
-  delete?: 'cascade' | 'no action' | 'restrict' | 'set default' | 'set null';
-  update?: 'cascade' | 'no action' | 'restrict' | 'set default' | 'set null';
+  onDelete?: 'cascade' | 'no action' | 'restrict' | 'set default' | 'set null';
+  onUpdate?: 'cascade' | 'no action' | 'restrict' | 'set default' | 'set null';
   token: TokenPosition;
 }
 

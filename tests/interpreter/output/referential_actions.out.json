@@ -635,7 +635,7 @@
           }
         }
       ],
-      "delete": "restrict",
+      "onDelete": "restrict",
       "token": {
         "start": {
           "offset": 715,
@@ -694,7 +694,7 @@
           }
         }
       ],
-      "delete": "cascade",
+      "onDelete": "cascade",
       "token": {
         "start": {
           "offset": 773,
@@ -755,7 +755,7 @@
           }
         }
       ],
-      "delete": "set null",
+      "onDelete": "set null",
       "token": {
         "start": {
           "offset": 837,
@@ -814,7 +814,7 @@
           }
         }
       ],
-      "delete": "no action",
+      "onDelete": "no action",
       "token": {
         "start": {
           "offset": 934,
