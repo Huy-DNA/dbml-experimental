@@ -144,7 +144,10 @@ export type Project =
       refs: Ref[];
       enums: Enum[];
       tableGroups: TableGroup[];
-      note: string | null;
+      note?: {
+        value: string;
+        token: TokenPosition;
+      },
       [
         index: string & Omit<any, 'name' | 'tables' | 'refs' | 'enums' | 'tableGroups' | 'note'>
       ]: string;

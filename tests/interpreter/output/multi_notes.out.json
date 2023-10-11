@@ -505,7 +505,21 @@
     "refs": [],
     "enums": [],
     "tableGroups": [],
-    "note": "project multi_notes note",
-    "database_type": ""
+    "note": {
+      "value": "project multi_notes note",
+      "token": {
+        "start": {
+          "offset": 24,
+          "line": 2,
+          "column": 3
+        },
+        "end": {
+          "offset": 56,
+          "line": 2,
+          "column": 35
+        }
+      }
+    },
+    "database_type": "PostgreSQL"
   }
 }

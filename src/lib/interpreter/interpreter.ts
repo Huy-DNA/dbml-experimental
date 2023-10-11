@@ -443,7 +443,7 @@ export default class Interpreter {
       refs: [],
       enums: [],
       tableGroups: [],
-      note: null,
+      note: undefined,
     };
 
     (element.body as BlockExpressionNode).body.forEach((sub) => {
@@ -464,7 +464,7 @@ export default class Interpreter {
           tryPush(this.enum(_sub), proj.enums);
           break;
         case 'note':
-          proj.note = this.note(_sub)?.value || null;
+          proj.note = this.note(_sub);
           break;
         default:
           proj[type as any] = this.custom(_sub);
@@ -477,7 +477,7 @@ export default class Interpreter {
 
   // eslint-disable-next-line class-methods-use-this
   private custom(element: ElementDeclarationNode): string {
-    return extractQuotedStringToken(element.body).unwrap_or('');
+    return extractQuotedStringToken((element.body as FunctionApplicationNode).callee).unwrap_or('');
   }
 
   private tableGroup(element: ElementDeclarationNode): TableGroup | undefined {

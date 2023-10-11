@@ -1316,7 +1316,21 @@
     "refs": [],
     "enums": [],
     "tableGroups": [],
-    "note": "\n    # Introduction\n    This is an ecommerce project\n\n    # Description\n    ...\n  ",
-    "database_type": ""
+    "note": {
+      "value": "\n    # Introduction\n    This is an ecommerce project\n\n    # Description\n    ...\n  ",
+      "token": {
+        "start": {
+          "offset": 22,
+          "line": 2,
+          "column": 3
+        },
+        "end": {
+          "offset": 116,
+          "line": 8,
+          "column": 6
+        }
+      }
+    },
+    "database_type": "PostgreSQL"
   }
 }
