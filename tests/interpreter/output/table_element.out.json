@@ -1,116 +1,201 @@
-[
-  {
-    "code": 3039,
-    "diagnostic": "A(n) Note has already been defined in this scope",
-    "nodeOrToken": {
-      "kind": "<identifier>",
-      "startPos": {
-        "offset": 227,
-        "line": 18,
-        "column": 2
-      },
-      "endPos": {
-        "offset": 231,
-        "line": 18,
-        "column": 6
-      },
-      "value": "Note",
-      "leadingTrivia": [
+{
+  "schemas": [],
+  "tables": [
+    {
+      "name": "users",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
         {
-          "kind": "<newline>",
-          "startPos": {
-            "offset": 224,
-            "line": 17,
-            "column": 0
+          "name": "id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
           },
-          "endPos": {
-            "offset": 225,
-            "line": 18,
-            "column": 0
+          "token": {
+            "start": {
+              "offset": 16,
+              "line": 2,
+              "column": 3
+            },
+            "end": {
+              "offset": 27,
+              "line": 2,
+              "column": 14
+            }
           },
-          "value": "\n",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 224,
-          "end": 225
+          "pk": true,
+          "inline_refs": []
         },
         {
-          "kind": "<space>",
-          "startPos": {
-            "offset": 225,
-            "line": 18,
-            "column": 0
+          "name": "name",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar",
+            "args": null
           },
-          "endPos": {
-            "offset": 226,
-            "line": 18,
-            "column": 1
+          "token": {
+            "start": {
+              "offset": 30,
+              "line": 3,
+              "column": 3
+            },
+            "end": {
+              "offset": 47,
+              "line": 3,
+              "column": 20
+            }
           },
-          "value": " ",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 225,
-          "end": 226
+          "pk": true,
+          "inline_refs": []
         },
         {
-          "kind": "<space>",
-          "startPos": {
-            "offset": 226,
-            "line": 18,
-            "column": 1
+          "name": "gender",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar",
+            "args": null
           },
-          "endPos": {
-            "offset": 227,
-            "line": 18,
-            "column": 2
+          "token": {
+            "start": {
+              "offset": 50,
+              "line": 4,
+              "column": 3
+            },
+            "end": {
+              "offset": 64,
+              "line": 4,
+              "column": 17
+            }
           },
-          "value": " ",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 226,
-          "end": 227
-        }
-      ],
-      "trailingTrivia": [
+          "inline_refs": []
+        },
         {
-          "kind": "<space>",
-          "startPos": {
-            "offset": 231,
-            "line": 18,
-            "column": 6
+          "name": "created_at",
+          "type": {
+            "schemaName": null,
+            "type_name": "datetime",
+            "args": null
           },
-          "endPos": {
-            "offset": 232,
-            "line": 18,
-            "column": 7
+          "token": {
+            "start": {
+              "offset": 67,
+              "line": 5,
+              "column": 3
+            },
+            "end": {
+              "offset": 86,
+              "line": 5,
+              "column": 22
+            }
           },
-          "value": " ",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 231,
-          "end": 232
+          "inline_refs": []
         }
       ],
-      "leadingInvalid": [],
-      "trailingInvalid": [],
-      "isInvalid": false,
-      "start": 227,
-      "end": 231
-    },
-    "start": 227,
-    "end": 231,
-    "name": "CompileError"
-  }
-]
+      "token": {
+        "start": {
+          "offset": 0,
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "offset": 352,
+          "line": 27,
+          "column": 2
+        }
+      },
+      "indexes": [
+        {
+          "columns": [
+            {
+              "value": "id",
+              "type": "column"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 104,
+              "line": 8,
+              "column": 5
+            },
+            "end": {
+              "offset": 106,
+              "line": 8,
+              "column": 7
+            }
+          }
+        },
+        {
+          "columns": [
+            {
+              "value": "id",
+              "type": "column"
+            },
+            {
+              "value": "name",
+              "type": "column"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 111,
+              "line": 9,
+              "column": 5
+            },
+            "end": {
+              "offset": 121,
+              "line": 9,
+              "column": 15
+            }
+          }
+        },
+        {
+          "columns": [
+            {
+              "value": "gender",
+              "type": "column"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 143,
+              "line": 13,
+              "column": 5
+            },
+            "end": {
+              "offset": 149,
+              "line": 13,
+              "column": 11
+            }
+          }
+        },
+        {
+          "columns": [
+            {
+              "value": "created_at",
+              "type": "column"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 154,
+              "line": 14,
+              "column": 5
+            },
+            "end": {
+              "offset": 164,
+              "line": 14,
+              "column": 15
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "refs": [],
+  "enums": [],
+  "tableGroups": [],
+  "aliases": [],
+  "project": {}
+}
