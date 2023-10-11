@@ -36,9 +36,9 @@
                 "column": 15
               },
               "end": {
-                "offset": 217,
+                "offset": 238,
                 "line": 14,
-                "column": 19
+                "column": 40
               }
             }
           }
@@ -419,7 +419,21 @@
               "column": 34
             }
           },
-          "note": "Order created"
+          "note": {
+            "value": "Order created",
+            "token": {
+              "start": {
+                "offset": 123,
+                "line": 7,
+                "column": 12
+              },
+              "end": {
+                "offset": 144,
+                "line": 7,
+                "column": 33
+              }
+            }
+          }
         },
         {
           "name": "pending",

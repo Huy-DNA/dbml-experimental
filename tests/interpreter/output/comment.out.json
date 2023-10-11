@@ -80,9 +80,9 @@
                 "column": 19
               },
               "end": {
-                "offset": 199,
+                "offset": 221,
                 "line": 17,
-                "column": 23
+                "column": 45
               }
             }
           }
@@ -116,9 +116,9 @@
                 "column": 23
               },
               "end": {
-                "offset": 249,
+                "offset": 271,
                 "line": 18,
-                "column": 27
+                "column": 49
               }
             }
           }
@@ -228,7 +228,21 @@
               "column": 30
             }
           },
-          "note": "In stock"
+          "note": {
+            "value": "In stock",
+            "token": {
+              "start": {
+                "offset": 523,
+                "line": 35,
+                "column": 13
+              },
+              "end": {
+                "offset": 539,
+                "line": 35,
+                "column": 29
+              }
+            }
+          }
         },
         {
           "name": "running_low",
@@ -244,7 +258,21 @@
               "column": 37
             }
           },
-          "note": "less than 20"
+          "note": {
+            "value": "less than 20",
+            "token": {
+              "start": {
+                "offset": 556,
+                "line": 36,
+                "column": 16
+              },
+              "end": {
+                "offset": 576,
+                "line": 36,
+                "column": 36
+              }
+            }
+          }
         }
       ]
     },
@@ -308,7 +336,21 @@
               "column": 37
             }
           },
-          "note": "less than 20"
+          "note": {
+            "value": "less than 20",
+            "token": {
+              "start": {
+                "offset": 820,
+                "line": 52,
+                "column": 16
+              },
+              "end": {
+                "offset": 840,
+                "line": 52,
+                "column": 36
+              }
+            }
+          }
         }
       ]
     }

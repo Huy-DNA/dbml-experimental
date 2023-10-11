@@ -106,7 +106,10 @@ export interface Enum {
 export interface EnumField {
   name: string;
   token: TokenPosition;
-  note?: string;
+  note?: {
+    value: string;
+    token: TokenPosition;
+  };
 }
 
 export interface TableGroup {

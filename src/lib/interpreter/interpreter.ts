@@ -1,5 +1,6 @@
 import { CompileError, CompileErrorCode } from '../errors';
 import {
+  AttributeNode,
   BlockExpressionNode,
   CallExpressionNode,
   ElementDeclarationNode,
@@ -43,6 +44,7 @@ import {
   processRelOperand,
 } from './utils';
 import { None, Option, Some } from '../option';
+import { SyntaxToken } from 'lib/lexer/tokens';
 
 // The interpreted format follows the old parser
 export default class Interpreter {
@@ -120,7 +122,7 @@ export default class Interpreter {
     const collector = collectAttribute(element.attributeList, this.errors);
     const headerColor = collector.extractHeaderColor();
     const note = collector.extractNote();
-    const noteToken = collector.settingMap.getNameNode('note') as IdentiferStreamNode | undefined;
+    const noteNode = collector.settingMap.getAttributeNode('note') as AttributeNode | undefined;
     const fields: Column[] = [];
     const indexes: Index[] = [];
     (element.body as BlockExpressionNode).body.forEach((sub) => {
@@ -157,12 +159,10 @@ export default class Interpreter {
       token: extractTokenForInterpreter(element),
       indexes,
       headerColor,
-      note: note ?
-        {
-            value: note,
-            token: extractTokenForInterpreter(noteToken!),
-          } :
-        undefined,
+      note: note === undefined ? undefined : {
+          value: note,
+          token: extractTokenForInterpreter(noteNode!),
+        },
     };
   }
 
@@ -192,7 +192,7 @@ export default class Interpreter {
     let unique: boolean | undefined;
     let notNull: boolean | undefined;
     let note: string | undefined;
-    let noteToken: IdentiferStreamNode | undefined;
+    let noteNode: AttributeNode | undefined;
     let dbdefault:
       | {
           type: 'number' | 'string';
@@ -210,7 +210,7 @@ export default class Interpreter {
       notNull = collector.extractNotNull();
       dbdefault = collector.extractDefault();
       note = collector.extractNote();
-      noteToken = collector.settingMap.getNameNode('note') as IdentiferStreamNode | undefined;
+      noteNode = collector.settingMap.getAttributeNode('note') as AttributeNode | undefined;
       inlineRefs = collector.extractRef(tableName, schemaName);
       inlineRefs.forEach((ref) => {
         if (!this.logIfSameEndpoint(ref.node, field.symbol as ColumnSymbol, ref.referee)) {
@@ -244,12 +244,10 @@ export default class Interpreter {
       unique,
       not_null: notNull,
       inline_refs: _inlineRefs,
-      note: note ?
-        {
-            value: note,
-            token: extractTokenForInterpreter(noteToken!),
-          } :
-        undefined,
+      note: (note === undefined) ? undefined : {
+          value: note,
+          token: extractTokenForInterpreter(noteNode!),
+        },
     };
   }
 
@@ -413,15 +411,20 @@ export default class Interpreter {
   private enumField(field: FunctionApplicationNode): EnumField {
     const args = [field.callee, ...field.args];
     let note: string | undefined;
+    let noteNode: AttributeNode | undefined;
     if (args.length === 2) {
       const collector = collectAttribute(args[1] as ListExpressionNode, this.errors);
       note = collector.extractNote();
+      noteNode = collector.settingMap.getAttributeNode('note') as AttributeNode | undefined;
     }
 
     return {
       name: extractVarNameFromPrimaryVariable(args[0] as any).unwrap(),
       token: extractTokenForInterpreter(field),
-      note,
+      note: note === undefined ? undefined : {
+        value: note,
+        token: extractTokenForInterpreter(noteNode!),
+      },
     };
   }
 

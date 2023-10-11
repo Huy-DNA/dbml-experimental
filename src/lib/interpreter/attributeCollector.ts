@@ -46,16 +46,16 @@ class AttributeMap {
     return entry[0].value!;
   }
 
-  getNameNode(name: string): IdentiferStreamNode[] | IdentiferStreamNode | undefined {
+  getAttributeNode(name: string): AttributeNode | AttributeNode[] | undefined {
     const entry = this.map.get(name);
     if (entry === undefined) {
       return undefined;
     }
     if (entry.length >= 2) {
-      return entry.map((e) => e.name!);
+      return entry;
     }
 
-    return entry[0].name;
+    return entry[0];
   }
 }
 
