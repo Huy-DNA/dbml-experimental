@@ -1,139 +1,136 @@
 {
-  "value": {
-    "schemas": [],
-    "tables": [
-      {
-        "name": "sal_emp",
-        "schemaName": null,
-        "alias": null,
-        "fields": [
-          {
-            "name": "name",
-            "type": {
-              "schemaName": null,
-              "type_name": "text",
-              "args": null
-            },
-            "token": {
-              "start": {
-                "offset": 18,
-                "line": 2,
-                "column": 3
-              },
-              "end": {
-                "offset": 27,
-                "line": 2,
-                "column": 12
-              }
-            },
-            "inline_refs": []
+  "schemas": [],
+  "tables": [
+    {
+      "name": "sal_emp",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "name",
+          "type": {
+            "schemaName": null,
+            "type_name": "text",
+            "args": null
           },
-          {
-            "name": "pay_by_quarter",
-            "type": {
-              "schemaName": null,
-              "type_name": "int[]",
-              "args": null
+          "token": {
+            "start": {
+              "offset": 18,
+              "line": 2,
+              "column": 3
             },
-            "token": {
-              "start": {
-                "offset": 30,
-                "line": 3,
-                "column": 3
-              },
-              "end": {
-                "offset": 63,
-                "line": 3,
-                "column": 36
-              }
-            },
-            "not_null": true,
-            "inline_refs": []
+            "end": {
+              "offset": 27,
+              "line": 2,
+              "column": 12
+            }
           },
-          {
-            "name": "schedule",
-            "type": {
-              "schemaName": null,
-              "type_name": "text[][]",
-              "args": null
-            },
-            "token": {
-              "start": {
-                "offset": 66,
-                "line": 4,
-                "column": 3
-              },
-              "end": {
-                "offset": 92,
-                "line": 4,
-                "column": 29
-              }
-            },
-            "not_null": false,
-            "inline_refs": []
-          }
-        ],
-        "indexes": [],
-        "token": {
-          "start": {
-            "offset": 0,
-            "line": 1,
-            "column": 1
+          "inline_refs": []
+        },
+        {
+          "name": "pay_by_quarter",
+          "type": {
+            "schemaName": null,
+            "type_name": "int[]",
+            "args": null
           },
-          "end": {
-            "offset": 94,
-            "line": 5,
-            "column": 2
-          }
+          "token": {
+            "start": {
+              "offset": 30,
+              "line": 3,
+              "column": 3
+            },
+            "end": {
+              "offset": 63,
+              "line": 3,
+              "column": 36
+            }
+          },
+          "not_null": true,
+          "inline_refs": []
+        },
+        {
+          "name": "schedule",
+          "type": {
+            "schemaName": null,
+            "type_name": "text[][]",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 66,
+              "line": 4,
+              "column": 3
+            },
+            "end": {
+              "offset": 92,
+              "line": 4,
+              "column": 29
+            }
+          },
+          "not_null": false,
+          "inline_refs": []
         }
-      },
-      {
-        "name": "tictactoe",
-        "schemaName": null,
-        "alias": null,
-        "fields": [
-          {
-            "name": "squares",
-            "type": {
-              "schemaName": null,
-              "type_name": "integer[3][3]",
-              "args": null
-            },
-            "token": {
-              "start": {
-                "offset": 116,
-                "line": 8,
-                "column": 3
-              },
-              "end": {
-                "offset": 139,
-                "line": 8,
-                "column": 26
-              }
-            },
-            "inline_refs": []
-          }
-        ],
-        "indexes": [],
-        "token": {
-          "start": {
-            "offset": 96,
-            "line": 7,
-            "column": 1
-          },
-          "end": {
-            "offset": 141,
-            "line": 9,
-            "column": 2
-          }
+      ],
+      "indexes": [],
+      "token": {
+        "start": {
+          "offset": 0,
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "offset": 94,
+          "line": 5,
+          "column": 2
         }
       }
-    ],
-    "refs": [],
-    "enums": [],
-    "tableGroups": [],
-    "aliases": [],
-    "project": {}
-  },
-  "errors": []
+    },
+    {
+      "name": "tictactoe",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "squares",
+          "type": {
+            "schemaName": null,
+            "type_name": "integer[3][3]",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 116,
+              "line": 8,
+              "column": 3
+            },
+            "end": {
+              "offset": 139,
+              "line": 8,
+              "column": 26
+            }
+          },
+          "inline_refs": []
+        }
+      ],
+      "indexes": [],
+      "token": {
+        "start": {
+          "offset": 96,
+          "line": 7,
+          "column": 1
+        },
+        "end": {
+          "offset": 141,
+          "line": 9,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "refs": [],
+  "enums": [],
+  "tableGroups": [],
+  "aliases": [],
+  "project": {}
 }

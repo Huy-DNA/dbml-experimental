@@ -46,7 +46,7 @@ describe('#interpreter', () => {
         );
       } else {
         output = JSON.stringify(
-          res,
+          res.getValue(),
           (key, value) => (['symbol', 'references', 'referee'].includes(key) ? undefined : value),
           2,
         );
