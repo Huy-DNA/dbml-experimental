@@ -412,7 +412,6 @@
           }
         }
       ],
-      "schemaName": null,
       "token": {
         "start": {
           "offset": 448,
@@ -424,7 +423,8 @@
           "line": 24,
           "column": 39
         }
-      }
+      },
+      "schemaName": null
     },
     {
       "name": null,
@@ -470,7 +470,6 @@
           }
         }
       ],
-      "schemaName": null,
       "token": {
         "start": {
           "offset": 488,
@@ -482,7 +481,8 @@
           "line": 26,
           "column": 45
         }
-      }
+      },
+      "schemaName": null
     }
   ],
   "enums": [],

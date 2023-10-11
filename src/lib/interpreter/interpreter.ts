@@ -382,10 +382,10 @@ export default class Interpreter {
     return {
       name: refName,
       endpoints: [leftEndpoint, rightEndpoint],
-      schemaName: refSchemaName,
       delete: del as any,
       update: update as any,
       token: extractTokenForInterpreter(rel),
+      schemaName: refSchemaName,
     };
   }
 

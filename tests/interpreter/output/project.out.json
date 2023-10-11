@@ -822,7 +822,6 @@
           }
         }
       ],
-      "schemaName": null,
       "token": {
         "start": {
           "offset": 1254,
@@ -834,7 +833,8 @@
           "line": 86,
           "column": 45
         }
-      }
+      },
+      "schemaName": null
     },
     {
       "name": null,
@@ -880,7 +880,6 @@
           }
         }
       ],
-      "schemaName": null,
       "token": {
         "start": {
           "offset": 1300,
@@ -892,7 +891,8 @@
           "line": 88,
           "column": 49
         }
-      }
+      },
+      "schemaName": null
     },
     {
       "name": null,
@@ -938,7 +938,6 @@
           }
         }
       ],
-      "schemaName": null,
       "token": {
         "start": {
           "offset": 1350,
@@ -950,7 +949,8 @@
           "line": 90,
           "column": 48
         }
-      }
+      },
+      "schemaName": null
     },
     {
       "name": null,
@@ -996,7 +996,6 @@
           }
         }
       ],
-      "schemaName": null,
       "token": {
         "start": {
           "offset": 1399,
@@ -1008,7 +1007,8 @@
           "line": 92,
           "column": 52
         }
-      }
+      },
+      "schemaName": null
     },
     {
       "name": null,
@@ -1054,7 +1054,6 @@
           }
         }
       ],
-      "schemaName": null,
       "token": {
         "start": {
           "offset": 1452,
@@ -1066,7 +1065,8 @@
           "line": 94,
           "column": 48
         }
-      }
+      },
+      "schemaName": null
     },
     {
       "name": null,
@@ -1112,7 +1112,6 @@
           }
         }
       ],
-      "schemaName": null,
       "token": {
         "start": {
           "offset": 1501,
@@ -1124,7 +1123,8 @@
           "line": 96,
           "column": 42
         }
-      }
+      },
+      "schemaName": null
     }
   ],
   "enums": [
