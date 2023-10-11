@@ -17,7 +17,7 @@ describe('#benchmark', () => {
         compiler.setSource(program);
         res = compiler.parse.rawDb()?.normalize();
       },
-      () => {}
+      () => {},
     );
     const s = {
       mean: ns.mean / 1e9,
