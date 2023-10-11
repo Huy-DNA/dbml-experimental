@@ -119,7 +119,8 @@ export default class Interpreter {
 
     const collector = collectAttribute(element.attributeList, this.errors);
     const headerColor = collector.extractHeaderColor();
-    const note = collector.extractNote();
+    const headerNote = collector.extractNote();
+    let bodyNote: { value: string; token: TokenPosition } | undefined;
     const noteNode = collector.settingMap.getAttributeNode('note') as AttributeNode | undefined;
     const fields: Column[] = [];
     const indexes: Index[] = [];
@@ -135,14 +136,14 @@ export default class Interpreter {
             indexes.push(...this.indexes(sub));
             break;
           case 'note':
-            if (note !== undefined) {
+            if (headerNote !== undefined) {
               this.logError(
                 sub,
                 CompileErrorCode.NOTE_REDEFINED,
                 'Note already appears as a setting of the table',
               );
             } else {
-              this.note(sub);
+              bodyNote = this.note(sub);
             }
             break;
         }
@@ -158,10 +159,10 @@ export default class Interpreter {
       indexes,
       headerColor,
       note:
-        note === undefined ?
-          undefined :
+        headerNote === undefined ?
+          bodyNote :
           {
-              value: note,
+              value: headerNote,
               token: extractTokenForInterpreter(noteNode!),
             },
     };

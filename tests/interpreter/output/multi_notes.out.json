@@ -98,7 +98,22 @@
           "column": 2
         }
       },
-      "indexes": []
+      "indexes": [],
+      "note": {
+        "value": "Note on table orders",
+        "token": {
+          "start": {
+            "offset": 287,
+            "line": 17,
+            "column": 3
+          },
+          "end": {
+            "offset": 324,
+            "line": 19,
+            "column": 4
+          }
+        }
+      }
     },
     {
       "name": "bookings",
