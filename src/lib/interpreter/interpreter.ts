@@ -344,6 +344,9 @@ export default class Interpreter {
     const [leftCardinality, rightCardinality] = convertRelationOpToCardinalities(rel.op!.value);
     const leftReferees = getColumnSymbolsOfRefOperand(rel.leftExpression!).unwrap();
     const rightReferees = getColumnSymbolsOfRefOperand(rel.rightExpression!).unwrap();
+    if (!this.logIfUnequalFields(rel, leftReferees, rightReferees)) {
+      return undefined;
+    }
     if (!this.logIfSameEndpoint(rel, leftReferees, rightReferees)) {
       return undefined;
     }
@@ -614,6 +617,20 @@ export default class Interpreter {
       // eslint-disable-next-line no-unneeded-ternary
       schemaName: schemaName ? schemaName : null,
     });
+  }
+
+  private logIfUnequalFields(
+    node: SyntaxNode,
+    firstColumnSymbols: ColumnSymbol[],
+    secondColumnSymbols: ColumnSymbol[],
+  ): boolean {
+    if (firstColumnSymbols.length !== secondColumnSymbols.length) {
+      this.logError(node, CompileErrorCode.UNEQUAL_FIELDS_BINARY_REF, 'Two endpoints have unequal number of fields');
+
+      return false;
+    }
+
+    return true;
   }
 
   private logIfSameEndpoint(
