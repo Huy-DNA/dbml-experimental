@@ -149,8 +149,8 @@ class AttributeCollector {
 
     if (_deflt instanceof FunctionExpressionNode) {
       return {
-        type: 'expression',
         value: _deflt.value!.value,
+        type: 'expression',
       };
     }
 

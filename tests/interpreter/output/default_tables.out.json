@@ -101,8 +101,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "type": "expression",
-            "value": "now()"
+            "value": "now()",
+            "type": "expression"
           }
         }
       ],
@@ -352,8 +352,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "type": "expression",
-            "value": "current_date + interval 1 year"
+            "value": "current_date + interval 1 year",
+            "type": "expression"
           }
         }
       ],
