@@ -123,8 +123,8 @@ class AttributeCollector {
 
     if (isExpressionANumber(_deflt)) {
       return {
-        value: Number(_deflt.expression.literal.value),
         type: 'number',
+        value: Number(_deflt.expression.literal.value),
       };
     }
 
@@ -134,16 +134,16 @@ class AttributeCollector {
       isExpressionANumber(_deflt.expression)
     ) {
       return {
+        type: 'number',
         value:
           Number(_deflt.expression.expression.literal.value) * (_deflt.op?.value === '+' ? 1 : -1),
-        type: 'number',
       };
     }
 
     if (isExpressionAQuotedString(_deflt)) {
       return {
-        type: 'string',
         value: extractQuotedStringToken(_deflt as SyntaxNode).unwrap(),
+        type: 'string',
       };
     }
 

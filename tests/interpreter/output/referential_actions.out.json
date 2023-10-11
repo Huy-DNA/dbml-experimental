@@ -198,8 +198,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "value": 1,
-            "type": "number"
+            "type": "number",
+            "value": 1
           }
         }
       ],
