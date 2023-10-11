@@ -16,12 +16,12 @@
             },
             "token": {
               "start": {
-                "offset": 19,
+                "offset": 18,
                 "line": 2,
                 "column": 3
               },
               "end": {
-                "offset": 28,
+                "offset": 27,
                 "line": 2,
                 "column": 12
               }
@@ -37,12 +37,12 @@
             },
             "token": {
               "start": {
-                "offset": 32,
+                "offset": 30,
                 "line": 3,
                 "column": 3
               },
               "end": {
-                "offset": 65,
+                "offset": 63,
                 "line": 3,
                 "column": 36
               }
@@ -59,12 +59,12 @@
             },
             "token": {
               "start": {
-                "offset": 69,
+                "offset": 66,
                 "line": 4,
                 "column": 3
               },
               "end": {
-                "offset": 95,
+                "offset": 92,
                 "line": 4,
                 "column": 29
               }
@@ -81,7 +81,7 @@
             "column": 1
           },
           "end": {
-            "offset": 98,
+            "offset": 94,
             "line": 5,
             "column": 2
           }
@@ -101,12 +101,12 @@
             },
             "token": {
               "start": {
-                "offset": 123,
+                "offset": 116,
                 "line": 8,
                 "column": 3
               },
               "end": {
-                "offset": 146,
+                "offset": 139,
                 "line": 8,
                 "column": 26
               }
@@ -117,12 +117,12 @@
         "indexes": [],
         "token": {
           "start": {
-            "offset": 102,
+            "offset": 96,
             "line": 7,
             "column": 1
           },
           "end": {
-            "offset": 149,
+            "offset": 141,
             "line": 9,
             "column": 2
           }

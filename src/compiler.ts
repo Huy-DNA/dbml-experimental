@@ -5,7 +5,6 @@ import SymbolTable from './lib/analyzer/symbol/symbolTable';
 import { isOffsetWithinSpan } from './lib/utils';
 import { CompileError } from './lib/errors';
 import {
-  AttributeNode,
   BlockExpressionNode,
   ElementDeclarationNode,
   FunctionApplicationNode,

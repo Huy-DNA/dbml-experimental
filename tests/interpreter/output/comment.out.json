@@ -16,12 +16,12 @@
             },
             "token": {
               "start": {
-                "offset": 131,
+                "offset": 117,
                 "line": 15,
                 "column": 3
               },
               "end": {
-                "offset": 142,
+                "offset": 128,
                 "line": 15,
                 "column": 14
               }
@@ -38,12 +38,12 @@
             },
             "token": {
               "start": {
-                "offset": 161,
+                "offset": 146,
                 "line": 16,
                 "column": 3
               },
               "end": {
-                "offset": 191,
+                "offset": 176,
                 "line": 16,
                 "column": 33
               }
@@ -61,12 +61,12 @@
             },
             "token": {
               "start": {
-                "offset": 195,
+                "offset": 179,
                 "line": 17,
                 "column": 3
               },
               "end": {
-                "offset": 238,
+                "offset": 222,
                 "line": 17,
                 "column": 46
               }
@@ -76,12 +76,12 @@
               "value": "Status of an order",
               "token": {
                 "start": {
-                  "offset": 211,
+                  "offset": 195,
                   "line": 17,
                   "column": 19
                 },
                 "end": {
-                  "offset": 215,
+                  "offset": 199,
                   "line": 17,
                   "column": 23
                 }
@@ -97,12 +97,12 @@
             },
             "token": {
               "start": {
-                "offset": 242,
+                "offset": 225,
                 "line": 18,
                 "column": 3
               },
               "end": {
-                "offset": 289,
+                "offset": 272,
                 "line": 18,
                 "column": 50
               }
@@ -112,12 +112,12 @@
               "value": "When order created",
               "token": {
                 "start": {
-                  "offset": 262,
+                  "offset": 245,
                   "line": 18,
                   "column": 23
                 },
                 "end": {
-                  "offset": 266,
+                  "offset": 249,
                   "line": 18,
                   "column": 27
                 }
@@ -128,12 +128,12 @@
         "indexes": [],
         "token": {
           "start": {
-            "offset": 106,
+            "offset": 93,
             "line": 14,
             "column": 1
           },
           "end": {
-            "offset": 467,
+            "offset": 439,
             "line": 29,
             "column": 2
           }
@@ -150,12 +150,12 @@
             "name": "out_of_stock",
             "token": {
               "start": {
-                "offset": 520,
+                "offset": 487,
                 "line": 34,
                 "column": 3
               },
               "end": {
-                "offset": 532,
+                "offset": 499,
                 "line": 34,
                 "column": 15
               }
@@ -165,12 +165,12 @@
             "name": "in_stock",
             "token": {
               "start": {
-                "offset": 547,
+                "offset": 513,
                 "line": 35,
                 "column": 3
               },
               "end": {
-                "offset": 574,
+                "offset": 540,
                 "line": 35,
                 "column": 30
               }
@@ -181,12 +181,12 @@
             "name": "running_low",
             "token": {
               "start": {
-                "offset": 578,
+                "offset": 543,
                 "line": 36,
                 "column": 3
               },
               "end": {
-                "offset": 612,
+                "offset": 577,
                 "line": 36,
                 "column": 37
               }
@@ -196,12 +196,12 @@
         ],
         "token": {
           "start": {
-            "offset": 488,
+            "offset": 456,
             "line": 33,
             "column": 1
           },
           "end": {
-            "offset": 644,
+            "offset": 607,
             "line": 38,
             "column": 2
           }
@@ -215,12 +215,12 @@
             "name": "out_of_stock",
             "token": {
               "start": {
-                "offset": 744,
+                "offset": 699,
                 "line": 46,
                 "column": 3
               },
               "end": {
-                "offset": 756,
+                "offset": 711,
                 "line": 46,
                 "column": 15
               }
@@ -230,12 +230,12 @@
             "name": "in_stock",
             "token": {
               "start": {
-                "offset": 771,
+                "offset": 725,
                 "line": 47,
                 "column": 3
               },
               "end": {
-                "offset": 779,
+                "offset": 733,
                 "line": 47,
                 "column": 11
               }
@@ -245,12 +245,12 @@
             "name": "running_low",
             "token": {
               "start": {
-                "offset": 858,
+                "offset": 807,
                 "line": 52,
                 "column": 3
               },
               "end": {
-                "offset": 892,
+                "offset": 841,
                 "line": 52,
                 "column": 37
               }
@@ -260,12 +260,12 @@
         ],
         "token": {
           "start": {
-            "offset": 654,
+            "offset": 615,
             "line": 40,
             "column": 1
           },
           "end": {
-            "offset": 975,
+            "offset": 920,
             "line": 56,
             "column": 2
           }

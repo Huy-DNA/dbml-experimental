@@ -16,27 +16,27 @@
             },
             "token": {
               "start": {
-                "offset": 17,
+                "offset": 16,
                 "line": 2,
                 "column": 3
               },
               "end": {
-                "offset": 205,
+                "offset": 195,
                 "line": 11,
                 "column": 7
               }
             },
             "inline_refs": [],
             "note": {
-              "value": "\r\n\r\n    # Objective\r\n      * Support writing long string that can \\undefined\n'span' over multiple lines\r\n      * Support writing markdown for DBML Note\r\n  \r\n    # Syntax\r\n\r\n  ",
+              "value": "\n\n    # Objective\n      * Support writing long string that can \\undefined'span' over multiple lines\n      * Support writing markdown for DBML Note\n  \n    # Syntax\n\n  ",
               "token": {
                 "start": {
-                  "offset": 25,
+                  "offset": 24,
                   "line": 2,
                   "column": 11
                 },
                 "end": {
-                  "offset": 29,
+                  "offset": 28,
                   "line": 2,
                   "column": 15
                 }
@@ -52,7 +52,7 @@
             "column": 1
           },
           "end": {
-            "offset": 208,
+            "offset": 197,
             "line": 12,
             "column": 2
           }

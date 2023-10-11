@@ -16,12 +16,12 @@
             },
             "token": {
               "start": {
-                "offset": 38,
+                "offset": 37,
                 "line": 2,
                 "column": 3
               },
               "end": {
-                "offset": 51,
+                "offset": 50,
                 "line": 2,
                 "column": 16
               }
@@ -38,12 +38,12 @@
             },
             "token": {
               "start": {
-                "offset": 55,
+                "offset": 53,
                 "line": 3,
                 "column": 3
               },
               "end": {
-                "offset": 68,
+                "offset": 66,
                 "line": 3,
                 "column": 16
               }
@@ -59,7 +59,7 @@
             "column": 1
           },
           "end": {
-            "offset": 71,
+            "offset": 68,
             "line": 4,
             "column": 2
           }
@@ -80,12 +80,12 @@
             },
             "token": {
               "start": {
-                "offset": 123,
+                "offset": 117,
                 "line": 7,
                 "column": 3
               },
               "end": {
-                "offset": 136,
+                "offset": 130,
                 "line": 7,
                 "column": 16
               }
@@ -102,12 +102,12 @@
             },
             "token": {
               "start": {
-                "offset": 140,
+                "offset": 133,
                 "line": 8,
                 "column": 3
               },
               "end": {
-                "offset": 164,
+                "offset": 157,
                 "line": 8,
                 "column": 27
               }
@@ -119,12 +119,12 @@
         "indexes": [],
         "token": {
           "start": {
-            "offset": 75,
+            "offset": 70,
             "line": 6,
             "column": 1
           },
           "end": {
-            "offset": 167,
+            "offset": 159,
             "line": 9,
             "column": 2
           }
@@ -133,12 +133,12 @@
           "value": "name is required",
           "token": {
             "start": {
-              "offset": 92,
+              "offset": 87,
               "line": 6,
               "column": 18
             },
             "end": {
-              "offset": 96,
+              "offset": 91,
               "line": 6,
               "column": 22
             }
@@ -159,12 +159,12 @@
             },
             "token": {
               "start": {
-                "offset": 248,
+                "offset": 237,
                 "line": 12,
                 "column": 3
               },
               "end": {
-                "offset": 261,
+                "offset": 250,
                 "line": 12,
                 "column": 16
               }
@@ -181,12 +181,12 @@
             },
             "token": {
               "start": {
-                "offset": 265,
+                "offset": 253,
                 "line": 13,
                 "column": 3
               },
               "end": {
-                "offset": 278,
+                "offset": 266,
                 "line": 13,
                 "column": 16
               }
@@ -202,12 +202,12 @@
             },
             "token": {
               "start": {
-                "offset": 282,
+                "offset": 269,
                 "line": 14,
                 "column": 3
               },
               "end": {
-                "offset": 308,
+                "offset": 295,
                 "line": 14,
                 "column": 29
               }
@@ -219,12 +219,12 @@
         "indexes": [],
         "token": {
           "start": {
-            "offset": 171,
+            "offset": 161,
             "line": 11,
             "column": 1
           },
           "end": {
-            "offset": 311,
+            "offset": 297,
             "line": 15,
             "column": 2
           }
@@ -234,12 +234,12 @@
           "value": "product must have price",
           "token": {
             "start": {
-              "offset": 210,
+              "offset": 200,
               "line": 11,
               "column": 40
             },
             "end": {
-              "offset": 214,
+              "offset": 204,
               "line": 11,
               "column": 44
             }
@@ -260,12 +260,12 @@
             },
             "token": {
               "start": {
-                "offset": 390,
+                "offset": 373,
                 "line": 18,
                 "column": 3
               },
               "end": {
-                "offset": 403,
+                "offset": 386,
                 "line": 18,
                 "column": 16
               }
@@ -282,12 +282,12 @@
             },
             "token": {
               "start": {
-                "offset": 407,
+                "offset": 389,
                 "line": 19,
                 "column": 3
               },
               "end": {
-                "offset": 420,
+                "offset": 402,
                 "line": 19,
                 "column": 16
               }
@@ -303,12 +303,12 @@
             },
             "token": {
               "start": {
-                "offset": 424,
+                "offset": 405,
                 "line": 20,
                 "column": 3
               },
               "end": {
-                "offset": 440,
+                "offset": 421,
                 "line": 20,
                 "column": 19
               }
@@ -324,12 +324,12 @@
             },
             "token": {
               "start": {
-                "offset": 444,
+                "offset": 424,
                 "line": 21,
                 "column": 3
               },
               "end": {
-                "offset": 460,
+                "offset": 440,
                 "line": 21,
                 "column": 19
               }
@@ -340,12 +340,12 @@
         "indexes": [],
         "token": {
           "start": {
-            "offset": 315,
+            "offset": 299,
             "line": 17,
             "column": 1
           },
           "end": {
-            "offset": 463,
+            "offset": 442,
             "line": 22,
             "column": 2
           }
@@ -355,12 +355,12 @@
           "value": "merchants sell a lot",
           "token": {
             "start": {
-              "offset": 355,
+              "offset": 339,
               "line": 17,
               "column": 41
             },
             "end": {
-              "offset": 359,
+              "offset": 343,
               "line": 17,
               "column": 45
             }
@@ -382,12 +382,12 @@
             "relation": "1",
             "token": {
               "start": {
-                "offset": 471,
+                "offset": 448,
                 "line": 24,
                 "column": 5
               },
               "end": {
-                "offset": 482,
+                "offset": 459,
                 "line": 24,
                 "column": 16
               }
@@ -402,12 +402,12 @@
             "relation": "*",
             "token": {
               "start": {
-                "offset": 485,
+                "offset": 462,
                 "line": 24,
                 "column": 19
               },
               "end": {
-                "offset": 505,
+                "offset": 482,
                 "line": 24,
                 "column": 39
               }
@@ -416,12 +416,12 @@
         ],
         "token": {
           "start": {
-            "offset": 471,
+            "offset": 448,
             "line": 24,
             "column": 5
           },
           "end": {
-            "offset": 505,
+            "offset": 482,
             "line": 24,
             "column": 39
           }
@@ -440,12 +440,12 @@
             "relation": "1",
             "token": {
               "start": {
-                "offset": 513,
+                "offset": 488,
                 "line": 26,
                 "column": 5
               },
               "end": {
-                "offset": 527,
+                "offset": 502,
                 "line": 26,
                 "column": 19
               }
@@ -460,12 +460,12 @@
             "relation": "*",
             "token": {
               "start": {
-                "offset": 530,
+                "offset": 505,
                 "line": 26,
                 "column": 22
               },
               "end": {
-                "offset": 553,
+                "offset": 528,
                 "line": 26,
                 "column": 45
               }
@@ -474,12 +474,12 @@
         ],
         "token": {
           "start": {
-            "offset": 513,
+            "offset": 488,
             "line": 26,
             "column": 5
           },
           "end": {
-            "offset": 553,
+            "offset": 528,
             "line": 26,
             "column": 45
           }
