@@ -380,8 +380,8 @@ export default class Interpreter {
     }
 
     return {
-      schemaName: refSchemaName,
       name: refName,
+      schemaName: refSchemaName,
       endpoints: [leftEndpoint, rightEndpoint],
       delete: del as any,
       update: update as any,
