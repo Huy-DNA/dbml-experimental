@@ -555,6 +555,7 @@ export default class Interpreter {
     let unique: boolean | undefined;
     let name: string | undefined;
     let note: string | undefined;
+    let noteNode: AttributeNode | undefined;
     let type: string | undefined;
     if (args.length === 2) {
       const collector = collectAttribute(args[1] as ListExpressionNode, this.errors);
@@ -562,6 +563,7 @@ export default class Interpreter {
       unique = collector.extractUnique();
       name = collector.extractIdxName();
       note = collector.extractNote();
+      noteNode = collector.settingMap.getAttributeNode('note') as AttributeNode | undefined;
       type = collector.extractIndexType();
     }
 
@@ -581,7 +583,10 @@ export default class Interpreter {
       unique,
       name,
       type,
-      note,
+      note: (note === undefined) ? undefined : {
+        value: note,
+        token: extractTokenForInterpreter(noteNode!),
+      },
     };
   }
 

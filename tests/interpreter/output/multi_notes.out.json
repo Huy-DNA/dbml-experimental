@@ -248,7 +248,21 @@
             }
           },
           "name": "created_at_index",
-          "note": "Date"
+          "note": {
+            "value": "Date",
+            "token": {
+              "start": {
+                "offset": 526,
+                "line": 30,
+                "column": 45
+              },
+              "end": {
+                "offset": 538,
+                "line": 30,
+                "column": 57
+              }
+            }
+          }
         },
         {
           "columns": [

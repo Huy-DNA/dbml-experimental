@@ -63,7 +63,10 @@ export interface Index {
   unique?: boolean;
   pk?: boolean;
   name?: string;
-  note?: string;
+  note?: {
+    value: string;
+    token: TokenPosition;
+  };
   type?: string;
 }
 

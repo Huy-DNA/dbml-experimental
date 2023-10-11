@@ -211,7 +211,21 @@
             }
           },
           "unique": true,
-          "note": "index note"
+          "note": {
+            "value": "index note",
+            "token": {
+              "start": {
+                "offset": 225,
+                "line": 12,
+                "column": 19
+              },
+              "end": {
+                "offset": 243,
+                "line": 12,
+                "column": 37
+              }
+            }
+          }
         },
         {
           "columns": [
