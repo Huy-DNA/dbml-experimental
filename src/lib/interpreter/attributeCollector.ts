@@ -19,7 +19,7 @@ import { InlineRef } from './types';
 import { ColumnSymbol } from '../analyzer/symbol/symbols';
 import {
   extractTokenForInterpreter,
-  getColumnSymbolOfRefOperand,
+  getColumnSymbolsOfRefOperand,
   processRelOperand,
 } from './utils';
 
@@ -190,15 +190,17 @@ class AttributeCollector {
       if (maybeName instanceof CompileError) {
         this.errors.push(maybeName);
       } else {
-        const { columnName, tableName, schemaName } = maybeName;
+        const { columnNames, tableName, schemaName } = maybeName;
         const relation = (ref as PrefixExpressionNode).op!.value as any;
         res.push({
           schemaName,
           tableName,
-          fieldNames: [columnName],
+          fieldNames: columnNames,
           relation,
           token: extractTokenForInterpreter(ref),
-          referee: getColumnSymbolOfRefOperand((ref as PrefixExpressionNode).expression!).unwrap(),
+          referee: getColumnSymbolsOfRefOperand(
+            (ref as PrefixExpressionNode).expression!,
+          ).unwrap()[0],
           node: ref,
         });
       }
@@ -296,7 +298,7 @@ class AttributeCollector {
         new CompileError(
           CompileErrorCode.CONFLICTING_SETTING,
           'null and not null can not be set at the same time',
-          this.settingMap.getNameNode('not null') as IdentiferStreamNode,
+          this.settingMap.getAttributeNode('not null') as AttributeNode,
         ),
       );
 

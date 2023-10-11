@@ -42,7 +42,7 @@ export interface Column {
   inline_refs: InlineRef[];
   pk?: boolean;
   dbdefault?: {
-    type: 'number' | 'string';
+    type: 'number' | 'string' | 'boolean' | 'expression';
     value: number | string;
   };
   increment?: boolean;

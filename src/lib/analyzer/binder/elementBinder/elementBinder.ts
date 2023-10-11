@@ -1,8 +1,8 @@
 import _ from 'lodash';
+import { isTupleOfVariables } from '../../validator/utils';
 import {
   BlockExpressionNode,
   ElementDeclarationNode,
-  ExpressionNode,
   FunctionApplicationNode,
   InfixExpressionNode,
   ListExpressionNode,
@@ -123,10 +123,10 @@ export default abstract class ElementBinder {
       ) {
         return;
       }
-      this.bindFragments(node, rule);
+      this.bindFragments([node], rule);
     } else if (node instanceof InfixExpressionNode) {
       if (isAccessExpression(node)) {
-        this.bindFragments(node, rule);
+        this.bindFragments(destructureMemberAccessExpression(node).unwrap_or([]), rule);
       } else {
         this.scanAndBind(node.leftExpression, rule);
         this.scanAndBind(node.rightExpression, rule);
@@ -142,22 +142,20 @@ export default abstract class ElementBinder {
     // The other cases are not supported as practically they shouldn't arise
   }
 
-  private bindFragments(
-    node: PrimaryExpressionNode | (InfixExpressionNode & { op: SyntaxToken & { value: '.' } }),
-    rule: BinderRule & { shouldBind: true },
-  ) {
-    const rawFragments = destructureMemberAccessExpression(node).unwrap_or(undefined);
-    if (!rawFragments) {
+  private bindFragments(rawFragments: SyntaxNode[], rule: BinderRule & { shouldBind: true }) {
+    if (rawFragments.length === 0) {
       return;
     }
 
     const topSubnamesSymbolKind = [...rule.topSubnamesSymbolKind!];
     const { remainingSubnamesSymbolKind } = rule;
 
+    // Handle cases of binding an incomplete member access expression
     const invalidIndex = rawFragments.findIndex((f) => !isExpressionAVariableNode(f));
-    if (invalidIndex >= 0) {
-      topSubnamesSymbolKind.pop();
-    }
+    const isComplexTuple = invalidIndex !== -1 && isTupleOfVariables(rawFragments[invalidIndex]);
+    // In case of a complex tuple expression, both `tuple` and `tupleVarSymbolKind` will not be `undefined`
+    const tuple = isComplexTuple ? (rawFragments[invalidIndex] as TupleExpressionNode) : undefined;
+    const tupleVarSymbolKind = invalidIndex >= 0 ? topSubnamesSymbolKind.pop() : undefined;
 
     const fragments = rawFragments.slice(
       0,
@@ -190,7 +188,23 @@ export default abstract class ElementBinder {
       });
     }
 
-    this.resolveIndexStack(subnameStack, rule.ignoreNameNotFound);
+    return tuple ?
+      tuple.elementList.forEach((e) =>
+          this.resolveIndexStack(
+            [
+              ...subnameStack,
+              {
+                index: createNodeSymbolIndex(
+                  extractVarNameFromPrimaryVariable(e as any).unwrap(),
+                  tupleVarSymbolKind!,
+                ),
+                referrer: e,
+              },
+            ],
+            rule.ignoreNameNotFound,
+          ),
+        ) :
+      this.resolveIndexStack(subnameStack, rule.ignoreNameNotFound);
   }
 
   private resolveIndexStack(

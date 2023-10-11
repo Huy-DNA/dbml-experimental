@@ -8,6 +8,7 @@ import {
   PrefixExpressionNode,
   PrimaryExpressionNode,
   SyntaxNode,
+  TupleExpressionNode,
   VariableNode,
 } from '../../parser/nodes';
 import { isHexChar } from '../../utils';
@@ -24,7 +25,7 @@ import { createSchemaSymbolIndex } from '../symbol/symbolIndex';
 import { SchemaSymbol } from '../symbol/symbols';
 import SymbolTable from '../symbol/symbolTable';
 import SymbolFactory from '../symbol/factory';
-import { isAccessExpression } from '../../parser/utils';
+import { isAccessExpression, isExpressionAVariableNode } from '../../parser/utils';
 import { ElementKind } from './types';
 import { NUMERIC_LITERAL_PREFIX } from '../../../constants';
 
@@ -234,6 +235,12 @@ export function isUnaryRelationship(value?: SyntaxNode): value is PrefixExpressi
   const variables = destructureComplexVariable(value.expression).unwrap_or(undefined);
 
   return variables !== undefined && variables.length > 0;
+}
+
+export function isTupleOfVariables(value?: SyntaxNode): value is TupleExpressionNode & {
+  elementList: (PrimaryExpressionNode & { expression: VariableNode })[];
+} {
+  return value instanceof TupleExpressionNode && value.elementList.every(isExpressionAVariableNode);
 }
 
 export { isBinaryRelationship };

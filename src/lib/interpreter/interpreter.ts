@@ -37,7 +37,7 @@ import { ColumnSymbol } from '../analyzer/symbol/symbols';
 import {
   convertRelationOpToCardinalities,
   extractTokenForInterpreter,
-  getColumnSymbolOfRefOperand,
+  getColumnSymbolsOfRefOperand,
   isCircular,
   isSameEndpoint,
   processRelOperand,
@@ -196,7 +196,7 @@ export default class Interpreter {
     let noteNode: AttributeNode | undefined;
     let dbdefault:
       | {
-          type: 'number' | 'string';
+          type: 'number' | 'string' | 'boolean' | 'expression';
           value: number | string;
         }
       | undefined;
@@ -214,10 +214,10 @@ export default class Interpreter {
       noteNode = collector.settingMap.getAttributeNode('note') as AttributeNode | undefined;
       inlineRefs = collector.extractRef(tableName, schemaName);
       inlineRefs.forEach((ref) => {
-        if (!this.logIfSameEndpoint(ref.node, field.symbol as ColumnSymbol, ref.referee)) {
+        if (!this.logIfSameEndpoint(ref.node, [field.symbol as ColumnSymbol], [ref.referee])) {
           return;
         }
-        if (!this.logIfCircularRefError(ref.node, field.symbol as ColumnSymbol, ref.referee)) {
+        if (!this.logIfCircularRefError(ref.node, [field.symbol as ColumnSymbol], [ref.referee])) {
           return;
         }
         _inlineRefs.push({
@@ -342,12 +342,12 @@ export default class Interpreter {
     const args = [field.callee, ...field.args];
     const rel = args[0] as InfixExpressionNode;
     const [leftCardinality, rightCardinality] = convertRelationOpToCardinalities(rel.op!.value);
-    const leftReferee = getColumnSymbolOfRefOperand(rel.leftExpression!).unwrap();
-    const rightReferee = getColumnSymbolOfRefOperand(rel.rightExpression!).unwrap();
-    if (!this.logIfSameEndpoint(rel, leftReferee, rightReferee)) {
+    const leftReferees = getColumnSymbolsOfRefOperand(rel.leftExpression!).unwrap();
+    const rightReferees = getColumnSymbolsOfRefOperand(rel.rightExpression!).unwrap();
+    if (!this.logIfSameEndpoint(rel, leftReferees, rightReferees)) {
       return undefined;
     }
-    if (!this.logIfCircularRefError(rel, leftReferee, rightReferee)) {
+    if (!this.logIfCircularRefError(rel, leftReferees, rightReferees)) {
       return undefined;
     }
     const left = processRelOperand(rel.leftExpression!, ownerTableName, ownerSchemaName);
@@ -365,14 +365,14 @@ export default class Interpreter {
     const leftEndpoint: RefEndpoint = {
       schemaName: left.schemaName,
       tableName: left.tableName,
-      fieldNames: [left.columnName],
+      fieldNames: left.columnNames,
       relation: leftCardinality,
       token: extractTokenForInterpreter(rel.leftExpression!),
     };
     const rightEndpoint: RefEndpoint = {
       schemaName: right.schemaName,
       tableName: right.tableName,
-      fieldNames: [right.columnName],
+      fieldNames: right.columnNames,
       relation: rightCardinality,
       token: extractTokenForInterpreter(rel.rightExpression!),
     };
@@ -583,10 +583,13 @@ export default class Interpreter {
       unique,
       name,
       type,
-      note: (note === undefined) ? undefined : {
-        value: note,
-        token: extractTokenForInterpreter(noteNode!),
-      },
+      note:
+        note === undefined ?
+          undefined :
+          {
+              value: note,
+              token: extractTokenForInterpreter(noteNode!),
+            },
     };
   }
 
@@ -615,10 +618,10 @@ export default class Interpreter {
 
   private logIfSameEndpoint(
     node: SyntaxNode,
-    firstColumnSymbol: ColumnSymbol,
-    secondColumnSymbol: ColumnSymbol,
+    firstColumnSymbols: ColumnSymbol[],
+    secondColumnSymbols: ColumnSymbol[],
   ): boolean {
-    if (isSameEndpoint(firstColumnSymbol, secondColumnSymbol)) {
+    if (isSameEndpoint(firstColumnSymbols, secondColumnSymbols)) {
       this.logError(node, CompileErrorCode.SAME_ENDPOINT, 'Two endpoints are the same');
 
       return false;
@@ -629,10 +632,10 @@ export default class Interpreter {
 
   private logIfCircularRefError(
     node: SyntaxNode,
-    firstColumnSymbol: ColumnSymbol,
-    secondColumnSymbol: ColumnSymbol,
+    firstColumnSymbols: ColumnSymbol[],
+    secondColumnSymbols: ColumnSymbol[],
   ): boolean {
-    if (isCircular(firstColumnSymbol, secondColumnSymbol, this.endpointPairSet)) {
+    if (isCircular(firstColumnSymbols, secondColumnSymbols, this.endpointPairSet)) {
       this.logError(
         node,
         CompileErrorCode.UNSUPPORTED,

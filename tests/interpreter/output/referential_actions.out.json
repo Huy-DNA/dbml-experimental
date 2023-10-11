@@ -1,748 +1,837 @@
-[
-  {
-    "code": 3035,
-    "diagnostic": "This field must be a valid binary relationship",
-    "nodeOrToken": {
-      "id": 262,
-      "kind": "<infix-expression>",
-      "startPos": {
-        "offset": 837,
-        "line": 44,
-        "column": 4
-      },
-      "fullStart": 837,
-      "endPos": {
-        "offset": 909,
-        "line": 44,
-        "column": 76
-      },
-      "fullEnd": 910,
-      "start": 837,
-      "end": 909,
-      "op": {
-        "kind": "<op>",
-        "startPos": {
-          "offset": 863,
-          "line": 44,
-          "column": 30
-        },
-        "endPos": {
-          "offset": 864,
-          "line": 44,
-          "column": 31
-        },
-        "value": "<",
-        "leadingTrivia": [],
-        "trailingTrivia": [
-          {
-            "kind": "<space>",
-            "startPos": {
-              "offset": 864,
-              "line": 44,
-              "column": 31
-            },
-            "endPos": {
-              "offset": 865,
-              "line": 44,
-              "column": 32
-            },
-            "value": " ",
-            "leadingTrivia": [],
-            "trailingTrivia": [],
-            "leadingInvalid": [],
-            "trailingInvalid": [],
-            "isInvalid": false,
-            "start": 864,
-            "end": 865
-          }
-        ],
-        "leadingInvalid": [],
-        "trailingInvalid": [],
-        "isInvalid": false,
-        "start": 863,
-        "end": 864
-      },
-      "leftExpression": {
-        "id": 253,
-        "kind": "<infix-expression>",
-        "startPos": {
-          "offset": 837,
-          "line": 44,
-          "column": 4
-        },
-        "fullStart": 837,
-        "endPos": {
-          "offset": 862,
-          "line": 44,
-          "column": 29
-        },
-        "fullEnd": 863,
-        "start": 837,
-        "end": 862,
-        "op": {
-          "kind": "<op>",
-          "startPos": {
-            "offset": 847,
-            "line": 44,
-            "column": 14
+{
+  "schemas": [],
+  "tables": [
+    {
+      "name": "orders",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
           },
-          "endPos": {
-            "offset": 848,
-            "line": 44,
-            "column": 15
-          },
-          "value": ".",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 847,
-          "end": 848
-        },
-        "leftExpression": {
-          "id": 247,
-          "kind": "<primary-expression>",
-          "startPos": {
-            "offset": 837,
-            "line": 44,
-            "column": 4
-          },
-          "fullStart": 837,
-          "endPos": {
-            "offset": 847,
-            "line": 44,
-            "column": 14
-          },
-          "fullEnd": 847,
-          "start": 837,
-          "end": 847,
-          "expression": {
-            "id": 246,
-            "kind": "<variable>",
-            "startPos": {
-              "offset": 837,
-              "line": 44,
-              "column": 4
+          "token": {
+            "start": {
+              "offset": 19,
+              "line": 2,
+              "column": 3
             },
-            "fullStart": 837,
-            "endPos": {
-              "offset": 847,
-              "line": 44,
-              "column": 14
-            },
-            "fullEnd": 847,
-            "start": 837,
-            "end": 847,
-            "variable": {
-              "kind": "<variable>",
-              "startPos": {
-                "offset": 837,
-                "line": 44,
-                "column": 4
-              },
-              "endPos": {
-                "offset": 847,
-                "line": 44,
-                "column": 14
-              },
-              "value": "products",
-              "leadingTrivia": [],
-              "trailingTrivia": [],
-              "leadingInvalid": [],
-              "trailingInvalid": [],
-              "isInvalid": false,
-              "start": 837,
-              "end": 847
+            "end": {
+              "offset": 43,
+              "line": 2,
+              "column": 27
             }
-          }
+          },
+          "pk": true,
+          "increment": true,
+          "inline_refs": []
         },
-        "rightExpression": {
-          "id": 252,
-          "kind": "<tuple-expression>",
-          "startPos": {
-            "offset": 848,
-            "line": 44,
-            "column": 15
+        {
+          "name": "user_id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
           },
-          "fullStart": 848,
-          "endPos": {
-            "offset": 862,
-            "line": 44,
-            "column": 29
-          },
-          "fullEnd": 863,
-          "start": 848,
-          "end": 862,
-          "tupleOpenParen": {
-            "kind": "<lparen>",
-            "startPos": {
-              "offset": 848,
-              "line": 44,
-              "column": 15
+          "token": {
+            "start": {
+              "offset": 46,
+              "line": 3,
+              "column": 3
             },
-            "endPos": {
-              "offset": 849,
-              "line": 44,
-              "column": 16
-            },
-            "value": "(",
-            "leadingTrivia": [],
-            "trailingTrivia": [],
-            "leadingInvalid": [],
-            "trailingInvalid": [],
-            "isInvalid": false,
-            "start": 848,
-            "end": 849
-          },
-          "elementList": [
-            {
-              "id": 249,
-              "kind": "<primary-expression>",
-              "startPos": {
-                "offset": 849,
-                "line": 44,
-                "column": 16
-              },
-              "fullStart": 849,
-              "endPos": {
-                "offset": 853,
-                "line": 44,
-                "column": 20
-              },
-              "fullEnd": 853,
-              "start": 849,
-              "end": 853,
-              "expression": {
-                "id": 248,
-                "kind": "<variable>",
-                "startPos": {
-                  "offset": 849,
-                  "line": 44,
-                  "column": 16
-                },
-                "fullStart": 849,
-                "endPos": {
-                  "offset": 853,
-                  "line": 44,
-                  "column": 20
-                },
-                "fullEnd": 853,
-                "start": 849,
-                "end": 853,
-                "variable": {
-                  "kind": "<variable>",
-                  "startPos": {
-                    "offset": 849,
-                    "line": 44,
-                    "column": 16
-                  },
-                  "endPos": {
-                    "offset": 853,
-                    "line": 44,
-                    "column": 20
-                  },
-                  "value": "id",
-                  "leadingTrivia": [],
-                  "trailingTrivia": [],
-                  "leadingInvalid": [],
-                  "trailingInvalid": [],
-                  "isInvalid": false,
-                  "start": 849,
-                  "end": 853
-                }
-              }
-            },
-            {
-              "id": 251,
-              "kind": "<primary-expression>",
-              "startPos": {
-                "offset": 855,
-                "line": 44,
-                "column": 22
-              },
-              "fullStart": 855,
-              "endPos": {
-                "offset": 861,
-                "line": 44,
-                "column": 28
-              },
-              "fullEnd": 861,
-              "start": 855,
-              "end": 861,
-              "expression": {
-                "id": 250,
-                "kind": "<variable>",
-                "startPos": {
-                  "offset": 855,
-                  "line": 44,
-                  "column": 22
-                },
-                "fullStart": 855,
-                "endPos": {
-                  "offset": 861,
-                  "line": 44,
-                  "column": 28
-                },
-                "fullEnd": 861,
-                "start": 855,
-                "end": 861,
-                "variable": {
-                  "kind": "<variable>",
-                  "startPos": {
-                    "offset": 855,
-                    "line": 44,
-                    "column": 22
-                  },
-                  "endPos": {
-                    "offset": 861,
-                    "line": 44,
-                    "column": 28
-                  },
-                  "value": "name",
-                  "leadingTrivia": [],
-                  "trailingTrivia": [],
-                  "leadingInvalid": [],
-                  "trailingInvalid": [],
-                  "isInvalid": false,
-                  "start": 855,
-                  "end": 861
-                }
-              }
+            "end": {
+              "offset": 78,
+              "line": 3,
+              "column": 35
             }
-          ],
-          "commaList": [
-            {
-              "kind": "<comma>",
-              "startPos": {
-                "offset": 853,
-                "line": 44,
-                "column": 20
-              },
-              "endPos": {
-                "offset": 854,
-                "line": 44,
-                "column": 21
-              },
-              "value": ",",
-              "leadingTrivia": [],
-              "trailingTrivia": [
-                {
-                  "kind": "<space>",
-                  "startPos": {
-                    "offset": 854,
-                    "line": 44,
-                    "column": 21
-                  },
-                  "endPos": {
-                    "offset": 855,
-                    "line": 44,
-                    "column": 22
-                  },
-                  "value": " ",
-                  "leadingTrivia": [],
-                  "trailingTrivia": [],
-                  "leadingInvalid": [],
-                  "trailingInvalid": [],
-                  "isInvalid": false,
-                  "start": 854,
-                  "end": 855
-                }
-              ],
-              "leadingInvalid": [],
-              "trailingInvalid": [],
-              "isInvalid": false,
-              "start": 853,
-              "end": 854
+          },
+          "unique": true,
+          "not_null": true,
+          "inline_refs": []
+        },
+        {
+          "name": "status",
+          "type": {
+            "schemaName": null,
+            "type_name": "orders_status_enum",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 81,
+              "line": 4,
+              "column": 3
+            },
+            "end": {
+              "offset": 108,
+              "line": 4,
+              "column": 30
             }
-          ],
-          "tupleCloseParen": {
-            "kind": "<rparen>",
-            "startPos": {
-              "offset": 861,
-              "line": 44,
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "created_at",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar(255)",
+            "args": "255"
+          },
+          "token": {
+            "start": {
+              "offset": 111,
+              "line": 5,
+              "column": 3
+            },
+            "end": {
+              "offset": 136,
+              "line": 5,
               "column": 28
-            },
-            "endPos": {
-              "offset": 862,
-              "line": 44,
-              "column": 29
-            },
-            "value": ")",
-            "leadingTrivia": [],
-            "trailingTrivia": [
-              {
-                "kind": "<space>",
-                "startPos": {
-                  "offset": 862,
-                  "line": 44,
-                  "column": 29
-                },
-                "endPos": {
-                  "offset": 863,
-                  "line": 44,
-                  "column": 30
-                },
-                "value": " ",
-                "leadingTrivia": [],
-                "trailingTrivia": [],
-                "leadingInvalid": [],
-                "trailingInvalid": [],
-                "isInvalid": false,
-                "start": 862,
-                "end": 863
-              }
-            ],
-            "leadingInvalid": [],
-            "trailingInvalid": [],
-            "isInvalid": false,
-            "start": 861,
-            "end": 862
-          }
+            }
+          },
+          "inline_refs": []
+        }
+      ],
+      "token": {
+        "start": {
+          "offset": 0,
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "offset": 138,
+          "line": 6,
+          "column": 2
         }
       },
-      "rightExpression": {
-        "id": 261,
-        "kind": "<infix-expression>",
-        "startPos": {
-          "offset": 865,
-          "line": 44,
-          "column": 32
+      "indexes": []
+    },
+    {
+      "name": "order_items",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "order_id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 164,
+              "line": 9,
+              "column": 3
+            },
+            "end": {
+              "offset": 178,
+              "line": 9,
+              "column": 17
+            }
+          },
+          "inline_refs": []
         },
-        "fullStart": 865,
-        "endPos": {
-          "offset": 909,
-          "line": 44,
-          "column": 76
+        {
+          "name": "product_id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 181,
+              "line": 10,
+              "column": 3
+            },
+            "end": {
+              "offset": 197,
+              "line": 10,
+              "column": 19
+            }
+          },
+          "inline_refs": []
         },
-        "fullEnd": 910,
-        "start": 865,
-        "end": 909,
-        "op": {
-          "kind": "<op>",
-          "startPos": {
-            "offset": 878,
-            "line": 44,
-            "column": 45
+        {
+          "name": "product_name",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar(255)",
+            "args": "255"
           },
-          "endPos": {
-            "offset": 879,
-            "line": 44,
-            "column": 46
+          "token": {
+            "start": {
+              "offset": 200,
+              "line": 11,
+              "column": 3
+            },
+            "end": {
+              "offset": 227,
+              "line": 11,
+              "column": 30
+            }
           },
-          "value": ".",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": false,
-          "start": 878,
-          "end": 879
+          "inline_refs": []
         },
-        "leftExpression": {
-          "id": 255,
-          "kind": "<primary-expression>",
-          "startPos": {
-            "offset": 865,
-            "line": 44,
-            "column": 32
+        {
+          "name": "quantity",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
           },
-          "fullStart": 865,
-          "endPos": {
-            "offset": 878,
-            "line": 44,
-            "column": 45
+          "token": {
+            "start": {
+              "offset": 230,
+              "line": 12,
+              "column": 3
+            },
+            "end": {
+              "offset": 257,
+              "line": 12,
+              "column": 30
+            }
           },
-          "fullEnd": 878,
-          "start": 865,
-          "end": 878,
-          "expression": {
-            "id": 254,
-            "kind": "<variable>",
-            "startPos": {
-              "offset": 865,
-              "line": 44,
+          "dbdefault": {
+            "type": "number",
+            "value": 1
+          },
+          "inline_refs": []
+        }
+      ],
+      "token": {
+        "start": {
+          "offset": 140,
+          "line": 8,
+          "column": 1
+        },
+        "end": {
+          "offset": 259,
+          "line": 13,
+          "column": 2
+        }
+      },
+      "indexes": []
+    },
+    {
+      "name": "products",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 282,
+              "line": 16,
+              "column": 3
+            },
+            "end": {
+              "offset": 290,
+              "line": 16,
+              "column": 11
+            }
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "name",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar(255)",
+            "args": "255"
+          },
+          "token": {
+            "start": {
+              "offset": 293,
+              "line": 17,
+              "column": 3
+            },
+            "end": {
+              "offset": 312,
+              "line": 17,
+              "column": 22
+            }
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "price",
+          "type": {
+            "schemaName": null,
+            "type_name": "decimal(10, 4)",
+            "args": "10, 4"
+          },
+          "token": {
+            "start": {
+              "offset": 315,
+              "line": 18,
+              "column": 3
+            },
+            "end": {
+              "offset": 336,
+              "line": 18,
+              "column": 24
+            }
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "created_at",
+          "type": {
+            "schemaName": null,
+            "type_name": "datetime",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 339,
+              "line": 19,
+              "column": 3
+            },
+            "end": {
+              "offset": 379,
+              "line": 19,
+              "column": 43
+            }
+          },
+          "dbdefault": {
+            "type": "expression",
+            "value": "now()"
+          },
+          "inline_refs": []
+        }
+      ],
+      "token": {
+        "start": {
+          "offset": 261,
+          "line": 15,
+          "column": 1
+        },
+        "end": {
+          "offset": 412,
+          "line": 24,
+          "column": 2
+        }
+      },
+      "indexes": [
+        {
+          "columns": [
+            {
+              "value": "id",
+              "type": "column"
+            },
+            {
+              "value": "name",
+              "type": "column"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": 393,
+              "line": 22,
+              "column": 3
+            },
+            "end": {
+              "offset": 408,
+              "line": 22,
+              "column": 18
+            }
+          },
+          "pk": true
+        }
+      ]
+    },
+    {
+      "name": "users",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "id",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 432,
+              "line": 27,
+              "column": 3
+            },
+            "end": {
+              "offset": 456,
+              "line": 27,
+              "column": 27
+            }
+          },
+          "pk": true,
+          "increment": true,
+          "inline_refs": []
+        },
+        {
+          "name": "name",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar(255)",
+            "args": "255"
+          },
+          "token": {
+            "start": {
+              "offset": 459,
+              "line": 28,
+              "column": 3
+            },
+            "end": {
+              "offset": 478,
+              "line": 28,
+              "column": 22
+            }
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "email",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar(255)",
+            "args": "255"
+          },
+          "token": {
+            "start": {
+              "offset": 481,
+              "line": 29,
+              "column": 3
+            },
+            "end": {
+              "offset": 510,
+              "line": 29,
               "column": 32
+            }
+          },
+          "unique": true,
+          "inline_refs": []
+        },
+        {
+          "name": "date_of_birth",
+          "type": {
+            "schemaName": null,
+            "type_name": "datetime",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 513,
+              "line": 30,
+              "column": 3
             },
-            "fullStart": 865,
-            "endPos": {
-              "offset": 878,
-              "line": 44,
-              "column": 45
+            "end": {
+              "offset": 537,
+              "line": 30,
+              "column": 27
+            }
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "created_at",
+          "type": {
+            "schemaName": null,
+            "type_name": "datetime",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 540,
+              "line": 31,
+              "column": 3
             },
-            "fullEnd": 878,
-            "start": 865,
-            "end": 878,
-            "variable": {
-              "kind": "<variable>",
-              "startPos": {
-                "offset": 865,
-                "line": 44,
-                "column": 32
-              },
-              "endPos": {
-                "offset": 878,
-                "line": 44,
-                "column": 45
-              },
-              "value": "order_items",
-              "leadingTrivia": [],
-              "trailingTrivia": [],
-              "leadingInvalid": [],
-              "trailingInvalid": [],
-              "isInvalid": false,
-              "start": 865,
-              "end": 878
+            "end": {
+              "offset": 580,
+              "line": 31,
+              "column": 43
+            }
+          },
+          "dbdefault": {
+            "type": "expression",
+            "value": "now()"
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "country_code",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 583,
+              "line": 32,
+              "column": 3
+            },
+            "end": {
+              "offset": 612,
+              "line": 32,
+              "column": 32
+            }
+          },
+          "not_null": true,
+          "inline_refs": []
+        }
+      ],
+      "token": {
+        "start": {
+          "offset": 414,
+          "line": 26,
+          "column": 1
+        },
+        "end": {
+          "offset": 614,
+          "line": 33,
+          "column": 2
+        }
+      },
+      "indexes": []
+    },
+    {
+      "name": "countries",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "code",
+          "type": {
+            "schemaName": null,
+            "type_name": "int",
+            "args": null
+          },
+          "token": {
+            "start": {
+              "offset": 638,
+              "line": 36,
+              "column": 3
+            },
+            "end": {
+              "offset": 653,
+              "line": 36,
+              "column": 18
+            }
+          },
+          "pk": true,
+          "inline_refs": []
+        },
+        {
+          "name": "name",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar(255)",
+            "args": "255"
+          },
+          "token": {
+            "start": {
+              "offset": 656,
+              "line": 37,
+              "column": 3
+            },
+            "end": {
+              "offset": 675,
+              "line": 37,
+              "column": 22
+            }
+          },
+          "inline_refs": []
+        },
+        {
+          "name": "continent_name",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar(255)",
+            "args": "255"
+          },
+          "token": {
+            "start": {
+              "offset": 678,
+              "line": 38,
+              "column": 3
+            },
+            "end": {
+              "offset": 707,
+              "line": 38,
+              "column": 32
+            }
+          },
+          "inline_refs": []
+        }
+      ],
+      "token": {
+        "start": {
+          "offset": 616,
+          "line": 35,
+          "column": 1
+        },
+        "end": {
+          "offset": 709,
+          "line": 39,
+          "column": 2
+        }
+      },
+      "indexes": []
+    }
+  ],
+  "refs": [
+    {
+      "name": null,
+      "endpoints": [
+        {
+          "schemaName": null,
+          "tableName": "users",
+          "fieldNames": [
+            "id"
+          ],
+          "relation": "1",
+          "token": {
+            "start": {
+              "offset": 715,
+              "line": 41,
+              "column": 5
+            },
+            "end": {
+              "offset": 727,
+              "line": 41,
+              "column": 17
             }
           }
         },
-        "rightExpression": {
-          "id": 260,
-          "kind": "<tuple-expression>",
-          "startPos": {
-            "offset": 879,
-            "line": 44,
-            "column": 46
-          },
-          "fullStart": 879,
-          "endPos": {
-            "offset": 909,
-            "line": 44,
-            "column": 76
-          },
-          "fullEnd": 910,
-          "start": 879,
-          "end": 909,
-          "tupleOpenParen": {
-            "kind": "<lparen>",
-            "startPos": {
-              "offset": 879,
-              "line": 44,
-              "column": 46
-            },
-            "endPos": {
-              "offset": 880,
-              "line": 44,
-              "column": 47
-            },
-            "value": "(",
-            "leadingTrivia": [],
-            "trailingTrivia": [],
-            "leadingInvalid": [],
-            "trailingInvalid": [],
-            "isInvalid": false,
-            "start": 879,
-            "end": 880
-          },
-          "elementList": [
-            {
-              "id": 257,
-              "kind": "<primary-expression>",
-              "startPos": {
-                "offset": 880,
-                "line": 44,
-                "column": 47
-              },
-              "fullStart": 880,
-              "endPos": {
-                "offset": 892,
-                "line": 44,
-                "column": 59
-              },
-              "fullEnd": 892,
-              "start": 880,
-              "end": 892,
-              "expression": {
-                "id": 256,
-                "kind": "<variable>",
-                "startPos": {
-                  "offset": 880,
-                  "line": 44,
-                  "column": 47
-                },
-                "fullStart": 880,
-                "endPos": {
-                  "offset": 892,
-                  "line": 44,
-                  "column": 59
-                },
-                "fullEnd": 892,
-                "start": 880,
-                "end": 892,
-                "variable": {
-                  "kind": "<variable>",
-                  "startPos": {
-                    "offset": 880,
-                    "line": 44,
-                    "column": 47
-                  },
-                  "endPos": {
-                    "offset": 892,
-                    "line": 44,
-                    "column": 59
-                  },
-                  "value": "product_id",
-                  "leadingTrivia": [],
-                  "trailingTrivia": [],
-                  "leadingInvalid": [],
-                  "trailingInvalid": [],
-                  "isInvalid": false,
-                  "start": 880,
-                  "end": 892
-                }
-              }
-            },
-            {
-              "id": 259,
-              "kind": "<primary-expression>",
-              "startPos": {
-                "offset": 894,
-                "line": 44,
-                "column": 61
-              },
-              "fullStart": 894,
-              "endPos": {
-                "offset": 908,
-                "line": 44,
-                "column": 75
-              },
-              "fullEnd": 908,
-              "start": 894,
-              "end": 908,
-              "expression": {
-                "id": 258,
-                "kind": "<variable>",
-                "startPos": {
-                  "offset": 894,
-                  "line": 44,
-                  "column": 61
-                },
-                "fullStart": 894,
-                "endPos": {
-                  "offset": 908,
-                  "line": 44,
-                  "column": 75
-                },
-                "fullEnd": 908,
-                "start": 894,
-                "end": 908,
-                "variable": {
-                  "kind": "<variable>",
-                  "startPos": {
-                    "offset": 894,
-                    "line": 44,
-                    "column": 61
-                  },
-                  "endPos": {
-                    "offset": 908,
-                    "line": 44,
-                    "column": 75
-                  },
-                  "value": "product_name",
-                  "leadingTrivia": [],
-                  "trailingTrivia": [],
-                  "leadingInvalid": [],
-                  "trailingInvalid": [],
-                  "isInvalid": false,
-                  "start": 894,
-                  "end": 908
-                }
-              }
-            }
+        {
+          "schemaName": null,
+          "tableName": "orders",
+          "fieldNames": [
+            "user_id"
           ],
-          "commaList": [
-            {
-              "kind": "<comma>",
-              "startPos": {
-                "offset": 892,
-                "line": 44,
-                "column": 59
-              },
-              "endPos": {
-                "offset": 893,
-                "line": 44,
-                "column": 60
-              },
-              "value": ",",
-              "leadingTrivia": [],
-              "trailingTrivia": [
-                {
-                  "kind": "<space>",
-                  "startPos": {
-                    "offset": 893,
-                    "line": 44,
-                    "column": 60
-                  },
-                  "endPos": {
-                    "offset": 894,
-                    "line": 44,
-                    "column": 61
-                  },
-                  "value": " ",
-                  "leadingTrivia": [],
-                  "trailingTrivia": [],
-                  "leadingInvalid": [],
-                  "trailingInvalid": [],
-                  "isInvalid": false,
-                  "start": 893,
-                  "end": 894
-                }
-              ],
-              "leadingInvalid": [],
-              "trailingInvalid": [],
-              "isInvalid": false,
-              "start": 892,
-              "end": 893
+          "relation": "*",
+          "token": {
+            "start": {
+              "offset": 730,
+              "line": 41,
+              "column": 20
+            },
+            "end": {
+              "offset": 748,
+              "line": 41,
+              "column": 38
             }
-          ],
-          "tupleCloseParen": {
-            "kind": "<rparen>",
-            "startPos": {
-              "offset": 908,
-              "line": 44,
-              "column": 75
-            },
-            "endPos": {
-              "offset": 909,
-              "line": 44,
-              "column": 76
-            },
-            "value": ")",
-            "leadingTrivia": [],
-            "trailingTrivia": [
-              {
-                "kind": "<space>",
-                "startPos": {
-                  "offset": 909,
-                  "line": 44,
-                  "column": 76
-                },
-                "endPos": {
-                  "offset": 910,
-                  "line": 44,
-                  "column": 77
-                },
-                "value": " ",
-                "leadingTrivia": [],
-                "trailingTrivia": [],
-                "leadingInvalid": [],
-                "trailingInvalid": [],
-                "isInvalid": false,
-                "start": 909,
-                "end": 910
-              }
-            ],
-            "leadingInvalid": [],
-            "trailingInvalid": [],
-            "isInvalid": false,
-            "start": 908,
-            "end": 909
           }
         }
-      }
+      ],
+      "delete": "restrict",
+      "token": {
+        "start": {
+          "offset": 715,
+          "line": 41,
+          "column": 5
+        },
+        "end": {
+          "offset": 748,
+          "line": 41,
+          "column": 38
+        }
+      },
+      "schemaName": null
     },
-    "start": 837,
-    "end": 909,
-    "name": "CompileError"
-  }
-]
+    {
+      "name": null,
+      "endpoints": [
+        {
+          "schemaName": null,
+          "tableName": "orders",
+          "fieldNames": [
+            "id"
+          ],
+          "relation": "1",
+          "token": {
+            "start": {
+              "offset": 773,
+              "line": 43,
+              "column": 5
+            },
+            "end": {
+              "offset": 786,
+              "line": 43,
+              "column": 18
+            }
+          }
+        },
+        {
+          "schemaName": null,
+          "tableName": "order_items",
+          "fieldNames": [
+            "order_id"
+          ],
+          "relation": "*",
+          "token": {
+            "start": {
+              "offset": 789,
+              "line": 43,
+              "column": 21
+            },
+            "end": {
+              "offset": 813,
+              "line": 43,
+              "column": 45
+            }
+          }
+        }
+      ],
+      "delete": "cascade",
+      "token": {
+        "start": {
+          "offset": 773,
+          "line": 43,
+          "column": 5
+        },
+        "end": {
+          "offset": 813,
+          "line": 43,
+          "column": 45
+        }
+      },
+      "schemaName": null
+    },
+    {
+      "name": null,
+      "endpoints": [
+        {
+          "schemaName": null,
+          "tableName": "products",
+          "fieldNames": [
+            "id",
+            "name"
+          ],
+          "relation": "1",
+          "token": {
+            "start": {
+              "offset": 837,
+              "line": 45,
+              "column": 5
+            },
+            "end": {
+              "offset": 862,
+              "line": 45,
+              "column": 30
+            }
+          }
+        },
+        {
+          "schemaName": null,
+          "tableName": "order_items",
+          "fieldNames": [
+            "product_id",
+            "product_name"
+          ],
+          "relation": "*",
+          "token": {
+            "start": {
+              "offset": 865,
+              "line": 45,
+              "column": 33
+            },
+            "end": {
+              "offset": 909,
+              "line": 45,
+              "column": 77
+            }
+          }
+        }
+      ],
+      "delete": "set null",
+      "token": {
+        "start": {
+          "offset": 837,
+          "line": 45,
+          "column": 5
+        },
+        "end": {
+          "offset": 909,
+          "line": 45,
+          "column": 77
+        }
+      },
+      "schemaName": null
+    },
+    {
+      "name": null,
+      "endpoints": [
+        {
+          "schemaName": null,
+          "tableName": "countries",
+          "fieldNames": [
+            "code"
+          ],
+          "relation": "1",
+          "token": {
+            "start": {
+              "offset": 934,
+              "line": 47,
+              "column": 5
+            },
+            "end": {
+              "offset": 952,
+              "line": 47,
+              "column": 23
+            }
+          }
+        },
+        {
+          "schemaName": null,
+          "tableName": "users",
+          "fieldNames": [
+            "country_code"
+          ],
+          "relation": "*",
+          "token": {
+            "start": {
+              "offset": 955,
+              "line": 47,
+              "column": 26
+            },
+            "end": {
+              "offset": 977,
+              "line": 47,
+              "column": 48
+            }
+          }
+        }
+      ],
+      "delete": "no action",
+      "token": {
+        "start": {
+          "offset": 934,
+          "line": 47,
+          "column": 5
+        },
+        "end": {
+          "offset": 977,
+          "line": 47,
+          "column": 48
+        }
+      },
+      "schemaName": null
+    }
+  ],
+  "enums": [],
+  "tableGroups": [],
+  "aliases": [],
+  "project": {}
+}
