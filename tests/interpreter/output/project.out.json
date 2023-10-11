@@ -178,8 +178,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "type": "number",
-            "value": 1
+            "value": 1,
+            "type": "number"
           }
         }
       ],
@@ -330,8 +330,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "type": "expression",
-            "value": "now()"
+            "value": "now()",
+            "type": "expression"
           }
         }
       ],

@@ -28,8 +28,8 @@
           "inline_refs": [],
           "pk": true,
           "dbdefault": {
-            "type": "number",
-            "value": 123
+            "value": 123,
+            "type": "number"
           }
         },
         {
@@ -76,8 +76,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "type": "string",
-            "value": "Completed"
+            "value": "Completed",
+            "type": "string"
           }
         },
         {
@@ -101,8 +101,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "type": "expression",
-            "value": "now()"
+            "value": "now()",
+            "type": "expression"
           }
         }
       ],
@@ -251,8 +251,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "type": "boolean",
-            "value": "null"
+            "value": "null",
+            "type": "boolean"
           }
         },
         {
@@ -276,8 +276,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "type": "number",
-            "value": -1
+            "value": -1,
+            "type": "number"
           },
           "not_null": true
         },
@@ -302,8 +302,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "type": "number",
-            "value": -123.12
+            "value": -123.12,
+            "type": "number"
           }
         },
         {
@@ -327,8 +327,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "type": "boolean",
-            "value": "true"
+            "value": "true",
+            "type": "boolean"
           }
         },
         {
@@ -352,8 +352,8 @@
           },
           "inline_refs": [],
           "dbdefault": {
-            "type": "expression",
-            "value": "current_date + interval 1 year"
+            "value": "current_date + interval 1 year",
+            "type": "expression"
           }
         }
       ],
