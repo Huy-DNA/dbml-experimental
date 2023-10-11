@@ -5,7 +5,6 @@ import {
   CallExpressionNode,
   ElementDeclarationNode,
   FunctionApplicationNode,
-  IdentiferStreamNode,
   InfixExpressionNode,
   ListExpressionNode,
   ProgramNode,
@@ -158,10 +157,13 @@ export default class Interpreter {
       token: extractTokenForInterpreter(element),
       indexes,
       headerColor,
-      note: note === undefined ? undefined : {
-          value: note,
-          token: extractTokenForInterpreter(noteNode!),
-        },
+      note:
+        note === undefined ?
+          undefined :
+          {
+              value: note,
+              token: extractTokenForInterpreter(noteNode!),
+            },
     };
   }
 
@@ -243,10 +245,13 @@ export default class Interpreter {
       unique,
       not_null: notNull,
       inline_refs: _inlineRefs,
-      note: (note === undefined) ? undefined : {
-          value: note,
-          token: extractTokenForInterpreter(noteNode!),
-        },
+      note:
+        note === undefined ?
+          undefined :
+          {
+              value: note,
+              token: extractTokenForInterpreter(noteNode!),
+            },
     };
   }
 
@@ -420,10 +425,13 @@ export default class Interpreter {
     return {
       name: extractVarNameFromPrimaryVariable(args[0] as any).unwrap(),
       token: extractTokenForInterpreter(field),
-      note: note === undefined ? undefined : {
-        value: note,
-        token: extractTokenForInterpreter(noteNode!),
-      },
+      note:
+        note === undefined ?
+          undefined :
+          {
+              value: note,
+              token: extractTokenForInterpreter(noteNode!),
+            },
     };
   }
 

@@ -26,6 +26,7 @@ import SymbolTable from '../symbol/symbolTable';
 import SymbolFactory from '../symbol/factory';
 import { isAccessExpression } from '../../parser/utils';
 import { ElementKind } from './types';
+import { NUMERIC_LITERAL_PREFIX } from '../../../constants';
 
 // Pick a validator suitable for `element`
 export function toElementKind(str: string): ElementKind {
@@ -187,6 +188,13 @@ export function isValidDefaultValue(value?: SyntaxNode): boolean {
   if (
     value instanceof PrimaryExpressionNode &&
     (value.expression instanceof LiteralNode || value.expression instanceof VariableNode)
+  ) {
+    return true;
+  }
+  if (
+    value instanceof PrefixExpressionNode &&
+    NUMERIC_LITERAL_PREFIX.includes(value.op?.value as any) &&
+    isExpressionANumber(value.expression)
   ) {
     return true;
   }

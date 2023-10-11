@@ -6,6 +6,7 @@ export type BinderRule =
       topSubnamesSymbolKind: SymbolKind[];
       remainingSubnamesSymbolKind: SymbolKind;
       ignoreNameNotFound: boolean;
+      keywords?: string[];
     }
   | {
       shouldBind: false;

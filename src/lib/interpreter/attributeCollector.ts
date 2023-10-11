@@ -1,12 +1,15 @@
 /* A utility module to ease the attribute processing in the main `interpreter` module */
 
+import { KEYWORDS_OF_DEFAULT_SETTING, NUMERIC_LITERAL_PREFIX } from '../../constants';
 import {
   AttributeNode,
   FunctionExpressionNode,
   IdentiferStreamNode,
   ListExpressionNode,
   PrefixExpressionNode,
+  PrimaryExpressionNode,
   SyntaxNode,
+  VariableNode,
 } from '../parser/nodes';
 import { extractQuotedStringToken } from '../analyzer/utils';
 import { CompileError, CompileErrorCode } from '../errors';
@@ -95,7 +98,9 @@ class AttributeCollector {
       undefined;
   }
 
-  extractDefault(): { type: 'number' | 'string' | 'expression'; value: number | string } | undefined {
+  extractDefault():
+    | { type: 'number' | 'string' | 'expression' | 'boolean'; value: number | string }
+    | undefined {
     const deflt = this.settingMap.getValue('default');
 
     if (deflt === undefined) {
@@ -105,10 +110,33 @@ class AttributeCollector {
     // eslint-disable-next-line no-underscore-dangle
     const _deflt = deflt as SyntaxNode;
 
+    if (
+      _deflt instanceof PrimaryExpressionNode &&
+      _deflt.expression instanceof VariableNode &&
+      KEYWORDS_OF_DEFAULT_SETTING.includes(_deflt.expression.variable?.value as any)
+    ) {
+      return {
+        type: 'boolean',
+        value: _deflt.expression.variable!.value,
+      };
+    }
+
     if (isExpressionANumber(_deflt)) {
       return {
         type: 'number',
         value: Number(_deflt.expression.literal.value),
+      };
+    }
+
+    if (
+      _deflt instanceof PrefixExpressionNode &&
+      NUMERIC_LITERAL_PREFIX.includes(_deflt.op?.value as any) &&
+      isExpressionANumber(_deflt.expression)
+    ) {
+      return {
+        type: 'number',
+        value:
+          Number(_deflt.expression.expression.literal.value) * (_deflt.op?.value === '+' ? 1 : -1),
       };
     }
 

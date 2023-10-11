@@ -117,6 +117,12 @@ export default abstract class ElementBinder {
     }
 
     if (node instanceof PrimaryExpressionNode) {
+      if (
+        node.expression instanceof VariableNode &&
+        rule.keywords?.includes(node.expression.variable?.value as any)
+      ) {
+        return;
+      }
       this.bindFragments(node, rule);
     } else if (node instanceof InfixExpressionNode) {
       if (isAccessExpression(node)) {
