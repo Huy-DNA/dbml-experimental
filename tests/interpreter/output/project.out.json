@@ -1317,7 +1317,7 @@
     "enums": [],
     "tableGroups": [],
     "note": {
-      "value": "\n    # Introduction\n    This is an ecommerce project\n\n    # Description\n    ...\n  ",
+      "value": "\n# Introduction\nThis is an ecommerce project\n\n# Description\n...\n",
       "token": {
         "start": {
           "offset": 22,
