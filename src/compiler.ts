@@ -355,7 +355,8 @@ export default class Compiler {
   readonly symbol = {
     // Given a stack of name and the current scope
     // Try looking up the first name in the stack in the current scope
-    // If fail, try looking in the parent of the current scope and so on
+    // and resolve the rest of the name stack as members
+    // Then try to do the same with all ancestor scopes
     ofName: this.createQuery(
       Query.Symbol_OfName,
       ({
