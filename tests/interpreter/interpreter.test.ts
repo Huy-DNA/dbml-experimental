@@ -23,7 +23,7 @@ describe('#interpreter', () => {
       .chain((tokens) => {
         return new Parser(tokens, nodeIdGenerator).parse();
       })
-      .chain((ast) => {
+      .chain(({ ast }) => {
         return new Analyzer(ast, symbolIdGenerator).analyze();
       });
 
