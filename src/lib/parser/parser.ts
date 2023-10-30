@@ -1043,6 +1043,7 @@ export default class Parser {
       if (!(e instanceof PartialParsingError) || !this.canHandle(e)) {
         throw e;
       }
+      value = e.partialNode;
       this.synchronizeAttributeValue();
     }
 
