@@ -43,11 +43,7 @@ class PartialParsingError<T extends SyntaxNode> {
   token: Readonly<SyntaxToken>;
   handlerContext: undefined | ParsingContext;
 
-  constructor(
-    token: Readonly<SyntaxToken>,
-    partialNode: T | undefined,
-    handlerContext: undefined | ParsingContext,
-  ) {
+  constructor(token: Readonly<SyntaxToken>, partialNode: T | undefined, handlerContext: undefined | ParsingContext) {
     this.token = token;
     this.partialNode = partialNode;
     this.handlerContext = handlerContext;
@@ -175,7 +171,7 @@ export default class Parser {
     this.tokens = tokens;
   }
 
-  parse(): Report<{ ast: ProgramNode, tokens: SyntaxToken[] }, CompileError> {
+  parse(): Report<{ ast: ProgramNode, tokens: SyntaxToken[] } , CompileError> {
     const body = this.program();
     const eof = this.advance();
     const program = this.nodeFactory.create(ProgramNode, { body, eof });
