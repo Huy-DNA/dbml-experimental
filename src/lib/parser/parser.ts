@@ -3,7 +3,7 @@ import {
   convertFuncAppToElem,
   createDummyOperand,
   isAsKeyword,
-  isDummyOperand,
+  isDummyNode,
   markInvalid,
 } from './utils';
 import { CompileError, CompileErrorCode } from '../errors';
@@ -590,7 +590,7 @@ export default class Parser {
       leftExpression = this.nodeFactory.create(PrefixExpressionNode, args);
     } else {
       leftExpression = this.extractOperand();
-      if (isDummyOperand(leftExpression)) {
+      if (isDummyNode(leftExpression)) {
         this.throwDummyOperand(this.peek());
       }
     }
@@ -637,12 +637,19 @@ export default class Parser {
       return this.tupleExpression();
     }
 
-    // The error is thrown here to communicate failure of operand extraction to `expression_bp`
-    this.logError(
-      this.peek(),
-      CompileErrorCode.INVALID_OPERAND,
-      `Invalid start of operand "${this.peek().value}"`,
-    );
+    if (this.peek().kind === SyntaxTokenKind.EOF) {
+      this.logError(
+        this.peek(),
+        CompileErrorCode.UNEXPECTED_EOF,
+        `Unexpected EOF`,
+      );
+    } else {
+      this.logError(
+        this.peek(),
+        CompileErrorCode.INVALID_OPERAND,
+        `Invalid start of operand "${this.peek().value}"`,
+      );
+    }
 
     return createDummyOperand(this.nodeFactory);
   }

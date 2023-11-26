@@ -351,6 +351,6 @@ export function createDummyOperand(factory: NodeFactory): SyntaxNode {
   return factory.create(FunctionExpressionNode, {});
 }
 
-export function isDummyOperand(node: SyntaxNode): boolean {
-  return node instanceof FunctionExpressionNode && node.value === undefined;
+export function isDummyNode(node: SyntaxNode): boolean {
+  return Number.isNaN(node.start);
 }
