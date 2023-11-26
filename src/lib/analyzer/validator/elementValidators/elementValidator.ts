@@ -18,7 +18,7 @@ import {
   ListExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
-import { extractStringFromIdentifierStream, extractVariableNode } from '../../../parser/utils';
+import { extractStringFromIdentifierStream, extractVariableNode, isDummyNode } from '../../../parser/utils';
 import { destructureComplexVariable } from '../../utils';
 import { ContextStack, canBeNestedWithin } from '../validatorContext';
 import {
@@ -40,6 +40,7 @@ import {
 } from '../../symbol/utils';
 import SymbolFactory from '../../symbol/factory';
 import { getSubfieldKind, isCustomElement } from './utils';
+import _ from 'lodash';
 
 export default abstract class ElementValidator {
   protected abstract elementKind: ElementKind;
@@ -183,6 +184,10 @@ export default abstract class ElementValidator {
 
   private checkNameInValidForm(): boolean {
     const { name } = this.declarationNode;
+    if (name && isDummyNode(name)) {
+      return false;
+    }
+
     if (name && !isValidName(name)) {
       this.logError(name, CompileErrorCode.INVALID_NAME, 'Invalid element name');
 
@@ -261,6 +266,10 @@ export default abstract class ElementValidator {
 
   private checkAliasInValidForm() {
     const { alias } = this.declarationNode;
+    if (alias && isDummyNode(alias)) {
+      return false;
+    }
+
     if (alias && !isValidAlias(alias)) {
       this.logError(alias, CompileErrorCode.INVALID_ALIAS, 'Invalid element alias');
 
@@ -385,6 +394,10 @@ export default abstract class ElementValidator {
 
   private checkSettingListInValidForm(): boolean {
     const { attributeList } = this.declarationNode;
+    if (attributeList && isDummyNode(attributeList)) {
+      return false;
+    }
+
     if (attributeList && !isValidSettingList(attributeList)) {
       this.logError(attributeList, CompileErrorCode.INVALID_SETTINGS, 'SettingList must be a list');
 
@@ -428,7 +441,7 @@ export default abstract class ElementValidator {
 
   private validateBodyForm(): boolean {
     const node = this.declarationNode;
-    if (!node.body) {
+    if (!node.body || isDummyNode(node.body)) {
       return false;
     }
 
@@ -537,6 +550,10 @@ export default abstract class ElementValidator {
     sub: FunctionApplicationNode & { callee: SyntaxNode },
     ith: number,
   ): boolean {
+    if (isDummyNode(sub)) {
+      return false;
+    }
+
     const _args = [sub.callee, ...sub.args];
 
     const args = _args as ExpressionNode[];
