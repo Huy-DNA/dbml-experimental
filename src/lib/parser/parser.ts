@@ -171,7 +171,7 @@ export default class Parser {
     this.tokens = tokens;
   }
 
-  parse(): Report<{ ast: ProgramNode, tokens: SyntaxToken[] } , CompileError> {
+  parse(): Report<{ ast: ProgramNode, tokens: SyntaxToken[] }, CompileError> {
     const body = this.program();
     const eof = this.advance();
     const program = this.nodeFactory.create(ProgramNode, { body, eof });
@@ -641,7 +641,7 @@ export default class Parser {
       this.logError(
         this.peek(),
         CompileErrorCode.UNEXPECTED_EOF,
-        `Unexpected EOF`,
+        'Expect an operand',
       );
     } else {
       this.logError(
