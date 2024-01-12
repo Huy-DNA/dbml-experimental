@@ -1,1 +1,1 @@
-This repo is an initial version of https://github.com/holistics/dbml/packages/dbml-parse
+This repo is an initial version of https://github.com/holistics/dbml/tree/master/packages/dbml-parse
