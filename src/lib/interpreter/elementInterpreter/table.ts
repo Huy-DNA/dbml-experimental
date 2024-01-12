@@ -57,6 +57,7 @@ export class TableInterpreter implements ElementInterpreter {
         },
         pk: true,
       });
+      // eslint-disable-next-line no-param-reassign,no-return-assign
       this.pkColumns.forEach((column) => column.pk = false);
     }
 
@@ -155,7 +156,7 @@ return [new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not sup
     const typeReport = processColumnType(field.args[0]);
     column.type = typeReport.getValue();
     errors.push(...typeReport.getErrors());
-    
+
     column.token = getTokenPosition(field);
     column.inline_refs = [];
 
@@ -186,42 +187,42 @@ return [];
 
         let inlineRef: InlineRef | undefined;
         if (fragments.length === 1) {
-          const [column] = fragments;
+          const [columnName] = fragments;
 
           inlineRef = {
             schemaName: this.table.schemaName!,
             tableName: this.table.name!,
-            fieldNames: [column],
+            fieldNames: [columnName],
             relation: op.value as any,
             token: getTokenPosition(ref),
           };
         } else if (fragments.length === 2) {
-          const [table, column] = fragments;
+          const [table, columnName] = fragments;
           inlineRef = {
             schemaName: null,
             tableName: table,
-            fieldNames: [column],
+            fieldNames: [columnName],
             relation: op.value as any,
             token: getTokenPosition(ref),
           };
         } else if (fragments.length === 3) {
-          const [schema, table, column] = fragments;
+          const [schema, table, columnName] = fragments;
           inlineRef = {
             schemaName: schema,
             tableName: table,
-            fieldNames: [column],
+            fieldNames: [columnName],
             relation: op.value as any,
             token: getTokenPosition(ref),
           };
         } else {
           errors.push(new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not supported', ref));
-          const column = fragments.pop()!;
+          const columnName = fragments.pop()!;
           const table = fragments.pop()!;
           const schema = fragments.join('.');
           inlineRef = {
             schemaName: schema,
             tableName: table,
-            fieldNames: [column],
+            fieldNames: [columnName],
             relation: op.value as any,
             token: getTokenPosition(ref),
           };
@@ -275,6 +276,7 @@ return errors;
         const fragments: SyntaxNode[] = [];
         while (arg instanceof CallExpressionNode) {
           fragments.push(arg.argumentList!);
+          // eslint-disable-next-line no-param-reassign
           arg = arg.callee!;
         }
         fragments.push(arg);
