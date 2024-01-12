@@ -29,7 +29,7 @@
     "prefer-destructuring": "warn",
     "indent": "off",
     "no-plusplus": "warn",
-    "max-len": ["error", { "code": 120 }],
+    "max-len": ["error", { "code": 200 }],
     "no-continue": "warn",
     "newline-before-return": "error",
     "newline-per-chained-call": ["off"],

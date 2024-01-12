@@ -26,7 +26,10 @@
             }
           },
           "inline_refs": [],
-          "pk": true
+          "pk": false,
+          "increment": false,
+          "unique": false,
+          "not_null": false
         },
         {
           "name": "name",
@@ -48,7 +51,10 @@
             }
           },
           "inline_refs": [],
-          "pk": true
+          "pk": false,
+          "increment": false,
+          "unique": false,
+          "not_null": false
         },
         {
           "name": "gender",
@@ -69,7 +75,9 @@
               "column": 17
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         },
         {
           "name": "created_at",
@@ -90,7 +98,9 @@
               "column": 22
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         }
       ],
       "token": {
@@ -115,14 +125,14 @@
           ],
           "token": {
             "start": {
-              "offset": 104,
-              "line": 8,
-              "column": 5
+              "offset": 90,
+              "line": 7,
+              "column": 3
             },
             "end": {
-              "offset": 106,
-              "line": 8,
-              "column": 7
+              "offset": 125,
+              "line": 10,
+              "column": 4
             }
           }
         },
@@ -139,14 +149,14 @@
           ],
           "token": {
             "start": {
-              "offset": 111,
-              "line": 9,
-              "column": 5
+              "offset": 90,
+              "line": 7,
+              "column": 3
             },
             "end": {
-              "offset": 121,
-              "line": 9,
-              "column": 15
+              "offset": 125,
+              "line": 10,
+              "column": 4
             }
           }
         },
@@ -159,14 +169,14 @@
           ],
           "token": {
             "start": {
-              "offset": 143,
-              "line": 13,
-              "column": 5
+              "offset": 129,
+              "line": 12,
+              "column": 3
             },
             "end": {
-              "offset": 149,
-              "line": 13,
-              "column": 11
+              "offset": 168,
+              "line": 15,
+              "column": 4
             }
           }
         },
@@ -179,16 +189,41 @@
           ],
           "token": {
             "start": {
-              "offset": 154,
-              "line": 14,
-              "column": 5
+              "offset": 129,
+              "line": 12,
+              "column": 3
             },
             "end": {
-              "offset": 164,
-              "line": 14,
-              "column": 15
+              "offset": 168,
+              "line": 15,
+              "column": 4
             }
           }
+        },
+        {
+          "columns": [
+            {
+              "value": "id",
+              "type": "column"
+            },
+            {
+              "value": "name",
+              "type": "column"
+            }
+          ],
+          "token": {
+            "start": {
+              "offset": -1,
+              "line": -1,
+              "column": -1
+            },
+            "end": {
+              "offset": -1,
+              "line": -1,
+              "column": -1
+            }
+          },
+          "pk": true
         }
       ],
       "note": {

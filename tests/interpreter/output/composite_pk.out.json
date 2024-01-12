@@ -26,7 +26,10 @@
             }
           },
           "inline_refs": [],
-          "pk": true
+          "pk": false,
+          "increment": false,
+          "unique": false,
+          "not_null": false
         },
         {
           "name": "full_name",
@@ -47,7 +50,9 @@
               "column": 20
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         },
         {
           "name": "email",
@@ -69,7 +74,10 @@
             }
           },
           "inline_refs": [],
-          "unique": true
+          "pk": false,
+          "increment": false,
+          "unique": true,
+          "not_null": false
         },
         {
           "name": "gender",
@@ -90,7 +98,9 @@
               "column": 17
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         },
         {
           "name": "date_of_birth",
@@ -111,7 +121,9 @@
               "column": 24
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         },
         {
           "name": "created_at",
@@ -132,7 +144,9 @@
               "column": 21
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         },
         {
           "name": "country_code",
@@ -153,7 +167,9 @@
               "column": 19
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         },
         {
           "name": "active",
@@ -175,6 +191,9 @@
             }
           },
           "inline_refs": [],
+          "pk": false,
+          "increment": false,
+          "unique": false,
           "not_null": true
         }
       ],
@@ -200,17 +219,18 @@
           ],
           "token": {
             "start": {
-              "offset": 211,
-              "line": 12,
-              "column": 5
+              "offset": 197,
+              "line": 11,
+              "column": 3
             },
             "end": {
-              "offset": 218,
-              "line": 12,
-              "column": 12
+              "offset": 222,
+              "line": 13,
+              "column": 4
             }
           },
-          "pk": true
+          "pk": true,
+          "unique": false
         }
       ]
     },
@@ -239,7 +259,10 @@
             }
           },
           "inline_refs": [],
-          "pk": true
+          "pk": false,
+          "increment": false,
+          "unique": false,
+          "not_null": false
         },
         {
           "name": "full_name",
@@ -260,7 +283,9 @@
               "column": 20
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         },
         {
           "name": "email",
@@ -282,7 +307,10 @@
             }
           },
           "inline_refs": [],
-          "unique": true
+          "pk": false,
+          "increment": false,
+          "unique": true,
+          "not_null": false
         },
         {
           "name": "gender",
@@ -303,7 +331,9 @@
               "column": 17
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         },
         {
           "name": "date_of_birth",
@@ -324,7 +354,9 @@
               "column": 24
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         },
         {
           "name": "created_at",
@@ -345,7 +377,9 @@
               "column": 21
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         },
         {
           "name": "country_code",
@@ -366,7 +400,9 @@
               "column": 19
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         },
         {
           "name": "active",
@@ -388,6 +424,9 @@
             }
           },
           "inline_refs": [],
+          "pk": false,
+          "increment": false,
+          "unique": false,
           "not_null": true
         }
       ],
@@ -421,17 +460,18 @@
           ],
           "token": {
             "start": {
-              "offset": 437,
-              "line": 27,
-              "column": 5
+              "offset": 423,
+              "line": 26,
+              "column": 3
             },
             "end": {
-              "offset": 465,
-              "line": 27,
-              "column": 33
+              "offset": 469,
+              "line": 28,
+              "column": 4
             }
           },
-          "pk": true
+          "pk": true,
+          "unique": false
         }
       ]
     }

@@ -73,7 +73,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
       ].find((token) => isComment(token) && isOffsetWithinSpan(offset, token))
     ) {
       return noSuggestions();
-    } 
+    }
 
     if (bOcTokenId === undefined) {
       return suggestTopLevelElementType();
@@ -81,7 +81,7 @@ export default class DBMLCompletionItemProvider implements CompletionItemProvide
 
     // Check if we're inside a string
     if ([SyntaxTokenKind.STRING_LITERAL, SyntaxTokenKind.QUOTED_STRING].includes(bOcToken.kind) && isOffsetWithinSpan(offset, bOcToken)) {
-      return noSuggestions(); 
+      return noSuggestions();
     }
 
     const element = this.compiler.container.element(offset);

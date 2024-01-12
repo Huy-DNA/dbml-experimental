@@ -25,7 +25,9 @@
               "column": 15
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         },
         {
           "name": "referrer_id",
@@ -46,7 +48,9 @@
               "column": 24
             }
           },
-          "inline_refs": []
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
         }
       ],
       "token": {
@@ -66,7 +70,20 @@
   ],
   "refs": [
     {
+      "token": {
+        "start": {
+          "offset": 58,
+          "line": 5,
+          "column": 5
+        },
+        "end": {
+          "offset": 94,
+          "line": 7,
+          "column": 6
+        }
+      },
       "name": null,
+      "schemaName": null,
       "endpoints": [
         {
           "schemaName": null,
@@ -108,20 +125,7 @@
             }
           }
         }
-      ],
-      "token": {
-        "start": {
-          "offset": 72,
-          "line": 6,
-          "column": 9
-        },
-        "end": {
-          "offset": 88,
-          "line": 6,
-          "column": 25
-        }
-      },
-      "schemaName": null
+      ]
     }
   ],
   "enums": [],
