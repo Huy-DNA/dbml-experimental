@@ -151,7 +151,11 @@ return [new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not sup
     const column: Partial<Column> = {};
 
     column.name = extractVarNameFromPrimaryVariable(field.callee as any).unwrap();
-    column.type = processColumnType(field.args[0]).getValue();
+
+    const typeReport = processColumnType(field.args[0]);
+    column.type = typeReport.getValue();
+    errors.push(...typeReport.getErrors());
+    
     column.token = getTokenPosition(field);
     column.inline_refs = [];
 
