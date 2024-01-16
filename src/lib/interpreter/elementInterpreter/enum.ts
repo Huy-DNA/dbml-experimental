@@ -5,7 +5,7 @@ import {
  BlockExpressionNode, ElementDeclarationNode, FunctionApplicationNode, ListExpressionNode, SyntaxNode,
 } from '../../parser/nodes';
 import {
- ElementInterpreter, Enum, EnumField, InterpreterDatabase,
+ ElementInterpreter, Enum, EnumField, InterpreterDatabase, Table,
 } from '../types';
 import { extractElementName, getTokenPosition, normalizeNoteContent } from '../utils';
 

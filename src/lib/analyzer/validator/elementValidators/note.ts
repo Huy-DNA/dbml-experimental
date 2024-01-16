@@ -35,7 +35,7 @@ export default class NoteValidator implements ElementValidator {
 
   private validateName(nameNode?: SyntaxNode): CompileError[] {
     if (nameNode) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_NAME, 'A Note should\'nt have a name', nameNode)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_NAME, 'A Note shouldn\'t have a name', nameNode)];
     }
 
     return [];
@@ -43,7 +43,7 @@ export default class NoteValidator implements ElementValidator {
 
   private validateAlias(aliasNode?: SyntaxNode): CompileError[] {
     if (aliasNode) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_ALIAS, 'A Ref should\'nt have an alias', aliasNode)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_ALIAS, 'A Ref shouldn\'t have an alias', aliasNode)];
     }
 
     return [];
@@ -51,7 +51,7 @@ export default class NoteValidator implements ElementValidator {
 
   private validateSettingList(settingList?: ListExpressionNode): CompileError[] {
     if (settingList) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_SETTINGS, 'A Project should\'nt have a setting list', settingList)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_SETTINGS, 'A Note shouldn\'t have a setting list', settingList)];
     }
 
     return [];
@@ -79,10 +79,13 @@ return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.val
       fields.slice(1).forEach((field) => errors.push(new CompileError(CompileErrorCode.NOTE_CONTENT_REDEFINED, 'A Note can only contain one string', field)));
     }
     if (!isExpressionAQuotedString(fields[0].callee)) {
-      return [new CompileError(CompileErrorCode.INVALID_NOTE, 'A Note content must be a quoted string', fields[0])];
+      errors.push(new CompileError(CompileErrorCode.INVALID_NOTE, 'A Note content must be a quoted string', fields[0]));
+    }
+    if (fields[0].args.length > 0) {
+      errors.push(...fields[0].args.map((arg) => new CompileError(CompileErrorCode.INVALID_NOTE, 'A Note can only contain one quoted string', arg)));
     }
 
-return [];
+return errors;
   }
 
   private validateSubElements(subs: ElementDeclarationNode[]): CompileError[] {
