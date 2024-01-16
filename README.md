@@ -21,5 +21,6 @@ However, I didn't follow it LOL.
 * The `Interpreter` was very ad-hoc due to being coded in a rush and it felt like an unmaintainable monolith. I refactored it into sub-interpreters though and the situation's a little better.
 * Wrong abstraction: This one relates to the first point I raised. There are also some embarassing attempts in the past where I just tried to build abstraction everywhere. Abstraction is good until it felt like it was making the whole code inflexible and littered, non-cohesive (in other words, the abstraction layers are not clean and discretely separated). In my case, I built up abstractions to reduce duplicate code and try to hide complexities. Nevertheless, I failed to realize other programmers reading my code have to read that obscure logic, too.
   There's a wise man's saying that: Wrong abstraction <<< No abstraction!
+> User's experience is the selling point!
   
   
