@@ -1,7 +1,7 @@
 {
-  "name": "dbml-parser",
+  "name": "@dbml-experimental/parser",
   "version": "1.0.0",
-  "description": "",
+  "description": "An experimental version of the new dbml parser",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "scripts": {
@@ -15,8 +15,8 @@
     "prettier:fix": "prettier --write ./**/*.ts",
     "benchmark": "vitest benchmark.spec.ts"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "huydo862003@gmail.com",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@types/node": "^20.4.4",
     "@types/nodemark": "^0.3.0",
