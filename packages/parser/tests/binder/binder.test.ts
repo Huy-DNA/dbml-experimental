@@ -1,4 +1,4 @@
-import fs, { readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import path from 'path';
 import { describe, expect, it } from 'vitest';
 import { scanTestNames } from '../jestHelpers';
@@ -18,13 +18,9 @@ describe('#binder', () => {
     const nodeIdGenerator = new SyntaxNodeIdGenerator();
     const report = new Lexer(program)
       .lex()
-      .chain((tokens) => {
-        return new Parser(tokens, nodeIdGenerator).parse();
-      })
-      .chain(({ ast }) => {
-        return new Analyzer(ast, symbolIdGenerator).analyze();
-      });
-    const output = serialize(report, true);
+      .chain((tokens) => new Parser(tokens, nodeIdGenerator).parse())
+      .chain(({ ast }) => new Analyzer(ast, symbolIdGenerator).analyze());
+    const output = serialize({ ast: report.getValue(), errors: report.getErrors() }, true);
 
     it('should equal snapshot', () =>
       expect(output).toMatchFileSnapshot(path.resolve(__dirname, `./output/${testName}.out.json`)));

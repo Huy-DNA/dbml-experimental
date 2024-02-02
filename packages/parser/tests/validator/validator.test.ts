@@ -1,5 +1,5 @@
 import { serialize } from '../../src/lib/serialization/serialize';
-import fs, { readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import path from 'path';
 import { describe, expect, it } from 'vitest';
 import { scanTestNames } from '../jestHelpers';
@@ -19,13 +19,9 @@ describe('#validator', () => {
     const nodeIdGenerator = new SyntaxNodeIdGenerator();
     const report = new Lexer(program)
       .lex()
-      .chain((tokens) => {
-        return new Parser(tokens, nodeIdGenerator).parse();
-      })
-      .chain(({ ast }) => {
-        return new Validator(ast, new SymbolFactory(symbolIdGenerator)).validate();
-      });
-    const output = serialize(report, true);
+      .chain((tokens) => new Parser(tokens, nodeIdGenerator).parse())
+      .chain(({ ast }) => new Validator(ast, new SymbolFactory(symbolIdGenerator)).validate());
+    const output = serialize({ ast: report.getValue(), errors: report.getErrors() }, true);
 
     it('should equal snapshot', () =>
       expect(output).toMatchFileSnapshot(path.resolve(__dirname, `./output/${testName}.out.json`)));

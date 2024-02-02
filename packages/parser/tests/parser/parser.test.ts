@@ -1,4 +1,4 @@
-import fs, { readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import path from 'path';
 import { describe, expect, it } from 'vitest';
 import { scanTestNames } from '../jestHelpers';
@@ -16,6 +16,7 @@ describe('#parser', () => {
     const output = JSON.stringify(
       lexer.lex().chain((tokens) => {
         const parser = new Parser(tokens, nodeIdGenerator);
+
         return parser.parse().map((_) => _.ast);
       }),
       null,

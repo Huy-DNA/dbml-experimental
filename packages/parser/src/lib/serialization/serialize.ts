@@ -4,11 +4,11 @@ import Report from '../report';
 import { CompileError } from '../errors';
 
 export function serialize(
-  report: Readonly<Report<ProgramNode, CompileError>>,
+  { ast, errors }: Readonly<{ ast: ProgramNode, errors: CompileError[] }>,
   pretty: boolean = false,
 ): string {
   return JSON.stringify(
-    report,
+    new Report(ast, errors),
     function (key: string, value: any) {
       // If `value` is not `symbol` of the root node
       // Just output the `symbol`'s id is enough
