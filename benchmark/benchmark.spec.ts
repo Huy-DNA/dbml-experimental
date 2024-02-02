@@ -1,4 +1,4 @@
-import fs, { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import path from 'path';
 import { describe, expect, it } from 'vitest';
 import { scanTestNames } from './jestHelpers';
