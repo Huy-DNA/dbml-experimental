@@ -7,7 +7,8 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
-    "test": "vitest tests",
+    "test": "vitest run tests",
+    "test:watch": "vitest tests",
     "coverage": "vitest run --coverage",
     "lint": "eslint \"**/*.{ts,js}\"",
     "lint:fix": "eslint \"**/*.{ts,js}\" --fix",
