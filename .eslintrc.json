@@ -29,13 +29,13 @@
     "prefer-destructuring": "warn",
     "indent": "off",
     "no-plusplus": "warn",
-    "max-len": ["error", { "code": 200 }],
+    "max-len": ["error", { "code": 300 }],
     "no-continue": "warn",
     "newline-before-return": "error",
     "newline-per-chained-call": ["off"],
     "operator-linebreak": ["error", "after"],
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-shadow": "warn",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-explicit-any": "off",
@@ -51,6 +51,8 @@
     "no-underscore-dangle": "off",
     "no-bitwise": "off",
     "no-undef": "off",
-    "function-paren-newline": "off"
+    "function-paren-newline": "off",
+    "no-return-assign": "off",
+    "no-param-reassign": "warn"
   }
 }
