@@ -23,19 +23,11 @@ describe('#benchmark', () => {
       mean: ns.mean / 1e9,
       error: ns.error / 1e9,
       max: ns.max / 1e9,
-      min: ns.max / 1e9,
+      min: ns.min / 1e9,
       count: ns.count,
     };
     const output = JSON.stringify(s, null, 2);
     writeFileSync(path.resolve(__dirname, `./output/${testName}.bench.json`), output);
-    writeFileSync(
-      path.resolve(__dirname, `./output/${testName}.out.json`),
-      JSON.stringify(
-        res,
-        (key, value) => (['symbol', 'references', 'referee'].includes(key) ? undefined : value),
-        2,
-      ),
-    );
     it('dummy test', expect.anything);
   });
 });
