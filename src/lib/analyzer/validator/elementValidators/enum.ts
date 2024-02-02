@@ -142,7 +142,7 @@ return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.val
           });
           break;
         default:
-          attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.UNKNOWN_ENUM_ELEMENT_SETTING, `Unknown enum field setting \'${name}\'`, attr)));
+          attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.UNKNOWN_ENUM_ELEMENT_SETTING, `Unknown enum field setting '${name}'`, attr)));
       }
     }
 
