@@ -15,7 +15,7 @@ describe('#benchmark', () => {
       () => {
         const compiler = new Compiler();
         compiler.setSource(program);
-        res = compiler.parse.rawDb()?.normalize();
+        res = compiler.parse.rawDb();
       },
       () => {},
     );
