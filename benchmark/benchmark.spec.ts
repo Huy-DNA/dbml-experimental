@@ -28,6 +28,14 @@ describe('#benchmark', () => {
     };
     const output = JSON.stringify(s, null, 2);
     writeFileSync(path.resolve(__dirname, `./output/${testName}.bench.json`), output);
+    writeFileSync(
+      path.resolve(__dirname, `./output/${testName}.out.json`),
+      JSON.stringify(
+        res,
+        (key, value) => (['symbol', 'references', 'referee'].includes(key) ? undefined : value),
+        2,
+      ),
+    );
     it('dummy test', expect.anything);
   });
 });
