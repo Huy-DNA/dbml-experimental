@@ -1,5 +1,5 @@
 {
-  "name": "playground",
+  "name": "@dbml-experimental/playground",
   "version": "1.0.0",
   "description": "Online demo of the dbml ast",
   "private": true,
