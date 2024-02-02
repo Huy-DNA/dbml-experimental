@@ -1,9 +1,7 @@
 {
   "name": "dbml-parser",
   "version": "1.0.0",
-  "description": "An experimental version of the new dbml parser",
-  "author": "huy.do862003@gmail.com",
-  "keywords": ["dbml", "parser", "playground"],
+  "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "scripts": {
@@ -17,7 +15,8 @@
     "prettier:fix": "prettier --write ./**/*.ts",
     "benchmark": "vitest benchmark.spec.ts"
   },
-  "license": "Apache-2.0",
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.4.4",
     "@types/nodemark": "^0.3.0",
@@ -30,6 +29,7 @@
     "eslint-plugin-json-format": "^2.0.1",
     "nodemark": "^0.3.0",
     "prettier": "^3.0.0",
+    "turbo": "^1.10.12",
     "typescript": "^5.1.6",
     "vite": "^4.4.7",
     "vitest": "^0.33.0"
