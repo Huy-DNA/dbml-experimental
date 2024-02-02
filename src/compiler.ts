@@ -25,7 +25,8 @@ import Analyzer from './lib/analyzer/analyzer';
 import Interpreter from './lib/interpreter/interpreter';
 import { SyntaxToken, SyntaxTokenKind } from './lib/lexer/tokens';
 import { getMemberChain, isInvalidToken } from './lib/parser/utils';
-import Database from './lib/model_structure/database';
+import { Database } from './lib/interpreter/types';
+import { DBMLCompletionItemProvider, DBMLDefinitionProvider, DBMLReferencesProvider } from './services/index';
 
 const enum Query {
   _Interpret,
@@ -160,7 +161,7 @@ export default class Compiler {
 
           return interpreter
             .interpret()
-            .map((interpretedRes) => ({ ast, tokens, rawDb: new Database(interpretedRes) }));
+            .map((interpretedRes) => ({ ast, tokens, rawDb: interpretedRes }));
         });
       },
     ),
@@ -168,12 +169,7 @@ export default class Compiler {
       Query.Parse_Ast,
       (): Readonly<ProgramNode> => this.parse._().getValue().ast,
     ),
-    errors: this.createQuery(Query.Parse_Errors, (): readonly Readonly<CompileError>[] => {
-      const errors = [...this.parse._().getErrors()];
-      errors.sort((e1, e2) => e1.start - e2.start);
-
-      return errors;
-    }),
+    errors: this.createQuery(Query.Parse_Errors, (): readonly Readonly<CompileError>[] => this.parse._().getErrors()),
     tokens: this.createQuery(
       Query.Parse_Tokens,
       (): Readonly<SyntaxToken>[] => this.parse._().getValue().tokens,
@@ -419,4 +415,12 @@ export default class Compiler {
           []),
     ),
   };
+
+  initMonacoServices() {
+    return {
+      definitionProvider: new DBMLDefinitionProvider(this),
+      referenceProvider: new DBMLReferencesProvider(this),
+      autocompletionProvider: new DBMLCompletionItemProvider(this),
+    };
+  }
 }

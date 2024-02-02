@@ -11,8 +11,9 @@ import {
 } from '../../../parser/utils';
 import { ElementValidator } from '../types';
 import { aggregateSettingList, isSimpleName, pickValidator } from '../utils';
-import { isBinaryRelationship, isEqualTupleOperands } from '../../../analyzer/utils';
+import { getElementKind, isBinaryRelationship, isEqualTupleOperands } from '../../../analyzer/utils';
 import SymbolTable from '../../../analyzer/symbol/symbolTable';
+import { ElementKind } from '../../../analyzer/types';
 
 export default class RefValidator implements ElementValidator {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
@@ -30,7 +31,7 @@ export default class RefValidator implements ElementValidator {
   }
 
   private validateContext(): CompileError[] {
-    if (this.declarationNode.parent instanceof ProgramNode || this.declarationNode.parent!.type?.value.toLowerCase() === 'table') {
+    if (this.declarationNode.parent instanceof ProgramNode || getElementKind(this.declarationNode.parent).unwrap_or(undefined) === ElementKind.Table) {
       return [];
     }
 
@@ -51,7 +52,7 @@ return [new CompileError(CompileErrorCode.INVALID_REF_CONTEXT, 'A Ref must appea
 
   private validateAlias(aliasNode?: SyntaxNode): CompileError[] {
     if (aliasNode) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_ALIAS, 'A Ref should\'nt have an alias', aliasNode)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_ALIAS, 'A Ref shouldn\'t have an alias', aliasNode)];
     }
 
     return [];
@@ -59,7 +60,7 @@ return [new CompileError(CompileErrorCode.INVALID_REF_CONTEXT, 'A Ref must appea
 
   private validateSettingList(settingList?: ListExpressionNode): CompileError[] {
     if (settingList) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_SETTINGS, 'A Ref should\'nt have a setting list', settingList)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_SETTINGS, 'A Ref shouldn\'t have a setting list', settingList)];
     }
 
     return [];
@@ -113,22 +114,23 @@ return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.val
     const aggReport = aggregateSettingList(settings);
     const errors = aggReport.getErrors();
     const settingMap = aggReport.getValue();
+    // eslint-disable-next-line no-restricted-syntax,guard-for-in
     for (const name in settingMap) {
       const attrs = settingMap[name];
       switch (name) {
         case 'delete':
         case 'update':
           if (attrs.length > 1) {
-            attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.DUPLICATE_REF_SETTING, `\'${name}\' can only appear once`, attr)));
+            attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.DUPLICATE_REF_SETTING, `'${name}' can only appear once`, attr)));
           }
           attrs.forEach((attr) => {
             if (!isValidPolicy(attr.value)) {
-              errors.push(new CompileError(CompileErrorCode.INVALID_REF_SETTING_VALUE, `\'${name}\' can only have values "cascade", "no action", "set null", "set default" or "restrict"`, attr));
+              errors.push(new CompileError(CompileErrorCode.INVALID_REF_SETTING_VALUE, `'${name}' can only have values "cascade", "no action", "set null", "set default" or "restrict"`, attr));
             }
           });
           break;
         default:
-          attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.UNKNOWN_REF_SETTING, `Unknown ref setting \'${name}\'`, attr)));
+          attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.UNKNOWN_REF_SETTING, `Unknown ref setting '${name}'`, attr)));
       }
     }
 

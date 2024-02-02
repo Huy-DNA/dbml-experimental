@@ -6,7 +6,7 @@ import {
  ArrayNode, AttributeNode, BlockExpressionNode, CallExpressionNode, ElementDeclarationNode, FunctionApplicationNode, FunctionExpressionNode, ListExpressionNode, PrefixExpressionNode, SyntaxNode,
 } from '../../parser/nodes';
 import {
- extractColor, extractElementName, getColumnSymbolsOfRefOperand, getMultiplicities, getRefId, getTokenPosition, isSameEndpoint, normalizeNoteContent,
+ extractColor, extractElementName, getColumnSymbolsOfRefOperand, getMultiplicities, getRefId, getTokenPosition, isSameEndpoint,
 } from '../utils';
 import {
  destructureComplexVariable, destructureIndexNode, extractQuotedStringToken, extractVarNameFromPrimaryVariable, extractVariableFromExpression,
@@ -29,8 +29,8 @@ export class TableInterpreter implements ElementInterpreter {
     this.declarationNode = declarationNode;
     this.env = env;
     this.table = {
-      name: undefined, schemaName: undefined, alias: null, fields: [], token: undefined, indexes: [],
-    };
+ name: undefined, schemaName: undefined, alias: null, fields: [], token: undefined, indexes: [],
+};
     this.pkColumns = [];
   }
 
@@ -57,7 +57,6 @@ export class TableInterpreter implements ElementInterpreter {
         },
         pk: true,
       });
-      // eslint-disable-next-line no-param-reassign,no-return-assign
       this.pkColumns.forEach((column) => column.pk = false);
     }
 
@@ -109,7 +108,7 @@ return [new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not sup
     const [noteNode] = settingMap.note || [];
     const noteValue = extractQuotedStringToken(noteNode?.value).unwrap_or(undefined);
     this.table.note = noteNode && {
-      value: normalizeNoteContent(noteValue!),
+      value: noteValue!,
       token: getTokenPosition(noteNode),
     };
 
@@ -119,7 +118,7 @@ return [new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not sup
   private interpretBody(body: BlockExpressionNode): CompileError[] {
     const [fields, subs] = _.partition(body.body, (e) => e instanceof FunctionApplicationNode);
 
-    return [...this.interpretFields(fields as FunctionApplicationNode[]), ...this.interpretSubElements(subs as ElementDeclarationNode[])];
+return [...this.interpretFields(fields as FunctionApplicationNode[]), ...this.interpretSubElements(subs as ElementDeclarationNode[])];
   }
 
   private interpretSubElements(subs: ElementDeclarationNode[]): CompileError[] {
@@ -127,11 +126,11 @@ return [new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not sup
       switch (sub.type?.value.toLowerCase()) {
         case 'note':
           this.table.note = {
-            value: normalizeNoteContent(extractQuotedStringToken(sub.body instanceof BlockExpressionNode ? (sub.body.body[0] as FunctionApplicationNode).callee : sub.body!.callee).unwrap()),
+            value: extractQuotedStringToken(sub.body instanceof BlockExpressionNode ? (sub.body.body[0] as FunctionApplicationNode).callee : sub.body!.callee).unwrap(),
             token: getTokenPosition(sub),
           };
 
-        return [];
+return [];
         case 'indexes':
           return this.interpretIndexes(sub);
         case 'ref':
@@ -163,14 +162,14 @@ return [new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not sup
     const settings = field.args.slice(1);
     if (_.last(settings) instanceof ListExpressionNode) {
       const settingMap = aggregateSettingList(settings.pop() as ListExpressionNode).getValue();
-      column.pk = !!settingMap.pk?.length;
+      column.pk = !!settingMap.pk?.length || !!settingMap['primary key']?.length;
       column.increment = !!settingMap.increment?.length;
       column.unique = !!settingMap.unique?.length;
       column.not_null = !!settingMap['not null']?.length && true;
       column.dbdefault = processDefaultValue(settingMap.default?.at(0)?.value);
       const noteNode = settingMap.note?.at(0);
       column.note = noteNode && {
-        value: normalizeNoteContent(extractQuotedStringToken(noteNode.value).unwrap()),
+        value: extractQuotedStringToken(noteNode.value).unwrap(),
         token: getTokenPosition(noteNode),
       };
       const refs = settingMap.ref || [];
@@ -187,42 +186,42 @@ return [];
 
         let inlineRef: InlineRef | undefined;
         if (fragments.length === 1) {
-          const [columnName] = fragments;
+          const [column] = fragments;
 
           inlineRef = {
             schemaName: this.table.schemaName!,
             tableName: this.table.name!,
-            fieldNames: [columnName],
+            fieldNames: [column],
             relation: op.value as any,
             token: getTokenPosition(ref),
           };
         } else if (fragments.length === 2) {
-          const [table, columnName] = fragments;
+          const [table, column] = fragments;
           inlineRef = {
             schemaName: null,
             tableName: table,
-            fieldNames: [columnName],
+            fieldNames: [column],
             relation: op.value as any,
             token: getTokenPosition(ref),
           };
         } else if (fragments.length === 3) {
-          const [schema, table, columnName] = fragments;
+          const [schema, table, column] = fragments;
           inlineRef = {
             schemaName: schema,
             tableName: table,
-            fieldNames: [columnName],
+            fieldNames: [column],
             relation: op.value as any,
             token: getTokenPosition(ref),
           };
         } else {
           errors.push(new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not supported', ref));
-          const columnName = fragments.pop()!;
+          const column = fragments.pop()!;
           const table = fragments.pop()!;
           const schema = fragments.join('.');
           inlineRef = {
             schemaName: schema,
             tableName: table,
-            fieldNames: [columnName],
+            fieldNames: [column],
             relation: op.value as any,
             token: getTokenPosition(ref),
           };
@@ -260,7 +259,7 @@ return errors;
         index.name = extractQuotedStringToken(settingMap.name?.at(0)?.value).unwrap_or(undefined);
         const noteNode = settingMap.note?.at(0);
         index.note = noteNode && {
-          value: normalizeNoteContent(extractQuotedStringToken(noteNode.value).unwrap()),
+          value: extractQuotedStringToken(noteNode.value).unwrap(),
           token: getTokenPosition(noteNode),
         };
         index.type = extractVariableFromExpression(settingMap.type?.at(0)?.value).unwrap_or(undefined);
@@ -276,7 +275,6 @@ return errors;
         const fragments: SyntaxNode[] = [];
         while (arg instanceof CallExpressionNode) {
           fragments.push(arg.argumentList!);
-          // eslint-disable-next-line no-param-reassign
           arg = arg.callee!;
         }
         fragments.push(arg);
@@ -340,9 +338,18 @@ function processColumnType(typeNode: SyntaxNode): Report<ColumnType, CompileErro
   let typeArgs: string | null = null;
   if (typeNode instanceof CallExpressionNode) {
       typeArgs = typeNode
-          .argumentList!.elementList.map((e) => (e as any).expression.literal.value)
+          .argumentList!.elementList.map((e) => {
+            if (isExpressionANumber(e)) {
+              return e.expression.literal.value;
+            }
+            if (isExpressionAQuotedString(e)) {
+              return extractQuotedStringToken(e).unwrap();
+            }
+            // e can only be an identifier here
+
+            return extractVariableFromExpression(e).unwrap();
+          })
           .join(',');
-      // eslint-disable-next-line no-param-reassign
       typeNode = typeNode.callee!;
     }
   let typeIndexer: string = '';
@@ -352,24 +359,26 @@ function processColumnType(typeNode: SyntaxNode): Report<ColumnType, CompileErro
         .indexer!.elementList.map((e) => (e.name as any).expression.literal.value)
         .join(',')
     }]${typeIndexer}`;
-    // eslint-disable-next-line no-param-reassign
     typeNode = typeNode.array!;
   }
 
   const { name: typeName, schemaName: typeSchemaName } = extractElementName(typeNode);
   if (typeSchemaName.length > 1) {
-    return new Report({
-      schemaName: typeSchemaName.join('.'),
-      type_name: `${typeName}${typeIndexer}${typeArgs ? `(${typeArgs})` : ''}`,
-      args: typeArgs,
-    }, [new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not supported', typeNode)]);
+    return new Report(
+      {
+        schemaName: typeSchemaName.length === 0 ? null : typeSchemaName[0],
+        type_name: `${typeName}${typeIndexer}${typeArgs ? `(${typeArgs})` : ''}`,
+        args: typeArgs,
+      },
+      [new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not supported', typeNode)],
+    );
   }
 
   return new Report({
     schemaName: typeSchemaName.length === 0 ? null : typeSchemaName[0],
     type_name: `${typeName}${typeIndexer}${typeArgs ? `(${typeArgs})` : ''}`,
     args: typeArgs,
-  }, []);
+  });
 }
 
 function processDefaultValue(valueNode?: SyntaxNode):
@@ -398,7 +407,7 @@ function processDefaultValue(valueNode?: SyntaxNode):
   if (isExpressionAnIdentifierNode(valueNode)) {
     const value = valueNode.expression.variable.value.toLowerCase();
 
-  return {
+return {
       value,
       type: 'boolean',
     };
@@ -411,7 +420,7 @@ function processDefaultValue(valueNode?: SyntaxNode):
   ) {
     const number = Number.parseFloat(valueNode.expression.expression.literal.value);
 
-  return {
+return {
       value: valueNode.op?.value === '-' ? 0 - number : number,
       type: 'number',
     };

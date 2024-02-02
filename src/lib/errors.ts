@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { SyntaxToken } from './lexer/tokens';
 import { SyntaxNode } from './parser/nodes';
 

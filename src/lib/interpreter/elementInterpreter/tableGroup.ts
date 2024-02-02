@@ -19,6 +19,7 @@ export class TableGroupInterpreter implements ElementInterpreter {
     const errors: CompileError[] = [];
     this.tableGroup.token = getTokenPosition(this.declarationNode);
     this.env.tableGroups.set(this.declarationNode, this.tableGroup as TableGroup);
+
     const { name, schemaName } = extractElementName(this.declarationNode.name!);
     if (schemaName.length >= 2) {
       this.tableGroup.name = name;

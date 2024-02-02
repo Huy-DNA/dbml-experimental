@@ -1,5 +1,3 @@
-import * as monaco from 'monaco-editor-core';
-import _ from 'lodash';
 import {
   destructureMemberAccessExpression,
   extractVariableFromExpression,
@@ -12,10 +10,10 @@ import Compiler, { ScopeKind } from '../../compiler';
 import { SyntaxToken, SyntaxTokenKind } from '../../lib/lexer/tokens';
 import { isOffsetWithinSpan } from '../../lib/utils';
 import {
-  CompletionList,
-  TextModel,
-  CompletionItemProvider,
-  Position,
+  type CompletionList,
+  type TextModel,
+  type CompletionItemProvider,
+  type Position,
   CompletionItemKind,
   CompletionItemInsertTextRule,
 } from '../types';
@@ -32,6 +30,7 @@ import {
   AttributeNode,
   ElementDeclarationNode,
   FunctionApplicationNode,
+  IdentiferStreamNode,
   InfixExpressionNode,
   ListExpressionNode,
   PrefixExpressionNode,
@@ -41,10 +40,6 @@ import {
 } from '../../lib/parser/nodes';
 import { getOffsetFromMonacoPosition } from '../utils';
 import { isComment } from '../../lib/lexer/utils';
-
-/* eslint-disable @typescript-eslint/no-redeclare,no-import-assign */
-const { CompletionItemKind, CompletionItemInsertTextRule } = monaco.languages;
-/* eslint-enable @typescript-eslint/no-redeclare,no-import-assign */
 
 export default class DBMLCompletionItemProvider implements CompletionItemProvider {
   private compiler: Compiler;
@@ -251,7 +246,7 @@ function suggestInAttribute(
     return suggestAttributeName(compiler, offset);
   }
 
-  if (container.name) {
+  if (container.name instanceof IdentiferStreamNode) {
     const res = suggestAttributeValue(
       compiler,
       offset,
@@ -679,7 +674,7 @@ function suggestColumnType(compiler: Compiler, offset: number): CompletionList {
 
 function suggestColumnNameInIndexes(compiler: Compiler, offset: number): CompletionList {
   const indexesNode = compiler.container.element(offset);
-  const tableNode = indexesNode.parent;
+  const tableNode = (indexesNode as any)?.parent;
   if (!(tableNode?.symbol instanceof TableSymbol)) {
     return noSuggestions();
   }

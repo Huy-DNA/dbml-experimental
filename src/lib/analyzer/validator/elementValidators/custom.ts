@@ -7,6 +7,8 @@ import { SyntaxToken } from '../../../lexer/tokens';
 import { ElementValidator } from '../types';
 import { isExpressionAQuotedString } from '../../../parser/utils';
 import SymbolTable from '../../../analyzer/symbol/symbolTable';
+import { getElementKind } from '../../../analyzer/utils';
+import { ElementKind } from '../../../analyzer/types';
 
 export default class CustomValidator implements ElementValidator {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
@@ -24,7 +26,7 @@ export default class CustomValidator implements ElementValidator {
   }
 
   private validateContext(): CompileError[] {
-    if (this.declarationNode.parent instanceof ProgramNode || this.declarationNode.parent?.type?.value.toLowerCase() !== 'project') {
+    if (this.declarationNode.parent instanceof ProgramNode || getElementKind(this.declarationNode.parent).unwrap_or(undefined) !== ElementKind.Project) {
       return [new CompileError(CompileErrorCode.INVALID_CUSTOM_CONTEXT, 'A custom element can only appear in a Project', this.declarationNode)];
     }
 
@@ -33,7 +35,7 @@ return [];
 
   private validateName(nameNode?: SyntaxNode): CompileError[] {
     if (nameNode) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_NAME, 'A Custom element should\'nt have a name', nameNode)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_NAME, 'A Custom element shouldn\'t have a name', nameNode)];
     }
 
     return [];
@@ -41,7 +43,7 @@ return [];
 
   private validateAlias(aliasNode?: SyntaxNode): CompileError[] {
     if (aliasNode) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_NAME, 'A Custom element should\'nt have an alias', aliasNode)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_NAME, 'A Custom element shouldn\'t have an alias', aliasNode)];
     }
 
     return [];
@@ -49,7 +51,7 @@ return [];
 
   private validateSettingList(settingList?: ListExpressionNode): CompileError[] {
     if (settingList) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_SETTINGS, 'A Custom element should\'nt have a setting list', settingList)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_SETTINGS, 'A Custom element shouldn\'t have a setting list', settingList)];
     }
 
     return [];
@@ -64,10 +66,15 @@ return [];
       return [new CompileError(CompileErrorCode.UNEXPECTED_COMPLEX_BODY, 'A Custom element can only have an inline field', body)];
     }
 
+    const errors: CompileError[] = [];
+
     if (!isExpressionAQuotedString(body.callee)) {
-      return [new CompileError(CompileErrorCode.INVALID_CUSTOM_ELEMENT_VALUE, 'A Custom element value can only be a string', body)];
+      errors.push(new CompileError(CompileErrorCode.INVALID_CUSTOM_ELEMENT_VALUE, 'A Custom element value can only be a string', body));
+    }
+    if (body.args.length > 0) {
+      errors.push(...body.args.map((arg) => new CompileError(CompileErrorCode.INVALID_CUSTOM_ELEMENT_VALUE, 'A Custom element value can only be a string', arg)));
     }
 
-    return [];
+    return errors;
   }
 }

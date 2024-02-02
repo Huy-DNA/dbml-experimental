@@ -16,8 +16,9 @@ import { isExpressionAQuotedString, isExpressionAVariableNode } from '../../../p
 import { aggregateSettingList, isVoid, pickValidator } from '../utils';
 import { SyntaxToken } from '../../../lexer/tokens';
 import { ElementValidator } from '../types';
-import { destructureIndexNode } from '../../../analyzer/utils';
+import { destructureIndexNode, getElementKind } from '../../../analyzer/utils';
 import SymbolTable from '../../../analyzer/symbol/symbolTable';
+import { ElementKind } from '../../../analyzer/types';
 
 export default class IndexesValidator implements ElementValidator {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
@@ -35,7 +36,7 @@ export default class IndexesValidator implements ElementValidator {
   }
 
   private validateContext(): CompileError[] {
-    if (this.declarationNode.parent instanceof ProgramNode || this.declarationNode.parent?.type?.value.toLowerCase() !== 'table') {
+    if (this.declarationNode.parent instanceof ProgramNode || getElementKind(this.declarationNode.parent).unwrap_or(undefined) !== ElementKind.Table) {
       return [new CompileError(CompileErrorCode.INVALID_NOTE_CONTEXT, 'An Indexes can only appear inside a Table', this.declarationNode)];
     }
 
@@ -44,7 +45,7 @@ export default class IndexesValidator implements ElementValidator {
 
   private validateName(nameNode?: SyntaxNode): CompileError[] {
     if (nameNode) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_NAME, 'An Indexes should\'nt have a name', nameNode)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_NAME, 'An Indexes shouldn\'t have a name', nameNode)];
     }
 
     return [];
@@ -52,7 +53,7 @@ export default class IndexesValidator implements ElementValidator {
 
   private validateAlias(aliasNode?: SyntaxNode): CompileError[] {
     if (aliasNode) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_ALIAS, 'An Indexes should\'nt have an alias', aliasNode)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_ALIAS, 'An Indexes shouldn\'t have an alias', aliasNode)];
     }
 
     return [];
@@ -60,7 +61,7 @@ export default class IndexesValidator implements ElementValidator {
 
   private validateSettingList(settingList?: ListExpressionNode): CompileError[] {
     if (settingList) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_SETTINGS, 'An Indexes should\'nt have a setting list', settingList)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_SETTINGS, 'An Indexes shouldn\'t have a setting list', settingList)];
     }
 
     return [];
@@ -115,29 +116,29 @@ return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.val
     const aggReport = aggregateSettingList(settings);
     const errors = aggReport.getErrors();
     const settingMap = aggReport.getValue();
-
+    // eslint-disable-next-line no-restricted-syntax,guard-for-in
     for (const name in settingMap) {
       const attrs = settingMap[name];
       switch (name) {
         case 'note':
         case 'name':
           if (attrs.length > 1) {
-            attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.DUPLICATE_INDEX_SETTING, `\'${name}\' can only appear once`, attr)));
+            attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.DUPLICATE_INDEX_SETTING, `'${name}' can only appear once`, attr)));
           }
           attrs.forEach((attr) => {
             if (!isExpressionAQuotedString(attr.value)) {
-              errors.push(new CompileError(CompileErrorCode.INVALID_INDEX_SETTING_VALUE, `\'${name}\' must be a string`, attr));
+              errors.push(new CompileError(CompileErrorCode.INVALID_INDEX_SETTING_VALUE, `'${name}' must be a string`, attr));
             }
           });
           break;
         case 'unique':
         case 'pk':
           if (attrs.length > 1) {
-            attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.DUPLICATE_INDEX_SETTING, `\'${name}\' can only appear once`, attr)));
+            attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.DUPLICATE_INDEX_SETTING, `'${name}' can only appear once`, attr)));
           }
           attrs.forEach((attr) => {
             if (!isVoid(attr.value)) {
-              errors.push(new CompileError(CompileErrorCode.INVALID_INDEX_SETTING_VALUE, `\'${name}\' must not have a value`, attr));
+              errors.push(new CompileError(CompileErrorCode.INVALID_INDEX_SETTING_VALUE, `'${name}' must not have a value`, attr));
             }
           });
           break;
@@ -152,7 +153,7 @@ return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.val
           });
           break;
         default:
-          attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.UNKNOWN_INDEX_SETTING, `Unknown index setting \'${name}\'`, attr)));
+          attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.UNKNOWN_INDEX_SETTING, `Unknown index setting '${name}'`, attr)));
       }
     }
 

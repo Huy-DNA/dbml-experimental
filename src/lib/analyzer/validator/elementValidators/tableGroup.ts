@@ -44,12 +44,12 @@ return [];
       return [new CompileError(CompileErrorCode.INVALID_NAME, 'A TableGroup name must be of the form <tablegroup> or <schema>.<tablegroup>', nameNode)];
     }
 
-return [];
+    return [];
   }
 
   private validateAlias(aliasNode?: SyntaxNode): CompileError[] {
     if (aliasNode) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_ALIAS, 'A TableGroup should\'nt have an alias', aliasNode)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_ALIAS, 'A TableGroup shouldn\'t have an alias', aliasNode)];
     }
 
     return [];
@@ -75,7 +75,7 @@ return [];
 
   private validateSettingList(settingList?: ListExpressionNode): CompileError[] {
     if (settingList) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_SETTINGS, 'A TableGroup should\'nt have a setting list', settingList)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_SETTINGS, 'A TableGroup shouldn\'t have a setting list', settingList)];
     }
 
     return [];
@@ -103,9 +103,8 @@ return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.val
 
       this.registerField(field);
 
-      const remains = field.args.slice(1);
-      if (remains.length > 0) {
-        errors.push(...remains.map((remain) => new CompileError(CompileErrorCode.INVALID_TABLEGROUP_FIELD, 'A TableGroup field should only have a single Table name', remain)));
+      if (field.args.length > 0) {
+        errors.push(...field.args.map((arg) => new CompileError(CompileErrorCode.INVALID_TABLEGROUP_FIELD, 'A TableGroup field should only have a single Table name', arg)));
       }
 
       return errors;

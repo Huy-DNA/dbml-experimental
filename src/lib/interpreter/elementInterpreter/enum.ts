@@ -7,7 +7,7 @@ import {
 import {
  ElementInterpreter, Enum, EnumField, InterpreterDatabase, Table,
 } from '../types';
-import { extractElementName, getTokenPosition, normalizeNoteContent } from '../utils';
+import { extractElementName, getTokenPosition } from '../utils';
 
 export class EnumInterpreter implements ElementInterpreter {
   private declarationNode: ElementDeclarationNode;
@@ -56,7 +56,7 @@ return [new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not sup
       const settingMap = aggregateSettingList(field.args[0] as ListExpressionNode).getValue();
       const noteNode = settingMap.note?.at(0);
       enumField.note = noteNode && {
-        value: normalizeNoteContent(extractQuotedStringToken(noteNode.value).unwrap()),
+        value: extractQuotedStringToken(noteNode.value).unwrap(),
         token: getTokenPosition(noteNode),
       };
 

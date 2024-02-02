@@ -86,7 +86,7 @@ return [];
     }
 
     if (!isValidAlias(aliasNode)) {
-      return [new CompileError(CompileErrorCode.INVALID_ALIAS, 'A Table alias must be of the form <alias>', aliasNode)];
+      return [new CompileError(CompileErrorCode.INVALID_ALIAS, 'Table aliases can only contains alphanumeric and underscore unless surrounded by double quotes', aliasNode)];
     }
 
     return [];
@@ -97,6 +97,7 @@ return [];
     const errors = aggReport.getErrors();
     const settingMap = aggReport.getValue();
 
+    // eslint-disable-next-line no-restricted-syntax,guard-for-in
     for (const name in settingMap) {
       const attrs = settingMap[name];
       switch (name) {
@@ -121,7 +122,7 @@ return [];
           });
           break;
         default:
-          errors.push(...attrs.map((attr) => new CompileError(CompileErrorCode.INVALID_TABLE_SETTING, `Unknown \'${name}\' setting`, attr)));
+          errors.push(...attrs.map((attr) => new CompileError(CompileErrorCode.INVALID_TABLE_SETTING, `Unknown '${name}' setting`, attr)));
       }
     }
 
@@ -136,7 +137,7 @@ return errors;
 
     const maybeNameFragments = destructureComplexVariable(name);
     if (maybeNameFragments.isOk()) {
-      const nameFragments = maybeNameFragments.unwrap();
+      const nameFragments = [...maybeNameFragments.unwrap()];
       const tableName = nameFragments.pop()!;
       const symbolTable = registerSchemaStack(nameFragments, this.publicSymbolTable, this.symbolFactory);
       const tableId = createTableSymbolIndex(tableName);
@@ -146,10 +147,14 @@ return errors;
       symbolTable.set(tableId, this.declarationNode.symbol!);
     }
 
-    if (alias && isSimpleName(alias)) {
-      const aliasId = createTableSymbolIndex(extractVarNameFromPrimaryVariable(alias as any).unwrap());
+    if (
+        alias && isSimpleName(alias) &&
+        !isAliasSameAsName(alias.expression.variable!.value, maybeNameFragments.unwrap_or([]))
+    ) {
+      const aliasName = extractVarNameFromPrimaryVariable(alias as any).unwrap();
+      const aliasId = createTableSymbolIndex(aliasName);
       if (this.publicSymbolTable.has(aliasId)) {
-        errors.push(new CompileError(CompileErrorCode.DUPLICATE_NAME, `Table name '${alias}' already exists`, name!));
+        errors.push(new CompileError(CompileErrorCode.DUPLICATE_NAME, `Table name '${aliasName}' already exists`, name!));
       }
       this.publicSymbolTable.set(aliasId, this.declarationNode.symbol!);
     }
@@ -227,8 +232,8 @@ return [];
 
   // This is needed to support legacy inline settings
   validateFieldSetting(parts: ExpressionNode[]): CompileError[] {
-    if (!parts.slice(0, -2).every(isExpressionAnIdentifierNode) || !parts.slice(-2, -1).every((p) => isExpressionAVariableNode(p) || p instanceof ListExpressionNode)) {
-      return [...parts.map((part) => new CompileError(CompileErrorCode.INVALID_COLUMN, 'A column must only contain a name, a type, optionally some inline settings and a setting list', part))];
+    if (!parts.slice(0, -1).every(isExpressionAnIdentifierNode) || !parts.slice(-1).every((p) => isExpressionAnIdentifierNode(p) || p instanceof ListExpressionNode)) {
+      return [...parts.map((part) => new CompileError(CompileErrorCode.INVALID_COLUMN, 'These fields must be some inline settings optionally ended with a setting list', part))];
     }
 
     if (parts.length === 0) {
@@ -244,6 +249,7 @@ return [];
     const errors = aggReport.getErrors();
     const settingMap: { [index: string]: AttributeNode[]; } & { pk?: (AttributeNode | PrimaryExpressionNode)[], unique?: (AttributeNode | PrimaryExpressionNode)[] } = aggReport.getValue();
 
+    // eslint-disable-next-line no-restricted-syntax
     for (const part of parts) {
       const name = extractVarNameFromPrimaryVariable(part as any).unwrap_or('').toLowerCase();
       if (name !== 'pk' && name !== 'unique') {
@@ -263,6 +269,7 @@ return [];
       errors.push(...[...pkAttrs, ...pkeyAttrs].map((attr) => new CompileError(CompileErrorCode.DUPLICATE_COLUMN_SETTING, 'Either one of \'primary key\' and \'pk\' can appear', attr)));
     }
 
+    // eslint-disable-next-line no-restricted-syntax,guard-for-in
     for (const name in settingMap) {
       const attrs = settingMap[name];
       switch (name) {
@@ -303,7 +310,7 @@ return [];
             }
           });
           break;
-        case 'not null':
+        case 'not null': {
           if (attrs.length > 1) {
             errors.push(...attrs.map((attr) => new CompileError(CompileErrorCode.DUPLICATE_COLUMN_SETTING, '\'not null\' can only appear once', attr)));
           }
@@ -317,6 +324,7 @@ return [];
             }
           });
           break;
+        }
         case 'null':
           if (attrs.length > 1) {
             errors.push(...attrs.map((attr) => new CompileError(CompileErrorCode.DUPLICATE_COLUMN_SETTING, '\'null\' can only appear once', attr)));
@@ -358,7 +366,7 @@ return [];
           });
           break;
         default:
-          attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.UNKNOWN_COLUMN_SETTING, `Unknown column setting \'${name}\'`, attr)));
+          attrs.forEach((attr) => errors.push(new CompileError(CompileErrorCode.UNKNOWN_COLUMN_SETTING, `Unknown column setting '${name}'`, attr)));
       }
     }
 
@@ -404,7 +412,7 @@ function isValidColumnType(type: SyntaxNode): boolean {
       return false;
     }
 
-    if (!type.argumentList.elementList.every(isExpressionANumber)) {
+    if (!type.argumentList.elementList.every((e) => isExpressionANumber(e) || isExpressionAQuotedString(e) || isExpressionAnIdentifierNode(e))) {
       return false;
     }
 
@@ -428,4 +436,8 @@ function isValidColumnType(type: SyntaxNode): boolean {
   const variables = destructureComplexVariable(type).unwrap_or(undefined);
 
   return variables !== undefined && variables.length > 0;
+}
+
+function isAliasSameAsName(alias: string, nameFragments: string[]): boolean {
+  return nameFragments.length === 1 && alias === nameFragments[0];
 }

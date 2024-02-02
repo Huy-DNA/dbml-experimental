@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { destructureComplexVariable, extractVariableFromExpression } from '../../analyzer/utils';
 import { aggregateSettingList } from '../../analyzer/validator/utils';
 import { CompileError, CompileErrorCode } from '../../errors';
@@ -21,14 +20,14 @@ export class RefInterpreter implements ElementInterpreter {
   constructor(declarationNode: ElementDeclarationNode, env: InterpreterDatabase) {
     this.declarationNode = declarationNode;
     this.env = env;
-    this.container = this.env.tables.get(this.declarationNode.parent!);
+    this.container = this.declarationNode.parent instanceof ElementDeclarationNode ? this.env.tables.get(this.declarationNode.parent) : undefined;
     this.ref = { };
   }
 
   interpret(): CompileError[] {
     this.ref.token = getTokenPosition(this.declarationNode);
-    const errors = [...this.interpretName(this.declarationNode.name!), ...this.interpretBody(this.declarationNode.body!)];
     this.env.ref.set(this.declarationNode, this.ref as Ref);
+    const errors = [...this.interpretName(this.declarationNode.name!), ...this.interpretBody(this.declarationNode.body!)];
 
 return errors;
   }
@@ -83,12 +82,12 @@ return errors;
 
     this.ref.endpoints = [
       {
-        ...extractNamesFromRefOperand(leftExpression!, this.container),
+        ...extractNamesFromRefOperand(leftExpression!, this.container as Table | undefined),
         relation: multiplicities[0],
         token: getTokenPosition(leftExpression!),
       },
       {
-        ...extractNamesFromRefOperand(rightExpression!, this.container),
+        ...extractNamesFromRefOperand(rightExpression!, this.container as Table | undefined),
         relation: multiplicities[1],
         token: getTokenPosition(rightExpression!),
       },

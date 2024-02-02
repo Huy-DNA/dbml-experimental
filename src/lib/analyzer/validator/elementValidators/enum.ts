@@ -51,7 +51,7 @@ export default class EnumValidator implements ElementValidator {
 
   private validateAlias(aliasNode?: SyntaxNode): CompileError[] {
     if (aliasNode) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_ALIAS, 'A Ref should\'nt have an alias', aliasNode)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_ALIAS, 'A Ref shouldn\'t have an alias', aliasNode)];
     }
 
     return [];
@@ -79,7 +79,7 @@ export default class EnumValidator implements ElementValidator {
 
   private validateSettingList(settingList?: ListExpressionNode): CompileError[] {
     if (settingList) {
-      return [new CompileError(CompileErrorCode.UNEXPECTED_SETTINGS, 'A Project should\'nt have a setting list', settingList)];
+      return [new CompileError(CompileErrorCode.UNEXPECTED_SETTINGS, 'An Enum shouldn\'t have a setting list', settingList)];
     }
 
     return [];
@@ -127,7 +127,7 @@ return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.val
     const aggReport = aggregateSettingList(settings);
     const errors = aggReport.getErrors();
     const settingMap = aggReport.getValue();
-
+    // eslint-disable-next-line no-restricted-syntax,guard-for-in
     for (const name in settingMap) {
       const attrs = settingMap[name];
       switch (name) {
