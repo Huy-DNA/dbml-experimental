@@ -1,9 +1,6 @@
 name: DBML Parser run test & lint
 
 on:
-  push:
-    paths:
-      - packages/parser/**/*
   pull_request:
     branches:
       [ "master" ]

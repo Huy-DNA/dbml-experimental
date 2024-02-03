@@ -1,9 +1,6 @@
 name: DBML playground build
 
 on:
-  push:
-    paths:
-      - packages/playground/**/*
   pull_request:
     branches:
       [ "master" ]
