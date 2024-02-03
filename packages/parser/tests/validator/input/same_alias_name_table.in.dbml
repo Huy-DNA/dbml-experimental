@@ -1,0 +1,15 @@
+Table A as "A" {
+    id int [pk]
+}
+
+Table "B" as B {
+    id int [pk]
+}
+
+Table "C" as "C" {
+    id int [pk]
+}
+
+Table D as D {
+    id int [pk]
+}
