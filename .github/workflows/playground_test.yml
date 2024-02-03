@@ -1,0 +1,31 @@
+name: DBML playground build
+
+on:
+  push:
+    paths:
+      - packages/playground/**/*
+  pull_request:
+    branches:
+      [ "master" ]
+    paths:
+      - packages/playground/**/*
+  
+env:
+  WORK_DIR: packages/playground/
+  NODE_VERSION: 16.x
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup dependencies
+        working-directory: ${{ env.WORK_DIR }}
+        run: |
+          npm install -g pnpm
+          pnpm install --no-frozen-lockfile
+      - name: Build playground
+        working-directory: ${{ env.WORK_DIR }}
+        run: pnpm build
