@@ -10,6 +10,7 @@ on:
 env:
   NODE_VERSION: 16.x
   WORK_DIR: packages/playground/
+  PARSER_DIR: packages/parser/
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,6 +21,11 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install pnpm
         run: npm install -g pnpm
+      - name: Build parser
+        working-directory: ${{ env.PARSER_DIR }}
+        run: |
+          pnpm install --no-frozen-lockfile
+          pnpm build
       - name: Build playground
         working-directory: ${{ env.WORK_DIR }}
         run: |
