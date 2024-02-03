@@ -5,9 +5,9 @@
 ***/
 
 Table follows {
-  following_user_id pk integer
-  followed_user_id unique integer
-  created_at timestamp 
+  following_user_id integer pk
+  followed_user_id integer pk
+  created_at timestamp unique
 }
 
 Table users {
