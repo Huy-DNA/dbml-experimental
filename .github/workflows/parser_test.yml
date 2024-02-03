@@ -28,7 +28,7 @@ jobs:
         working-directory: ${{ env.WORK_DIR }}
         run: |
           npm install -g pnpm
-          pnpm install
+          pnpm install --no-frozen-lockfile
       - name: Build parser
         working-directory: ${{ env.WORK_DIR }}
         run: pnpm build
