@@ -8,7 +8,7 @@
     },
     "test": {
         "dependsOn": ["build", "^test"],
-        "inputs": ["**/*.ts", "**/*.js"]
+        "inputs": ["**/*.ts", "**/*.js", "**/*.in.dbml"]
     },
     "lint": {},
     "lint:fix": {},
