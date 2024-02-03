@@ -3,12 +3,12 @@ name: DBML Parser run test
 on:
   push:
     paths:
-      - packages/parser/*
+      - packages/parser/**/*
   pull_request:
     branches:
       [ "master" ]
     paths:
-      - packages/parser/*
+      - packages/parser/**/*
 
 env:
   WORK_DIR: 'packages/parser/'
