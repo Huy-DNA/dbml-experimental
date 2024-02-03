@@ -1,0 +1,99 @@
+{
+  "schemas": [],
+  "tables": [
+    {
+      "name": "User",
+      "schemaName": null,
+      "alias": null,
+      "fields": [
+        {
+          "name": "id",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar(MAX)",
+            "args": "MAX"
+          },
+          "token": {
+            "start": {
+              "offset": 17,
+              "line": 2,
+              "column": 5
+            },
+            "end": {
+              "offset": 32,
+              "line": 2,
+              "column": 20
+            }
+          },
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
+        },
+        {
+          "name": "subs",
+          "type": {
+            "schemaName": null,
+            "type_name": "varbinary(MAX)",
+            "args": "MAX"
+          },
+          "token": {
+            "start": {
+              "offset": 37,
+              "line": 3,
+              "column": 5
+            },
+            "end": {
+              "offset": 58,
+              "line": 3,
+              "column": 26
+            }
+          },
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
+        },
+        {
+          "name": "pats",
+          "type": {
+            "schemaName": null,
+            "type_name": "varchar(MAX)",
+            "args": "MAX"
+          },
+          "token": {
+            "start": {
+              "offset": 63,
+              "line": 4,
+              "column": 5
+            },
+            "end": {
+              "offset": 82,
+              "line": 4,
+              "column": 24
+            }
+          },
+          "inline_refs": [],
+          "pk": false,
+          "unique": false
+        }
+      ],
+      "token": {
+        "start": {
+          "offset": 0,
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "offset": 84,
+          "line": 5,
+          "column": 2
+        }
+      },
+      "indexes": []
+    }
+  ],
+  "refs": [],
+  "enums": [],
+  "tableGroups": [],
+  "aliases": [],
+  "project": {}
+}

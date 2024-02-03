@@ -1,0 +1,5 @@
+Table User {
+    id varchar(MAX)
+    subs varbinary("MAX")
+    pats varchar('MAX')
+}
