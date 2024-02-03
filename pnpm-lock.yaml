@@ -93,6 +93,9 @@ importers:
       '@creditkarma/thrift-parser':
         specifier: ^1.2.0
         version: 1.2.0
+      '@dbml-experimental/parser':
+        specifier: workspace:*
+        version: link:../parser
       '@gengjiawen/monkey-wasm':
         specifier: ^0.7.0
         version: 0.7.0
@@ -478,9 +481,6 @@ importers:
       '@babel/preset-react':
         specifier: ^7.16.0
         version: 7.23.3(@babel/core@7.23.9)
-      '@dbml-experimental/parser':
-        specifier: workspace:*
-        version: link:../parser
       '@open-wc/webpack-import-meta-loader':
         specifier: ^0.4.7
         version: 0.4.7
