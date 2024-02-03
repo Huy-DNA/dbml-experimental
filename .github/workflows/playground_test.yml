@@ -6,10 +6,11 @@ on:
       [ "master" ]
     paths:
       - packages/playground/**/*
-  
+
 env:
-  WORK_DIR: packages/playground/
   NODE_VERSION: 16.x
+  WORK_DIR: packages/playground/
+  PARSER_DIR: packages/parser/
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,11 +19,16 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Setup dependencies
-        working-directory: ${{ env.WORK_DIR }}
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Build parser
+        working-directory: ${{ env.PARSER_DIR }}
         run: |
-          npm install -g pnpm
           pnpm install --no-frozen-lockfile
+          pnpm build
       - name: Build playground
         working-directory: ${{ env.WORK_DIR }}
-        run: pnpm build
+        run: |
+          pnpm install --no-frozen-lockfile
+          pnpm build
+      
