@@ -14,6 +14,23 @@ env:
   WORK_DIR: 'packages/parser/'
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      node-version: 20.x
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.node-version }}
+      - name: Setup dependencies
+        working-directory: ${{ env.WORK_DIR }}
+        run: |
+          npm install -g pnpm
+          pnpm install --no-frozen-lockfile
+      - name: Lint code
+        working-directory: ${{ env.WORK_DIR }}
+        run: pnpm lint
   test:
     runs-on: ubuntu-latest
     strategy:
