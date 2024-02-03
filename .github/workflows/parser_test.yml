@@ -1,4 +1,4 @@
-name: DBML Parser run test
+name: DBML Parser run test & lint
 
 on:
   push:
