@@ -1,0 +1,37 @@
+name: DBML Parser run test
+
+on:
+  push:
+    paths:
+      - packages/parser/*
+  pull_request:
+    branches:
+      [ "master" ]
+    paths:
+      - packages/parser/*
+
+env:
+  WORK_DIR: 'packages/parser/'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['16.x', '18.x', '20.x'] 
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Setup dependencies
+        working-directory: ${{ env.WORK_DIR }}
+        run: |
+          npm install -g pnpm
+          pnpm install
+      - name: Build parser
+        working-directory: ${{ env.WORK_DIR }}
+        run: pnpm build
+      - name: Run parser tests
+        working-directory: ${{ env.WORK_DIR }}
+        run: pnpm test
