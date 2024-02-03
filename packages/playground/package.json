@@ -1,6 +1,6 @@
 {
   "name": "@dbml-experimental/playground",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Online demo of the dbml ast",
   "private": true,
   "repository": {
@@ -13,7 +13,6 @@
     "@babel/plugin-transform-runtime": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
-    "@dbml-experimental/parser": "workspace:*",
     "@open-wc/webpack-import-meta-loader": "^0.4.7",
     "autoprefixer": "^10.0.0",
     "babel-loader": "^8.0.4",
@@ -45,6 +44,7 @@
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
+    "@dbml-experimental/parser": "workspace:*",
     "@angular-eslint/template-parser": "^14.0.2",
     "@angular/compiler": "^13.0.1",
     "@babel/eslint-parser": "~7.13.0",
