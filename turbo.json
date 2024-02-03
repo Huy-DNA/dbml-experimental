@@ -3,12 +3,23 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["**/*.ts", "**/*.js"],
+      "inputs": [
+        "**/*.ts",
+        "packages/parser/src/**/*.js",
+        "packages/playground/**/*.css",
+        "packages/playground/**/*.html",
+        "packages/playground/**/*.ejs",
+        "packages/playground/**/*.codeExample.txt"
+      ],
       "outputs": ["dist/**"]
     },
     "test": {
         "dependsOn": ["build", "^test"],
-        "inputs": ["**/*.ts", "**/*.js", "**/*.in.dbml"]
+        "inputs": [
+          "**/*.ts",
+          "packages/parser/src/**/*.js",
+          "packages/parser/tests/**/*.in.dbml"
+        ]
     },
     "lint": {},
     "lint:fix": {},
