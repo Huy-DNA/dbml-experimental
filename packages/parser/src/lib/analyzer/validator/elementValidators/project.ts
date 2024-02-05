@@ -70,7 +70,7 @@ export default class ProjectValidator implements ElementValidator {
 
     const [fields, subs] = _.partition(body.body, (e) => e instanceof FunctionApplicationNode);
 
-return [
+    return [
       ...fields.map((field) => new CompileError(CompileErrorCode.INVALID_PROJECT_FIELD, 'A Project can not have inline fields', field)),
       ...this.validateSubElements(subs as ElementDeclarationNode[]),
     ];
@@ -85,7 +85,7 @@ return [
       const _Validator = pickValidator(sub as ElementDeclarationNode & { type: SyntaxToken });
       const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.publicSymbolTable, this.symbolFactory);
 
-return validator.validate();
+    return validator.validate();
     });
   }
 }

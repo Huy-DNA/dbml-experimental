@@ -69,7 +69,7 @@ export default class NoteValidator implements ElementValidator {
 
     const [fields, subs] = _.partition(body.body, (e) => e instanceof FunctionApplicationNode);
 
-return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.validateSubElements(subs as ElementDeclarationNode[])];
+    return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.validateSubElements(subs as ElementDeclarationNode[])];
   }
 
   validateFields(fields: FunctionApplicationNode[]): CompileError[] {
@@ -87,7 +87,7 @@ return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.val
       errors.push(...fields[0].args.map((arg) => new CompileError(CompileErrorCode.INVALID_NOTE, 'A Note can only contain one quoted string', arg)));
     }
 
-return errors;
+    return errors;
   }
 
   private validateSubElements(subs: ElementDeclarationNode[]): CompileError[] {
@@ -99,7 +99,7 @@ return errors;
       const _Validator = pickValidator(sub as ElementDeclarationNode & { type: SyntaxToken });
       const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.publicSymbolTable, this.symbolFactory);
 
-return validator.validate();
+    return validator.validate();
     });
   }
 }

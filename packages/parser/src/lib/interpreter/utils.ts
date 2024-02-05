@@ -19,7 +19,7 @@ export function extractNamesFromRefOperand(operand: SyntaxNode, owner?: Table): 
       };
     }
 
-return {
+    return {
       tableName: variables.pop()!,
       schemaName: variables.pop() || null,
       fieldNames: tupleElements,
@@ -74,14 +74,14 @@ export function getColumnSymbolsOfRefOperand(ref: SyntaxNode): ColumnSymbol[] {
     return colNode.elementList.map((e) => e.referee as ColumnSymbol);
   }
 
-return [colNode!.referee as ColumnSymbol];
+    return [colNode!.referee as ColumnSymbol];
 }
 
 export function extractElementName(nameNode: SyntaxNode): { schemaName: string[]; name: string } {
   const fragments = destructureComplexVariable(nameNode).unwrap();
   const name = fragments.pop()!;
 
-return {
+    return {
     name,
     schemaName: fragments,
   };
@@ -98,13 +98,13 @@ export function getRefId(sym1: ColumnSymbol | ColumnSymbol[], sym2: ColumnSymbol
     const firstIds = sym1.map(({ id }) => id).sort().join(',');
     const secondIds = (sym2 as ColumnSymbol[]).map(({ id }) => id).sort().join(',');
 
-return firstIds < secondIds ? `${firstIds}-${secondIds}` : `${firstIds}-${secondIds}`;
+    return firstIds < secondIds ? `${firstIds}-${secondIds}` : `${firstIds}-${secondIds}`;
   }
 
   const firstId = sym1.id;
   const secondId = (sym2 as ColumnSymbol).id;
 
-return firstId < secondId ? `${firstId}-${secondId}` : `${secondId}-${firstId}`;
+    return firstId < secondId ? `${firstId}-${secondId}` : `${secondId}-${firstId}`;
 }
 
 export function isSameEndpoint(sym1: ColumnSymbol, sym2: ColumnSymbol): boolean;
@@ -114,11 +114,11 @@ export function isSameEndpoint(sym1: ColumnSymbol | ColumnSymbol[], sym2: Column
     const firstIds = sym1.map(({ id }) => id).sort();
     const secondIds = (sym2 as ColumnSymbol[]).map(({ id }) => id).sort();
 
-return _.zip(firstIds, secondIds).every(([first, second]) => first === second);
+    return _.zip(firstIds, secondIds).every(([first, second]) => first === second);
   }
 
   const firstId = sym1.id;
   const secondId = (sym2 as ColumnSymbol).id;
 
-return firstId === secondId;
+    return firstId === secondId;
 }

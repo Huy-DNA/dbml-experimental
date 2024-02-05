@@ -29,7 +29,7 @@ export class RefInterpreter implements ElementInterpreter {
     this.env.ref.set(this.declarationNode, this.ref as Ref);
     const errors = [...this.interpretName(this.declarationNode.name!), ...this.interpretBody(this.declarationNode.body!)];
 
-return errors;
+    return errors;
   }
 
   private interpretName(nameNode: SyntaxNode): CompileError[] {
@@ -95,6 +95,6 @@ return errors;
 
     this.env.refIds[refId] = this.declarationNode;
 
-return [];
+    return [];
   }
 }

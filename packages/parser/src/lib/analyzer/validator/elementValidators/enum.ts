@@ -95,7 +95,7 @@ export default class EnumValidator implements ElementValidator {
 
     const [fields, subs] = _.partition(body.body, (e) => e instanceof FunctionApplicationNode);
 
-return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.validateSubElements(subs as ElementDeclarationNode[])];
+    return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.validateSubElements(subs as ElementDeclarationNode[])];
   }
 
   validateFields(fields: FunctionApplicationNode[]): CompileError[] {
@@ -146,7 +146,7 @@ return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.val
       }
     }
 
-return errors;
+    return errors;
   }
 
   private validateSubElements(subs: ElementDeclarationNode[]): CompileError[] {
@@ -158,7 +158,7 @@ return errors;
       const _Validator = pickValidator(sub as ElementDeclarationNode & { type: SyntaxToken });
       const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.publicSymbolTable, this.symbolFactory);
 
-return validator.validate();
+    return validator.validate();
     });
   }
 
@@ -174,7 +174,7 @@ return validator.validate();
       if (symbolTable.has(enumFieldId)) {
         const symbol = symbolTable.get(enumFieldId);
 
-return [
+      return [
           new CompileError(CompileErrorCode.DUPLICATE_COLUMN_NAME, `Duplicate enum field ${enumFieldName}`, field),
           new CompileError(CompileErrorCode.DUPLICATE_COLUMN_NAME, `Duplicate enum field ${enumFieldName}`, symbol!.declaration!),
         ];
@@ -182,6 +182,6 @@ return [
       symbolTable.set(enumFieldId, enumSymbol);
     }
 
-return [];
+    return [];
   }
 }
