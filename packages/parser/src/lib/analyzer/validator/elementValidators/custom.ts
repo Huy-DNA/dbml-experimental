@@ -30,7 +30,7 @@ export default class CustomValidator implements ElementValidator {
       return [new CompileError(CompileErrorCode.INVALID_CUSTOM_CONTEXT, 'A custom element can only appear in a Project', this.declarationNode)];
     }
 
-return [];
+    return [];
   }
 
   private validateName(nameNode?: SyntaxNode): CompileError[] {

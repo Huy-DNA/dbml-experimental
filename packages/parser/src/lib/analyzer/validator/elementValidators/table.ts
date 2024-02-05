@@ -63,7 +63,7 @@ export default class TableValidator implements ElementValidator {
       return [new CompileError(CompileErrorCode.INVALID_TABLE_CONTEXT, 'Table must appear top-level', this.declarationNode)];
     }
 
-return [];
+    return [];
   }
 
   private validateName(nameNode?: SyntaxNode): CompileError[] {
@@ -126,7 +126,7 @@ return [];
       }
     }
 
-return errors;
+    return errors;
   }
 
   registerElement(): CompileError[] {
@@ -172,7 +172,7 @@ return errors;
 
     const [fields, subs] = _.partition(body.body, (e) => e instanceof FunctionApplicationNode);
 
-return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.validateSubElements(subs as ElementDeclarationNode[])];
+    return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.validateSubElements(subs as ElementDeclarationNode[])];
   }
 
   validateFields(fields: FunctionApplicationNode[]): CompileError[] {
@@ -219,7 +219,7 @@ return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.val
       if (symbolTable.has(columnId)) {
         const symbol = symbolTable.get(columnId);
 
-return [
+    return [
           new CompileError(CompileErrorCode.DUPLICATE_COLUMN_NAME, `Duplicate column ${columnName}`, field),
           new CompileError(CompileErrorCode.DUPLICATE_COLUMN_NAME, `Duplicate column ${columnName}`, symbol!.declaration!),
         ];
@@ -227,7 +227,7 @@ return [
       symbolTable.set(columnId, columnSymbol);
     }
 
-return [];
+    return [];
   }
 
   // This is needed to support legacy inline settings
@@ -370,7 +370,7 @@ return [];
       }
     }
 
-return errors;
+    return errors;
   }
 
   private validateSubElements(subs: ElementDeclarationNode[]): CompileError[] {
@@ -382,7 +382,7 @@ return errors;
       const _Validator = pickValidator(sub as ElementDeclarationNode & { type: SyntaxToken });
       const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.publicSymbolTable, this.symbolFactory);
 
-return validator.validate();
+    return validator.validate();
     });
 
     const notes = subs.filter((sub) => sub.type?.value.toLowerCase() === 'note');

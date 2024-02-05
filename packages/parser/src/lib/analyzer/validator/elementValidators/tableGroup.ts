@@ -33,7 +33,7 @@ export default class TableGroupValidator implements ElementValidator {
       return [new CompileError(CompileErrorCode.INVALID_TABLEGROUP_CONTEXT, 'TableGroup must appear top-level', this.declarationNode)];
     }
 
-return [];
+    return [];
   }
 
   private validateName(nameNode?: SyntaxNode): CompileError[] {
@@ -91,7 +91,7 @@ return [];
 
     const [fields, subs] = _.partition(body.body, (e) => e instanceof FunctionApplicationNode);
 
-return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.validateSubElements(subs as ElementDeclarationNode[])];
+    return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.validateSubElements(subs as ElementDeclarationNode[])];
   }
 
   validateFields(fields: FunctionApplicationNode[]): CompileError[] {
@@ -120,7 +120,7 @@ return [...this.validateFields(fields as FunctionApplicationNode[]), ...this.val
       const _Validator = pickValidator(sub as ElementDeclarationNode & { type: SyntaxToken });
       const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.publicSymbolTable, this.symbolFactory);
 
-return validator.validate();
+    return validator.validate();
     });
   }
 
@@ -136,7 +136,7 @@ return validator.validate();
       if (symbolTable.has(tableGroupFieldId)) {
         const symbol = symbolTable.get(tableGroupFieldId);
 
-return [
+    return [
           new CompileError(CompileErrorCode.DUPLICATE_TABLEGROUP_FIELD_NAME, `${tableGroupField} already exists in the group`, field),
           new CompileError(CompileErrorCode.DUPLICATE_TABLEGROUP_FIELD_NAME, `${tableGroupField} already exists in the group`, symbol!.declaration!),
         ];
@@ -144,6 +144,6 @@ return [
       symbolTable.set(tableGroupFieldId, tableGroupSymbol);
     }
 
-return [];
+    return [];
   }
 }

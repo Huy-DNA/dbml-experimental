@@ -70,7 +70,7 @@ export class TableInterpreter implements ElementInterpreter {
       this.table.name = name;
       this.table.schemaName = schemaName.join('.');
 
-return [new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not supported', nameNode)];
+      return [new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not supported', nameNode)];
     }
 
     this.table.name = name;
@@ -118,7 +118,7 @@ return [new CompileError(CompileErrorCode.UNSUPPORTED, 'Nested schema is not sup
   private interpretBody(body: BlockExpressionNode): CompileError[] {
     const [fields, subs] = _.partition(body.body, (e) => e instanceof FunctionApplicationNode);
 
-return [...this.interpretFields(fields as FunctionApplicationNode[]), ...this.interpretSubElements(subs as ElementDeclarationNode[])];
+    return [...this.interpretFields(fields as FunctionApplicationNode[]), ...this.interpretSubElements(subs as ElementDeclarationNode[])];
   }
 
   private interpretSubElements(subs: ElementDeclarationNode[]): CompileError[] {
@@ -130,7 +130,7 @@ return [...this.interpretFields(fields as FunctionApplicationNode[]), ...this.in
             token: getTokenPosition(sub),
           };
 
-return [];
+      return [];
         case 'indexes':
           return this.interpretIndexes(sub);
         case 'ref':
@@ -178,7 +178,7 @@ return [];
         if (isSameEndpoint(referredSymbol, field.symbol as ColumnSymbol)) {
           errors.push(new CompileError(CompileErrorCode.SAME_ENDPOINT, 'Two endpoints are the same', ref));
 
-return [];
+          return [];
         }
 
         const op = (ref.value as PrefixExpressionNode).op!;
@@ -242,7 +242,7 @@ return [];
       this.pkColumns.push(column as Column);
     }
 
-return errors;
+    return errors;
   }
 
   private interpretIndexes(indexes: ElementDeclarationNode): CompileError[] {
@@ -279,7 +279,7 @@ return errors;
         }
         fragments.push(arg);
 
-return fragments;
+        return fragments;
       }).forEach((arg) => {
         const { functional, nonFunctional } = destructureIndexNode(arg).unwrap();
         index.columns!.push(
@@ -317,15 +317,15 @@ return fragments;
       token: inlineRef.token,
       endpoints: [
         {
+          ...inlineRef,
+          relation: multiplicities[1],
+        },
+        {
           schemaName: this.table.schemaName!,
           tableName: this.table.name!,
           fieldNames: [extractVariableFromExpression(column.callee!).unwrap()],
           token: getTokenPosition(column),
           relation: multiplicities[0],
-        },
-        {
-          ...inlineRef,
-          relation: multiplicities[1],
         },
       ],
     });
@@ -407,7 +407,7 @@ function processDefaultValue(valueNode?: SyntaxNode):
   if (isExpressionAnIdentifierNode(valueNode)) {
     const value = valueNode.expression.variable.value.toLowerCase();
 
-return {
+    return {
       value,
       type: 'boolean',
     };
@@ -420,7 +420,7 @@ return {
   ) {
     const number = Number.parseFloat(valueNode.expression.expression.literal.value);
 
-return {
+    return {
       value: valueNode.op?.value === '-' ? 0 - number : number,
       type: 'number',
     };
