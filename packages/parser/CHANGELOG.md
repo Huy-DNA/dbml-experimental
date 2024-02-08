@@ -1,5 +1,11 @@
 # @dbml-experimental/parser
 
+## 1.1.2
+
+### Patch Changes
+
+- Validator failed to report errors properly when there're excessive arguments
+
 ## 1.1.1
 
 ### Patch Changes
