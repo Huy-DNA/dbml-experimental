@@ -109,12 +109,14 @@ export default class EnumValidator implements ElementValidator {
         errors.push(new CompileError(CompileErrorCode.INVALID_COLUMN_NAME, 'A column name must be an identifier or a quoted identifier', field.callee));
       }
 
-      if (_.last(field.args) instanceof ListExpressionNode) {
-        errors.push(...this.validateFieldSetting(_.last(field.args) as ListExpressionNode));
+      const args = [...field.args];
+      if (_.last(args) instanceof ListExpressionNode) {
+        errors.push(...this.validateFieldSetting(_.last(args) as ListExpressionNode));
+        args.pop();
       }
 
-      if (field.args.length > 1) {
-        errors.push(...field.args.map((arg) => new CompileError(CompileErrorCode.INVALID_ENUM_ELEMENT, 'An Enum must have only a field and optionally a setting list', arg)));
+      if (args.length > 0) {
+        errors.push(...args.map((arg) => new CompileError(CompileErrorCode.INVALID_ENUM_ELEMENT, 'An Enum must have only a field and optionally a setting list', arg)));
       }
 
       errors.push(...this.registerField(field));
