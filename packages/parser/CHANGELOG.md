@@ -1,5 +1,11 @@
 # @dbml-experimental/parser
 
+## 1.1.6
+
+### Patch Changes
+
+- Check reappearing tables in different table groups
+
 ## 1.1.5
 
 ### Patch Changes
