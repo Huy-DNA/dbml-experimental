@@ -1,0 +1,17 @@
+Table A {
+    id int [ref: > B.id]
+}
+
+Table B {
+    id int [ref: > A.id]
+}
+
+Table C {
+    id int [ref: > D.id]
+}
+
+Table D as D1 {
+    id int
+}
+
+Ref: D1.id > C.id
