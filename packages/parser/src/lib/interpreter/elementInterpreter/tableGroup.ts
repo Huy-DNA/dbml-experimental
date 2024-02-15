@@ -1,9 +1,11 @@
-import _ from "lodash";
-import { destructureComplexVariable, destructureMemberAccessExpression } from "../../analyzer/utils";
-import { CompileError, CompileErrorCode } from "../../errors";
-import { BlockExpressionNode, ElementDeclarationNode, FunctionApplicationNode, SyntaxNode } from "../../parser/nodes";
-import { ElementInterpreter, InterpreterDatabase, TableGroup } from "../types";
-import { extractElementName, getTokenPosition } from "../utils";
+import _ from 'lodash';
+import { destructureComplexVariable, destructureMemberAccessExpression } from '../../analyzer/utils';
+import { CompileError, CompileErrorCode } from '../../errors';
+import {
+ BlockExpressionNode, ElementDeclarationNode, FunctionApplicationNode, SyntaxNode,
+} from '../../parser/nodes';
+import { ElementInterpreter, InterpreterDatabase, TableGroup } from '../types';
+import { extractElementName, getTokenPosition } from '../utils';
 
 export class TableGroupInterpreter implements ElementInterpreter {
   private declarationNode: ElementDeclarationNode;
@@ -15,7 +17,7 @@ export class TableGroupInterpreter implements ElementInterpreter {
     this.env = env;
     this.tableGroup = { tables: [] };
   }
-  
+
   interpret(): CompileError[] {
     const errors: CompileError[] = [];
     this.tableGroup.token = getTokenPosition(this.declarationNode);
@@ -23,7 +25,7 @@ export class TableGroupInterpreter implements ElementInterpreter {
 
     errors.push(
       ...this.interpretName(this.declarationNode.name!),
-      ...this.interpretBody(this.declarationNode.body as BlockExpressionNode)
+      ...this.interpretBody(this.declarationNode.body as BlockExpressionNode),
     );
 
     return errors;
