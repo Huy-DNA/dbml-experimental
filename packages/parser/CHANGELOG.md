@@ -1,5 +1,11 @@
 # @dbml-experimental/parser
 
+## 1.1.3
+
+### Patch Changes
+
+- Fix circular ref going undetected
+
 ## 1.1.2
 
 ### Patch Changes
