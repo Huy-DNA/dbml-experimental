@@ -1,5 +1,11 @@
 # @dbml-experimental/parser
 
+## 1.1.5
+
+### Patch Changes
+
+- Fix error message for enum field
+
 ## 1.1.4
 
 ### Patch Changes
