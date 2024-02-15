@@ -1,6 +1,6 @@
 {
   "name": "@dbml-experimental/playground",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Online demo of the dbml ast",
   "private": true,
   "repository": {
