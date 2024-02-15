@@ -1,4 +1,4 @@
-import { ElementDeclarationNode, ProgramNode } from '../parser/nodes';
+import { ElementDeclarationNode } from '../parser/nodes';
 import { Position } from '../types';
 import { CompileError } from '../errors';
 
@@ -18,6 +18,7 @@ export interface InterpreterDatabase {
   refIds: { [refid: string]: ElementDeclarationNode };
   ref: Map<ElementDeclarationNode, Ref>;
   enums: Map<ElementDeclarationNode, Enum>;
+  tableOwnerGroup: { [tableid: string]: ElementDeclarationNode };
   tableGroups: Map<ElementDeclarationNode, TableGroup>;
   aliases: Alias[];
   project: Map<ElementDeclarationNode, Project>;
