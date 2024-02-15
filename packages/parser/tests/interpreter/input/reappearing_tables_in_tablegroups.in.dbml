@@ -1,0 +1,23 @@
+Table users as U {
+   id int
+}
+
+Table a.users as AU {
+   id int
+}
+
+TableGroup A1 {
+   U
+}
+
+TableGroup A2 {
+   users
+}
+
+TableGroup A3 {
+   a.users
+}
+
+TableGroup A4 {
+   AU
+}
