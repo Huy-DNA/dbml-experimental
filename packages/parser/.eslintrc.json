@@ -53,6 +53,7 @@
     "no-undef": "off",
     "function-paren-newline": "off",
     "no-return-assign": "off",
-    "no-param-reassign": "warn"
+    "no-param-reassign": "warn",
+    "dot-notation": "warn"
   }
 }
