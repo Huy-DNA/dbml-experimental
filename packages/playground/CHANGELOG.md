@@ -1,5 +1,12 @@
 # @dbml-experimental/playground
 
+## 1.0.8
+
+### Patch Changes
+
+- Updated dependencies
+  - @dbml-experimental/parser@1.1.7
+
 ## 1.0.7
 
 ### Patch Changes

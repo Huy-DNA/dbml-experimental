@@ -1,5 +1,15 @@
 # @dbml-experimental/parser
 
+## 1.1.7
+
+### Patch Changes
+
+- Fix table reappearing in TableGroup not throwing an error
+  Fix circular ref detection
+  Improve auto-suggestions for identifiers containing non-ascii letters
+  Fix interpreting onUpdate and onDelete settings
+  Fix getMemberChain to include ArrayNode
+
 ## 1.1.6
 
 ### Patch Changes
