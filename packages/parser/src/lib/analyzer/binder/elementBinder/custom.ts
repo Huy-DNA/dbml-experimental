@@ -30,9 +30,7 @@ export default class CustomBinder implements ElementBinder {
   }
 
   private bindFields(fields: FunctionApplicationNode[]): CompileError[] {
-    return fields.flatMap((field) => { 
-      return [];
-    });
+    return [];
   }
 
   private bindSubElements(subs: ElementDeclarationNode[]): CompileError[] {
