@@ -3,7 +3,7 @@ import { CompileError } from '../../../errors';
 import { ElementBinder } from '../types';
 import { BlockExpressionNode, ElementDeclarationNode, FunctionApplicationNode } from '../../../parser/nodes';
 import { SyntaxToken } from '../../../lexer/tokens';
-import { pickBinder, scanForBinding } from '../utils';
+import { pickBinder } from '../utils';
 
 export default class EnumBinder implements ElementBinder {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
