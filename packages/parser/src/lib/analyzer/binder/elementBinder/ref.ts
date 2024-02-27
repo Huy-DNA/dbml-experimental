@@ -30,7 +30,9 @@ export default class RefBinder implements ElementBinder {
   }
 
   private bindFields(fields: FunctionApplicationNode[]): CompileError[] {
-    return [];
+    return fields.flatMap((field) => {
+      return [];  
+    });
   }
 
   private bindSubElements(subs: ElementDeclarationNode[]): CompileError[] {

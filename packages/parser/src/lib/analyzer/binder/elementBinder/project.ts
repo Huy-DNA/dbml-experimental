@@ -13,7 +13,7 @@ export default class ProjectBinder implements ElementBinder {
   }
 
   bind(): CompileError[] {
-    return [];
+ 
   }
 
   private bindBody(body?: FunctionApplicationNode | BlockExpressionNode): CompileError[] {
@@ -30,7 +30,9 @@ export default class ProjectBinder implements ElementBinder {
   }
 
   private bindFields(fields: FunctionApplicationNode[]): CompileError[] {
-    return [];
+    return fields.flatMap((field) => {
+      return [];
+    });
   }
 
   private bindSubElements(subs: ElementDeclarationNode[]): CompileError[] {
