@@ -3,7 +3,7 @@ import { CompileError } from '../../../errors';
 import { ElementBinder } from '../types';
 import { BlockExpressionNode, ElementDeclarationNode, FunctionApplicationNode } from '../../../parser/nodes';
 import { SyntaxToken } from '../../../lexer/tokens';
-import { pickBinder } from '../utils';
+import { pickBinder, scanForBinding } from '../utils';
 
 export default class EnumBinder implements ElementBinder {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
@@ -34,9 +34,7 @@ export default class EnumBinder implements ElementBinder {
   }
 
   private bindFields(fields: FunctionApplicationNode[]): CompileError[] {
-    return fields.flatMap((field) => {
-      return [];
-    });
+    return [];
   }
 
   private bindSubElements(subs: ElementDeclarationNode[]): CompileError[] {
