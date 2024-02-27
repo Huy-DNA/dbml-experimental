@@ -8,6 +8,7 @@ import {
   PrimaryExpressionNode,
   SyntaxNode,
   TupleExpressionNode,
+  VariableNode,
 } from '../../parser/nodes';
 import { ElementKind } from '../types';
 import CustomBinder from './elementBinder/custom';
@@ -41,7 +42,7 @@ export function pickBinder(element: ElementDeclarationNode & { type: SyntaxToken
 }
 
 // Scan for variable node and member access expression in the node
-export function scanForBinding(node: SyntaxNode | undefined): (PrimaryExpressionNode | InfixExpressionNode)[] {
+export function scanForBinding(node: SyntaxNode | undefined): ((PrimaryExpressionNode & { expression: VariableNode & { variable: SyntaxToken } }) | InfixExpressionNode)[] {
   if (!node) {
     return [];
   }
