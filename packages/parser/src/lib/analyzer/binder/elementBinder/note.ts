@@ -1,11 +1,16 @@
-import ElementBinder from './elementBinder';
+import { CompileError } from '../../../errors';
+import { ElementBinder } from '../types';
+import { ElementDeclarationNode } from '../../../parser/nodes';
+import { SyntaxToken } from '../../../lexer/tokens';
 
-export default class NoteBinder extends ElementBinder {
-  protected subfield = {
-    arg: {
-      argBinderRules: [{ shouldBind: false as const }],
-    },
-    settingList: {},
-  };
-  protected settingList = {};
+export default class NoteBinder implements ElementBinder {
+  private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
+
+  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }) {
+    this.declarationNode = declarationNode;
+  }
+
+  bind(): CompileError[] {
+    return [];
+  }
 }

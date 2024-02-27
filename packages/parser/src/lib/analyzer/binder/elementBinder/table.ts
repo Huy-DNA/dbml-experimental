@@ -1,31 +1,18 @@
-import { SymbolKind } from '../../symbol/symbolIndex';
-import ElementBinder from './elementBinder';
-import { KEYWORDS_OF_DEFAULT_SETTING } from '../../../../constants';
+import { ElementDeclarationNode } from '../../../parser/nodes';
+import { ElementBinder } from '../types';
+import { SyntaxToken } from '../../../lexer/tokens';
+import { CompileError } from '../../../errors';
 
-export default class TableBinder extends ElementBinder {
-  protected subfield = {
-    arg: {
-      argBinderRules: [
-        { shouldBind: false as const },
-        {
-          shouldBind: true as const,
-          topSubnamesSymbolKind: [SymbolKind.Enum],
-          remainingSubnamesSymbolKind: SymbolKind.Schema,
-          ignoreNameNotFound: true,
-        },
-      ],
-    },
-    settingList: {
-      ref: {
-        shouldBind: true as const,
-        topSubnamesSymbolKind: [SymbolKind.Table, SymbolKind.Column],
-        remainingSubnamesSymbolKind: SymbolKind.Schema,
-        ignoreNameNotFound: false,
-      },
-      default: {
-        shouldBind: false as const,
-      },
-    },
-  };
-  protected settingList = {};
+const KEYWORDS_OF_DEFAULT_SETTING = ['null', 'true', 'false'] as readonly string[];
+
+export default class TableBinder implements ElementBinder {
+  private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
+
+  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }) {
+    this.declarationNode = declarationNode;
+  }
+
+  bind(): CompileError[] {
+    return [];
+  }
 }

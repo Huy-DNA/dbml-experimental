@@ -1,19 +1,16 @@
-import { SymbolKind } from '../../symbol/symbolIndex';
-import ElementBinder from './elementBinder';
+import { ElementDeclarationNode } from '../../../parser/nodes';
+import { ElementBinder } from '../types';
+import { SyntaxToken } from '../../../lexer/tokens';
+import { CompileError } from '../../../errors';
 
-export default class RefBinder extends ElementBinder {
-  protected subfield = {
-    arg: {
-      argBinderRules: [
-        {
-          shouldBind: true as const,
-          topSubnamesSymbolKind: [SymbolKind.Table, SymbolKind.Column],
-          remainingSubnamesSymbolKind: SymbolKind.Schema,
-          ignoreNameNotFound: false,
-        },
-      ],
-    },
-    settingList: {},
-  };
-  protected settingList = {};
+export default class RefBinder implements ElementBinder {
+  private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
+
+  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }) {
+    this.declarationNode = declarationNode;
+  }
+
+  bind(): CompileError[] {
+    return [];
+  }
 }
