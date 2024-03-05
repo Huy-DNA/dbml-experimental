@@ -15,12 +15,12 @@ import { isExpressionAVariableNode } from '../../../parser/utils';
 
 export default class TableGroupValidator implements ElementValidator {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
-  private publicSymbolTable: SymbolTable;
+  private ast: SymbolTable;
   private symbolFactory: SymbolFactory;
 
-  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }, publicSymbolTable: SymbolTable, symbolFactory: SymbolFactory) {
+  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }, ast: SymbolTable, symbolFactory: SymbolFactory) {
     this.declarationNode = declarationNode;
-    this.publicSymbolTable = publicSymbolTable;
+    this.ast = ast;
     this.symbolFactory = symbolFactory;
   }
 
@@ -62,7 +62,7 @@ export default class TableGroupValidator implements ElementValidator {
     if (maybeNameFragments.isOk()) {
       const nameFragments = maybeNameFragments.unwrap();
       const tableGroupName = nameFragments.pop()!;
-      const symbolTable = registerSchemaStack(nameFragments, this.publicSymbolTable, this.symbolFactory);
+      const symbolTable = registerSchemaStack(nameFragments, this.ast, this.symbolFactory);
       const tableId = createTableGroupSymbolIndex(tableGroupName);
       if (symbolTable.has(tableId)) {
         return [new CompileError(CompileErrorCode.DUPLICATE_NAME, `TableGroup name '${tableGroupName}' already exists in schema '${nameFragments.join('.') || 'public'}'`, name!)];
@@ -118,7 +118,7 @@ export default class TableGroupValidator implements ElementValidator {
         return [];
       }
       const _Validator = pickValidator(sub as ElementDeclarationNode & { type: SyntaxToken });
-      const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.publicSymbolTable, this.symbolFactory);
+      const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.ast, this.symbolFactory);
 
     return validator.validate();
     });

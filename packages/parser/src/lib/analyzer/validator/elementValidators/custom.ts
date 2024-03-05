@@ -12,12 +12,12 @@ import { ElementKind } from '../../../analyzer/types';
 
 export default class CustomValidator implements ElementValidator {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
-  private publicSymbolTable: SymbolTable;
+  private ast: SymbolTable;
   private symbolFactory: SymbolFactory;
 
-  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }, publicSymbolTable: SymbolTable, symbolFactory: SymbolFactory) {
+  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }, ast: SymbolTable, symbolFactory: SymbolFactory) {
     this.declarationNode = declarationNode;
-    this.publicSymbolTable = publicSymbolTable;
+    this.ast = ast;
     this.symbolFactory = symbolFactory;
   }
 

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { ColumnSymbol } from '../analyzer/symbol/symbols';
-import { destructureComplexTuple, destructureComplexVariable, destructureMemberAccessExpression } from '../analyzer/utils';
+import { destructureComplexVariableTuple, destructureComplexVariable, destructureMemberAccessExpression } from '../analyzer/utils';
 import {
  LiteralNode, PrimaryExpressionNode, SyntaxNode, TupleExpressionNode,
 } from '../parser/nodes';
@@ -8,7 +8,7 @@ import { RelationCardinality, Table, TokenPosition } from './types';
 import { SyntaxTokenKind } from '../lexer/tokens';
 
 export function extractNamesFromRefOperand(operand: SyntaxNode, owner?: Table): { schemaName: string | null; tableName: string; fieldNames: string[] } {
-  const { variables, tupleElements } = destructureComplexTuple(operand).unwrap();
+  const { variables, tupleElements } = destructureComplexVariableTuple(operand).unwrap();
 
   if (tupleElements) {
     if (variables.length === 0) {

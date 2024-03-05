@@ -1,15 +1,18 @@
-import _ from 'lodash';
 import { CompileError } from '../../../errors';
 import { ElementBinder } from '../types';
-import { BlockExpressionNode, ElementDeclarationNode, FunctionApplicationNode } from '../../../parser/nodes';
+import {
+ BlockExpressionNode, ElementDeclarationNode, FunctionApplicationNode, ProgramNode,
+} from '../../../parser/nodes';
 import { SyntaxToken } from '../../../lexer/tokens';
 import { pickBinder } from '../utils';
 
 export default class EnumBinder implements ElementBinder {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
+  private ast: ProgramNode;
 
-  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }) {
+ constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }, ast: ProgramNode) {
     this.declarationNode = declarationNode;
+    this.ast = ast;
   }
 
   bind(): CompileError[] {
@@ -25,16 +28,12 @@ export default class EnumBinder implements ElementBinder {
       return [];
     }
     if (body instanceof FunctionApplicationNode) {
-      return this.bindFields([body]);
+      return [];
     }
 
-    const [fields, subs] = _.partition(body.body, (e) => e instanceof FunctionApplicationNode);
+    const subs = body.body.filter((e) => e instanceof FunctionApplicationNode);
 
-    return [...this.bindFields(fields as FunctionApplicationNode[]), ...this.bindSubElements(subs as ElementDeclarationNode[])];
-  }
-
-  private bindFields(fields: FunctionApplicationNode[]): CompileError[] {
-    return [];
+    return this.bindSubElements(subs as ElementDeclarationNode[]);
   }
 
   private bindSubElements(subs: ElementDeclarationNode[]): CompileError[] {
@@ -43,7 +42,7 @@ export default class EnumBinder implements ElementBinder {
         return [];
       }
       const _Binder = pickBinder(sub as ElementDeclarationNode & { type: SyntaxToken });
-      const binder = new _Binder(sub as ElementDeclarationNode & { type: SyntaxToken });
+      const binder = new _Binder(sub as ElementDeclarationNode & { type: SyntaxToken }, this.ast);
 
       return binder.bind();
     });

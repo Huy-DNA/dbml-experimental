@@ -17,7 +17,7 @@ export default class Binder {
     for (const element of this.ast.body) {
       if (element.type) {
         const _Binder = pickBinder(element as ElementDeclarationNode & { type: SyntaxToken });
-        const binder = new _Binder(element as ElementDeclarationNode & { type: SyntaxToken });
+        const binder = new _Binder(element as ElementDeclarationNode & { type: SyntaxToken }, this.ast);
         errors.push(...binder.bind());
       }
     }
