@@ -1,8 +1,8 @@
 Table Users {
     id integer
-    referrer_id integer
+    referrer_id integer 
+}
 
-    Ref {
-        id > referrer_id
-    }
+Ref {
+    Users.id > Users.referrer_id
 }
