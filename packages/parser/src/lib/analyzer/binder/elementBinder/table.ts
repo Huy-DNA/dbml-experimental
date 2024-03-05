@@ -1,4 +1,4 @@
-import _, { forEach } from 'lodash';
+import _ from 'lodash';
 import {
  BlockExpressionNode, ElementDeclarationNode, FunctionApplicationNode, ListExpressionNode, ProgramNode, SyntaxNode,
 } from '../../../parser/nodes';
@@ -8,6 +8,7 @@ import { CompileError } from '../../../errors';
 import { lookupAndBindInScope, pickBinder, scanNonListNodeForBinding } from '../utils';
 import { aggregateSettingList } from '../../validator/utils';
 import { SymbolKind } from '../../symbol/symbolIndex';
+import { destructureComplexVariableTuple } from '../../../analyzer/utils';
 
 export default class TableBinder implements ElementBinder {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
@@ -41,17 +42,52 @@ export default class TableBinder implements ElementBinder {
 
   private bindFields(fields: FunctionApplicationNode[]): CompileError[] {
     return fields.flatMap((field) => {
-      if (field.args.length === 0 && !(field.callee instanceof ListExpressionNode)) {
+      if (!field.callee) {
         return [];
       }
-      if (!(_.last(field.args) instanceof ListExpressionNode)) {
-        return [];
-      }
-      const listExpression = (_.last(field.args) || field.callee) as ListExpressionNode;
-      const settingsMap = aggregateSettingList(listExpression).getValue();
 
-      return settingsMap['ref']?.flatMap((ref) => (ref.value ? this.bindInlineRef(ref.value) : [])) || [];
+      const errors: CompileError[] = [];
+
+      const args = [field.callee, ...field.args];
+      if (_.last(args) instanceof ListExpressionNode) {
+        const listExpression = _.last(args) as ListExpressionNode;
+        const settingsMap = aggregateSettingList(listExpression).getValue();
+
+        errors.push(...(settingsMap['ref']?.flatMap((ref) => (ref.value ? this.bindInlineRef(ref.value) : [])) || []));
+        args.pop();
+
+        return [];
+      }
+
+      if (!args[1]) {
+        return errors;
+      }
+      this.tryToBindColumnType(args[1]);
+
+      return errors;
     });
+  }
+
+  private tryToBindColumnType(typeNode: SyntaxNode) {
+    const fragments = destructureComplexVariableTuple(typeNode).unwrap_or(undefined);
+    if (!fragments) {
+      return;
+    }
+    if (fragments.variables.length === 1) {
+      return;
+    }
+
+    const enumBindee = fragments.variables.pop();
+    const schemaBindees = fragments.variables;
+
+    if (!enumBindee) {
+      return;
+    }
+
+    lookupAndBindInScope(this.ast, [
+      ...schemaBindees.map((b) => ({ node: b, kind: SymbolKind.Schema })),
+      { node: enumBindee, kind: SymbolKind.Enum },
+    ]);
   }
 
   private bindInlineRef(ref: SyntaxNode): CompileError[] {
@@ -60,16 +96,20 @@ export default class TableBinder implements ElementBinder {
     return bindees.flatMap((bindee) => {
       const columnBindee = bindee.variables.pop();
       const tableBindee = bindee.variables.pop();
-      if (!columnBindee || !tableBindee) {
+      if (!columnBindee) {
         return [];
       }
       const schemaBindees = bindee.variables;
 
-      return lookupAndBindInScope(this.ast, [
-        ...schemaBindees.map((b) => ({ node: b, kind: SymbolKind.Schema })),
-        { node: tableBindee, kind: SymbolKind.Table },
-        { node: columnBindee, kind: SymbolKind.Column },
-      ]);
+      return tableBindee ?
+        lookupAndBindInScope(this.ast, [
+          ...schemaBindees.map((b) => ({ node: b, kind: SymbolKind.Schema })),
+          { node: tableBindee, kind: SymbolKind.Table },
+          { node: columnBindee, kind: SymbolKind.Column },
+        ]) :
+        lookupAndBindInScope(this.declarationNode, [
+          { node: columnBindee, kind: SymbolKind.Column },
+        ]);
     });
   }
 
