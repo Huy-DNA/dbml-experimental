@@ -62,7 +62,7 @@ export default class TableBinder implements ElementBinder {
       const schemaBindees = bindee.variables;
 
       return lookupAndBindInScope(this.ast, [
-        ...schemaBindees.map((b) => ({ node: b, index: SymbolKind.Schema })),
+        ...schemaBindees.map((b) => ({ node: b, kind: SymbolKind.Schema })),
         { node: tableBindee, kind: SymbolKind.Table },
         { node: columnBindee, kind: SymbolKind.Column },
       ]);
