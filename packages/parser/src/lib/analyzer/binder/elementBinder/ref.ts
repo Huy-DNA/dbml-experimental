@@ -66,8 +66,8 @@ export default class RefBinder implements ElementBinder {
 
         return columnBindees.flatMap((columnBindee) => lookupAndBindInScope(this.ast, [
           ...schemaBindees.map((b) => ({ node: b, index: SymbolKind.Schema })),
-          { node: tableBindee, index: SymbolKind.Table },
-          { node: columnBindee, index: SymbolKind.Column },
+          { node: tableBindee, kind: SymbolKind.Table },
+          { node: columnBindee, kind: SymbolKind.Column },
         ]));
       });
     });
