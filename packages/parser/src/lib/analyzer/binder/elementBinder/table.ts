@@ -55,8 +55,6 @@ export default class TableBinder implements ElementBinder {
 
         errors.push(...(settingsMap['ref']?.flatMap((ref) => (ref.value ? this.bindInlineRef(ref.value) : [])) || []));
         args.pop();
-
-        return [];
       }
 
       if (!args[1]) {
@@ -71,9 +69,6 @@ export default class TableBinder implements ElementBinder {
   private tryToBindColumnType(typeNode: SyntaxNode) {
     const fragments = destructureComplexVariableTuple(typeNode).unwrap_or(undefined);
     if (!fragments) {
-      return;
-    }
-    if (fragments.variables.length === 1) {
       return;
     }
 
