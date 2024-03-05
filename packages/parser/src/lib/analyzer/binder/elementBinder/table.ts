@@ -50,7 +50,7 @@ export default class TableBinder implements ElementBinder {
       const listExpression = (_.last(field.args) || field.callee) as ListExpressionNode;
       const settingsMap = aggregateSettingList(listExpression).getValue();
 
-      return settingsMap.ref?.flatMap((ref) => (ref.value ? this.bindInlineRef(ref.value) : []));
+      return settingsMap['ref']?.flatMap((ref) => (ref.value ? this.bindInlineRef(ref.value) : [])) || [];
     });
   }
 
