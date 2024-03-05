@@ -11,18 +11,19 @@ import {
  aggregateSettingList, isValidName, pickValidator, registerSchemaStack,
 } from '../utils';
 import { createEnumFieldSymbolIndex, createEnumSymbolIndex } from '../../../analyzer/symbol/symbolIndex';
-import { destructureComplexVariable, extractVarNameFromPrimaryVariable } from '../../../analyzer/utils';
+import { destructureComplexVariable, extractVarNameFromPrimaryVariable, getElementKind } from '../../../analyzer/utils';
 import SymbolTable from '../../../analyzer/symbol/symbolTable';
 import { EnumFieldSymbol, EnumSymbol } from '../../../analyzer/symbol/symbols';
+import { ElementKind } from '../../../analyzer/types';
 
 export default class EnumValidator implements ElementValidator {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
-  private publicSymbolTable: SymbolTable;
+  private ast: SymbolTable;
   private symbolFactory: SymbolFactory;
 
-  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }, publicSymbolTable: SymbolTable, symbolFactory: SymbolFactory) {
+  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }, ast: SymbolTable, symbolFactory: SymbolFactory) {
     this.declarationNode = declarationNode;
-    this.publicSymbolTable = publicSymbolTable;
+    this.ast = ast;
     this.symbolFactory = symbolFactory;
   }
 
@@ -31,8 +32,8 @@ export default class EnumValidator implements ElementValidator {
   }
 
   private validateContext(): CompileError[] {
-    if (this.declarationNode.parent instanceof ElementDeclarationNode) {
-      return [new CompileError(CompileErrorCode.INVALID_PROJECT_CONTEXT, 'An Enum can only appear top-level', this.declarationNode)];
+    if (this.declarationNode.parent instanceof ElementDeclarationNode && getElementKind(this.declarationNode.parent).unwrap_or(undefined) !== ElementKind.Project) {
+      return [new CompileError(CompileErrorCode.INVALID_PROJECT_CONTEXT, 'An Enum can only appear top-level or inside a Project', this.declarationNode)];
     }
 
     return [];
@@ -66,7 +67,7 @@ export default class EnumValidator implements ElementValidator {
     if (maybeNameFragments.isOk()) {
       const nameFragments = maybeNameFragments.unwrap();
       const enumName = nameFragments.pop()!;
-      const symbolTable = registerSchemaStack(nameFragments, this.publicSymbolTable, this.symbolFactory);
+      const symbolTable = registerSchemaStack(nameFragments, this.ast, this.symbolFactory);
       const enumId = createEnumSymbolIndex(enumName);
       if (symbolTable.has(enumId)) {
         errors.push(new CompileError(CompileErrorCode.DUPLICATE_NAME, `Enum name ${enumName} already exists in schema '${nameFragments.join('.') || 'public'}'`, name!));
@@ -158,7 +159,7 @@ export default class EnumValidator implements ElementValidator {
         return [];
       }
       const _Validator = pickValidator(sub as ElementDeclarationNode & { type: SyntaxToken });
-      const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.publicSymbolTable, this.symbolFactory);
+      const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.ast, this.symbolFactory);
 
     return validator.validate();
     });

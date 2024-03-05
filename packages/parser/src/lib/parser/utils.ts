@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { destructureComplexVariable } from '../analyzer/utils';
 import { SyntaxToken, SyntaxTokenKind } from '../lexer/tokens';
 import { None, Option, Some } from '../option';
 import { alternateLists } from '../utils';
@@ -354,4 +355,8 @@ export function extractStringFromIdentifierStream(stream?: IdentiferStreamNode):
   }
 
   return new Some(name);
+}
+
+export function getElementName(element: ElementDeclarationNode): Option<string> {
+  return destructureComplexVariable(element).map((ss) => ss.join('.'));
 }

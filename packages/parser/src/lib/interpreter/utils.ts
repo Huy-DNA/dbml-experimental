@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import { ColumnSymbol } from '../analyzer/symbol/symbols';
-import { destructureComplexTuple, destructureComplexVariable, destructureMemberAccessExpression } from '../analyzer/utils';
+import {
+ destructureComplexVariableTuple, destructureComplexVariable, destructureMemberAccessExpression, extractVarNameFromPrimaryVariable,
+} from '../analyzer/utils';
 import {
  LiteralNode, PrimaryExpressionNode, SyntaxNode, TupleExpressionNode,
 } from '../parser/nodes';
@@ -8,21 +10,24 @@ import { RelationCardinality, Table, TokenPosition } from './types';
 import { SyntaxTokenKind } from '../lexer/tokens';
 
 export function extractNamesFromRefOperand(operand: SyntaxNode, owner?: Table): { schemaName: string | null; tableName: string; fieldNames: string[] } {
-  const { variables, tupleElements } = destructureComplexTuple(operand).unwrap();
+  const { variables, tupleElements } = destructureComplexVariableTuple(operand).unwrap();
 
-  if (tupleElements) {
+  const tupleNames = tupleElements.map((e) => extractVarNameFromPrimaryVariable(e).unwrap());
+  const variableNames = variables.map((e) => extractVarNameFromPrimaryVariable(e).unwrap());
+
+  if (tupleElements.length) {
     if (variables.length === 0) {
       return {
         schemaName: owner!.schemaName,
         tableName: owner!.name,
-        fieldNames: tupleElements,
+        fieldNames: tupleNames,
       };
     }
 
     return {
-      tableName: variables.pop()!,
-      schemaName: variables.pop() || null,
-      fieldNames: tupleElements,
+      tableName: variableNames.pop()!,
+      schemaName: variableNames.pop() || null,
+      fieldNames: tupleNames,
     };
   }
 
@@ -30,14 +35,14 @@ export function extractNamesFromRefOperand(operand: SyntaxNode, owner?: Table): 
     return {
       schemaName: owner!.schemaName,
       tableName: owner!.name,
-      fieldNames: [variables[0]],
+      fieldNames: [variableNames[0]],
     };
   }
 
   return {
-    fieldNames: [variables.pop()!],
-    tableName: variables.pop()!,
-    schemaName: variables.pop() || null,
+    fieldNames: [variableNames.pop()!],
+    tableName: variableNames.pop()!,
+    schemaName: variableNames.pop() || null,
   };
 }
 
@@ -74,7 +79,7 @@ export function getColumnSymbolsOfRefOperand(ref: SyntaxNode): ColumnSymbol[] {
     return colNode.elementList.map((e) => e.referee as ColumnSymbol);
   }
 
-    return [colNode!.referee as ColumnSymbol];
+  return [colNode!.referee as ColumnSymbol];
 }
 
 export function extractElementName(nameNode: SyntaxNode): { schemaName: string[]; name: string } {

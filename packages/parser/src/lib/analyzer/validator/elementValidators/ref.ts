@@ -17,12 +17,12 @@ import { ElementKind } from '../../../analyzer/types';
 
 export default class RefValidator implements ElementValidator {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
-  private publicSymbolTable: SymbolTable;
+  private ast: SymbolTable;
   private symbolFactory: SymbolFactory;
 
-  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }, publicSymbolTable: SymbolTable, symbolFactory: SymbolFactory) {
+  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }, ast: SymbolTable, symbolFactory: SymbolFactory) {
     this.declarationNode = declarationNode;
-    this.publicSymbolTable = publicSymbolTable;
+    this.ast = ast;
     this.symbolFactory = symbolFactory;
   }
 
@@ -31,11 +31,11 @@ export default class RefValidator implements ElementValidator {
   }
 
   private validateContext(): CompileError[] {
-    if (this.declarationNode.parent instanceof ProgramNode || getElementKind(this.declarationNode.parent).unwrap_or(undefined) === ElementKind.Table) {
+    if (this.declarationNode.parent instanceof ProgramNode || getElementKind(this.declarationNode.parent).unwrap_or(undefined) !== ElementKind.Project) {
       return [];
     }
 
-    return [new CompileError(CompileErrorCode.INVALID_REF_CONTEXT, 'A Ref must appear top-level or inside a table', this.declarationNode)];
+    return [new CompileError(CompileErrorCode.INVALID_REF_CONTEXT, 'A Ref must appear top-level or inside a Project', this.declarationNode)];
   }
 
   private validateName(nameNode?: SyntaxNode): CompileError[] {
@@ -146,7 +146,7 @@ export default class RefValidator implements ElementValidator {
         return [];
       }
       const _Validator = pickValidator(sub as ElementDeclarationNode & { type: SyntaxToken });
-      const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.publicSymbolTable, this.symbolFactory);
+      const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.ast, this.symbolFactory);
 
     return validator.validate();
     });

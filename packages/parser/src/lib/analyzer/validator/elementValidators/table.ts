@@ -13,7 +13,7 @@ import {
   PrimaryExpressionNode,
   SyntaxNode,
 } from '../../../parser/nodes';
-import { destructureComplexVariable, extractVarNameFromPrimaryVariable } from '../../utils';
+import { destructureComplexVariable, extractVarNameFromPrimaryVariable, getElementKind } from '../../utils';
 import {
   aggregateSettingList,
   isExpressionANumber,
@@ -38,20 +38,21 @@ import {
 } from '../../../parser/utils';
 import { SyntaxToken } from '../../../lexer/tokens';
 import SymbolTable from '../../../analyzer/symbol/symbolTable';
+import { ElementKind } from '../../../analyzer/types';
 
 export default class TableValidator implements ElementValidator {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken};
   private symbolFactory: SymbolFactory;
-  private publicSymbolTable: SymbolTable;
+  private ast: SymbolTable;
 
   constructor(
     declarationNode: ElementDeclarationNode & { type: SyntaxToken },
-    publicSymbolTable: SymbolTable,
+    ast: SymbolTable,
     symbolFactory: SymbolFactory,
   ) {
     this.declarationNode = declarationNode;
     this.symbolFactory = symbolFactory;
-    this.publicSymbolTable = publicSymbolTable;
+    this.ast = ast;
   }
 
   validate(): CompileError[] {
@@ -59,8 +60,8 @@ export default class TableValidator implements ElementValidator {
   }
 
   private validateContext(): CompileError[] {
-    if (this.declarationNode.parent instanceof ElementDeclarationNode) {
-      return [new CompileError(CompileErrorCode.INVALID_TABLE_CONTEXT, 'Table must appear top-level', this.declarationNode)];
+    if (this.declarationNode.parent instanceof ElementDeclarationNode && getElementKind(this.declarationNode.parent).unwrap_or(undefined) !== ElementKind.Project) {
+      return [new CompileError(CompileErrorCode.INVALID_TABLE_CONTEXT, 'Table must appear top-level or inside a Project', this.declarationNode)];
     }
 
     return [];
@@ -139,7 +140,7 @@ export default class TableValidator implements ElementValidator {
     if (maybeNameFragments.isOk()) {
       const nameFragments = [...maybeNameFragments.unwrap()];
       const tableName = nameFragments.pop()!;
-      const symbolTable = registerSchemaStack(nameFragments, this.publicSymbolTable, this.symbolFactory);
+      const symbolTable = registerSchemaStack(nameFragments, this.ast, this.symbolFactory);
       const tableId = createTableSymbolIndex(tableName);
       if (symbolTable.has(tableId)) {
         errors.push(new CompileError(CompileErrorCode.DUPLICATE_NAME, `Table name '${tableName}' already exists in schema '${nameFragments.join('.') || 'public'}'`, name!));
@@ -153,10 +154,10 @@ export default class TableValidator implements ElementValidator {
     ) {
       const aliasName = extractVarNameFromPrimaryVariable(alias as any).unwrap();
       const aliasId = createTableSymbolIndex(aliasName);
-      if (this.publicSymbolTable.has(aliasId)) {
+      if (this.ast.has(aliasId)) {
         errors.push(new CompileError(CompileErrorCode.DUPLICATE_NAME, `Table name '${aliasName}' already exists`, name!));
       }
-      this.publicSymbolTable.set(aliasId, this.declarationNode.symbol!);
+      this.ast.set(aliasId, this.declarationNode.symbol!);
     }
 
     return errors;
@@ -380,7 +381,7 @@ export default class TableValidator implements ElementValidator {
         return [];
       }
       const _Validator = pickValidator(sub as ElementDeclarationNode & { type: SyntaxToken });
-      const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.publicSymbolTable, this.symbolFactory);
+      const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.ast, this.symbolFactory);
 
     return validator.validate();
     });

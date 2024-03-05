@@ -1,0 +1,13 @@
+Table Users {
+    id integer
+    referrer_id integer
+}
+
+Table Merchants {
+    id integer
+    referrer_id integer
+}
+
+Ref {
+    Merchants.(id, referrer_id) - Users.(id, referrer_id)
+}

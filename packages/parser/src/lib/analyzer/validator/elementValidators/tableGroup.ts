@@ -8,19 +8,20 @@ import {
  BlockExpressionNode, ElementDeclarationNode, FunctionApplicationNode, ListExpressionNode, SyntaxNode,
 } from '../../../parser/nodes';
 import SymbolFactory from '../../../analyzer/symbol/factory';
-import { createTableGroupFieldSymbolIndex, createTableGroupSymbolIndex, createTableSymbolIndex } from '../../../analyzer/symbol/symbolIndex';
-import { destructureComplexVariable, extractVarNameFromPrimaryVariable } from '../../../analyzer/utils';
+import { createTableGroupFieldSymbolIndex, createTableGroupSymbolIndex } from '../../../analyzer/symbol/symbolIndex';
+import { destructureComplexVariable, extractVarNameFromPrimaryVariable, getElementKind } from '../../../analyzer/utils';
 import { TableGroupFieldSymbol, TableGroupSymbol } from '../../../analyzer/symbol/symbols';
 import { isExpressionAVariableNode } from '../../../parser/utils';
+import { ElementKind } from '../../../analyzer/types';
 
 export default class TableGroupValidator implements ElementValidator {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
-  private publicSymbolTable: SymbolTable;
+  private ast: SymbolTable;
   private symbolFactory: SymbolFactory;
 
-  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }, publicSymbolTable: SymbolTable, symbolFactory: SymbolFactory) {
+  constructor(declarationNode: ElementDeclarationNode & { type: SyntaxToken }, ast: SymbolTable, symbolFactory: SymbolFactory) {
     this.declarationNode = declarationNode;
-    this.publicSymbolTable = publicSymbolTable;
+    this.ast = ast;
     this.symbolFactory = symbolFactory;
   }
 
@@ -29,8 +30,8 @@ export default class TableGroupValidator implements ElementValidator {
   }
 
   private validateContext(): CompileError[] {
-    if (this.declarationNode.parent instanceof ElementDeclarationNode) {
-      return [new CompileError(CompileErrorCode.INVALID_TABLEGROUP_CONTEXT, 'TableGroup must appear top-level', this.declarationNode)];
+    if (this.declarationNode.parent instanceof ElementDeclarationNode && getElementKind(this.declarationNode.parent).unwrap_or(undefined) !== ElementKind.Project) {
+      return [new CompileError(CompileErrorCode.INVALID_TABLEGROUP_CONTEXT, 'TableGroup must appear top-level or inside a Project', this.declarationNode)];
     }
 
     return [];
@@ -62,7 +63,7 @@ export default class TableGroupValidator implements ElementValidator {
     if (maybeNameFragments.isOk()) {
       const nameFragments = maybeNameFragments.unwrap();
       const tableGroupName = nameFragments.pop()!;
-      const symbolTable = registerSchemaStack(nameFragments, this.publicSymbolTable, this.symbolFactory);
+      const symbolTable = registerSchemaStack(nameFragments, this.ast, this.symbolFactory);
       const tableId = createTableGroupSymbolIndex(tableGroupName);
       if (symbolTable.has(tableId)) {
         return [new CompileError(CompileErrorCode.DUPLICATE_NAME, `TableGroup name '${tableGroupName}' already exists in schema '${nameFragments.join('.') || 'public'}'`, name!)];
@@ -118,7 +119,7 @@ export default class TableGroupValidator implements ElementValidator {
         return [];
       }
       const _Validator = pickValidator(sub as ElementDeclarationNode & { type: SyntaxToken });
-      const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.publicSymbolTable, this.symbolFactory);
+      const validator = new _Validator(sub as ElementDeclarationNode & { type: SyntaxToken }, this.ast, this.symbolFactory);
 
     return validator.validate();
     });
