@@ -60,8 +60,8 @@
           "column": 1
         },
         "end": {
-          "offset": 96,
-          "line": 8,
+          "offset": 55,
+          "line": 4,
           "column": 2
         }
       },
@@ -72,56 +72,56 @@
     {
       "token": {
         "start": {
-          "offset": 58,
-          "line": 5,
-          "column": 5
+          "offset": 57,
+          "line": 6,
+          "column": 1
         },
         "end": {
-          "offset": 94,
-          "line": 7,
-          "column": 6
+          "offset": 97,
+          "line": 8,
+          "column": 2
         }
       },
       "name": null,
       "schemaName": null,
       "endpoints": [
         {
-          "schemaName": null,
-          "tableName": "Users",
           "fieldNames": [
             "id"
           ],
+          "tableName": "Users",
+          "schemaName": null,
           "relation": "*",
           "token": {
             "start": {
-              "offset": 72,
-              "line": 6,
-              "column": 9
+              "offset": 67,
+              "line": 7,
+              "column": 5
             },
             "end": {
-              "offset": 74,
-              "line": 6,
-              "column": 11
+              "offset": 75,
+              "line": 7,
+              "column": 13
             }
           }
         },
         {
-          "schemaName": null,
-          "tableName": "Users",
           "fieldNames": [
             "referrer_id"
           ],
+          "tableName": "Users",
+          "schemaName": null,
           "relation": "1",
           "token": {
             "start": {
-              "offset": 77,
-              "line": 6,
-              "column": 14
+              "offset": 78,
+              "line": 7,
+              "column": 16
             },
             "end": {
-              "offset": 88,
-              "line": 6,
-              "column": 25
+              "offset": 95,
+              "line": 7,
+              "column": 33
             }
           }
         }
