@@ -19,6 +19,10 @@ export default class TableBinder implements ElementBinder {
   }
 
   bind(): CompileError[] {
+    if (!(this.declarationNode.body instanceof BlockExpressionNode)) {
+      return [];
+    }
+
     return this.bindBody(this.declarationNode.body);
   }
 

@@ -27,6 +27,10 @@ export default class IndexesBinder implements ElementBinder {
       return [];
     }
 
+    if (!(this.declarationNode.body instanceof BlockExpressionNode)) {
+      return [];
+    }
+
     return this.bindBody(this.declarationNode.body);
   }
 

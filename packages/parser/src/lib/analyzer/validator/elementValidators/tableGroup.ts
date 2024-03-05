@@ -8,10 +8,11 @@ import {
  BlockExpressionNode, ElementDeclarationNode, FunctionApplicationNode, ListExpressionNode, SyntaxNode,
 } from '../../../parser/nodes';
 import SymbolFactory from '../../../analyzer/symbol/factory';
-import { createTableGroupFieldSymbolIndex, createTableGroupSymbolIndex, createTableSymbolIndex } from '../../../analyzer/symbol/symbolIndex';
-import { destructureComplexVariable, extractVarNameFromPrimaryVariable } from '../../../analyzer/utils';
+import { createTableGroupFieldSymbolIndex, createTableGroupSymbolIndex } from '../../../analyzer/symbol/symbolIndex';
+import { destructureComplexVariable, extractVarNameFromPrimaryVariable, getElementKind } from '../../../analyzer/utils';
 import { TableGroupFieldSymbol, TableGroupSymbol } from '../../../analyzer/symbol/symbols';
 import { isExpressionAVariableNode } from '../../../parser/utils';
+import { ElementKind } from '../../../analyzer/types';
 
 export default class TableGroupValidator implements ElementValidator {
   private declarationNode: ElementDeclarationNode & { type: SyntaxToken; };
@@ -29,8 +30,8 @@ export default class TableGroupValidator implements ElementValidator {
   }
 
   private validateContext(): CompileError[] {
-    if (this.declarationNode.parent instanceof ElementDeclarationNode) {
-      return [new CompileError(CompileErrorCode.INVALID_TABLEGROUP_CONTEXT, 'TableGroup must appear top-level', this.declarationNode)];
+    if (this.declarationNode.parent instanceof ElementDeclarationNode && getElementKind(this.declarationNode.parent).unwrap_or(undefined) !== ElementKind.Project) {
+      return [new CompileError(CompileErrorCode.INVALID_TABLEGROUP_CONTEXT, 'TableGroup must appear top-level or inside a Project', this.declarationNode)];
     }
 
     return [];

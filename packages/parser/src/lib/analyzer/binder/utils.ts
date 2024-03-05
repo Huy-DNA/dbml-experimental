@@ -22,7 +22,7 @@ import RefBinder from './elementBinder/ref';
 import TableBinder from './elementBinder/table';
 import TableGroupBinder from './elementBinder/tableGroup';
 import { destructureComplexVariableTuple, extractVarNameFromPrimaryVariable } from '../utils';
-import { SymbolKind, createNodeSymbolIndex, destructureIndex } from '../symbol/symbolIndex';
+import { SymbolKind, createNodeSymbolIndex, createSchemaSymbolIndex } from '../symbol/symbolIndex';
 import { getSymbolKind } from '../symbol/utils';
 
 export function pickBinder(element: ElementDeclarationNode & { type: SyntaxToken }) {
@@ -88,13 +88,23 @@ export function lookupAndBindInScope(initialScope: ElementDeclarationNode | Prog
 
   let curSymbolTable = initialScope.symbol.symbolTable;
   let curKind = getSymbolKind(initialScope.symbol);
-  let curName = initialScope instanceof ElementDeclarationNode ? getElementName(initialScope).unwrap_or('<invalid name>') : undefined;
+  let curName = initialScope instanceof ElementDeclarationNode ? getElementName(initialScope).unwrap_or('<invalid name>') : 'public';
+
+  if (initialScope instanceof ProgramNode && symbolInfos.length) {
+    const { node, kind } = symbolInfos[0];
+    const name = extractVarNameFromPrimaryVariable(node).unwrap_or('<unnamed>');
+    if (name === 'public' && kind === SymbolKind.Schema) {
+      symbolInfos.shift();
+    }
+  }
+
   // eslint-disable-next-line no-restricted-syntax
   for (const curSymbolInfo of symbolInfos) {
     const { node, kind } = curSymbolInfo;
     const name = extractVarNameFromPrimaryVariable(node).unwrap_or('<unnamed>');
     const index = createNodeSymbolIndex(name, kind);
     const symbol = curSymbolTable.get(index);
+
     if (!symbol) {
       return [new CompileError(CompileErrorCode.BINDING_ERROR, `${kind} ${name} in does not exists in ${curName === undefined ? 'global scope' : `${curKind} ${curName}`}`, node)];
     }

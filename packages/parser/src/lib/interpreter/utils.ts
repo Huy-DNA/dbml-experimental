@@ -79,7 +79,7 @@ export function getColumnSymbolsOfRefOperand(ref: SyntaxNode): ColumnSymbol[] {
     return colNode.elementList.map((e) => e.referee as ColumnSymbol);
   }
 
-    return [colNode!.referee as ColumnSymbol];
+  return [colNode!.referee as ColumnSymbol];
 }
 
 export function extractElementName(nameNode: SyntaxNode): { schemaName: string[]; name: string } {

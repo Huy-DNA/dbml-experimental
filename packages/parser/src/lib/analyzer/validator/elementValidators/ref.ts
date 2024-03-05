@@ -31,11 +31,11 @@ export default class RefValidator implements ElementValidator {
   }
 
   private validateContext(): CompileError[] {
-    if (this.declarationNode.parent instanceof ProgramNode) {
+    if (this.declarationNode.parent instanceof ProgramNode || getElementKind(this.declarationNode.parent).unwrap_or(undefined) !== ElementKind.Project) {
       return [];
     }
 
-    return [new CompileError(CompileErrorCode.INVALID_REF_CONTEXT, 'A Ref must appear top-level or inside a table', this.declarationNode)];
+    return [new CompileError(CompileErrorCode.INVALID_REF_CONTEXT, 'A Ref must appear top-level or inside a Project', this.declarationNode)];
   }
 
   private validateName(nameNode?: SyntaxNode): CompileError[] {
