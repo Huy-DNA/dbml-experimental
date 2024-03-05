@@ -31,7 +31,7 @@ export default class RefValidator implements ElementValidator {
   }
 
   private validateContext(): CompileError[] {
-    if (this.declarationNode.parent instanceof ProgramNode || getElementKind(this.declarationNode.parent).unwrap_or(undefined) === ElementKind.Table) {
+    if (this.declarationNode.parent instanceof ProgramNode) {
       return [];
     }
 
