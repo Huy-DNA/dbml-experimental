@@ -647,32 +647,31 @@
       "leadingTrivia": [],
       "trailingTrivia": [],
       "leadingInvalid": [],
-      "trailingInvalid": [
-        {
-          "kind": "<number>",
-          "startPos": {
-            "offset": 141,
-            "line": 0,
-            "column": 141
-          },
-          "endPos": {
-            "offset": 146,
-            "line": 0,
-            "column": 146
-          },
-          "value": "5個自治區",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": true,
-          "start": 141,
-          "end": 146
-        }
-      ],
+      "trailingInvalid": [],
       "isInvalid": false,
       "start": 140,
       "end": 141
+    },
+    {
+      "kind": "<identifier>",
+      "startPos": {
+        "offset": 141,
+        "line": 0,
+        "column": 141
+      },
+      "endPos": {
+        "offset": 146,
+        "line": 0,
+        "column": 146
+      },
+      "value": "5個自治區",
+      "leadingTrivia": [],
+      "trailingTrivia": [],
+      "leadingInvalid": [],
+      "trailingInvalid": [],
+      "isInvalid": false,
+      "start": 141,
+      "end": 146
     },
     {
       "kind": "<comma>",
@@ -690,32 +689,31 @@
       "leadingTrivia": [],
       "trailingTrivia": [],
       "leadingInvalid": [],
-      "trailingInvalid": [
-        {
-          "kind": "<number>",
-          "startPos": {
-            "offset": 147,
-            "line": 0,
-            "column": 147
-          },
-          "endPos": {
-            "offset": 160,
-            "line": 0,
-            "column": 160
-          },
-          "value": "4個直轄市和2個特別行政區",
-          "leadingTrivia": [],
-          "trailingTrivia": [],
-          "leadingInvalid": [],
-          "trailingInvalid": [],
-          "isInvalid": true,
-          "start": 147,
-          "end": 160
-        }
-      ],
+      "trailingInvalid": [],
       "isInvalid": false,
       "start": 146,
       "end": 147
+    },
+    {
+      "kind": "<identifier>",
+      "startPos": {
+        "offset": 147,
+        "line": 0,
+        "column": 147
+      },
+      "endPos": {
+        "offset": 160,
+        "line": 0,
+        "column": 160
+      },
+      "value": "4個直轄市和2個特別行政區",
+      "leadingTrivia": [],
+      "trailingTrivia": [],
+      "leadingInvalid": [],
+      "trailingInvalid": [],
+      "isInvalid": false,
+      "start": 147,
+      "end": 160
     },
     {
       "kind": "<comma>",
@@ -1029,54 +1027,53 @@
         }
       ],
       "leadingInvalid": [],
-      "trailingInvalid": [
+      "trailingInvalid": [],
+      "isInvalid": false,
+      "start": 199,
+      "end": 200
+    },
+    {
+      "kind": "<identifier>",
+      "startPos": {
+        "offset": 202,
+        "line": 2,
+        "column": 0
+      },
+      "endPos": {
+        "offset": 207,
+        "line": 2,
+        "column": 5
+      },
+      "value": "1949年",
+      "leadingTrivia": [
         {
-          "kind": "<number>",
+          "kind": "<newline>",
           "startPos": {
+            "offset": 201,
+            "line": 1,
+            "column": 0
+          },
+          "endPos": {
             "offset": 202,
             "line": 2,
             "column": 0
           },
-          "endPos": {
-            "offset": 207,
-            "line": 2,
-            "column": 5
-          },
-          "value": "1949年",
-          "leadingTrivia": [
-            {
-              "kind": "<newline>",
-              "startPos": {
-                "offset": 201,
-                "line": 1,
-                "column": 0
-              },
-              "endPos": {
-                "offset": 202,
-                "line": 2,
-                "column": 0
-              },
-              "value": "\n",
-              "leadingTrivia": [],
-              "trailingTrivia": [],
-              "leadingInvalid": [],
-              "trailingInvalid": [],
-              "isInvalid": false,
-              "start": 201,
-              "end": 202
-            }
-          ],
+          "value": "\n",
+          "leadingTrivia": [],
           "trailingTrivia": [],
           "leadingInvalid": [],
           "trailingInvalid": [],
-          "isInvalid": true,
-          "start": 202,
-          "end": 207
+          "isInvalid": false,
+          "start": 201,
+          "end": 202
         }
       ],
+      "trailingTrivia": [],
+      "leadingInvalid": [],
+      "trailingInvalid": [],
       "isInvalid": false,
-      "start": 199,
-      "end": 200
+      "start": 202,
+      "end": 207
     },
     {
       "kind": "<comma>",
@@ -1289,112 +1286,5 @@
       "end": 309
     }
   ],
-  "errors": [
-    {
-      "code": 1004,
-      "diagnostic": "Invalid number",
-      "nodeOrToken": {
-        "kind": "<number>",
-        "startPos": {
-          "offset": 141,
-          "line": 0,
-          "column": 141
-        },
-        "endPos": {
-          "offset": 146,
-          "line": 0,
-          "column": 146
-        },
-        "value": "5個自治區",
-        "leadingTrivia": [],
-        "trailingTrivia": [],
-        "leadingInvalid": [],
-        "trailingInvalid": [],
-        "isInvalid": true,
-        "start": 141,
-        "end": 146
-      },
-      "start": 141,
-      "end": 146,
-      "name": "CompileError"
-    },
-    {
-      "code": 1004,
-      "diagnostic": "Invalid number",
-      "nodeOrToken": {
-        "kind": "<number>",
-        "startPos": {
-          "offset": 147,
-          "line": 0,
-          "column": 147
-        },
-        "endPos": {
-          "offset": 160,
-          "line": 0,
-          "column": 160
-        },
-        "value": "4個直轄市和2個特別行政區",
-        "leadingTrivia": [],
-        "trailingTrivia": [],
-        "leadingInvalid": [],
-        "trailingInvalid": [],
-        "isInvalid": true,
-        "start": 147,
-        "end": 160
-      },
-      "start": 147,
-      "end": 160,
-      "name": "CompileError"
-    },
-    {
-      "code": 1004,
-      "diagnostic": "Invalid number",
-      "nodeOrToken": {
-        "kind": "<number>",
-        "startPos": {
-          "offset": 202,
-          "line": 2,
-          "column": 0
-        },
-        "endPos": {
-          "offset": 207,
-          "line": 2,
-          "column": 5
-        },
-        "value": "1949年",
-        "leadingTrivia": [
-          {
-            "kind": "<newline>",
-            "startPos": {
-              "offset": 201,
-              "line": 1,
-              "column": 0
-            },
-            "endPos": {
-              "offset": 202,
-              "line": 2,
-              "column": 0
-            },
-            "value": "\n",
-            "leadingTrivia": [],
-            "trailingTrivia": [],
-            "leadingInvalid": [],
-            "trailingInvalid": [],
-            "isInvalid": false,
-            "start": 201,
-            "end": 202
-          }
-        ],
-        "trailingTrivia": [],
-        "leadingInvalid": [],
-        "trailingInvalid": [],
-        "isInvalid": true,
-        "start": 202,
-        "end": 207
-      },
-      "start": 202,
-      "end": 207,
-      "name": "CompileError"
-    }
-  ]
+  "errors": []
 }
