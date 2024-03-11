@@ -455,11 +455,13 @@ export default class Lexer {
         return '\v';
       case 'f':
         return '\f';
+      case ' ':
+        return '\\ ';
       case 'u': {
         let hex = '';
         for (let i = 0; i <= 3; i += 1) {
           if (this.isAtEnd() || !isAlphaNumeric(this.peek()!)) {
-            this.errors.push(new CompileError(CompileErrorCode.INVALID_ESCAPE_SEQUENCE, `Invalid escape sequence \\u${hex}`, this.createToken(SyntaxTokenKind.STRING_LITERAL, true)));
+            this.errors.push(new CompileError(CompileErrorCode.INVALID_ESCAPE_SEQUENCE, `Invalid unicode escape sequence \\u${hex}, only unicode escape sequences of the form \\uHHHH where H is a hexadecimal number are allowed`, this.createToken(SyntaxTokenKind.STRING_LITERAL, true)));
 
             return `\\u${hex}`;
           }

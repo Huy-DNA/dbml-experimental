@@ -261,7 +261,7 @@
   "errors": [
     {
       "code": 1011,
-      "diagnostic": "Invalid escape sequence \\u",
+      "diagnostic": "Invalid unicode escape sequence \\u, only unicode escape sequences of the form \\uHHHH where H is a hexadecimal number are allowed",
       "nodeOrToken": {
         "kind": "<string>",
         "startPos": {
@@ -317,7 +317,7 @@
     },
     {
       "code": 1011,
-      "diagnostic": "Invalid escape sequence \\u1",
+      "diagnostic": "Invalid unicode escape sequence \\u1, only unicode escape sequences of the form \\uHHHH where H is a hexadecimal number are allowed",
       "nodeOrToken": {
         "kind": "<string>",
         "startPos": {
@@ -345,7 +345,7 @@
     },
     {
       "code": 1011,
-      "diagnostic": "Invalid escape sequence \\u12",
+      "diagnostic": "Invalid unicode escape sequence \\u12, only unicode escape sequences of the form \\uHHHH where H is a hexadecimal number are allowed",
       "nodeOrToken": {
         "kind": "<string>",
         "startPos": {
@@ -373,7 +373,7 @@
     },
     {
       "code": 1011,
-      "diagnostic": "Invalid escape sequence \\uab",
+      "diagnostic": "Invalid unicode escape sequence \\uab, only unicode escape sequences of the form \\uHHHH where H is a hexadecimal number are allowed",
       "nodeOrToken": {
         "kind": "<string>",
         "startPos": {
@@ -401,7 +401,7 @@
     },
     {
       "code": 1011,
-      "diagnostic": "Invalid escape sequence \\ua1",
+      "diagnostic": "Invalid unicode escape sequence \\ua1, only unicode escape sequences of the form \\uHHHH where H is a hexadecimal number are allowed",
       "nodeOrToken": {
         "kind": "<string>",
         "startPos": {
