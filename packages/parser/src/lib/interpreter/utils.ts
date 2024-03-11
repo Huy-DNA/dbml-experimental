@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import { ColumnSymbol } from '../analyzer/symbol/symbols';
 import {
- destructureComplexVariableTuple, destructureComplexVariable, destructureMemberAccessExpression, extractVarNameFromPrimaryVariable,
+  destructureComplexVariable,
+  destructureComplexVariableTuple,
+  destructureMemberAccessExpression, extractVarNameFromPrimaryVariable,
 } from '../analyzer/utils';
 import {
  LiteralNode, PrimaryExpressionNode, SyntaxNode, TupleExpressionNode,

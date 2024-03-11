@@ -1,5 +1,11 @@
 # @dbml-experimental/parser
 
+## 1.2.3
+
+### Patch Changes
+
+- fix catch tables reappearing in multiple tablegroups
+
 ## 1.2.2
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 [
   {
+    "code": 5005,
     "diagnostic": "Table \"users\" already appears in group \"A1\"",
     "nodeOrToken": {
       "id": 36,
@@ -168,6 +169,7 @@
     "name": "CompileError"
   },
   {
+    "code": 5005,
     "diagnostic": "Table \"AU\" already appears in group \"A3\"",
     "nodeOrToken": {
       "id": 53,
