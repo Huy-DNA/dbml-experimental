@@ -1,5 +1,11 @@
 # @dbml-experimental/parser
 
+## 1.2.0
+
+### Minor Changes
+
+- Refactor binder, allow for more flexibility
+
 ## 1.1.7
 
 ### Patch Changes
