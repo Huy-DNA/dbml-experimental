@@ -1,5 +1,11 @@
 # @dbml-experimental/parser
 
+## 1.2.1
+
+### Patch Changes
+
+- Support continuation marker and raise errors on invalid escape sequence
+
 ## 1.2.0
 
 ### Minor Changes
