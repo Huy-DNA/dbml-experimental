@@ -1,5 +1,11 @@
 # @dbml-experimental/parser
 
+## 1.2.2
+
+### Patch Changes
+
+- support identifiers starting with digits
+
 ## 1.2.1
 
 ### Patch Changes
