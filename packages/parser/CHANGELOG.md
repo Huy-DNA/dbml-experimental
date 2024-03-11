@@ -1,5 +1,11 @@
 # @dbml-experimental/parser
 
+## 1.2.4
+
+### Patch Changes
+
+- add a note normalization step for more ui-friendly markdown notes
+
 ## 1.2.3
 
 ### Patch Changes
