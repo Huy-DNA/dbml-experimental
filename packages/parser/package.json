@@ -1,6 +1,6 @@
 {
   "name": "@dbml-experimental/parser",
-  "version": "1.1.7",
+  "version": "1.2.0",
   "description": "An experimental version of the new dbml parser",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
