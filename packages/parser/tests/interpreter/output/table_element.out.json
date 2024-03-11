@@ -227,7 +227,7 @@
         }
       ],
       "note": {
-        "value": "\n    # Note\n\n    ## Objective\n      * Support define element's note inside element body\n      * Make writing long note easier with the new syntax\n      \n    ",
+        "value": "\n# Note\n\n## Objective\n  * Support define element's note inside element body\n  * Make writing long note easier with the new syntax\n  \n",
         "token": {
           "start": {
             "offset": 172,

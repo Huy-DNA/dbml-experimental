@@ -6,7 +6,7 @@ import {
  ArrayNode, AttributeNode, BlockExpressionNode, CallExpressionNode, ElementDeclarationNode, FunctionApplicationNode, FunctionExpressionNode, ListExpressionNode, PrefixExpressionNode, SyntaxNode,
 } from '../../parser/nodes';
 import {
- extractColor, extractElementName, getColumnSymbolsOfRefOperand, getMultiplicities, getRefId, getTokenPosition, isSameEndpoint,
+ extractColor, extractElementName, getColumnSymbolsOfRefOperand, getMultiplicities, getRefId, getTokenPosition, isSameEndpoint, normalizeNoteContent,
 } from '../utils';
 import {
  destructureComplexVariable, destructureIndexNode, extractQuotedStringToken, extractVarNameFromPrimaryVariable, extractVariableFromExpression,
@@ -106,7 +106,7 @@ export class TableInterpreter implements ElementInterpreter {
     this.table.headerColor = settingMap.headercolor?.length ? extractColor(settingMap.headercolor?.at(0)?.value as any) : undefined;
 
     const [noteNode] = settingMap.note || [];
-    const noteValue = extractQuotedStringToken(noteNode?.value).unwrap_or(undefined);
+    const noteValue = extractQuotedStringToken(noteNode?.value).map(normalizeNoteContent).unwrap_or(undefined);
     this.table.note = noteNode && {
       value: noteValue!,
       token: getTokenPosition(noteNode),
@@ -126,7 +126,7 @@ export class TableInterpreter implements ElementInterpreter {
       switch (sub.type?.value.toLowerCase()) {
         case 'note':
           this.table.note = {
-            value: extractQuotedStringToken(sub.body instanceof BlockExpressionNode ? (sub.body.body[0] as FunctionApplicationNode).callee : sub.body!.callee).unwrap(),
+            value: extractQuotedStringToken(sub.body instanceof BlockExpressionNode ? (sub.body.body[0] as FunctionApplicationNode).callee : sub.body!.callee).map(normalizeNoteContent).unwrap(),
             token: getTokenPosition(sub),
           };
 
@@ -169,7 +169,7 @@ export class TableInterpreter implements ElementInterpreter {
       column.dbdefault = processDefaultValue(settingMap.default?.at(0)?.value);
       const noteNode = settingMap.note?.at(0);
       column.note = noteNode && {
-        value: extractQuotedStringToken(noteNode.value).unwrap(),
+        value: extractQuotedStringToken(noteNode.value).map(normalizeNoteContent).unwrap(),
         token: getTokenPosition(noteNode),
       };
       const refs = settingMap.ref || [];

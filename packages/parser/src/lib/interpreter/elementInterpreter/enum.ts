@@ -7,7 +7,7 @@ import {
 import {
  ElementInterpreter, Enum, EnumField, InterpreterDatabase, Table,
 } from '../types';
-import { extractElementName, getTokenPosition } from '../utils';
+import { extractElementName, getTokenPosition, normalizeNoteContent } from '../utils';
 
 export class EnumInterpreter implements ElementInterpreter {
   private declarationNode: ElementDeclarationNode;
@@ -56,7 +56,7 @@ export class EnumInterpreter implements ElementInterpreter {
       const settingMap = aggregateSettingList(field.args[0] as ListExpressionNode).getValue();
       const noteNode = settingMap.note?.at(0);
       enumField.note = noteNode && {
-        value: extractQuotedStringToken(noteNode.value).unwrap(),
+        value: extractQuotedStringToken(noteNode.value).map(normalizeNoteContent).unwrap(),
         token: getTokenPosition(noteNode),
       };
 
